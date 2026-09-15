@@ -3,3 +3,4 @@ _original/*.jpeg
 _original/*.png
 __pycache__/
 .DS_Store
+.gstack/
