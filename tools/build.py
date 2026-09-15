@@ -33,7 +33,7 @@ T = {
         "hero_p": "Меня зовут Инна Евгеньевна — я основатель Doctrine и врач-кардиолог с 20-летним опытом обучения врачей. Наши преподаватели — практикующие клиницисты. Учим тому, что работает у постели пациента.",
         "cta_sched": "Смотреть расписание", "cta_reg": "Записаться на обучение",
         "trust": [("20+", "лет обучения врачей"), ("15", "курсов и модулей"),
-                  ("5", "клиницистов-преподавателей"), ("16+", "часов и ЗЕ по топ-курсам")],
+                  ("5", "клиницистов-преподавателей"), ("200+", "выданных сертификатов")],
         "pop": "Ближайшие курсы", "pop_sub": "Цены, даты и часы — из актуального расписания центра.",
         "all_sched": "Всё расписание →", "all_teachers": "Все преподаватели →", "formats": "Форматы обучения",
         "formats_sub": "Онлайн из любой точки мира или офлайн в Алматы.",
@@ -70,7 +70,7 @@ T = {
         "hero_p": "Менің атым Инна Евгеньевна — Doctrine негізін қалаушы, кардиолог, дәрігерлерді оқытудағы 20 жылдық тәжірибем бар. Оқытушыларымыз — тәжірибелі клиницистер.",
         "cta_sched": "Кестені көру", "cta_reg": "Оқуға жазылу",
         "trust": [("20+", "жыл дәрігерлерді оқыту"), ("15", "курс пен модуль"),
-                  ("5", "клиницист-оқытушы"), ("16+", "сағат және ЗЕ")],
+                  ("5", "клиницист-оқытушы"), ("200+", "берілген сертификат")],
         "pop": "Жақын курстар", "pop_sub": "Бағалар, күндер мен сағаттар — орталықтың өзекті кестесінен.",
         "all_sched": "Барлық кесте →", "all_teachers": "Барлық оқытушылар →", "formats": "Оқыту форматтары",
         "formats_sub": "Әлемнің кез келген нүктесінен онлайн немесе Алматыда офлайн.",
@@ -107,7 +107,7 @@ T = {
         "hero_p": "I'm Inna Leshinskaya-Popova — founder of Doctrine and a cardiologist with 20 years of physician training experience. Our teachers are practising clinicians.",
         "cta_sched": "View schedule", "cta_reg": "Enroll now",
         "trust": [("20+", "years training doctors"), ("15", "courses and modules"),
-                  ("5", "clinician teachers"), ("16+", "hours & credits on top courses")],
+                  ("5", "clinician teachers"), ("200+", "certificates issued")],
         "pop": "Upcoming courses", "pop_sub": "Prices, dates and hours from the centre's live schedule.",
         "all_sched": "Full schedule →", "all_teachers": "All faculty →", "formats": "Learning formats",
         "formats_sub": "Online from anywhere or offline in Almaty.",
@@ -248,7 +248,6 @@ def reviews_section(lang):
             who += f'<small>{esc(r["course"])}</small>'
         who += "</span></div>"
         cards += (f'<div class="card review-card"><div class="card-body">'
-                  f'<div class="review-stars">★★★★★</div>'
                   f'<p class="review-text">“{esc(r["text"])}”</p>{who}</div></div>')
     if not cards:
         cards = f'<p class="sub">{esc(t["rev_empty"])}</p>'

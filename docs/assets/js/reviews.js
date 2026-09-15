@@ -24,7 +24,6 @@
     if (r.course) who += "<small>" + esc(r.course) + "</small>";
     who += "</span></div>";
     return '<div class="card review-card"><div class="card-body">'
-      + '<div class="review-stars">★★★★★</div>'
       + '<p class="review-text">“' + esc(r.text) + "”</p>" + who + "</div></div>";
   }
   function key(r) { return (r.date || 0) + "|" + (r.text || ""); }
