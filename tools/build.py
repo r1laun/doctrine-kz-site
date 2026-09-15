@@ -145,13 +145,13 @@ def head(lang, title, desc):
 <body>
 """
 
-def header(lang, active):
+def header(lang, active, page="index.html"):
     t = T[lang]
     links = "".join(
         f'<a href="{href}" class="{"active" if href == active else ""}">{esc(label)}</a>'
         for href, label in t["nav"])
     langs = "".join(
-        f'<a href="../{l}/index.html" class="{"active" if l == lang else ""}">{lbl}</a>'
+        f'<a href="../{l}/{page}" data-langlink class="{"active" if l == lang else ""}">{lbl}</a>'
         for l, lbl in [("ru", "RU"), ("kk", "KZ"), ("en", "EN")])
     return f"""<header class="site-header"><div class="header-inner">
 <a class="logo" href="index.html"><img src="../assets/img/logo.jpg" alt="Doctrine logo"><span><b>Doctrine</b><small>{esc(SITE["tagline"][lang])}</small></span></a>
@@ -242,7 +242,7 @@ def page_index(lang):
     teach4 = "".join(
         f'<div class="card teacher-card"><img src="{x["photo"]}" alt="{esc(x["name"])}" loading="lazy"><div class="card-body"><h3>{esc(x["name"])}</h3><p>{esc(x["spec"])}</p></div></div>'
         for x in TEACHERS[:4])
-    return (head(lang, t["hero_h1"], t["meta_desc"]) + header(lang, "index.html") + f"""
+    return (head(lang, t["hero_h1"], t["meta_desc"]) + header(lang, "index.html", "index.html") + f"""
 <section class="hero"><div class="container hero-grid">
 <div class="hero-photo"><img src="../assets/img/founder.jpg" alt="{esc(t["founder_alt"])}"></div>
 <div><span class="hero-eyebrow">{esc(t["hero_eye"])}</span>
@@ -267,7 +267,7 @@ def page_index(lang):
 
 def page_schedule(lang):
     t = T[lang]
-    return (head(lang, t["sched_h"], t["meta_desc"]) + header(lang, "schedule.html") + f"""
+    return (head(lang, t["sched_h"], t["meta_desc"]) + header(lang, "schedule.html", "schedule.html") + f"""
 <section class="section"><div class="container">
 <h1>{esc(t["sched_h"])}</h1><p class="sub">{esc(t["sched_sub"])}</p>
 <div class="filters" role="group" aria-label="Filter">
@@ -290,7 +290,7 @@ def page_course(lang):
              "provider": {"@type": "EducationalOrganization", "name": "Doctrine"}} 
             for c in COURSES[:10]],
     }
-    return (head(lang, t["course_h"], t["meta_desc"]) + header(lang, "schedule.html") + f"""
+    return (head(lang, t["course_h"], t["meta_desc"]) + header(lang, "schedule.html", "course.html") + f"""
 <section class="course-hero"><div class="container">
 <a href="schedule.html">{esc(t["back"])}</a>
 <div id="course-detail"><p>…</p></div>
@@ -309,7 +309,7 @@ def page_teachers(lang):
     about = "".join(
         f'<div class="session"><h4>{esc(x["name"])}</h4><p class="meta">{esc(x["spec"])}</p><p>{esc(x["about"][:600])}</p></div>'
         for x in TEACHERS if x["about"])
-    return (head(lang, t["teachers_h"], t["meta_desc"]) + header(lang, "teachers.html") + f"""
+    return (head(lang, t["teachers_h"], t["meta_desc"]) + header(lang, "teachers.html", "teachers.html") + f"""
 <section class="section"><div class="container">
 <h1>{esc(t["teachers_h"])}</h1><p class="sub">{esc(t["teachers_page_sub"])}</p>
 <div class="grid-4">{cards}</div>
@@ -319,13 +319,13 @@ def page_teachers(lang):
 
 def page_offer(lang):
     t = T[lang]
-    return (head(lang, t["offer_h"], t["meta_desc"]) + header(lang, "") + f"""
+    return (head(lang, t["offer_h"], t["meta_desc"]) + header(lang, "", "offer.html") + f"""
 <section class="section"><div class="container"><h1>{esc(t["offer_h"])}</h1><p>{esc(t["offer_t"])}</p>
 <p>WhatsApp: <a href="{WA}">{esc(SITE["phone"])}</a></p></div></section>
 """ + footer(lang))
 
 def page_404(lang):
-    return (head(lang, "404", "Page not found") + header(lang, "") +
+    return (head(lang, "404", "Page not found") + header(lang, "", "404.html") +
             '<section class="section"><div class="container"><h1>404</h1><p><a href="index.html">← Home</a></p></div></section>' + footer(lang))
 
 BUILDERS = {"index.html": page_index, "schedule.html": page_schedule,
