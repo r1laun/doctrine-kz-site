@@ -55,7 +55,8 @@ a{color:inherit}
 .btn-ghost:hover{background:#eef6f6}
 /* trust */
 .trust{background:#fff;border-bottom:1px solid var(--line)}
-.trust-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:26px 0;max-width:900px;margin:0 auto}
+.trust .container{display:flex;justify-content:center}
+.trust-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:26px 0;width:min(900px,100%);margin:0 auto;justify-items:center;justify-content:center;text-align:center}
 @media(max-width:640px){
   .trust-grid{gap:4px;padding:18px 0}
   .trust-item{padding:6px 2px}
