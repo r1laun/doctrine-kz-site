@@ -55,7 +55,7 @@ a{color:inherit}
 .btn-ghost:hover{background:#eef6f6}
 /* trust */
 .trust{background:#fff;border-bottom:1px solid var(--line)}
-.trust-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;padding:26px 0;max-width:900px;margin:0 auto}
+.trust-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;padding:26px 0;max-width:1000px;margin:0 auto}
 .trust-item{text-align:center;padding:10px}
 .trust-item b{font-size:26px;display:block;color:var(--teal)}
 .trust-item span{font-size:14px;color:var(--muted)}
@@ -175,7 +175,7 @@ footer small{color:#9db8bc}
   .grid-3,.grid-4{grid-template-columns:1fr 1fr}
   .hero-grid{grid-template-columns:1fr}
   .hero-photo img{max-width:320px}
-  .trust-grid{grid-template-columns:1fr}
+  .trust-grid{grid-template-columns:1fr 1fr}
   footer .container{grid-template-columns:1fr}
 }
 @media(max-width:640px){
