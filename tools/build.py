@@ -319,7 +319,7 @@ def page_teachers(lang):
     return (head(lang, t["teachers_h"], t["meta_desc"]) + header(lang, "teachers.html", "teachers.html") + f"""
 <section class="section"><div class="container">
 <h1>{esc(t["teachers_h"])}</h1><p class="sub">{esc(t["teachers_page_sub"])}</p>
-<div class="grid-4">{cards}</div>
+<div class="teachers-grid">{cards}</div>
 </div></section>
 <div class="t-modal" id="teacherModal" role="dialog" aria-modal="true" hidden>
 <div class="t-modal-overlay" data-close></div>

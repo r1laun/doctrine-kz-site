@@ -5,9 +5,9 @@
   if (!modal || !body) return;
   var lang = document.documentElement.lang || "ru";
   var L = {
-    ru: {exp: "Стаж", work: "Место работы", fail: "Не удалось загрузить профиль."},
-    kk: {exp: "Өтіл", work: "Жұмыс орны", fail: "Профиль жүктелмеді."},
-    en: {exp: "Experience", work: "Workplace", fail: "Failed to load the profile."}
+    ru: {exp: "Стаж", work: "Место работы", about: "О преподавателе", fail: "Не удалось загрузить профиль."},
+    kk: {exp: "Өтіл", work: "Жұмыс орны", about: "Оқытушы туралы", fail: "Профиль жүктелмеді."},
+    en: {exp: "Experience", work: "Workplace", about: "About", fail: "Failed to load the profile."}
   }[lang] || {};
   var cache = null;
   function esc(s) {
@@ -29,15 +29,26 @@
       }
       if (!t) { body.innerHTML = "<p>" + esc(L.fail) + "</p>"; }
       else {
-        var rows = "";
-        if (t.exp) rows += '<p class="meta"><b>' + esc(L.exp) + ":</b> " + esc(t.exp) + "</p>";
-        if (t.work) rows += '<p class="meta"><b>' + esc(L.work) + ":</b> " + esc(t.work) + "</p>";
+        var info = "";
+        if (t.exp) info += '<div class="t-info-item"><small>' + esc(L.exp) + "</small><span>" + esc(t.exp) + "</span></div>";
+        if (t.work) info += '<div class="t-info-item"><small>' + esc(L.work) + "</small><span>" + esc(t.work) + "</span></div>";
         var paras = String(t.about || "").split("\n").filter(function (p) { return p.trim(); })
-          .map(function (p) { return "<p>" + esc(p) + "</p>"; }).join("");
-        body.innerHTML = '<div class="t-modal-top"><img src="' + esc(t.photo) + '" alt="' + esc(t.name) + '">'
-          + '<div><h2>' + esc(t.name) + "</h2>"
-          + (t.spec ? '<p class="meta">' + esc(t.spec) + "</p>" : "") + rows + "</div></div>"
-          + '<div class="t-modal-body">' + paras + "</div>";
+          .map(function (p, i) {
+            var txt = esc(p);
+            // numbered "1. Кто я" style headings become bold lead-ins
+            var m = txt.match(/^(\d+\.\s+.+)$/);
+            if (m && txt.length < 80) return '<p><b>' + txt + "</b></p>";
+            return "<p>" + txt + "</p>";
+          }).join("");
+        body.innerHTML = '<div class="t-modal-hero"><div class="t-modal-hero-inner">'
+          + '<img src="' + esc(t.photo) + '" alt="' + esc(t.name) + '">'
+          + '<div class="t-modal-hero-text"><h2>' + esc(t.name) + "</h2>"
+          + (t.spec ? '<span class="t-spec-pill">' + esc(t.spec) + "</span>" : "")
+          + "</div></div></div>"
+          + '<div class="t-modal-body">'
+          + (info ? '<div class="t-info">' + info + "</div>" : "")
+          + (paras ? '<h3 class="t-about-title">' + esc(L.about) + '</h3><div class="t-about-text">' + paras + "</div>" : "")
+          + "</div>";
       }
       modal.hidden = false;
       document.body.classList.add("t-modal-open");
