@@ -241,24 +241,27 @@ def reviews_section(lang):
     t = T[lang]
     cards = ""
     for r in REVIEWS[:12]:
-        who = r.get("name") or r.get("course") or "—"
-        line = f'<div class="review-who">{esc(who)}</div>'
-        if r.get("name") and r.get("course"):
-            line = (f'<div class="review-who">{esc(r["name"])}</div>'
-                    f'<div class="meta">{esc(r["course"])}</div>')
-        cards += f'<div class="card review-card"><div class="card-body">{line}<p>“{esc(r["text"])}”</p></div></div>'
+        initial = esc((r.get("name") or "?").strip()[:1].upper())
+        who = f'<div class="review-person"><span class="review-ava">{initial}</span><span><b>{esc(r.get("name") or "—")}</b>'
+        if r.get("course"):
+            who += f'<small>{esc(r["course"])}</small>'
+        who += "</span></div>"
+        cards += (f'<div class="card review-card"><div class="card-body">'
+                  f'<div class="review-stars">★★★★★</div>'
+                  f'<p class="review-text">“{esc(r["text"])}”</p>{who}</div></div>')
     if not cards:
         cards = f'<p class="sub">{esc(t["rev_empty"])}</p>'
-    return f"""<section class="section alt"><div class="container">
-<h2>{esc(t["reviews_h"])}</h2><p class="sub">{esc(t["reviews_sub"])}</p>
+    return f"""<section class="section reviews-sec"><div class="container">
+<div class="reviews-head"><div><h2>{esc(t["reviews_h"])}</h2><p class="sub">{esc(t["reviews_sub"])}</p></div></div>
 <div class="grid-3">{cards}</div>
 <form class="review-form" id="reviewForm">
-<h3>{esc(t["rev_send"])}</h3>
-<input name="name" maxlength="80" placeholder="{esc(t["rev_name_ph"])}" required>
+<div class="review-form-head"><h3>{esc(t["rev_send"])}</h3><p class="meta">{esc(t["rev_note"])}</p></div>
+<div class="review-form-grid">
+<input name="name" maxlength="80" placeholder="{esc(t["rev_name_ph"])} *" required>
 <input name="course" maxlength="120" placeholder="{esc(t["rev_course_ph"])}">
-<textarea name="text" maxlength="1000" placeholder="{esc(t["rev_text_ph"])}" required></textarea>
+</div>
+<textarea name="text" maxlength="1000" placeholder="{esc(t["rev_text_ph"])} *" required></textarea>
 <button class="btn btn-primary" type="submit">{esc(t["rev_send"])}</button>
-<p class="meta">{esc(t["rev_note"])}</p>
 </form>
 </div></section>
 <script>window.DOCTRINE_WA = "{WA}";</script>

@@ -171,17 +171,10 @@ try:
     out = os.path.join(OUT, "reviews.json")
     main = json.loads(subprocess.check_output(
         ["curl", "-skL", base + "/mainReviews.json"], timeout=20).decode("utf-8") or "null") or {}
-    per_teacher = json.loads(subprocess.check_output(
-        ["curl", "-skL", base + "/reviews.json"], timeout=20).decode("utf-8") or "null") or {}
     items = []
     for v in main.values():
         items.append({"name": clean(v.get("name")), "course": clean(v.get("course")),
                       "text": clean(v.get("text")), "date": v.get("date") or 0})
-    tname = {t["id"]: t["name"] for t in teachers}
-    for tid, vals in per_teacher.items():
-        for v in (vals or {}).values():
-            items.append({"name": "", "course": tname.get(str(tid).strip(), ""),
-                          "text": clean(v.get("text")), "date": v.get("date") or 0})
     items = [x for x in items if x["text"]]
     items.sort(key=lambda x: x["date"], reverse=True)
     with open(out, "w", encoding="utf-8") as f:
