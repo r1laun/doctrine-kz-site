@@ -30,7 +30,7 @@ T = {
         "trust": [("20+", "лет обучения врачей"), ("15", "курсов и модулей"),
                   ("5", "клиницистов-преподавателей"), ("16+", "часов и ЗЕ по топ-курсам")],
         "pop": "Ближайшие курсы", "pop_sub": "Цены, даты и часы — из актуального расписания центра.",
-        "all_sched": "Всё расписание →", "formats": "Форматы обучения",
+        "all_sched": "Всё расписание →", "all_teachers": "Все преподаватели →", "formats": "Форматы обучения",
         "formats_sub": "Онлайн из любой точки мира или офлайн в Алматы.",
         "online_h": "Онлайн", "online_t": "Вебинары в прямом эфире и курсы в записи. Сертификат и зачётные единицы (ЗЕ) — как на очных программах.",
         "offline_h": "Офлайн", "offline_t": "Семинары и мастер-классы в Алматы: живая практика, разбор кейсов, общение с экспертами.",
@@ -63,7 +63,7 @@ T = {
         "trust": [("20+", "жыл дәрігерлерді оқыту"), ("15", "курс пен модуль"),
                   ("5", "клиницист-оқытушы"), ("16+", "сағат және ЗЕ")],
         "pop": "Жақын курстар", "pop_sub": "Бағалар, күндер мен сағаттар — орталықтың өзекті кестесінен.",
-        "all_sched": "Барлық кесте →", "formats": "Оқыту форматтары",
+        "all_sched": "Барлық кесте →", "all_teachers": "Барлық оқытушылар →", "formats": "Оқыту форматтары",
         "formats_sub": "Әлемнің кез келген нүктесінен онлайн немесе Алматыда офлайн.",
         "online_h": "Онлайн", "online_t": "Тікелей эфирдегі вебинарлар және жазбадағы курстар. Сертификат және сынақ бірліктері (ЗЕ) беріледі.",
         "offline_h": "Офлайн", "offline_t": "Алматыдағы семинарлар мен мастер-класстар: тәжірибе, кейс талдау, сарапшылармен кездесу.",
@@ -96,7 +96,7 @@ T = {
         "trust": [("20+", "years training doctors"), ("15", "courses and modules"),
                   ("5", "clinician teachers"), ("16+", "hours & credits on top courses")],
         "pop": "Upcoming courses", "pop_sub": "Prices, dates and hours from the centre's live schedule.",
-        "all_sched": "Full schedule →", "formats": "Learning formats",
+        "all_sched": "Full schedule →", "all_teachers": "All faculty →", "formats": "Learning formats",
         "formats_sub": "Online from anywhere or offline in Almaty.",
         "online_h": "Online", "online_t": "Live webinars and recorded courses. Certificate and credit units included, same as offline programs.",
         "offline_h": "Offline", "offline_t": "Seminars and masterclasses in Almaty: hands-on practice, case discussions, meeting the experts.",
@@ -239,9 +239,11 @@ def faq_section(lang):
 
 def page_index(lang):
     t = T[lang]
-    teach4 = "".join(
+    top_teachers = [x for tid in ("2", "5", "3")
+                    for x in TEACHERS if x["id"] == tid]
+    teach3 = "".join(
         f'<div class="card teacher-card"><img src="{x["photo"]}" alt="{esc(x["name"])}" loading="lazy"><div class="card-body"><h3>{esc(x["name"])}</h3><p>{esc(x["spec"])}</p></div></div>'
-        for x in TEACHERS[:4])
+        for x in top_teachers)
     return (head(lang, t["hero_h1"], t["meta_desc"]) + header(lang, "index.html", "index.html") + f"""
 <section class="hero"><div class="container hero-grid">
 <div class="hero-photo"><img src="../assets/img/founder.jpg" alt="{esc(t["founder_alt"])}"></div>
@@ -256,12 +258,13 @@ def page_index(lang):
 </div></section>
 <section class="section"><div class="container">
 <h2>{esc(t["pop"])}</h2><p class="sub">{esc(t["pop_sub"])}</p>
-<div class="grid-3">{course_cards(lang, limit=6)}</div>
+<div class="grid-3">{course_cards(lang, limit=3)}</div>
 <p><a class="btn btn-ghost" href="schedule.html">{esc(t["all_sched"])}</a></p>
 </div></section>
 <section class="section alt"><div class="container">
 <h2>{esc(t["teachers_h"])}</h2><p class="sub">{esc(t["teachers_sub"])}</p>
-<div class="grid-4">{teach4}</div>
+<div class="grid-3">{teach3}</div>
+<p><a class="btn btn-ghost" href="teachers.html">{esc(t["all_teachers"])}</a></p>
 </div></section>
 """ + faq_section(lang) + contacts_section(lang) + footer(lang))
 
