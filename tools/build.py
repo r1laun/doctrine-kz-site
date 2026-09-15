@@ -33,7 +33,8 @@ T = {
         "hero_p": "Меня зовут Инна Евгеньевна — я основатель Doctrine и врач-кардиолог с 20-летним опытом обучения врачей. Наши преподаватели — практикующие клиницисты. Учим тому, что работает у постели пациента.",
         "cta_sched": "Смотреть расписание", "cta_reg": "Записаться на обучение",
         "trust": [("20+", "лет опыта обучения врачей"), ("2", "формата: онлайн и офлайн"),
-                  ("3", "языка: русский, қазақша, English"), ("200+", "выданных сертификатов")],
+                  ("200+", "выданных сертификатов")],
+        "hero_badge": "лет опыта",
         "pop": "Ближайшие курсы", "pop_sub": "Цены, даты и часы — из актуального расписания центра.",
         "all_sched": "Всё расписание →", "all_teachers": "Все преподаватели →", "formats": "Форматы обучения",
         "formats_sub": "Онлайн из любой точки мира или офлайн в Алматы.",
@@ -70,7 +71,8 @@ T = {
         "hero_p": "Менің атым Инна Евгеньевна — Doctrine негізін қалаушы, кардиолог, дәрігерлерді оқытудағы 20 жылдық тәжірибем бар. Оқытушыларымыз — тәжірибелі клиницистер.",
         "cta_sched": "Кестені көру", "cta_reg": "Оқуға жазылу",
         "trust": [("20+", "жыл оқыту тәжірибесі"), ("2", "формат: онлайн және офлайн"),
-                  ("3", "тіл: орысша, қазақша, ағылшынша"), ("200+", "берілген сертификат")],
+                  ("200+", "берілген сертификат")],
+        "hero_badge": "жыл тәжірибе",
         "pop": "Жақын курстар", "pop_sub": "Бағалар, күндер мен сағаттар — орталықтың өзекті кестесінен.",
         "all_sched": "Барлық кесте →", "all_teachers": "Барлық оқытушылар →", "formats": "Оқыту форматтары",
         "formats_sub": "Әлемнің кез келген нүктесінен онлайн немесе Алматыда офлайн.",
@@ -107,7 +109,8 @@ T = {
         "hero_p": "I'm Inna Leshinskaya-Popova — founder of Doctrine and a cardiologist with 20 years of physician training experience. Our teachers are practising clinicians.",
         "cta_sched": "View schedule", "cta_reg": "Enroll now",
         "trust": [("20+", "years of teaching experience"), ("2", "formats: online & offline"),
-                  ("3", "languages: RU, KZ, EN"), ("200+", "certificates issued")],
+                  ("200+", "certificates issued")],
+        "hero_badge": "years of experience",
         "pop": "Upcoming courses", "pop_sub": "Prices, dates and hours from the centre's live schedule.",
         "all_sched": "Full schedule →", "all_teachers": "All faculty →", "formats": "Learning formats",
         "formats_sub": "Online from anywhere or offline in Almaty.",
@@ -304,7 +307,7 @@ def page_index(lang):
         for x in top_teachers)
     return (head(lang, t["hero_h1"], t["meta_desc"]) + header(lang, "index.html", "index.html") + f"""
 <section class="hero"><div class="container hero-grid">
-<div class="hero-photo"><img src="../assets/img/founder.jpg" alt="{esc(t["founder_alt"])}"></div>
+<div class="hero-photo"><img src="../assets/img/founder.jpg" alt="{esc(t["founder_alt"])}"><div class="hero-badge"><b>20+</b><span>{esc(t["hero_badge"])}</span></div></div>
 <div><span class="hero-eyebrow">{esc(t["hero_eye"])}</span>
 <h1>{esc(t["hero_h1"])}</h1>
 <p class="lead">{esc(t["hero_p"])}</p>
