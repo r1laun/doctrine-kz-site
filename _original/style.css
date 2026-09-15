@@ -1,0 +1,2560 @@
+/* =========================================================
+   DOCTRINE
+   ОБЩИЙ STYLE.CSS
+   ========================================================= */
+
+
+/* =========================================================
+   ОСНОВА
+   ========================================================= */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  margin: 0;
+  padding: 0;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+
+  font-family: "Comfortaa", Arial, sans-serif;
+
+  color: #26343a;
+
+  background: #f5f7f8;
+
+  line-height: 1.6;
+}
+
+body.schedule-modal-open {
+  overflow: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+textarea,
+select {
+  font-family: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   HEADER
+   ========================================================= */
+
+.header {
+  position: relative;
+  z-index: 1000;
+
+  width: 100%;
+
+  padding: 10px 0;
+
+  background: #7fb3b5;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.header-inner {
+  width: min(1200px, calc(100% - 30px));
+
+  margin: 0 auto;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: space-between;
+
+  gap: 20px;
+}
+
+.logo {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  flex-shrink: 0;
+}
+
+.logo-img {
+  width: 70px;
+  height: 70px;
+
+  object-fit: cover;
+
+  border-radius: 15%;
+}
+
+.logo-text {
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+}
+
+.logo-text h1 {
+  margin: 0;
+
+  font-size: 35px;
+
+  line-height: 1.2;
+
+  color: #1f2a30;
+}
+
+.logo-text p {
+  margin: 3px 0 0;
+
+  font-size: 16px;
+
+  line-height: 1.3;
+
+  color: #263b40;
+}
+
+
+/* =========================================================
+   НАВИГАЦИЯ
+   ========================================================= */
+
+.nav {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-end;
+
+  gap: 14px;
+
+  flex-wrap: wrap;
+}
+
+.nav a {
+  display: inline-flex;
+
+  align-items: center;
+
+  padding: 7px 9px;
+
+  color: #1f3b40;
+
+  font-size: 20px;
+
+  font-weight: 600;
+
+  border-radius: 8px;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease;
+}
+
+.nav a:hover {
+  color: #ffffff;
+
+  background: rgba(255, 255, 255, 0.14);
+}
+
+.burger {
+  display: none;
+
+  width: 42px;
+  height: 42px;
+
+  padding: 0;
+
+  border: 0;
+
+  background: transparent;
+
+  color: #1f2a30;
+
+  font-size: 28px;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   ОБЩИЕ КОНТЕЙНЕРЫ
+   ========================================================= */
+
+.container {
+  width: min(1200px, calc(100% - 30px));
+
+  margin: 0 auto;
+}
+
+
+/* =========================================================
+   ГЛАВНЫЕ БЛОКИ САЙТА
+   ========================================================= */
+
+.intro {
+  padding: 40px 20px;
+
+  background: #faf9f1;
+}
+
+.intro-container {
+  width: min(1200px, 100%);
+
+  margin: 0 auto;
+
+  display: flex;
+
+  align-items: flex-start;
+  justify-content: center;
+
+  flex-wrap: wrap;
+
+  gap: 30px;
+}
+
+.intro-photo img {
+  width: 300px;
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+.intro-text {
+  max-width: 850px;
+}
+
+.intro-text h2 {
+  margin-top: 0;
+
+  font-size: 26px;
+
+  text-align: center;
+}
+
+.intro-text p {
+  font-size: 18px;
+
+  text-align: justify;
+}
+
+
+/* =========================================================
+   ИНФОРМАЦИОННЫЙ БЛОК
+   ========================================================= */
+
+.info {
+  padding: 40px 20px;
+
+  text-align: center;
+
+  background: rgba(131, 199, 148, 0.3);
+
+  box-shadow:
+    0 10px 20px rgba(0, 0, 0, 0.08);
+}
+
+.info h3 {
+  margin: 0 0 15px;
+
+  font-size: 24px;
+}
+
+.info ul {
+  max-width: 700px;
+
+  margin: 0 auto;
+
+  padding: 0;
+
+  list-style: none;
+
+  text-align: left;
+}
+
+.info li {
+  margin: 10px 0;
+
+  font-size: 18px;
+}
+
+
+/* =========================================================
+   КОНТАКТЫ
+   ========================================================= */
+
+.contacts {
+  padding: 50px 20px;
+
+  text-align: center;
+}
+
+.contacts h3 {
+  margin-bottom: 20px;
+
+  font-size: 28px;
+}
+
+.contacts-icons {
+  display: flex;
+
+  justify-content: center;
+
+  gap: 40px;
+
+  flex-wrap: wrap;
+}
+
+.contacts-icons a {
+  display: flex;
+
+  align-items: center;
+
+  gap: 10px;
+
+  font-size: 20px;
+
+  color: #333;
+
+  transition: color 0.2s ease;
+}
+
+.contacts-icons a:hover {
+  color: #05929c;
+}
+
+.contacts-icons img {
+  width: 40px;
+}
+
+
+/* =========================================================
+   ТАБЛИЦЫ
+   ========================================================= */
+
+.table-wrapper {
+  width: 100%;
+
+  overflow-x: auto;
+
+  margin-top: 25px;
+
+  background: #ffffff;
+
+  border:
+    1px solid #cce7cd;
+
+  border-radius: 10px;
+
+  box-shadow:
+    0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+table {
+  width: 100%;
+
+  min-width: 800px;
+
+  border-collapse: collapse;
+
+  font-size: 16px;
+
+  color: #333;
+}
+
+thead {
+  background: #05929c75;
+
+  color: #000000b2;
+
+  font-weight: 700;
+}
+
+thead th {
+  padding: 14px 10px;
+
+  border-bottom:
+    3px solid #000000;
+
+  border-right:
+    1px solid #000000;
+
+  text-align: center;
+
+  font-size: 17px;
+}
+
+thead th:last-child {
+  border-right: 0;
+}
+
+tbody tr {
+  transition:
+    background-color 0.2s ease;
+}
+
+tbody tr:nth-child(even) {
+  background: #f9fcfc;
+}
+
+tbody tr:hover {
+  background: #eaf8f9;
+}
+
+td {
+  padding: 12px 10px;
+
+  border-bottom:
+    1px solid #cce5e7;
+
+  border-right:
+    1px solid #cce5e7;
+
+  vertical-align: top;
+
+  text-align: left;
+}
+
+td:last-child {
+  border-right: 0;
+}
+
+
+/* =========================================================
+   DOCTRINE — РАСПИСАНИЕ
+   ========================================================= */
+
+
+/* =========================================================
+   КОНТЕЙНЕР
+   ========================================================= */
+
+#courses {
+  width: min(
+    1380px,
+    calc(100% - 40px)
+  );
+
+  margin:
+    35px auto 80px;
+}
+
+
+/* =========================================================
+   СЕТКА КУРСОВ
+   ========================================================= */
+
+.schedule-courses-grid {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      3,
+      minmax(0, 1fr)
+    );
+
+  gap: 26px;
+
+  align-items: stretch;
+}
+
+
+/* =========================================================
+   КАРТОЧКА
+   ========================================================= */
+
+.schedule-course-card {
+  position: relative;
+
+  display: flex;
+
+  flex-direction: column;
+
+  min-width: 0;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 7px 25px
+    rgba(35, 62, 70, 0.12);
+
+  cursor: pointer;
+
+  transition:
+    transform 0.22s ease,
+    box-shadow 0.22s ease;
+}
+
+.schedule-course-card:hover {
+  transform:
+    translateY(-4px);
+
+  box-shadow:
+    0 14px 34px
+    rgba(35, 62, 70, 0.17);
+}
+
+
+/* =========================================================
+   КАРТИНКА КАРТОЧКИ
+   ========================================================= */
+
+.schedule-card-image {
+  position: relative;
+
+  width: 100%;
+
+  height: 235px;
+
+  overflow: hidden;
+
+  flex-shrink: 0;
+
+  background: #edf7f7;
+}
+
+.schedule-card-image img {
+  position: relative;
+
+  z-index: 1;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  object-position: center;
+
+  transition:
+    transform 0.3s ease;
+}
+
+.schedule-course-card:hover
+.schedule-card-image img {
+  transform:
+    scale(1.025);
+}
+
+
+/* =========================================================
+   PLACEHOLDER
+   ========================================================= */
+
+.schedule-image-placeholder {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  color: #6db4b8;
+
+  font-size: 24px;
+
+  pointer-events: none;
+}
+
+
+
+/* =========================================================
+   БЕЙДЖИ
+   ========================================================= */
+
+.schedule-badges {
+  position: absolute;
+
+  top: 13px;
+  left: 13px;
+  right: 13px;
+
+  z-index: 5;
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 8px;
+}
+
+.schedule-badge {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding:
+    7px 11px;
+
+  border-radius: 999px;
+
+  color: #ffffff;
+
+  font-size: 12px;
+
+  line-height: 1.15;
+
+  box-shadow:
+    0 2px 10px
+    rgba(0, 0, 0, 0.14);
+}
+
+.schedule-badge-module {
+  background: #8967ce;
+}
+
+.schedule-badge-formation {
+  background: #5793a2;
+}
+
+.schedule-badge-hours {
+  background: #5ba9a9;
+}
+
+
+/* =========================================================
+   ТЕЛО КАРТОЧКИ
+   ========================================================= */
+
+.schedule-card-body {
+  display: flex;
+
+  flex-direction: column;
+
+  flex: 1;
+
+  min-width: 0;
+
+  padding:
+    22px 21px 20px;
+}
+
+
+/* =========================================================
+   НАЗВАНИЕ
+   ========================================================= */
+
+.schedule-card-title {
+  margin:
+    0 0 12px;
+
+  color: #263b45;
+
+  font-size: 21px;
+
+  line-height: 1.35;
+
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   ПРЕПОДАВАТЕЛЬ
+   ========================================================= */
+
+.schedule-card-teacher {
+  margin-bottom: 11px;
+
+  color: #586d76;
+
+  font-size: 14px;
+
+  line-height: 1.45;
+}
+
+.schedule-card-teacher-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+
+.schedule-card-teacher-item:last-child {
+  margin-bottom: 0;
+}
+
+.schedule-card-teacher-icon {
+  flex: 0 0 auto;
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   ДАТЫ
+   ========================================================= */
+
+.schedule-card-dates {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 8px 13px;
+
+  margin-bottom: 7px;
+}
+
+.schedule-card-date {
+  display: inline-flex;
+
+  align-items: center;
+
+  color: #667a82;
+
+  font-size: 15px;
+
+  line-height: 1.4;
+
+  white-space: nowrap;
+}
+
+.schedule-card-date small {
+  margin-left: 5px;
+
+  color: #687b82;
+
+  font-size: 13px;
+}
+
+
+/* =========================================================
+   КАЛЕНДАРИК НА КАРТОЧКЕ
+   ========================================================= */
+
+.schedule-calendar-icon {
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-right: 6px;
+
+  font-size: 19px;
+
+  line-height: 1;
+}
+
+
+/* =========================================================
+   ФОРМИРОВАНИЕ ГРУПП
+   ========================================================= */
+
+.schedule-card-formation {
+  margin-bottom: 7px;
+
+  color: #63767d;
+
+  font-size: 14px;
+
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   ЧАСЫ НА КАРТОЧКЕ
+   ========================================================= */
+
+.schedule-card-hours {
+  margin-top: 5px;
+
+  color: #71828a;
+
+  font-size: 14px;
+
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   ЦЕНА КАРТОЧКИ
+   ========================================================= */
+
+.schedule-card-price {
+  min-height: 42px;
+
+  margin-top: auto;
+
+  padding-top: 15px;
+
+  color: #277cff;
+
+  font-size: 25px;
+
+  line-height: 1.2;
+
+  font-weight: 400;
+}
+
+.schedule-card-price-empty {
+  visibility: hidden;
+}
+
+
+/* =========================================================
+   КНОПКА НА КАРТОЧКЕ
+   ========================================================= */
+
+.schedule-card-actions {
+  display: grid;
+
+  grid-template-columns: 1fr;
+
+  margin-top: 10px;
+}
+
+.schedule-register-btn {
+  min-height: 46px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding:
+    10px 14px;
+
+  border-radius: 10px;
+
+  background: #74b9bb;
+
+  color: #ffffff;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.schedule-register-btn:hover {
+  background: #62aaad;
+
+  transform:
+    translateY(-1px);
+}
+
+
+/* =========================================================
+   РАЗДЕЛИТЕЛЬ МЕСЯЦЕВ
+   ========================================================= */
+
+.schedule-month-divider {
+  width: 100%;
+
+  display: grid;
+
+  grid-template-columns:
+    1fr auto 1fr;
+
+  align-items: center;
+
+  gap: 16px;
+
+  margin:
+    40px 0;
+}
+
+.schedule-month-divider span {
+  height: 1px;
+
+  background:
+    linear-gradient(
+      to right,
+      transparent,
+      #d5e5e6
+    );
+}
+
+.schedule-month-divider span:last-child {
+  background:
+    linear-gradient(
+      to left,
+      transparent,
+      #d5e5e6
+    );
+}
+
+.schedule-month-divider i {
+  color: #73b8bb;
+
+  font-size: 18px;
+
+  font-style: normal;
+}
+
+
+/* =========================================================
+   =========================================================
+   МОДАЛЬНОЕ ОКНО
+   =========================================================
+   ========================================================= */
+
+
+/* =========================================================
+   ОСНОВА
+   ========================================================= */
+
+.schedule-modal {
+  position: fixed;
+
+  inset: 0;
+
+  z-index: 99999;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 20px;
+
+  visibility: hidden;
+
+  opacity: 0;
+
+  pointer-events: none;
+
+  transition:
+    opacity 0.2s ease,
+    visibility 0.2s ease;
+}
+
+.schedule-modal.is-open {
+  visibility: visible;
+
+  opacity: 1;
+
+  pointer-events: auto;
+}
+
+.modal-teacher-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+
+.modal-teacher-item:last-child {
+  margin-bottom: 0;
+}
+
+.modal-teacher-icon {
+  flex: 0 0 auto;
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   ФОН
+   ========================================================= */
+
+.schedule-modal-overlay {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    rgba(
+      27,
+      45,
+      51,
+      0.66
+    );
+
+  backdrop-filter:
+    blur(5px);
+}
+
+
+/* =========================================================
+   САМО ОКНО
+   ========================================================= */
+
+.schedule-modal-window {
+  position: relative;
+
+  z-index: 2;
+
+  width:
+    min(
+      1100px,
+      calc(100vw - 40px)
+    );
+
+  max-height:
+    calc(100vh - 40px);
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 25px 65px
+    rgba(
+      0,
+      0,
+      0,
+      0.25
+    );
+
+  transform:
+    translateY(10px)
+    scale(0.985);
+
+  transition:
+    transform 0.2s ease;
+}
+
+.schedule-modal.is-open
+.schedule-modal-window {
+  transform:
+    translateY(0)
+    scale(1);
+}
+
+
+/* =========================================================
+   ВНУТРЕННЯЯ ПРОКРУТКА
+   ========================================================= */
+
+.schedule-modal-layout {
+  width: 100%;
+
+  max-height:
+    calc(100vh - 40px);
+
+  overflow-y: auto;
+
+  overflow-x: hidden;
+
+  scrollbar-width: auto;
+
+  scrollbar-color:
+    #a9c7ca
+    #eef4f5;
+}
+
+
+/* Chrome / Edge */
+
+.schedule-modal-layout::-webkit-scrollbar {
+  width: 10px;
+}
+
+.schedule-modal-layout::-webkit-scrollbar-track {
+  background: #eef4f5;
+}
+
+.schedule-modal-layout::-webkit-scrollbar-thumb {
+  background: #a9c7ca;
+
+  border-radius: 10px;
+
+  border:
+    2px solid #eef4f5;
+}
+
+.schedule-modal-layout::-webkit-scrollbar-thumb:hover {
+  background: #82afb3;
+}
+
+
+/* =========================================================
+   КНОПКА ЗАКРЫТИЯ
+   ========================================================= */
+
+.schedule-modal-close {
+  position: absolute;
+
+  top: 13px;
+  right: 13px;
+
+  z-index: 50;
+
+  width: 42px;
+  height: 42px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  padding: 0;
+
+  border: 0;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  color: #52666e;
+
+  font-size: 26px;
+
+  line-height: 1;
+
+  box-shadow:
+    0 3px 12px
+    rgba(
+      0,
+      0,
+      0,
+      0.12
+    );
+
+  transition:
+    transform 0.2s ease,
+    background 0.2s ease;
+}
+
+.schedule-modal-close:hover {
+  background: #f3f7f7;
+
+  transform:
+    rotate(90deg);
+}
+
+
+/* =========================================================
+   ВЕРХНЯЯ ЧАСТЬ
+   КАРТИНКА + ИНФОРМАЦИЯ
+   ========================================================= */
+
+.schedule-modal-hero {
+  display: grid;
+
+  grid-template-columns:
+    370px
+    minmax(0, 1fr);
+
+  width: 100%;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   КАРТИНКА MODAL
+   ========================================================= */
+
+.schedule-modal-image {
+  position: relative;
+
+  width: 370px;
+
+  height: 370px;
+
+  margin: 30px 0 0 30px;
+
+  overflow: hidden;
+
+  background: #edf7f7;
+
+  border-radius: 16px;
+}
+
+.schedule-modal-image img {
+  position: relative;
+
+  z-index: 1;
+
+  display: block;
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  object-position: center;
+
+  border-radius: 16px;
+}
+
+.schedule-modal-image
+.schedule-image-placeholder {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 0;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  background: #edf7f7;
+
+  color: #6db4b8;
+
+  font-size: 25px;
+}
+
+.schedule-modal-image img
++
+.schedule-image-placeholder {
+  display: none;
+}
+
+
+/* =========================================================
+   ИНФОРМАЦИЯ СПРАВА ОТ КАРТИНКИ
+   ========================================================= */
+
+.schedule-modal-top-info {
+  min-width: 0;
+
+  padding:
+    32px 34px 32px 30px;
+
+  box-sizing: border-box;
+
+  display: grid;
+
+  grid-template-columns:
+    minmax(0, 1fr)
+    305px;
+
+  column-gap: 18px;
+
+  align-items: start;
+}
+.schedule-modal-top-info .schedule-modal-title,
+.schedule-modal-top-info .schedule-modal-teacher,
+.schedule-modal-top-info .schedule-modal-hours {
+  grid-column: 1 / -1;
+}
+
+.schedule-modal-top-info .schedule-modal-section {
+  grid-column: 1;
+}
+
+.schedule-modal-top-info .schedule-modal-prices-top {
+  grid-column: 2;
+
+  grid-template-columns: 1fr;
+
+  margin-top: 0;
+}
+
+
+/* =========================================================
+   НАЗВАНИЕ В MODAL
+   ========================================================= */
+
+.schedule-modal-title {
+  margin:
+    0 50px 19px 0;
+
+  color: #263b45;
+
+  font-size:
+    clamp(
+      26px,
+      2.5vw,
+      34px
+    );
+
+  line-height: 1.22;
+
+  font-weight: 500;
+
+  overflow-wrap: break-word;
+}
+
+
+/* =========================================================
+   ПРЕПОДАВАТЕЛЬ
+   ========================================================= */
+
+.schedule-modal-teacher {
+  display: flex;
+
+  align-items: flex-start;
+
+  gap: 9px;
+
+  margin-bottom: 15px;
+}
+
+.schedule-modal-teacher-icon {
+  flex-shrink: 0;
+
+  font-size: 19px;
+}
+
+.schedule-modal-teacher-name {
+  color: #344c56;
+
+  font-size: 15px;
+
+  line-height: 1.45;
+
+  font-weight: 600;
+}
+
+.schedule-modal-teacher-sub {
+  margin-top: 3px;
+
+  color: #829197;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   ЧАСЫ
+   ========================================================= */
+
+.schedule-modal-hours {
+  display: inline-flex;
+
+  align-items: center;
+
+  margin-bottom: 20px;
+
+  padding:
+    9px 13px;
+
+  border-radius: 9px;
+
+  background: #eef6f6;
+
+  color: #687d84;
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   ЗАГОЛОВКИ СЕКЦИЙ
+   ========================================================= */
+
+.schedule-modal-top-info h4,
+.schedule-modal-full-content h4 {
+  margin:
+    0 0 10px;
+
+  color: #31464f;
+
+  font-size: 17px;
+
+  line-height: 1.3;
+
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   ДАТЫ
+   ========================================================= */
+
+.schedule-modal-section {
+  margin: 0;
+}
+
+.schedule-modal-dates {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 9px;
+}
+
+.schedule-modal-date {
+  display: flex;
+
+  align-items: center;
+
+  justify-content: flex-start;
+
+  gap: 18px;
+
+  color: #6d8087;
+
+  font-size: 16px;
+
+  line-height: 1.45;
+}
+
+.schedule-modal-date > span {
+  display: inline-flex;
+
+  align-items: center;
+}
+
+.modal-calendar-icon {
+  margin-right: 6px;
+
+  font-size: 22px;
+
+  line-height: 1;
+}
+
+.schedule-time-icon {
+  margin-right: 5px;
+
+  font-size: 19px;
+}
+
+.schedule-modal-formation {
+  display: flex;
+
+  align-items: center;
+
+  color: #6c8087;
+
+  font-size: 14px;
+
+  line-height: 1.4;
+}
+
+
+/* =========================================================
+   СТОИМОСТЬ
+   ========================================================= */
+
+.schedule-modal-prices {
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      2,
+      minmax(0, 1fr)
+    );
+
+  gap: 10px;
+
+  margin-top: 10px;
+}
+
+.schedule-modal-price-box {
+  min-width: 0;
+
+  padding:
+    12px 14px;
+
+  border-radius: 10px;
+
+  background: #edf5f5;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.schedule-modal-price-box span {
+  color: #7a898e;
+
+  font-size: 11px;
+
+  line-height: 1.25;
+}
+
+.schedule-modal-price-box strong {
+  color: #2d8084;
+
+  font-size: 22px;
+
+  line-height: 1.25;
+
+  font-weight: 500;
+
+  word-break: break-word;
+}
+
+
+/* =========================================================
+   НИЖНЯЯ ЧАСТЬ MODAL
+   НА ВСЮ ШИРИНУ
+   ========================================================= */
+
+.schedule-modal-full-content {
+  width: 100%;
+
+  padding:
+    10px 34px 32px;
+
+  border-top:
+    1px solid #edf3f3;
+
+  box-sizing: border-box;
+}
+
+
+/* =========================================================
+   О КУРСЕ
+   ========================================================= */
+
+.schedule-modal-about {
+  width: 100%;
+
+  margin:
+    0 0 26px;
+}
+
+.schedule-modal-about h4 {
+  margin-bottom: 10px;
+}
+
+.schedule-modal-description {
+  width: 100%;
+
+  color: #61747b;
+
+  font-size: 14px;
+
+  line-height: 1.65;
+
+  overflow-wrap: break-word;
+}
+
+
+/* =========================================================
+   МОДУЛИ
+   ========================================================= */
+
+.schedule-modal-modules {
+  width: 100%;
+
+  margin:
+    0 0 25px;
+}
+
+.schedule-modal-modules h4 {
+  margin-bottom: 12px;
+}
+
+.schedule-modules-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 9px;
+
+  width: 100%;
+}
+
+.schedule-module-row {
+  display: grid;
+
+  grid-template-columns:
+    32px
+    minmax(0, 1fr);
+
+  gap: 10px;
+
+  align-items: start;
+
+  width: 100%;
+
+  padding:
+    10px 11px;
+
+  border:
+    1px solid #dce7e8;
+
+  border-radius: 9px;
+
+  background: #fbfdfd;
+}
+
+.schedule-module-number {
+  width: 29px;
+  height: 29px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  border-radius: 50%;
+
+  background: #e9f3f4;
+
+  color: #63a8ad;
+
+  font-size: 12px;
+}
+
+.schedule-module-text {
+  min-width: 0;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 4px;
+}
+
+.schedule-module-text strong {
+  color: #4e626a;
+
+  font-size: 13px;
+
+  line-height: 1.4;
+
+  font-weight: 600;
+
+  overflow-wrap: break-word;
+}
+
+.schedule-module-text span {
+  color: #78888e;
+
+  font-size: 12px;
+
+  line-height: 1.45;
+
+  overflow-wrap: break-word;
+}
+
+.schedule-module-date {
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 12px;
+
+  margin-top: 4px;
+
+  color: #718188;
+
+  font-size: 12px;
+}
+
+
+/* =========================================================
+   КНОПКА ЗАПИСАТЬСЯ В MODAL
+   ========================================================= */
+
+.schedule-modal-register {
+  width: 100%;
+
+  min-height: 49px;
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  margin-top: 8px;
+
+  padding:
+    10px 15px;
+
+  border-radius: 10px;
+
+  background: #72b8ba;
+
+  color: #ffffff;
+
+  font-size: 14px;
+
+  font-weight: 600;
+
+  text-decoration: none;
+
+  transition:
+    background 0.2s ease,
+    transform 0.2s ease;
+}
+
+.schedule-modal-register:hover {
+  background: #61aaad;
+
+  transform:
+    translateY(-1px);
+}
+
+
+/* =========================================================
+   ОШИБКА / ПУСТОЕ РАСПИСАНИЕ
+   ========================================================= */
+
+.schedule-empty,
+.schedule-error {
+  width: 100%;
+
+  padding:
+    60px 20px;
+
+  text-align: center;
+
+  color: #71838a;
+
+  font-size: 16px;
+}
+
+
+/* =========================================================
+   ПРЕПОДАВАТЕЛИ
+   ========================================================= */
+
+.teachers {
+  width: min(
+    1200px,
+    calc(100% - 30px)
+  );
+
+  margin: 30px auto;
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(
+      4,
+      minmax(0, 1fr)
+    );
+
+  gap: 25px;
+}
+
+.card {
+  width: 100%;
+
+  overflow: hidden;
+
+  background: #ffffff;
+
+  border-radius: 16px;
+
+  cursor: pointer;
+
+  box-shadow:
+    0 4px 15px
+    rgba(0, 0, 0, 0.05);
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform:
+    translateY(-6px);
+
+  box-shadow:
+    0 10px 25px
+    rgba(0, 0, 0, 0.1);
+}
+
+.card-img {
+  width: 100%;
+
+  height: 220px;
+
+  overflow: hidden;
+
+  border-radius:
+    16px 16px 0 0;
+}
+
+.card-img img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  object-position:
+    center 20%;
+}
+
+.card-body {
+  padding: 20px;
+
+  text-align: center;
+}
+
+.card-body h3 {
+  margin:
+    10px 0 5px;
+
+  font-size: 24px;
+}
+
+.card-body p {
+  color: #6b7b83;
+
+  font-size: 18px;
+}
+
+
+/* =========================================================
+   СТРАНИЦА ПРЕПОДАВАТЕЛЯ
+   ========================================================= */
+
+.teacher-page {
+  width:
+    min(
+      1200px,
+      calc(100% - 30px)
+    );
+
+  margin:
+    40px auto;
+
+  padding: 40px;
+
+  background: #ffffff;
+
+  border-radius: 20px;
+
+  box-shadow:
+    0 10px 30px
+    rgba(0, 0, 0, 0.05);
+}
+
+.teacher-top {
+  display: flex;
+
+  gap: 40px;
+
+  align-items: flex-start;
+
+  flex-wrap: wrap;
+}
+
+.teacher-photo {
+  width: 300px;
+  height: 300px;
+
+  object-fit: cover;
+
+  object-position:
+    center 20%;
+
+  border-radius: 16px;
+}
+
+.teacher-info {
+  flex: 1;
+
+  min-width: 250px;
+}
+
+.teacher-info h1 {
+  margin:
+    0 0 5px;
+
+  font-size: 35px;
+}
+
+.teacher-info p {
+  margin:
+    30px 0;
+
+  color: #555;
+}
+
+.teacher-page h2 {
+  margin-top: 40px;
+
+  font-size: 22px;
+}
+
+.teacher-page p {
+  width: 100%;
+
+  color: #444;
+
+  font-size: 16px;
+
+  line-height: 1.8;
+}
+
+.spec {
+  margin:
+    10px 0;
+
+  text-align: center;
+
+  font-size: 20px;
+}
+
+.info-row {
+  margin-top: 8px;
+}
+
+.label {
+  font-weight: 600;
+}
+
+.value {
+  margin-left: 5px;
+
+  font-size: 18px;
+}
+
+
+/* =========================================================
+   ОТЗЫВЫ
+   ========================================================= */
+
+.comments {
+  width:
+    min(
+      600px,
+      calc(100% - 30px)
+    );
+
+  margin:
+    40px auto;
+}
+
+.comments input,
+.comments textarea {
+  width: 100%;
+
+  padding: 10px;
+
+  margin-bottom: 10px;
+
+  border:
+    1px solid #ccc;
+
+  border-radius: 8px;
+}
+
+.comments textarea {
+  min-height: 120px;
+
+  resize: vertical;
+}
+
+.comments button {
+  padding:
+    10px 18px;
+
+  border: 0;
+
+  border-radius: 9px;
+
+  background: #2d8cff;
+
+  color: #ffffff;
+
+  cursor: pointer;
+}
+
+.review {
+  padding: 16px;
+
+  margin-bottom: 15px;
+
+  background: #ffffff;
+
+  border-radius: 14px;
+
+  box-shadow:
+    0 4px 15px
+    rgba(0, 0, 0, 0.05);
+
+  transition:
+    transform 0.3s ease;
+}
+
+.review:hover {
+  transform:
+    translateY(-3px);
+}
+
+.review-date {
+  font-size: 12px;
+
+  color: #999;
+}
+
+.review-name {
+  margin-top: 5px;
+
+  font-size: 16px;
+
+  font-weight: 600;
+}
+
+.review-course {
+  display: inline-block;
+
+  padding:
+    3px 8px;
+
+  margin-top: 5px;
+
+  background: #e8f1ff;
+
+  color: #2d8cff;
+
+  border-radius: 6px;
+
+  font-size: 13px;
+}
+
+.review-text {
+  margin-top: 10px;
+
+  font-size: 15px;
+
+  line-height: 1.5;
+}
+
+.review-line {
+  margin-top: 6px;
+
+  font-size: 15px;
+}
+
+.review small {
+  display: block;
+
+  margin-bottom: 5px;
+
+  color: #888;
+}
+
+#mainReviews {
+  max-height: 300px;
+
+  overflow-y: auto;
+
+  margin-top: 15px;
+
+  padding-right: 5px;
+}
+
+.field {
+  margin-top: 8px;
+}
+
+
+/* =========================================================
+   КНОПКА НАЗАД
+   ========================================================= */
+
+.back-btn {
+  margin: 20px;
+
+  padding:
+    10px 15px;
+
+  border: 0;
+
+  border-radius: 8px;
+
+  background: #e9eef2;
+
+  cursor: pointer;
+}
+
+
+/* =========================================================
+   ВРЕМЕННЫЕ БЛОКИ
+   ========================================================= */
+
+.in-progress {
+  padding:
+    50px 20px;
+
+  text-align: center;
+
+  background: #f7f7f7;
+
+  border-top:
+    2px solid #ddd;
+}
+
+.in-progress h2 {
+  color: #444;
+
+  font-size: 28px;
+}
+
+.in-progress p {
+  color: #555;
+
+  font-size: 18px;
+}
+
+.under-dev {
+  text-align: center;
+
+  font-size: 150%;
+}
+
+/* =========================================================
+   ИСПРАВЛЕНИЕ ПРЕПОДАВАТЕЛЕЙ
+   ========================================================= */
+
+/* Преподаватели в карточке */
+
+.schedule-card-teacher {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin-bottom: 11px;
+  color: #586d76;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.schedule-card-teacher-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-bottom: 7px;
+}
+
+.schedule-card-teacher-item:last-child {
+  margin-bottom: 0;
+}
+
+.schedule-card-teacher-icon {
+  flex: 0 0 auto;
+  line-height: 1.45;
+}
+
+
+/* =========================================================
+   ПРЕПОДАВАТЕЛИ В МОДАЛЬНОМ ОКНЕ
+   ========================================================= */
+
+.schedule-modal-teacher {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.schedule-modal-teacher-sub {
+  margin: 0 0 8px;
+  color: #344c56;
+  font-size: 15px;
+  line-height: 1.45;
+  font-weight: 700;
+}
+
+.schedule-modal-teacher-list {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+  width: 100%;
+}
+
+.schedule-modal-teacher-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  width: 100%;
+  line-height: 1.45;
+}
+
+.schedule-modal-teacher-icon {
+  flex: 0 0 auto;
+  font-size: 19px;
+  line-height: 1.45;
+}
+
+.schedule-modal-teacher-name {
+  flex: 1;
+  min-width: 0;
+  color: #344c56;
+  font-size: 15px;
+  line-height: 1.45;
+  font-weight: 600;
+}
+
+
+
+/* =========================================================
+   DOCTRINE — ОЧИЩЕННЫЙ АДАПТИВ
+   ========================================================= */
+html,
+body { max-width: 100%; overflow-x: hidden; }
+*, *::before, *::after { box-sizing: border-box; }
+img { max-width: 100%; height: auto; }
+
+.header,
+.header-inner,
+.logo,
+.logo-text,
+.nav,
+.container,
+.intro-container,
+.intro-text,
+.teachers,
+.card,
+.card-body,
+.teacher-page,
+.teacher-top,
+.teacher-info,
+.comments,
+.review,
+.schedule-course-card,
+.schedule-card-body,
+.schedule-modal-window,
+.schedule-modal-layout,
+.schedule-modal-hero,
+.schedule-modal-top-info,
+.schedule-modal-full-content,
+.schedule-module-text { min-width: 0; }
+
+.card,
+.teacher-page,
+.review,
+.schedule-course-card,
+.schedule-modal-window,
+.schedule-modal-layout,
+.schedule-modal-hero,
+.schedule-modal-top-info,
+.schedule-modal-full-content,
+.schedule-module-text,
+.comments { overflow-wrap: anywhere; }
+
+
+/* 1100 PX */
+@media (max-width: 1100px) {
+  #courses { width: calc(100% - 30px); }
+  .schedule-courses-grid { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
+  .schedule-card-image { height: 210px; }
+  .schedule-card-title { font-size: 20px; }
+  .schedule-modal-window { width: min(1000px,calc(100vw - 30px)); }
+  .schedule-modal-hero { grid-template-columns: 340px minmax(0,1fr); }
+  .schedule-modal-image { width: 340px; height: 340px; }
+  .teachers { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
+  .teachers .card-img { height: 210px; }
+  .teachers .card-body h3 { font-size: 22px; }
+  .teachers .card-body p { font-size: 17px; }
+  .teacher-page { padding: 32px; }
+  .teacher-photo { width: 280px; height: 280px; flex-basis: 280px; }
+}
+
+/* 900 PX */
+@media (max-width: 900px) {
+  #data-table th, #data-table td { padding: 12px 10px; font-size: 14px; }
+  .table-title { font-size: 20px; }
+  .schedule-courses-grid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; }
+  .schedule-card-image { height: 220px; }
+  .schedule-modal-window { width: calc(100vw - 30px); max-height: calc(100vh - 30px); }
+  .schedule-modal-layout { max-height: calc(100vh - 30px); }
+  .schedule-modal-hero { grid-template-columns: 310px minmax(0,1fr); }
+  .schedule-modal-image { width: 310px; height: 310px; margin: 25px 0 0 25px; }
+
+  /* Компактный верхний блок modal: цена получает только нужную ширину,
+     а блок дат получает всё оставшееся место. */
+  /* На узком экране цена уходит под даты,
+     чтобы она физически не могла перекрыть время. */
+  .schedule-modal-top-info {
+    padding: 25px 25px 25px 28px;
+    grid-template-columns: 1fr;
+    column-gap: 0;
+  }
+
+  .schedule-modal-top-info .schedule-modal-prices-top {
+    grid-column: 1;
+    justify-self: start;
+    margin-top: 14px;
+  }
+
+  .schedule-modal-title { font-size: 27px; }
+  .schedule-modal-full-content { padding: 24px 28px 28px; }
+
+  /* Дата и время не разбиваются по отдельным символам. */
+  .schedule-modal-date {
+    font-size: 15px;
+    gap: 12px;
+  }
+
+  .schedule-modal-date > span {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* Плашки цены не растягиваются на всю ширину. */
+  .schedule-modal-prices-top {
+    grid-template-columns: max-content;
+    justify-content: end;
+    width: fit-content;
+    max-width: 100%;
+    margin-top: 0;
+  }
+
+  .schedule-modal-price-box {
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .schedule-modal-price-box strong {
+    white-space: nowrap;
+    word-break: normal;
+  }
+
+  .intro { padding: 30px 15px; }
+  .intro-container { width: min(100%,calc(100% - 20px)); gap: 24px; }
+  .intro-text { max-width: 100%; }
+  .intro-text p { font-size: 16px; }
+  .teachers { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 20px; }
+  .teachers .card-img { height: 220px; }
+  .teachers .card-body h3 { font-size: 21px; }
+  .teachers .card-body p { font-size: 16px; }
+  .teacher-page { width: calc(100% - 30px); padding: 28px; }
+  .teacher-photo { width: 260px; height: 260px; flex-basis: 260px; }
+}
+
+/* 768 PX — мобильное меню */
+@media (max-width: 768px) {
+  .header { padding: 8px 0; }
+  .header-inner { width: calc(100% - 20px); min-height: 70px; gap: 10px; }
+  .logo { flex: 1 1 auto; }
+  .logo-img { width: 62px; height: 62px; flex-basis: 62px; }
+  .logo-text h1 { font-size: 19px; line-height: 1.15; }
+  .logo-text p { font-size: 10px; line-height: 1.25; }
+  .burger { display: flex; flex: 0 0 42px; width: 42px; height: 42px; align-items: center; justify-content: center; }
+  .nav { position: absolute; top: calc(100% + 8px); right: 10px; left: auto; display: none; flex-direction: column; align-items: stretch; width: min(280px,calc(100vw - 20px)); min-width: 0; padding: 10px; gap: 2px; background: #fff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,.15); }
+  .nav.open { display: flex; }
+  .nav a { width: 100%; padding: 11px 12px; color: #1f2a30; font-size: 15px; line-height: 1.3; }
+  .nav a:hover { color: #1f2a30; background: #eef6f6; }
+  .teachers { width: calc(100% - 30px); margin: 25px auto; padding: 0; }
+  .teacher-page { width: calc(100% - 24px); margin: 24px auto; padding: 22px; border-radius: 16px; }
+  .teacher-top { flex-direction: column; align-items: center; text-align: center; }
+  .teacher-photo { width: min(260px,80vw); height: min(260px,80vw); flex: 0 0 auto; }
+  .teacher-info { width: 100%; }
+  .teacher-info h1 { font-size: clamp(24px,7vw,30px); }
+  .teacher-info p { margin: 20px 0; }
+  .comments { width: calc(100% - 24px); margin: 30px auto; }
+  .contacts-icons { gap: 20px; }
+  .contacts-icons a { font-size: 16px; }
+  .info li { font-size: 16px; }
+  .schedule-courses-grid { grid-template-columns: 1fr; }
+}
+
+/* 650 PX */
+@media (max-width: 650px) {
+  #courses { width: calc(100% - 24px); margin-top: 25px; margin-bottom: 55px; }
+  .schedule-courses-grid { grid-template-columns: 1fr; gap: 20px; }
+  .schedule-card-image { height: auto; aspect-ratio: 4/3; }
+  .schedule-card-body { padding: 21px 20px 20px; }
+  .schedule-card-title { font-size: 22px; }
+  .schedule-card-teacher, .schedule-card-date { font-size: 15px; }
+  .schedule-calendar-icon { font-size: 20px; }
+  .schedule-card-price { font-size: 26px; }
+  .schedule-month-divider { margin: 32px 0; gap: 11px; }
+  .schedule-modal { padding: 8px; }
+  .schedule-modal-window { width: 100%; max-height: calc(100vh - 16px); border-radius: 16px; }
+  .schedule-modal-layout { max-height: calc(100vh - 16px); }
+  .schedule-modal-hero { display: block; }
+  .schedule-modal-image { width: 100%; height: min(75vw,330px); margin: 0; border-radius: 16px 16px 0 0; }
+  .schedule-modal-image img { border-radius: 16px 16px 0 0; }
+  .schedule-modal-top-info {
+    width: 100%;
+    padding: 22px 20px 24px;
+    display: block;
+  }
+  .schedule-modal-title { margin-right: 40px; font-size: 25px; }
+  .schedule-modal-teacher-name { font-size: 14px; }
+  .schedule-modal-hours { font-size: 13px; }
+
+  .schedule-modal-date {
+    font-size: 15px;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .schedule-modal-date > span {
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .modal-calendar-icon { font-size: 21px; }
+  .schedule-time-icon { font-size: 18px; }
+
+  .schedule-modal-prices-top {
+    grid-template-columns: repeat(2,max-content);
+    justify-content: start;
+    width: fit-content;
+    max-width: 100%;
+    margin-top: 12px;
+  }
+
+  .schedule-modal-prices-top .schedule-modal-price-box {
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .schedule-modal-prices:not(.schedule-modal-prices-top) {
+    grid-template-columns: repeat(2,max-content);
+    justify-content: start;
+  }
+
+  .schedule-modal-price-box strong {
+    font-size: 20px;
+    white-space: nowrap;
+    word-break: normal;
+  }
+  .schedule-modal-full-content { padding: 22px 20px 25px; }
+  .schedule-modal-description { font-size: 14px; }
+  .schedule-module-row { grid-template-columns: 31px minmax(0,1fr); }
+  .schedule-module-text strong { font-size: 13px; }
+  .schedule-module-text span { font-size: 12px; }
+  .schedule-module-date { font-size: 12px; }
+  .schedule-modal-register { min-height: 49px; font-size: 14px; }
+  .teachers { grid-template-columns: 1fr; gap: 20px; }
+  .teachers .card-img { height: auto; aspect-ratio: 4/3; }
+  .teachers .card-body { padding: 18px 16px 20px; }
+  .teachers .card-body h3 { margin: 0 0 6px; font-size: 21px; }
+  .teachers .card-body p { margin: 0; font-size: 16px; }
+  .teacher-page { width: calc(100% - 24px); padding: 22px; }
+  .teacher-photo { width: 220px; height: 220px; }
+  .teacher-info h1 { font-size: 28px; }
+  .intro-container { flex-direction: column; align-items: center; }
+  .intro-photo { width: 100%; display: flex; justify-content: center; }
+  .intro-photo img { width: min(300px,90vw); }
+  .intro-text h2 { font-size: 22px; }
+  .intro-text p { font-size: 15px; text-align: left; }
+  .contacts { padding: 35px 15px; }
+  .contacts h3 { font-size: 23px; }
+  .contacts-icons { flex-direction: column; align-items: center; }
+  .table-wrapper { border-radius: 8px; }
+}
+
+/* 480 PX */
+@media (max-width: 480px) {
+  .header-inner { width: calc(100% - 16px); }
+  .logo-img { width: 54px; height: 54px; flex-basis: 54px; }
+  .logo-text h1 { font-size: 17px; }
+  .logo-text p { font-size: 9px; }
+  .burger { width: 40px; height: 40px; flex-basis: 40px; font-size: 26px; }
+  .teachers { width: calc(100% - 20px); margin-top: 20px; }
+  .teachers .card-body { padding: 17px 15px 19px; }
+  .teachers .card-body h3 { font-size: 20px; }
+  .teachers .card-body p { font-size: 15px; }
+  .teacher-page { width: calc(100% - 16px); padding: 18px 15px; margin-top: 16px; }
+  .teacher-photo { width: min(230px,78vw); height: min(230px,78vw); }
+  .teacher-page h2 { font-size: 20px; }
+  .teacher-page p { font-size: 15px; line-height: 1.65; }
+  .comments { width: calc(100% - 16px); }
+  .comments input, .comments textarea { font-size: 16px; }
+  .schedule-card-title { font-size: 21px; }
+  .schedule-card-price { font-size: 24px; }
+  .schedule-modal-close { top: 10px; right: 10px; width: 38px; height: 38px; font-size: 24px; }
+  .schedule-modal-image { height: 280px; }
+  .schedule-modal-title { font-size: 23px; }
+
+  .schedule-modal-prices-top {
+    grid-template-columns: 1fr;
+    justify-content: start;
+    width: 100%;
+  }
+
+  .schedule-modal-prices-top .schedule-modal-price-box {
+    width: fit-content;
+    max-width: 100%;
+  }
+
+  .schedule-modal-price-box strong {
+    font-size: 21px;
+    white-space: nowrap;
+    word-break: normal;
+  }
+  .schedule-modal-full-content { padding: 21px 17px 23px; }
+  .schedule-module-row { grid-template-columns: 29px minmax(0,1fr); gap: 9px; padding: 9px; }
+}
+
+/* 390 PX */
+@media (max-width: 390px) {
+  .logo-text h1 { font-size: 16px; }
+  .logo-text p { font-size: 8.5px; }
+  .teachers { width: calc(100% - 16px); }
+  .teachers .card-body { padding: 16px 14px 18px; }
+  .teachers .card-body h3 { font-size: 19px; }
+  .teachers .card-body p { font-size: 14px; }
+  .teacher-page { width: calc(100% - 12px); padding: 16px 12px; }
+  .teacher-photo { width: min(210px,75vw); height: min(210px,75vw); }
+  .schedule-card-image { height: 200px; aspect-ratio: auto; }
+  .schedule-card-title { font-size: 20px; }
+  .schedule-card-date { font-size: 14px; }
+  .schedule-calendar-icon { font-size: 18px; }
+  .schedule-card-price { font-size: 23px; }
+  .schedule-modal-image { height: 250px; }
+  .schedule-modal-top-info { padding: 20px 17px 21px; }
+  .schedule-modal-title { font-size: 22px; }
+  .schedule-modal-date { font-size: 14px; }
+  .modal-calendar-icon { font-size: 20px; }
+  .schedule-modal-price-box strong { font-size: 20px; }
+  .schedule-modal-description { font-size: 13px; }
+  .schedule-module-text strong { font-size: 12px; }
+  .schedule-module-text span { font-size: 11px; }
+}
+
+/* Touch */
+@media (hover: none) and (pointer: coarse) {
+  .card:hover, .schedule-course-card:hover, .review:hover { transform: none; }
+  .schedule-card-image img:hover, .schedule-course-card:hover .schedule-card-image img { transform: none; }
+}
+
+/* =========================================================
+   ЛИЧНЫЙ КАБИНЕТ — НЕАКТИВНАЯ ЗАГОТОВКА
+   ========================================================= */
+.cabinet-shell,
+.cabinet-content,
+.cabinet-sidebar,
+.cabinet-card,
+.cabinet-form,
+.cabinet-panel { min-width: 0; max-width: 100%; }
+
+.cabinet-shell { width: min(1200px,calc(100% - 30px)); margin: 30px auto; }
+.cabinet-grid { display: grid; grid-template-columns: 240px minmax(0,1fr); gap: 24px; }
+
+@media (max-width: 768px) {
+  .cabinet-shell { width: calc(100% - 24px); margin: 20px auto; }
+  .cabinet-grid { grid-template-columns: 1fr; }
+}
+
+/* =========================================================
+   PRODUCTION FIX — АДАПТИВ MODAL
+   Даты/время не сжимаются. Цена не растягивается.
+   ========================================================= */
+
+/* =========================================================
+   КОНЕЦ ОЧИЩЕННОГО STYLE.CSS
+   ========================================================= */

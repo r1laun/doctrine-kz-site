@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Преподаватели</title>
+  <link rel="icon" href="Хамса2.jpg" type="image/x-icon" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- === HEADER === -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <img src="Хамса2.jpg" alt="Doctrine" class="logo-img">
+        <div class="logo-text">
+          <a href="index.html"><h1>Doctrine</h1></a>
+          <p>глубокие знания от сердца к сердцу</p>
+        </div>
+      </div>
+
+      <nav class="nav" id="nav">
+        <a href="rasspisanie.html">Расписание</a>
+        <a href="Online.html">Онлайн</a>
+        <a href="Ofline.html">Офлайн</a>
+        <!-- <a href="Courses.html" >Курсы</a> -->
+        <a href="teacher.html">Преподаватели</a>
+      </nav>
+      <button class="burger" id="burgerBtn">☰</button>
+    </div>
+  </header>
+
+<!-- <h1 class="title">Преподаватели</h1> -->
+
+<div id="app"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyB8kkzQ5oh298uooOgJfIHBmhI7YVJe7PM",
+    authDomain: "doctrine-1ebe5.firebaseapp.com",
+    databaseURL: "https://doctrine-1ebe5-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "doctrine-1ebe5",
+    storageBucket: "doctrine-1ebe5.firebasestorage.app",
+    messagingSenderId: "14875309912",
+    appId: "1:14875309912:web:e0c2c17c1c666d4914972d"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+</script>
+
+<script src="teacher.js"></script>
+
+<script>
+  const burgerBtn =
+    document.getElementById("burgerBtn");
+
+  const nav =
+    document.getElementById("nav");
+
+  if (burgerBtn && nav) {
+
+    burgerBtn.addEventListener(
+      "click",
+      function () {
+
+        nav.classList.toggle("open");
+
+      }
+    );
+
+  }
+</script>
+
+<script src="teacher.js"></script>
+</body>
+</html>

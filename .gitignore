@@ -1,0 +1,5 @@
+_original/*.jpg
+_original/*.jpeg
+_original/*.png
+__pycache__/
+.DS_Store

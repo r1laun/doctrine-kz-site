@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doctrine.kz — Курсы</title>
+  <link rel="icon" href="Хамса2.jpg" type="image/x-icon" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- === HEADER === -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <img src="Хамса2.jpg" alt="Doctrine" class="logo-img">
+        <div class="logo-text">
+          <a href="index.html"><h1>Doctrine</h1></a>
+          <p>глубокие знания от сердца к сердцу</p>
+        </div>
+      </div>
+
+      <nav class="nav" id="nav">
+        <a href="rasspisanie.html" target="_blank">Расписание</a>
+        <a href="Online.html">Онлайн</a>
+        <a href="Ofline.html">Офлайн</a>
+        <!-- <a href="Courses.html">Курсы</a> --> 
+        <a href="teacher.html">Преподаватели</a>
+      </nav>
+      <button class="burger" id="burgerBtn">☰</button>
+    </div>
+  </header>
+
+  
+  <!-- === MAIN CONTENT === -->
+  <main>
+    <section class="intro">
+      <h2>Программы обучения</h2>
+      <p>Преподавание ведётся на Казахском и Русском языках</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Тематика программы</th>
+              <th>Краткое описание содержания</th>
+              <th>Формат проведения</th>
+              <th>Целевая аудитория</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Современные клинические протоколы</td>
+              <td>Современные клинические протоколы</td>
+              <td>Семинар, мастер-класс</td>
+              <td>Врачи общей практики, узкие специалисты</td>
+            </tr>
+            <tr>
+              <td>Заболевания, вызванные лекарствами</td>
+              <td>Лекарственно-индуцированные заболевания. Патогенез, диагностика, пути коррекции</td>
+              <td>Семинар, вебинар</td>
+              <td>Врачи общей практики, терапевты, кардиологи, пульмонологи, гастроэнтерологи</td>
+            </tr>
+            <tr>
+              <td>Холтеровское мониторирование и СМАД без ошибок</td>
+              <td>Разбор интерпретации ХМЭКГ и СМАДа на клинических примерах</td>
+              <td>Семинар, мастер-класс</td>
+              <td>Кардиологи, ВОП, терапевты</td>
+            </tr>
+            <tr>
+              <td>От рецептора до результата: как управлять липидным спектром эффективно?</td>
+              <td>Интерпретация липидного спектра, патогенез дислипидемий и пути терапии</td>
+              <td>Семинар, вебинар</td>
+              <td>Кардиологи, ВОП, терапевты</td>
+            </tr>
+            <tr>
+              <td>Терапия ХСН в реальной практике</td>
+              <td>Схемы терапии пациентов с хронической сердечной недостаточностью</td>
+              <td>Семинар, вебинар</td>
+              <td>Кардиологи, ВОП, терапевты</td>
+            </tr>
+            <tr>
+              <td>Антиангинальная терапия: классика и новые горизонты</td>
+              <td>Клинические примеры воздействия на ИБС и антиангинальные подходы</td>
+              <td>Семинар, вебинар</td>
+              <td>Кардиологи, ВОП, терапевты</td>
+            </tr>
+            <tr>
+              <td>Антитромботическая терапия при ИБС</td>
+              <td>Механизмы действия, современные подходы, баланс риска и пользы</td>
+              <td>Семинар, вебинар</td>
+              <td>Кардиологи, ВОП, терапевты</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <!-- === FOOTER === -->
+  <!-- <footer>
+    <p>© Doctrine — Все права защищены, 2025</p>
+  </footer> -->
+
+  <!-- === SCRIPT === -->
+ <script>
+  // Простое бургер-меню без анимации
+  const burger = document.getElementById('burgerBtn');
+  const nav = document.getElementById('nav');
+
+  burger.addEventListener('click', () => {
+    nav.classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>

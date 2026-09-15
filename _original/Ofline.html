@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doctrine.kz — Офлайн обучение</title>
+  <link rel="icon" href="Хамса2.jpg" type="image/x-icon" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- === HEADER === -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <img src="Хамса2.jpg" alt="Doctrine" class="logo-img">
+        <div class="logo-text">
+          <a href="index.html"><h1>Doctrine</h1></a>
+          <p>глубокие знания от сердца к сердцу</p>
+        </div>
+      </div>
+
+      <nav class="nav" id="nav">
+        <a href="rasspisanie.html">Расписание</a>
+        <a href="Online.html">Онлайн</a>
+        <a href="Ofline.html">Офлайн</a>
+        <!-- <a href="Courses.html" >Курсы</a> -->
+        <a href="teacher.html">Преподаватели</a>
+      </nav>
+      <button class="burger" id="burgerBtn">☰</button>
+    </div>
+  </header>
+
+<main>
+    <section class="under-dev">
+      <h2>"Сайт находится в разработке"</h2>
+      <p>Приносим извинения за временные неудобства.</p>
+    </section>
+  </main>
+
+  <!-- === FOOTER === -->
+  <!-- <footer>
+    <p>© Doctrine — Все права защищены, 2025</p>
+  </footer> -->
+
+  <script>
+  // Простое бургер-меню без анимации
+  const burger = document.getElementById('burgerBtn');
+  const nav = document.getElementById('nav');
+
+  burger.addEventListener('click', () => {
+    nav.classList.toggle('open');
+  });
+</script>
+    
+</body>
+</html>

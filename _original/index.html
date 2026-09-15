@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doctrine.kz — Образовательный центр</title>
+  <link rel="icon" href="Хамса2.jpg" type="image/x-icon" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600&display=swap" rel="stylesheet">
+  <title>Doctrine — обучение врачей в Алматы | Курсы и вебинары для медиков</title>
+
+<meta name="description" content="Образовательный центр Doctrine в Алматы. Курсы и вебинары для врачей: кардиология, УЗИ, клиническая практика. Онлайн и офлайн обучение для медиков Казахстана.">
+
+<meta name="keywords" content="
+Доктрина,доктрина,Doctrine,Doctrina
+курсы для врачей Алматы,
+обучение врачей Казахстан,
+медицинские курсы Алматы,
+вебинары для врачей,
+кардиология обучение,
+повышение квалификации врачей,
+медицинские вебинары онлайн,
+обучение врачей онлайн Казахстан,
+курсы для кардиологов,
+Doctrine обучение врачей
+">
+</head>
+
+<body>
+  <!-- === HEADER === -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <img src="Хамса2.jpg" alt="Doctrine" class="logo-img">
+        <div class="logo-text">
+          <h1>Doctrine</h1></a>
+          <p>глубокие знания от сердца к сердцу</p>
+        </div>
+      </div>
+
+      <nav class="nav" id="nav">
+        <a href="rasspisanie.html">Расписание</a>
+        <a href="Online.html">Онлайн</a>
+        <a href="Ofline.html">Офлайн</a>
+        <!-- <a href="Courses.html" >Курсы</a> -->
+        <a href="teacher.html">Преподаватели</a>
+      </nav>
+      <button class="burger" id="burgerBtn">☰</button>
+    </div>
+  </header>
+
+  <!-- ОСНОВНОЙ БЛОК -->
+  <main>
+    <section class="intro">
+      <div class="intro-container">
+        <div class="intro-photo">
+          <img src="Инна.jpg" alt="Инна Евгеньевна">
+        </div>
+        <div class="intro-text">
+          <h2>Добро пожаловать в <span>"Doctrine"</span>!</h2>
+          <p>
+            Коллеги, меня зовут Инна Евгеньевна, и я основатель и идейный лидер нашего образовательного центра. 
+            Создать такой центр — это была моя давняя мечта, и в 2021 году мы сделали это! 
+            Организовали Образовательный центр, но в силу некоторых нюансов несколько лет мы были неактивны. 
+            И теперь, в 2025 году, наш центр открывает свои двери. 
+            Мы стараемся учесть все пожелания коллег, которые хотят обучиться и получить "глубокие знания от сердца к сердцу". 
+            Это наш девиз и возник не просто так. 
+            Я сама уже порядка 20 лет занимаюсь обучением врачей и работаю в клинике, и не понаслышке знаю, как сложно искать ответы на практические вопросы. 
+            Поэтому наши преподаватели — это клиницисты с большим опытом, которые с удовольствием поделятся своими знаниями.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="info">
+      <h3>Для кого наш центр?</h3>
+      <p>
+        <h4>В первую очередь для врачей, которые хотят получить ценные прикладные знания по актуальным вопросам в медицине.</h4>
+      </p>
+      <ul>
+        <li>Проведение семинаров, тренингов, мастер-классов и вебинаров;</li>
+        <li>Организация конференций и школ для врачей;</li>
+        <li>Развитие методической базы и образовательных технологий;</li>
+        <li>Сотрудничество с медицинскими вузами и ассоциациями.</li>
+      </ul>
+    </section>
+
+    <!-- КОНТАКТЫ -->
+    <section class="contacts">
+      <h3>Контакты</h3>
+      <div class="contacts-icons">
+        <a href="https://wa.me/77770357345" target="_blank">
+          <img src="whatsapp-gray.png" alt="WhatsApp"> WhatsApp
+        </a>
+        <a href="https://www.instagram.com/doctrine_centre" target="_blank">
+          <img src="instagram-gray.png" alt="Instagram"> Instagram
+        </a>
+        <!-- <img src="" alt="">Тел: 8 888 888 88 88
+        <img src="" alt="">емаил: аважпаиапидт" -->
+        
+      </div>
+      <div class="oferta">
+        <h3 ><a href="Публичная Офера.html" target="_blank">Публичная Оферта</a></h3>
+      </div>
+      
+  <div class="comments">
+  <h2>Отзывы</h2>
+
+  <input id="name" placeholder="Ваше имя">
+  <input id="course" placeholder="Какой курс прошли">
+  <textarea id="text" placeholder="Ваш отзыв..."></textarea>
+
+  <button onclick="sendMainReview()">Отправить</button>
+
+  <div id="mainReviews"></div>
+</div>
+<!-- Firebase -->
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+<script>
+  const firebaseConfig = {
+    apiKey: "AIzaSyB8kkzQ5oh298uooOgJfIHBmhI7YVJe7PM",
+    authDomain: "doctrine-1ebe5.firebaseapp.com",
+    databaseURL: "https://doctrine-1ebe5-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "doctrine-1ebe5",
+    storageBucket: "doctrine-1ebe5.firebasestorage.app",
+    messagingSenderId: "14875309912",
+    appId: "1:14875309912:web:e0c2c17c1c666d4914972d"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+</script>
+<script src="main.js"></script> 
+
+      
+
+    </section>
+
+    <!-- ВРЕМЕННЫЙ БЛОК -->
+    <section class="in-progress">
+      <h2>Сайт ещё в разработке</h2>
+      <p>Приносим свои извинения за временные неудобства</p>
+    </section>
+  </main>
+
+  <<script>
+  // Простое бургер-меню без анимации
+  const burger = document.getElementById('burgerBtn');
+  const nav = document.getElementById('nav');
+
+
+  burger.addEventListener('click', () => {
+    nav.classList.toggle('open');
+  });
+</script>
+
+</body>
+</html>

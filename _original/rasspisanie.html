@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doctrine.kz — Онлайн обучение</title>
+  <link rel="icon" href="Хамса2.jpg" type="image/x-icon" />
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <!-- === HEADER === -->
+  <header class="header">
+    <div class="header-inner">
+      <div class="logo">
+        <img src="Хамса2.jpg" alt="Doctrine" class="logo-img">
+        <div class="logo-text">
+          <a href="index.html"><h1>Doctrine</h1></a>
+          <p>глубокие знания от сердца к сердцу</p>
+        </div>
+      </div>
+
+      <nav class="nav" id="nav">
+        <a href="rasspisanie.html">Расписание</a>
+        <a href="Online.html">Онлайн</a>
+        <a href="Ofline.html">Офлайн</a>
+        <!-- <a href="Courses.html" >Курсы</a> -->
+        <a href="teacher.html">Преподаватели</a>
+      </nav>
+      <button class="burger" id="burgerBtn">☰</button>
+    </div>
+  </header>
+
+<main>
+
+  <section class="schedule-container">
+
+    <h2 class="table-title"></h2>
+
+    <div id="courses"></div>
+
+  </section>
+
+</main>
+
+<script src="https://cdn.jsdelivr.net/npm/papaparse@5.4.1/papaparse.min.js"></script>
+<script src="rasspisanie.js"></script>
+
+<script>
+const burger = document.getElementById('burgerBtn');
+const nav = document.getElementById('nav');
+
+burger.addEventListener('click', () => {
+  nav.classList.toggle('open');
+});
+</script>
+
+</body>
+</html>

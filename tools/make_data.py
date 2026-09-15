@@ -1,0 +1,160 @@
+"""Build docs/data/*.json from original Google Sheets CSVs + Google Form course list.
+Run: python3 tools/make_data.py
+"""
+import csv, json, re, os
+
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ORIG = os.path.join(ROOT, "_original")
+OUT = os.path.join(ROOT, "docs", "data")
+os.makedirs(OUT, exist_ok=True)
+
+FORM_URL = "https://forms.gle/w3KRJmSDwuwjDRKx6"
+WHATSAPP = "https://wa.me/77770357345"
+INSTAGRAM = "https://www.instagram.com/doctrine_centre"
+
+def rows(f):
+    with open(os.path.join(ORIG, f), encoding="utf-8-sig") as fh:
+        return list(csv.DictReader(fh))
+
+def clean(v):
+    return re.sub(r"\s+", " ", str(v or "")).strip()
+
+def clean_ml(v):
+    lines = [re.sub(r"[ \t]+", " ", str(ln)).strip()
+             for str_ln in str(v or "").split("\n") for ln in [str_ln]]
+    return "\n".join(ln for ln in lines if ln)
+
+_RU = {"а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "e",
+        "ж": "zh", "з": "z", "и": "i", "й": "i", "к": "k", "л": "l", "м": "m",
+        "н": "n", "о": "o", "п": "p", "р": "r", "с": "s", "т": "t", "у": "u",
+        "ф": "f", "х": "h", "ц": "ts", "ч": "ch", "ш": "sh", "щ": "sch",
+        "ъ": "", "ы": "y", "ь": "", "э": "e", "ю": "yu", "я": "ya"}
+
+def slugify(s):
+    s = clean(s).lower()
+    s = "".join(_RU.get(ch, ch) for ch in s)
+    s = re.sub(r"[^a-z0-9]+", "-", s).strip("-")
+    return s[:60] or "course"
+
+# Draft KK/EN titles for the flagship courses (human draft by assistant,
+# to be reviewed by a native speaker). Others fall back to RU.
+TITLE_I18N = {
+    "К001": {"kk": "Эхокардиография. Жоғары деңгей. Қақпақшалар бақылауда",
+             "en": "Echocardiography. Advanced level. Valves under control"},
+    "К002": {"kk": "Холтер және СМАД: қателеспей оқу (модульдік курс)",
+             "en": "Holter & ABPM: how to read without mistakes (modular course)"},
+    "К003": {"kk": "Қазақ тілінде ЭКГ-ның авторлық оқыту әдістемесі",
+             "en": "Author's ECG training method in Kazakh"},
+    "К004": {"kk": "QT аралығы және дәрілер. Күнделікті білім",
+             "en": "QT interval and drugs. Everyday knowledge"},
+    "К005": {"kk": "Клиницист дәрігерге арналған ЭхоКГ нөлден",
+             "en": "EchoCG from scratch for clinicians"},
+    "К006": {"kk": "ЭКС бар пациенттерде холтерлік мониторинг ерекшеліктері",
+             "en": "Holter monitoring in patients with pacemakers"},
+    "К008": {"kk": "Кардиоонкология",
+             "en": "Cardio-oncology"},
+    "К009": {"kk": "Кардиологиядағы жүктемелік тестілеу",
+             "en": "Stress testing in cardiology: from indications to decisions"},
+}
+
+sched = rows("schedule.csv")
+courses_csv = rows("courses.csv")
+teachers_csv = rows("teachers.csv")
+
+teach_map = {}
+teachers = []
+photo_renames = {
+    "img/Зурдунова.jpeg": "Зурдунова.jpeg",
+    "img/Лещинская-Попова.jpeg": "Лещинская-Попова.jpeg",
+    "img/Халикназарова Дилафруз Муратжановна.jpeg": "Халикназарова-Дилафруз-Муратжановна.jpeg",
+    "img/Хахазова Карлыгаш Болатовна.jpeg": "Хахазова-Карлыгаш-Болатовна.jpeg",
+    "img/Азим Саида Юсуфовна.jpeg": "Азим-Саида-Юсуфовна.jpeg",
+}
+for t in teachers_csv:
+    if not clean(t.get("name")) or not clean(t.get("photo")):
+        continue
+    photo = photo_renames.get(clean(t["photo"]), os.path.basename(clean(t["photo"])))
+    teach_map[clean(t["name"]).replace("  ", " ")] = t["id"]
+    teachers.append({
+        "id": clean(t["id"]),
+        "name": clean(t["name"]),
+        "spec": clean(t["spec"]),
+        "work": clean(t["work"]),
+        "exp": clean(t["exp"]),
+        "photo": "../assets/img/" + photo,
+        "about": clean_ml(t["about"]),
+    })
+
+cat_title = {clean(r["ID Курса"]): clean(r["Название курса"]) for r in courses_csv}
+
+courses = []
+for c in courses_csv:
+    cid = clean(c["ID Курса"])
+    title_ru = clean(c["Название курса"])
+    if not cid or not title_ru:
+        continue
+    items = [r for r in sched if clean(r["ID Курса"]) == cid]
+    # detect online/offline by text hints
+    blob = " ".join(clean(r["Дата и время"]) + " " + clean(r["Описание"]) for r in items).lower()
+    fmt = "online"
+    if any(w in blob for w in ["алматы", "офлайн", "очно", "аудитор", "клиник"]):
+        fmt = "offline"
+    if "вебинар" in blob or "online" in blob or "запись" in blob:
+        fmt = "online"
+    tr = TITLE_I18N.get(cid, {})
+    courses.append({
+        "id": cid,
+        "slug": slugify(title_ru) or cid.lower(),
+        "title": {"ru": title_ru,
+                  "kk": tr.get("kk", title_ru),
+                  "en": tr.get("en", title_ru)},
+        "format": fmt,
+        "cover": "zaglushka",
+        "sessions": [{
+            "sid": clean(r["ID Проведения"]),
+            "kind": clean(r["Тип"]),
+            "title": clean(r["Название курса"]),
+            "desc": clean_ml(r["Описание"]),
+            "teacher": clean_ml(r["Преподаватель"]),
+            "hours": clean(r["Часы/ЗЕ"]),
+            "dates": clean_ml(r["Дата и время"]),
+            "price": clean(r["Цена курса"]),
+            "module_price": clean(r["Цена модуля"]),
+            "month": clean(r["Месяц"]),
+        } for r in items],
+    })
+
+site = {
+    "name": "Doctrine",
+    "tagline": {
+        "ru": "глубокие знания от сердца к сердцу",
+        "kk": "жүректен жүрекке терең білім",
+        "en": "deep knowledge from heart to heart",
+    },
+    "form_url": FORM_URL,
+    "whatsapp": WHATSAPP,
+    "instagram": INSTAGRAM,
+    "phone": "+7 777 035 73 45",
+    "email": "doctrine.centre@gmail.com",
+    "address": {"ru": "г. Алматы, ул. Тимирязева, 61/68",
+                "kk": "Алматы қ., Тимирязев к-сі, 61/68",
+                "en": "Almaty, Timiryazev str., 61/68"},
+    "bin": "210140019512",
+    "founder": {
+        "name": {"ru": "Лещинская-Попова Инна Евгеньевна",
+                 "kk": "Лещинская-Попова Инна Евгеньевна",
+                 "en": "Inna Leshinskaya-Popova"},
+        "role": {"ru": "Основатель и идейный лидер центра, врач-кардиолог, 20 лет в обучении врачей",
+                 "kk": "Орталықтың негізін қалаушы, кардиолог дәрігер, дәрігерлерді оқытудағы 20 жылдық тәжірибе",
+                 "en": "Founder of the centre, cardiologist, 20 years in physician training"},
+    },
+}
+
+with open(os.path.join(OUT, "courses.json"), "w", encoding="utf-8") as f:
+    json.dump(courses, f, ensure_ascii=False, indent=1)
+with open(os.path.join(OUT, "teachers.json"), "w", encoding="utf-8") as f:
+    json.dump(teachers, f, ensure_ascii=False, indent=1)
+with open(os.path.join(OUT, "site.json"), "w", encoding="utf-8") as f:
+    json.dump(site, f, ensure_ascii=False, indent=1)
+print(f"courses={len(courses)} teachers={len(teachers)}")
+print("sessions total:", sum(len(c["sessions"]) for c in courses))

@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://r1laun.github.io/doctrine-kz-site/sitemap.xml
