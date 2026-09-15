@@ -168,7 +168,7 @@ def footer(lang):
     return f"""</main>
 <footer><div class="container">
 <div><h3>Doctrine</h3><p>{esc(t["footer_about"])}</p><small>ТОО «Образовательный центр DOCTRINE» · БИН {SITE["bin"]} · © <span data-year>2026</span> {esc(t["rights"])}</small></div>
-<div><h4>{esc(t["menu_h"])}</h4>{nav}<div><a href="offer.html">{esc(t["offer_h"])}</a></div></div>
+<div><h4>{esc(t["menu_h"])}</h4>{nav}<div><a href="../files/public-offer.pdf" target="_blank" rel="noopener">{esc(t["offer_h"])} (PDF)</a></div></div>
 <div><h4>{esc(t["contacts_h"])}</h4><div><a href="{WA}">WhatsApp: {esc(SITE["phone"])}</a></div><div><a href="{IG}">Instagram</a></div><div><small>{esc(SITE["address"][lang])}</small></div></div>
 </div></footer>
 <script src="../assets/js/main.js"></script>
@@ -317,20 +317,13 @@ def page_teachers(lang):
 </div></section>
 """ + contacts_section(lang) + footer(lang))
 
-def page_offer(lang):
-    t = T[lang]
-    return (head(lang, t["offer_h"], t["meta_desc"]) + header(lang, "", "offer.html") + f"""
-<section class="section"><div class="container"><h1>{esc(t["offer_h"])}</h1><p>{esc(t["offer_t"])}</p>
-<p>WhatsApp: <a href="{WA}">{esc(SITE["phone"])}</a></p></div></section>
-""" + footer(lang))
-
 def page_404(lang):
     return (head(lang, "404", "Page not found") + header(lang, "", "404.html") +
             '<section class="section"><div class="container"><h1>404</h1><p><a href="index.html">← Home</a></p></div></section>' + footer(lang))
 
 BUILDERS = {"index.html": page_index, "schedule.html": page_schedule,
             "course.html": page_course, "teachers.html": page_teachers,
-            "offer.html": page_offer, "404.html": page_404}
+            "404.html": page_404}
 
 for lang in LANGS:
     d = os.path.join(DOCS, lang)
@@ -346,7 +339,7 @@ with open(os.path.join(DOCS, ".nojekyll"), "w") as f:
     f.write("")
 BASE = "https://r1laun.github.io/doctrine-kz-site"
 urls = [f"{BASE}/{l}/{p}" for l in LANGS for p in
-        ["index.html", "schedule.html", "course.html", "teachers.html", "offer.html"]]
+        ["index.html", "schedule.html", "course.html", "teachers.html"]]
 with open(os.path.join(DOCS, "sitemap.xml"), "w", encoding="utf-8") as f:
     f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
             + "".join(f"<url><loc>{u}</loc></url>\n" for u in urls) + "</urlset>")
