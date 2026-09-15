@@ -55,7 +55,7 @@ a{color:inherit}
 .btn-ghost:hover{background:#eef6f6}
 /* trust */
 .trust{background:#fff;border-bottom:1px solid var(--line)}
-.trust-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;padding:26px 0;max-width:1000px;margin:0 auto}
+.trust-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding:26px 0;max-width:900px;margin:0 auto}
 @media(max-width:640px){
   .trust-grid{gap:4px;padding:18px 0}
   .trust-item{padding:6px 2px}
