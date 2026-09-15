@@ -14,6 +14,11 @@ with open(os.path.join(DATA, "teachers.json"), encoding="utf-8") as f:
     TEACHERS = json.load(f)
 with open(os.path.join(DATA, "site.json"), encoding="utf-8") as f:
     SITE = json.load(f)
+try:
+    with open(os.path.join(DATA, "reviews.json"), encoding="utf-8") as f:
+        REVIEWS = json.load(f)
+except FileNotFoundError:
+    REVIEWS = []
 
 FORM = SITE["form_url"]
 WA = SITE["whatsapp"]
@@ -36,7 +41,11 @@ T = {
         "offline_h": "Офлайн", "offline_t": "Семинары и мастер-классы в Алматы: живая практика, разбор кейсов, общение с экспертами.",
         "detail": "Подробнее →", "enroll": "Записаться",
         "teachers_h": "Преподаватели", "teachers_sub": "Клиницисты с большим практическим опытом.",
-        "reviews_h": "Отзывы", "faq_h": "Частые вопросы",
+        "reviews_h": "Отзывы", "reviews_sub": "Настоящие отзывы наших слушателей.",
+        "rev_name_ph": "Ваше имя", "rev_course_ph": "Какой курс прошли",
+        "rev_text_ph": "Ваш отзыв…", "rev_send": "Отправить отзыв",
+        "rev_note": "Отзыв отправится нам в WhatsApp и появится на сайте после проверки.",
+        "rev_empty": "Пока отзывов нет — станьте первым!", "faq_h": "Частые вопросы",
         "faq": [("Выдаёте ли сертификат?", "Да. После завершения программы вы получаете сертификат центра; по ряду вебинаров начисляются зачётные единицы (ЗЕ). Детали указаны в карточке каждого курса."),
                 ("Как записаться?", "Нажмите «Записаться» — откроется анкета участника (Google Form). Заполните её, мы свяжемся с вами в WhatsApp и подтвердим место."),
                 ("Как проходит онлайн?", "Вебинары идут в прямом эфире + доступны в записи. Ссылка и материалы приходят на email и в WhatsApp."),
@@ -69,7 +78,11 @@ T = {
         "offline_h": "Офлайн", "offline_t": "Алматыдағы семинарлар мен мастер-класстар: тәжірибе, кейс талдау, сарапшылармен кездесу.",
         "detail": "Толығырақ →", "enroll": "Жазылу",
         "teachers_h": "Оқытушылар", "teachers_sub": "Үлкен тәжірибесі бар клиницистер.",
-        "reviews_h": "Пікірлер", "faq_h": "Жиі қойылатын сұрақтар",
+        "reviews_h": "Пікірлер", "reviews_sub": "Тыңдаушыларымыздың нақты пікірлері.",
+        "rev_name_ph": "Атыңыз", "rev_course_ph": "Қай курстан өттіңіз",
+        "rev_text_ph": "Пікіріңіз…", "rev_send": "Пікір жіберу",
+        "rev_note": "Пікір WhatsApp арқылы жіберіледі және тексеруден кейін сайтта шығады.",
+        "rev_empty": "Пікірлер әлі жоқ — бірінші болыңыз!", "faq_h": "Жиі қойылатын сұрақтар",
         "faq": [("Сертификат беріле ме?", "Иә. Бағдарлама соңында орталық сертификаты беріледі; кейбір вебинарларға сынақ бірліктері (ЗЕ) есептеледі."),
                 ("Қалай жазыламын?", "«Жазылу» батырмасын басыңыз — қатысушы сауалнамасы (Google Form) ашылады. Толтырыңыз, WhatsApp арқылы хабарласамыз."),
                 ("Онлайн қалай өтеді?", "Вебинарлар тікелей эфирде + жазбада қолжетімді. Сілтеме email мен WhatsApp-қа келеді."),
@@ -102,7 +115,11 @@ T = {
         "offline_h": "Offline", "offline_t": "Seminars and masterclasses in Almaty: hands-on practice, case discussions, meeting the experts.",
         "detail": "Details →", "enroll": "Enroll",
         "teachers_h": "Faculty", "teachers_sub": "Clinicians with extensive hands-on experience.",
-        "reviews_h": "Reviews", "faq_h": "FAQ",
+        "reviews_h": "Reviews", "reviews_sub": "Real feedback from our learners.",
+        "rev_name_ph": "Your name", "rev_course_ph": "Which course you took",
+        "rev_text_ph": "Your review…", "rev_send": "Send review",
+        "rev_note": "Your review will be sent to our WhatsApp and published after moderation.",
+        "rev_empty": "No reviews yet — be the first!", "faq_h": "FAQ",
         "faq": [("Do you issue a certificate?", "Yes. You receive a centre certificate; selected webinars grant credit units. See each course card for details."),
                 ("How do I enroll?", "Click “Enroll” — a participant form (Google Form) opens. Fill it in and we will contact you on WhatsApp."),
                 ("How does online work?", "Live webinars + recordings. Links and materials arrive by email and WhatsApp."),
@@ -214,22 +231,49 @@ def course_cards(lang, limit=None, fmt=None):
 <div class="badges"><span class="badge format">{esc(fmt_label)}</span>{f'<span class="badge hours">{esc(hours)}</span>' if hours else ""}{f'<span class="badge">{n} {sess_word(lang, n)}</span>' if n > 1 else ""}</div>
 <h3>{esc(title)}</h3>
 <div class="meta">{esc(dates)}</div>
-{f'<div class="price">{esc(price)}</div>' if price else ""}
+<div class="price">{esc(price) if price else "&nbsp;"}</div>
 <a class="btn btn-ghost" href="course.html?id={c["id"]}">{esc(T[lang]["detail"])}</a>
 <a class="btn btn-primary" href="{FORM}?usp=pp_url&entry_course={c["id"]}" target="_blank" rel="noopener">{esc(T[lang]["enroll"])}</a>
 </div></div>""")
     return "\n".join(out)
 
+def reviews_section(lang):
+    t = T[lang]
+    cards = ""
+    for r in REVIEWS[:12]:
+        who = r.get("name") or r.get("course") or "—"
+        line = f'<div class="review-who">{esc(who)}</div>'
+        if r.get("name") and r.get("course"):
+            line = (f'<div class="review-who">{esc(r["name"])}</div>'
+                    f'<div class="meta">{esc(r["course"])}</div>')
+        cards += f'<div class="card review-card"><div class="card-body">{line}<p>“{esc(r["text"])}”</p></div></div>'
+    if not cards:
+        cards = f'<p class="sub">{esc(t["rev_empty"])}</p>'
+    return f"""<section class="section alt"><div class="container">
+<h2>{esc(t["reviews_h"])}</h2><p class="sub">{esc(t["reviews_sub"])}</p>
+<div class="grid-3">{cards}</div>
+<form class="review-form" id="reviewForm">
+<h3>{esc(t["rev_send"])}</h3>
+<input name="name" maxlength="80" placeholder="{esc(t["rev_name_ph"])}" required>
+<input name="course" maxlength="120" placeholder="{esc(t["rev_course_ph"])}">
+<textarea name="text" maxlength="1000" placeholder="{esc(t["rev_text_ph"])}" required></textarea>
+<button class="btn btn-primary" type="submit">{esc(t["rev_send"])}</button>
+<p class="meta">{esc(t["rev_note"])}</p>
+</form>
+</div></section>
+<script>window.DOCTRINE_WA = "{WA}";</script>
+<script src="../assets/js/reviews.js"></script>"""
+
 def contacts_section(lang):
     t = T[lang]
-    return f"""<section class="section alt"><div class="container">
+    return f"""<section class="section"><div class="container">
 <h2>{esc(t["contacts_h"])}</h2>
-<div class="contacts-grid"><ul class="contact-list">
-<li>💬 <a href="{WA}" target="_blank" rel="noopener">WhatsApp: {esc(SITE["phone"])}</a></li>
-<li>📸 <a href="{IG}" target="_blank" rel="noopener">Instagram: doctrine_centre</a></li>
-<li>📍 {esc(t["addr_label"])}: {esc(SITE["address"][lang])}</li>
-<li>✉️ {esc(SITE["email"])}</li>
-</ul><div><a class="btn btn-primary" href="{FORM}" target="_blank" rel="noopener">{esc(t["cta_reg"])}</a></div></div>
+<div class="contact-cards">
+<div class="contact-card"><small>WhatsApp</small><a href="{WA}" target="_blank" rel="noopener">{esc(SITE["phone"])}</a></div>
+<div class="contact-card"><small>Instagram</small><a href="{IG}" target="_blank" rel="noopener">doctrine_centre</a></div>
+<div class="contact-card"><small>{esc(t["addr_label"])}</small><span>{esc(SITE["address"][lang])}</span></div>
+<div class="contact-card"><small>Email</small><span>{esc(SITE["email"])}</span></div>
+</div>
 </div></section>"""
 
 def faq_section(lang):
@@ -267,7 +311,7 @@ def page_index(lang):
 <div class="grid-3">{teach3}</div>
 <p><a class="btn btn-ghost" href="teachers.html">{esc(t["all_teachers"])}</a></p>
 </div></section>
-""" + faq_section(lang) + contacts_section(lang) + footer(lang))
+""" + reviews_section(lang) + faq_section(lang) + contacts_section(lang) + footer(lang))
 
 def page_schedule(lang):
     t = T[lang]

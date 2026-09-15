@@ -161,5 +161,33 @@ with open(os.path.join(OUT, "teachers.json"), "w", encoding="utf-8") as f:
     json.dump(teachers, f, ensure_ascii=False, indent=1)
 with open(os.path.join(OUT, "site.json"), "w", encoding="utf-8") as f:
     json.dump(site, f, ensure_ascii=False, indent=1)
+
+# Reviews: best-effort fetch from the original site's public Firebase (curl,
+# because this env's python SSL is broken). Keeps previous file if offline.
+# Never invent reviews.
+try:
+    import subprocess
+    base = "https://doctrine-1ebe5-default-rtdb.europe-west1.firebasedatabase.app"
+    out = os.path.join(OUT, "reviews.json")
+    main = json.loads(subprocess.check_output(
+        ["curl", "-skL", base + "/mainReviews.json"], timeout=20).decode("utf-8") or "null") or {}
+    per_teacher = json.loads(subprocess.check_output(
+        ["curl", "-skL", base + "/reviews.json"], timeout=20).decode("utf-8") or "null") or {}
+    items = []
+    for v in main.values():
+        items.append({"name": clean(v.get("name")), "course": clean(v.get("course")),
+                      "text": clean(v.get("text")), "date": v.get("date") or 0})
+    tname = {t["id"]: t["name"] for t in teachers}
+    for tid, vals in per_teacher.items():
+        for v in (vals or {}).values():
+            items.append({"name": "", "course": tname.get(str(tid).strip(), ""),
+                          "text": clean(v.get("text")), "date": v.get("date") or 0})
+    items = [x for x in items if x["text"]]
+    items.sort(key=lambda x: x["date"], reverse=True)
+    with open(out, "w", encoding="utf-8") as f:
+        json.dump(items, f, ensure_ascii=False, indent=1)
+    print(f"reviews={len(items)}")
+except Exception as e:
+    print("reviews fetch skipped:", e)
 print(f"courses={len(courses)} teachers={len(teachers)}")
 print("sessions total:", sum(len(c["sessions"]) for c in courses))
