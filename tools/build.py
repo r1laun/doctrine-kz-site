@@ -27,18 +27,18 @@ IG = SITE["instagram"]
 T = {
     "ru": {
         "nav": [("index.html", "Главная"), ("schedule.html", "Расписание"), ("teachers.html", "Преподаватели")],
-        "meta_desc": "Doctrine — обучение врачей в Алматы и онлайн: кардиология, ЭКГ, Холтер, СМАД, ЭхоКГ. Курсы и вебинары для медиков Казахстана.",
+        "meta_desc": "Doctrine - обучение врачей в Алматы и онлайн: кардиология, ЭКГ, Холтер, СМАД, ЭхоКГ. Курсы и вебинары для медиков Казахстана.",
         "hero_eye": "Образовательный центр для врачей · Алматы",
         "hero_h1": "Глубокие знания от сердца к сердцу",
-        "hero_p": "Меня зовут Инна Евгеньевна — я основатель Doctrine и врач-кардиолог с 20-летним опытом обучения врачей. Наши преподаватели — практикующие клиницисты. Учим тому, что работает у постели пациента.",
+        "hero_p": "Меня зовут Инна Евгеньевна - я основатель Doctrine и врач-кардиолог с 20-летним опытом обучения врачей. Наши преподаватели - практикующие клиницисты. Учим тому, что работает у постели пациента.",
         "cta_sched": "Смотреть расписание", "cta_reg": "Записаться на обучение",
         "trust": [("10+", "курсов"), ("2", "формата: онлайн и офлайн"),
                   ("200+", "выданных сертификатов"), ("300+", "врачей в комьюнити")],
         "hero_badge": "лет опыта",
-        "pop": "Ближайшие курсы", "pop_sub": "Цены, даты и часы — из актуального расписания центра.",
+        "pop": "Ближайшие курсы", "pop_sub": "Цены, даты и часы - из актуального расписания центра.",
         "all_sched": "Всё расписание →", "all_teachers": "Все преподаватели →", "formats": "Форматы обучения",
         "formats_sub": "Онлайн из любой точки мира или офлайн в Алматы.",
-        "online_h": "Онлайн", "online_t": "Вебинары в прямом эфире и курсы в записи. Сертификат и зачётные единицы (ЗЕ) — как на очных программах.",
+        "online_h": "Онлайн", "online_t": "Вебинары в прямом эфире и курсы в записи. Сертификат и зачётные единицы (ЗЕ) - как на очных программах.",
         "offline_h": "Офлайн", "offline_t": "Семинары и мастер-классы в Алматы: живая практика, разбор кейсов, общение с экспертами.",
         "detail": "Подробнее →", "enroll": "Записаться",
         "teachers_h": "Преподаватели", "teachers_sub": "Клиницисты с большим практическим опытом.",
@@ -46,17 +46,17 @@ T = {
         "rev_name_ph": "Ваше имя", "rev_course_ph": "Какой курс прошли",
         "rev_text_ph": "Ваш отзыв…", "rev_send": "Отправить отзыв",
         "rev_note": "Отзыв сразу появится на сайте.",
-        "rev_empty": "Пока отзывов нет — станьте первым!", "faq_h": "Частые вопросы",
+        "rev_empty": "Пока отзывов нет - станьте первым!", "faq_h": "Частые вопросы",
         "faq": [("Выдаёте ли сертификат?", "Да. После завершения программы вы получаете сертификат центра; по ряду вебинаров начисляются зачётные единицы (ЗЕ). Детали указаны в карточке каждого курса."),
-                ("Как записаться?", "Нажмите «Записаться» — откроется анкета участника (Google Form). Заполните её, мы свяжемся с вами в WhatsApp и подтвердим место."),
+                ("Как записаться?", "Нажмите «Записаться» - откроется анкета участника (Google Form). Заполните её, мы свяжемся с вами в WhatsApp и подтвердим место."),
                 ("Как проходит онлайн?", "Вебинары идут в прямом эфире + доступны в записи. Ссылка и материалы приходят на email и в WhatsApp."),
                 ("Где проходят офлайн-занятия?", "В Алматы. Точный адрес каждой группы уточняйте у координатора в WhatsApp."),
-                ("Можно ли оплатить частями?", "Напишите нам в WhatsApp — подберём удобный вариант.")],
+                ("Можно ли оплатить частями?", "Напишите нам в WhatsApp - подберём удобный вариант.")],
         "contacts_h": "Контакты", "addr_label": "Адрес",
-        "sched_h": "Расписание", "sched_sub": "Все курсы и модули центра. Нажмите «Записаться» — откроется анкета.",
+        "sched_h": "Расписание", "sched_sub": "Все курсы и модули центра. Нажмите «Записаться» - откроется анкета.",
         "filter_all": "Все", "filter_online": "Онлайн", "filter_offline": "Офлайн",
         "course_h": "Программа курса", "back": "← Назад к расписанию",
-        "offer_h": "Публичная оферта", "offer_t": "Договор публичной оферты на оказание образовательных услуг опубликован на сайте центра. Полный текст уточняйте у координатора — страница в процессе переноса с оригинального сайта.",
+        "offer_h": "Публичная оферта", "offer_t": "Договор публичной оферты на оказание образовательных услуг опубликован на сайте центра. Полный текст уточняйте у координатора - страница в процессе переноса с оригинального сайта.",
         "footer_about": "Образовательный центр для врачей. Онлайн и офлайн в Алматы.",
         "rights": "Все права защищены.", "teachers_page_sub": "Нажмите «Подробнее», чтобы узнать о каждом.",
         "menu_h": "Меню", "fmt_online": "Онлайн", "fmt_offline": "Офлайн",
@@ -65,15 +65,15 @@ T = {
     },
     "kk": {
         "nav": [("index.html", "Басты бет"), ("schedule.html", "Кесте"), ("teachers.html", "Оқытушылар")],
-        "meta_desc": "Doctrine — Алматыда және онлайн дәрігерлерді оқыту: кардиология, ЭКГ, Холтер, СМАД, ЭхоКГ. Қазақстан медиктеріне арналған курстар.",
+        "meta_desc": "Doctrine - Алматыда және онлайн дәрігерлерді оқыту: кардиология, ЭКГ, Холтер, СМАД, ЭхоКГ. Қазақстан медиктеріне арналған курстар.",
         "hero_eye": "Дәрігерлерге арналған білім орталығы · Алматы",
         "hero_h1": "Жүректен жүрекке терең білім",
-        "hero_p": "Менің атым Инна Евгеньевна — Doctrine негізін қалаушы, кардиолог, дәрігерлерді оқытудағы 20 жылдық тәжірибем бар. Оқытушыларымыз — тәжірибелі клиницистер.",
+        "hero_p": "Менің атым Инна Евгеньевна - Doctrine негізін қалаушы, кардиолог, дәрігерлерді оқытудағы 20 жылдық тәжірибем бар. Оқытушыларымыз - тәжірибелі клиницистер.",
         "cta_sched": "Кестені көру", "cta_reg": "Оқуға жазылу",
         "trust": [("10+", "курс"), ("2", "формат: онлайн және офлайн"),
                   ("200+", "берілген сертификат"), ("300+", "комьюнитидегі дәрігер")],
         "hero_badge": "жыл тәжірибе",
-        "pop": "Жақын курстар", "pop_sub": "Бағалар, күндер мен сағаттар — орталықтың өзекті кестесінен.",
+        "pop": "Жақын курстар", "pop_sub": "Бағалар, күндер мен сағаттар - орталықтың өзекті кестесінен.",
         "all_sched": "Барлық кесте →", "all_teachers": "Барлық оқытушылар →", "formats": "Оқыту форматтары",
         "formats_sub": "Әлемнің кез келген нүктесінен онлайн немесе Алматыда офлайн.",
         "online_h": "Онлайн", "online_t": "Тікелей эфирдегі вебинарлар және жазбадағы курстар. Сертификат және сынақ бірліктері (ЗЕ) беріледі.",
@@ -84,17 +84,17 @@ T = {
         "rev_name_ph": "Атыңыз", "rev_course_ph": "Қай курстан өттіңіз",
         "rev_text_ph": "Пікіріңіз…", "rev_send": "Пікір жіберу",
         "rev_note": "Пікір сайтта бірден шығады.",
-        "rev_empty": "Пікірлер әлі жоқ — бірінші болыңыз!", "faq_h": "Жиі қойылатын сұрақтар",
+        "rev_empty": "Пікірлер әлі жоқ - бірінші болыңыз!", "faq_h": "Жиі қойылатын сұрақтар",
         "faq": [("Сертификат беріле ме?", "Иә. Бағдарлама соңында орталық сертификаты беріледі; кейбір вебинарларға сынақ бірліктері (ЗЕ) есептеледі."),
-                ("Қалай жазыламын?", "«Жазылу» батырмасын басыңыз — қатысушы сауалнамасы (Google Form) ашылады. Толтырыңыз, WhatsApp арқылы хабарласамыз."),
+                ("Қалай жазыламын?", "«Жазылу» батырмасын басыңыз - қатысушы сауалнамасы (Google Form) ашылады. Толтырыңыз, WhatsApp арқылы хабарласамыз."),
                 ("Онлайн қалай өтеді?", "Вебинарлар тікелей эфирде + жазбада қолжетімді. Сілтеме email мен WhatsApp-қа келеді."),
                 ("Офлайн сабақтар қайда?", "Алматыда. Нақты мекенжайды WhatsApp арқылы координатордан сұраңыз."),
-                ("Бөліп төлеуге бола ма?", "WhatsApp-қа жазыңыз — ыңғайлы нұсқа табамыз.")],
+                ("Бөліп төлеуге бола ма?", "WhatsApp-қа жазыңыз - ыңғайлы нұсқа табамыз.")],
         "contacts_h": "Байланыс", "addr_label": "Мекенжай",
         "sched_h": "Кесте", "sched_sub": "Орталықтың барлық курстары мен модульдері.",
         "filter_all": "Барлығы", "filter_online": "Онлайн", "filter_offline": "Офлайн",
         "course_h": "Курс бағдарламасы", "back": "← Кестеге оралу",
-        "offer_h": "Жария оферта", "offer_t": "Білім беру қызметтері туралы жария оферта мәтіні координатордан сұралады — бет түпнұсқа сайттан көшірілуде.",
+        "offer_h": "Жария оферта", "offer_t": "Білім беру қызметтері туралы жария оферта мәтіні координатордан сұралады - бет түпнұсқа сайттан көшірілуде.",
         "footer_about": "Дәрігерлерге арналған білім орталығы. Алматыда онлайн және офлайн.",
         "rights": "Барлық құқықтар қорғалған.", "teachers_page_sub": "Әрқайсысы туралы білу үшін «Толығырақ» басыңыз.",
         "menu_h": "Мәзір", "fmt_online": "Онлайн", "fmt_offline": "Офлайн",
@@ -103,10 +103,10 @@ T = {
     },
     "en": {
         "nav": [("index.html", "Home"), ("schedule.html", "Schedule"), ("teachers.html", "Faculty")],
-        "meta_desc": "Doctrine — physician training in Almaty and online: cardiology, ECG, Holter, ABPM, Echo. Courses and webinars for doctors in Kazakhstan.",
+        "meta_desc": "Doctrine - physician training in Almaty and online: cardiology, ECG, Holter, ABPM, Echo. Courses and webinars for doctors in Kazakhstan.",
         "hero_eye": "Education centre for physicians · Almaty",
         "hero_h1": "Deep knowledge from heart to heart",
-        "hero_p": "I'm Inna Leshinskaya-Popova — founder of Doctrine and a cardiologist with 20 years of physician training experience. Our teachers are practising clinicians.",
+        "hero_p": "I'm Inna Leshinskaya-Popova - founder of Doctrine and a cardiologist with 20 years of physician training experience. Our teachers are practising clinicians.",
         "cta_sched": "View schedule", "cta_reg": "Enroll now",
         "trust": [("10+", "courses"), ("2", "formats: online & offline"),
                   ("200+", "certificates issued"), ("300+", "doctors in our community")],
@@ -122,17 +122,17 @@ T = {
         "rev_name_ph": "Your name", "rev_course_ph": "Which course you took",
         "rev_text_ph": "Your review…", "rev_send": "Send review",
         "rev_note": "Your review appears on the site instantly.",
-        "rev_empty": "No reviews yet — be the first!", "faq_h": "FAQ",
+        "rev_empty": "No reviews yet - be the first!", "faq_h": "FAQ",
         "faq": [("Do you issue a certificate?", "Yes. You receive a centre certificate; selected webinars grant credit units. See each course card for details."),
-                ("How do I enroll?", "Click “Enroll” — a participant form (Google Form) opens. Fill it in and we will contact you on WhatsApp."),
+                ("How do I enroll?", "Click “Enroll” - a participant form (Google Form) opens. Fill it in and we will contact you on WhatsApp."),
                 ("How does online work?", "Live webinars + recordings. Links and materials arrive by email and WhatsApp."),
                 ("Where are offline classes?", "In Almaty. Ask the coordinator on WhatsApp for the exact venue."),
-                ("Can I pay in installments?", "Message us on WhatsApp — we will find a suitable option.")],
+                ("Can I pay in installments?", "Message us on WhatsApp - we will find a suitable option.")],
         "contacts_h": "Contacts", "addr_label": "Address",
         "sched_h": "Schedule", "sched_sub": "All courses and modules of the centre. Click enroll to open the form.",
         "filter_all": "All", "filter_online": "Online", "filter_offline": "Offline",
         "course_h": "Course program", "back": "← Back to schedule",
-        "offer_h": "Public offer", "offer_t": "The public offer for educational services is available from the coordinator — this page is being migrated from the original site.",
+        "offer_h": "Public offer", "offer_t": "The public offer for educational services is available from the coordinator - this page is being migrated from the original site.",
         "footer_about": "Education centre for physicians. Online and offline in Almaty.",
         "rights": "All rights reserved.", "teachers_page_sub": "Click “Details” to learn about each teacher.",
         "menu_h": "Menu", "fmt_online": "Online", "fmt_offline": "Offline",
@@ -154,7 +154,7 @@ def head(lang, title, desc):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>{esc(title)} — Doctrine</title>
+<title>{esc(title)} - Doctrine</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="icon" href="../assets/img/logo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -246,7 +246,7 @@ def reviews_section(lang):
     cards = ""
     for r in REVIEWS[:12]:
         initial = esc((r.get("name") or "?").strip()[:1].upper())
-        who = f'<div class="review-person"><span class="review-ava">{initial}</span><span><b>{esc(r.get("name") or "—")}</b>'
+        who = f'<div class="review-person"><span class="review-ava">{initial}</span><span><b>{esc(r.get("name") or "-")}</b>'
         if r.get("course"):
             who += f'<small>{esc(r["course"])}</small>'
         who += "</span></div>"

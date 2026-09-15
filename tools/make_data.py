@@ -17,11 +17,11 @@ def rows(f):
         return list(csv.DictReader(fh))
 
 def clean(v):
-    return re.sub(r"\s+", " ", str(v or "")).strip()
+    return re.sub(r"\s+", " ", str(v or "").replace("—", "-")).strip()
 
 def clean_ml(v):
     lines = [re.sub(r"[ \t]+", " ", str(ln)).strip()
-             for str_ln in str(v or "").split("\n") for ln in [str_ln]]
+             for str_ln in str(v or "").replace("—", "-").split("\n") for ln in [str_ln]]
     return "\n".join(ln for ln in lines if ln)
 
 _RU = {"а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "e",
