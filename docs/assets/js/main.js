@@ -1,4 +1,4 @@
-// Doctrine shared JS: burger menu + schedule filters + footer year
+// Doctrine shared JS: burger menu + schedule filters (format + search + count) + footer year
 (function () {
   var burger = document.getElementById("burgerBtn");
   var nav = document.getElementById("nav");
@@ -14,19 +14,37 @@
   document.querySelectorAll("[data-year]").forEach(function (el) {
     el.textContent = new Date().getFullYear();
   });
-  // schedule filters: data-filter buttons + cards with data-fmt / data-kind
+  // schedule filters
   var fbtns = document.querySelectorAll("[data-filter]");
+  var search = document.getElementById("courseSearch");
+  var count = document.getElementById("courseCount");
+  var activeFmt = "all";
+  function norm(s) {
+    return (s || "").toLowerCase().replace(/ё/g, "е");
+  }
+  function apply() {
+    var q = norm(search && search.value);
+    var shown = 0, total = 0;
+    document.querySelectorAll("[data-fmt]").forEach(function (card) {
+      total++;
+      var okFmt = (activeFmt === "all") || (card.getAttribute("data-fmt") === activeFmt);
+      var okQ = !q || norm(card.textContent).indexOf(q) !== -1;
+      var show = okFmt && okQ;
+      card.style.display = show ? "" : "none";
+      if (show) shown++;
+    });
+    if (count) count.textContent = shown + " / " + total;
+  }
   if (fbtns.length) {
     fbtns.forEach(function (btn) {
       btn.addEventListener("click", function () {
         fbtns.forEach(function (b) { b.classList.remove("active"); });
         btn.classList.add("active");
-        var f = btn.getAttribute("data-filter");
-        document.querySelectorAll("[data-fmt]").forEach(function (card) {
-          var show = (f === "all") || (card.getAttribute("data-fmt") === f);
-          card.style.display = show ? "" : "none";
-        });
+        activeFmt = btn.getAttribute("data-filter");
+        apply();
       });
     });
+    if (search) search.addEventListener("input", apply);
+    apply();
   }
 })();

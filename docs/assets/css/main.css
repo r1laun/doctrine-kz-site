@@ -17,7 +17,7 @@ a{color:inherit}
 .site-header{position:sticky;top:0;z-index:50;background:var(--brand);box-shadow:0 4px 14px rgba(0,0,0,.1)}
 .header-inner{width:min(var(--max),calc(100% - 32px));margin:0 auto;display:flex;align-items:center;gap:18px;padding:10px 0}
 .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
-.logo img{width:58px;height:58px;object-fit:cover;border-radius:16%}
+.logo img{width:56px;height:56px;object-fit:contain;background:#fff;border-radius:14px;padding:3px;flex-shrink:0}
 .logo b{font-family:"Comfortaa",sans-serif;font-size:26px;display:block;line-height:1}
 .logo small{font-size:12.5px;color:#23414a}
 .nav{margin-left:auto;display:flex;gap:4px;flex-wrap:wrap}
@@ -87,9 +87,11 @@ footer .container{padding:34px 0;display:grid;grid-template-columns:2fr 1fr 1fr;
 footer a{color:#fff}
 footer small{color:#9db8bc}
 /* filters */
-.filters{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 24px}
+.filters{display:flex;gap:10px;flex-wrap:wrap;margin:0 0 24px;align-items:center}
 .filters button{border:1.5px solid var(--brand-dark);background:#fff;border-radius:999px;padding:8px 18px;font-weight:700;cursor:pointer;font-size:14px}
 .filters button.active{background:var(--teal);color:#fff;border-color:var(--teal)}
+.filters input[type="search"]{flex:1;min-width:200px;border:1.5px solid var(--line);border-radius:999px;padding:9px 18px;font-size:14.5px;font-family:inherit;background:#fff}
+.filters input[type="search"]:focus{outline:2px solid var(--brand-dark);border-color:var(--brand-dark)}
 /* course page */
 .course-hero{background:var(--cream);padding:40px 0}
 .course-meta{display:flex;gap:10px;flex-wrap:wrap;margin:14px 0}

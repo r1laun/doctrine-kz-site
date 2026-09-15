@@ -21,8 +21,7 @@ IG = SITE["instagram"]
 
 T = {
     "ru": {
-        "nav": [("schedule.html", "Расписание"), ("online.html", "Онлайн"),
-                ("offline.html", "Офлайн"), ("teachers.html", "Преподаватели")],
+        "nav": [("schedule.html", "Расписание"), ("teachers.html", "Преподаватели")],
         "meta_desc": "Doctrine — обучение врачей в Алматы и онлайн: кардиология, ЭКГ, Холтер, СМАД, ЭхоКГ. Курсы и вебинары для медиков Казахстана.",
         "hero_eye": "Образовательный центр для врачей · Алматы",
         "hero_h1": "Глубокие знания от сердца к сердцу",
@@ -50,10 +49,12 @@ T = {
         "offer_h": "Публичная оферта", "offer_t": "Договор публичной оферты на оказание образовательных услуг опубликован на сайте центра. Полный текст уточняйте у координатора — страница в процессе переноса с оригинального сайта.",
         "footer_about": "Образовательный центр для врачей. Онлайн и офлайн в Алматы.",
         "rights": "Все права защищены.", "teachers_page_sub": "Нажмите на карточку, чтобы узнать больше.",
+        "menu_h": "Меню", "fmt_online": "Онлайн", "fmt_offline": "Офлайн",
+        "search_ph": "Найти курс или преподавателя…", "shown": "Показано",
+        "founder_alt": "Основатель центра Doctrine",
     },
     "kk": {
-        "nav": [("schedule.html", "Кесте"), ("online.html", "Онлайн"),
-                ("offline.html", "Офлайн"), ("teachers.html", "Оқытушылар")],
+        "nav": [("schedule.html", "Кесте"), ("teachers.html", "Оқытушылар")],
         "meta_desc": "Doctrine — Алматыда және онлайн дәрігерлерді оқыту: кардиология, ЭКГ, Холтер, СМАД, ЭхоКГ. Қазақстан медиктеріне арналған курстар.",
         "hero_eye": "Дәрігерлерге арналған білім орталығы · Алматы",
         "hero_h1": "Жүректен жүрекке терең білім",
@@ -81,10 +82,12 @@ T = {
         "offer_h": "Жария оферта", "offer_t": "Білім беру қызметтері туралы жария оферта мәтіні координатордан сұралады — бет түпнұсқа сайттан көшірілуде.",
         "footer_about": "Дәрігерлерге арналған білім орталығы. Алматыда онлайн және офлайн.",
         "rights": "Барлық құқықтар қорғалған.", "teachers_page_sub": "Толығырақ білу үшін карточканы басыңыз.",
+        "menu_h": "Мәзір", "fmt_online": "Онлайн", "fmt_offline": "Офлайн",
+        "search_ph": "Курс немесе оқытушыны іздеу…", "shown": "Көрсетілді",
+        "founder_alt": "Doctrine орталығының негізін қалаушы",
     },
     "en": {
-        "nav": [("schedule.html", "Schedule"), ("online.html", "Online"),
-                ("offline.html", "Offline"), ("teachers.html", "Faculty")],
+        "nav": [("schedule.html", "Schedule"), ("teachers.html", "Faculty")],
         "meta_desc": "Doctrine — physician training in Almaty and online: cardiology, ECG, Holter, ABPM, Echo. Courses and webinars for doctors in Kazakhstan.",
         "hero_eye": "Education centre for physicians · Almaty",
         "hero_h1": "Deep knowledge from heart to heart",
@@ -112,6 +115,9 @@ T = {
         "offer_h": "Public offer", "offer_t": "The public offer for educational services is available from the coordinator — this page is being migrated from the original site.",
         "footer_about": "Education centre for physicians. Online and offline in Almaty.",
         "rights": "All rights reserved.", "teachers_page_sub": "Click a card to learn more.",
+        "menu_h": "Menu", "fmt_online": "Online", "fmt_offline": "Offline",
+        "search_ph": "Search courses or teachers…", "shown": "Showing",
+        "founder_alt": "Founder of the Doctrine centre",
     },
 }
 
@@ -162,13 +168,31 @@ def footer(lang):
     return f"""</main>
 <footer><div class="container">
 <div><h3>Doctrine</h3><p>{esc(t["footer_about"])}</p><small>ТОО «Образовательный центр DOCTRINE» · БИН {SITE["bin"]} · © <span data-year>2026</span> {esc(t["rights"])}</small></div>
-<div><h4>Menu</h4>{nav}<div><a href="offer.html">{esc(t["offer_h"])}</a></div></div>
+<div><h4>{esc(t["menu_h"])}</h4>{nav}<div><a href="offer.html">{esc(t["offer_h"])}</a></div></div>
 <div><h4>{esc(t["contacts_h"])}</h4><div><a href="{WA}">WhatsApp: {esc(SITE["phone"])}</a></div><div><a href="{IG}">Instagram</a></div><div><small>{esc(SITE["address"][lang])}</small></div></div>
 </div></footer>
 <script src="../assets/js/main.js"></script>
 </body>
 </html>
 """
+
+def plural_ru(n, one, few, many):
+    n = abs(n) % 100
+    d = n % 10
+    if 11 <= n <= 19:
+        return many
+    if d == 1:
+        return one
+    if 2 <= d <= 4:
+        return few
+    return many
+
+def sess_word(lang, n):
+    if lang == "ru":
+        return plural_ru(n, "занятие", "занятия", "занятий")
+    if lang == "kk":
+        return "сабақ"
+    return "sessions"
 
 def course_cards(lang, limit=None, fmt=None):
     out = []
@@ -183,9 +207,10 @@ def course_cards(lang, limit=None, fmt=None):
         dlines = (first.get("dates", "") or "").split("\n")
         dates = dlines[0] + (f" (+{len(dlines) - 1})" if len(dlines) > 1 else "")
         n = len(c["sessions"])
+        fmt_label = T[lang]["fmt_online"] if c["format"] == "online" else T[lang]["fmt_offline"]
         out.append(f"""<div class="card" data-fmt="{c["format"]}">
 <div class="card-body">
-<div class="badges"><span class="badge format">{c["format"]}</span>{f'<span class="badge hours">{esc(hours)}</span>' if hours else ""}{f'<span class="badge">{n} sess.</span>' if n > 1 else ""}</div>
+<div class="badges"><span class="badge format">{esc(fmt_label)}</span>{f'<span class="badge hours">{esc(hours)}</span>' if hours else ""}{f'<span class="badge">{n} {sess_word(lang, n)}</span>' if n > 1 else ""}</div>
 <h3>{esc(title)}</h3>
 <div class="meta">{esc(dates)}</div>
 {f'<div class="price">{esc(price)}</div>' if price else ""}
@@ -219,7 +244,7 @@ def page_index(lang):
         for x in TEACHERS[:4])
     return (head(lang, t["hero_h1"], t["meta_desc"]) + header(lang, "index.html") + f"""
 <section class="hero"><div class="container hero-grid">
-<div class="hero-photo"><img src="../assets/img/founder.jpg" alt="Founder"></div>
+<div class="hero-photo"><img src="../assets/img/founder.jpg" alt="{esc(t["founder_alt"])}"></div>
 <div><span class="hero-eyebrow">{esc(t["hero_eye"])}</span>
 <h1>{esc(t["hero_h1"])}</h1>
 <p class="lead">{esc(t["hero_p"])}</p>
@@ -234,12 +259,6 @@ def page_index(lang):
 <div class="grid-3">{course_cards(lang, limit=6)}</div>
 <p><a class="btn btn-ghost" href="schedule.html">{esc(t["all_sched"])}</a></p>
 </div></section>
-<section class="section mint"><div class="container">
-<h2>{esc(t["formats"])}</h2><p class="sub">{esc(t["formats_sub"])}</p>
-<div class="grid-3" style="grid-template-columns:1fr 1fr">
-<div class="card format-card"><h3>🌐 {esc(t["online_h"])}</h3><p>{esc(t["online_t"])}</p><a class="btn btn-ghost" href="online.html">{esc(t["detail"])}</a></div>
-<div class="card format-card"><h3>🏥 {esc(t["offline_h"])}</h3><p>{esc(t["offline_t"])}</p><a class="btn btn-ghost" href="offline.html">{esc(t["detail"])}</a></div>
-</div></div></section>
 <section class="section alt"><div class="container">
 <h2>{esc(t["teachers_h"])}</h2><p class="sub">{esc(t["teachers_sub"])}</p>
 <div class="grid-4">{teach4}</div>
@@ -251,10 +270,12 @@ def page_schedule(lang):
     return (head(lang, t["sched_h"], t["meta_desc"]) + header(lang, "schedule.html") + f"""
 <section class="section"><div class="container">
 <h1>{esc(t["sched_h"])}</h1><p class="sub">{esc(t["sched_sub"])}</p>
-<div class="filters">
+<div class="filters" role="group" aria-label="Filter">
 <button data-filter="all" class="active">{esc(t["filter_all"])}</button>
 <button data-filter="online">{esc(t["filter_online"])}</button>
 <button data-filter="offline">{esc(t["filter_offline"])}</button>
+<input id="courseSearch" type="search" placeholder="{esc(t["search_ph"])}" aria-label="{esc(t["search_ph"])}">
+<span class="meta" id="courseCount"></span>
 </div>
 <div class="grid-3">{course_cards(lang)}</div>
 </div></section>
@@ -296,23 +317,6 @@ def page_teachers(lang):
 </div></section>
 """ + contacts_section(lang) + footer(lang))
 
-def page_format(lang, kind):
-    t = T[lang]
-    is_on = kind == "online"
-    h = t["online_h"] if is_on else t["offline_h"]
-    txt = t["online_t"] if is_on else t["offline_t"]
-    bullets = t["faq"][:3]
-    return (head(lang, h, t["meta_desc"]) + header(lang, "online.html" if is_on else "offline.html") + f"""
-<section class="hero"><div class="container" style="padding:40px 0">
-<span class="hero-eyebrow">{esc(t["formats"])}</span><h1>{esc(h)}</h1><p class="lead">{esc(txt)}</p>
-<div class="cta-row"><a class="btn btn-primary" href="{FORM}" target="_blank" rel="noopener">{esc(t["enroll"])}</a>
-<a class="btn btn-ghost" href="schedule.html">{esc(t["all_sched"])}</a></div>
-</div></section>
-<section class="section"><div class="container">
-<h2>{esc(t["pop"])}</h2><div class="grid-3">{course_cards(lang, fmt=kind) or course_cards(lang, limit=3)}</div>
-</div></section>
-""" + contacts_section(lang) + footer(lang))
-
 def page_offer(lang):
     t = T[lang]
     return (head(lang, t["offer_h"], t["meta_desc"]) + header(lang, "") + f"""
@@ -334,10 +338,6 @@ for lang in LANGS:
     for name, fn in BUILDERS.items():
         with open(os.path.join(d, name), "w", encoding="utf-8") as f:
             f.write(fn(lang))
-    with open(os.path.join(d, "online.html"), "w", encoding="utf-8") as f:
-        f.write(page_format(lang, "online"))
-    with open(os.path.join(d, "offline.html"), "w", encoding="utf-8") as f:
-        f.write(page_format(lang, "offline"))
 
 # root redirect + sitemap + robots
 with open(os.path.join(DOCS, "index.html"), "w", encoding="utf-8") as f:
@@ -346,7 +346,7 @@ with open(os.path.join(DOCS, ".nojekyll"), "w") as f:
     f.write("")
 BASE = "https://r1laun.github.io/doctrine-kz-site"
 urls = [f"{BASE}/{l}/{p}" for l in LANGS for p in
-        ["index.html", "schedule.html", "course.html", "teachers.html", "online.html", "offline.html", "offer.html"]]
+        ["index.html", "schedule.html", "course.html", "teachers.html", "offer.html"]]
 with open(os.path.join(DOCS, "sitemap.xml"), "w", encoding="utf-8") as f:
     f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
             + "".join(f"<url><loc>{u}</loc></url>\n" for u in urls) + "</urlset>")

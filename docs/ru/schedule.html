@@ -14,7 +14,7 @@
 <body>
 <header class="site-header"><div class="header-inner">
 <a class="logo" href="index.html"><img src="../assets/img/logo.jpg" alt="Doctrine logo"><span><b>Doctrine</b><small>глубокие знания от сердца к сердцу</small></span></a>
-<nav class="nav" id="nav"><a href="schedule.html" class="active">Расписание</a><a href="online.html" class="">Онлайн</a><a href="offline.html" class="">Офлайн</a><a href="teachers.html" class="">Преподаватели</a></nav>
+<nav class="nav" id="nav"><a href="schedule.html" class="active">Расписание</a><a href="teachers.html" class="">Преподаватели</a></nav>
 <div class="lang"><a href="../ru/index.html" class="active">RU</a><a href="../kk/index.html" class="">KZ</a><a href="../en/index.html" class="">EN</a></div>
 <button class="burger" id="burgerBtn" aria-label="Menu" aria-expanded="false">☰</button>
 </div></header>
@@ -22,14 +22,16 @@
 
 <section class="section"><div class="container">
 <h1>Расписание</h1><p class="sub">Все курсы и модули центра. Нажмите «Записаться» — откроется анкета.</p>
-<div class="filters">
+<div class="filters" role="group" aria-label="Filter">
 <button data-filter="all" class="active">Все</button>
 <button data-filter="online">Онлайн</button>
 <button data-filter="offline">Офлайн</button>
+<input id="courseSearch" type="search" placeholder="Найти курс или преподавателя…" aria-label="Найти курс или преподавателя…">
+<span class="meta" id="courseCount"></span>
 </div>
 <div class="grid-3"><div class="card" data-fmt="online">
 <div class="card-body">
-<div class="badges"><span class="badge format">online</span><span class="badge hours">10 часов / 5 ЗЕ</span><span class="badge">4 sess.</span></div>
+<div class="badges"><span class="badge format">Онлайн</span><span class="badge hours">10 часов / 5 ЗЕ</span><span class="badge">4 занятия</span></div>
 <h3>Эхокардиография. Продвинутый уровень. Клапаны под контролем</h3>
 <div class="meta">5.08.2026 - 19:00 (+2)</div>
 <div class="price">45 000KZT</div>
@@ -38,7 +40,7 @@
 </div></div>
 <div class="card" data-fmt="offline">
 <div class="card-body">
-<div class="badges"><span class="badge format">offline</span><span class="badge">24 sess.</span></div>
+<div class="badges"><span class="badge format">Офлайн</span><span class="badge">24 занятия</span></div>
 <h3>Модульный курс по &quot;Холтер и СМАД&quot; Как читать холтер и СМАД что бы не ошибаться?</h3>
 <div class="meta"></div>
 <div class="price">45 000KZT</div>
@@ -47,7 +49,7 @@
 </div></div>
 <div class="card" data-fmt="online">
 <div class="card-body">
-<div class="badges"><span class="badge format">online</span><span class="badge hours">20 часов / 10 ЗЕ</span><span class="badge">2 sess.</span></div>
+<div class="badges"><span class="badge format">Онлайн</span><span class="badge hours">20 часов / 10 ЗЕ</span><span class="badge">2 занятия</span></div>
 <h3>Авторская методика обучения ЭКГ на казахском языке</h3>
 <div class="meta">24.08.2026 - 19:30 (+3)</div>
 <div class="price">80 000KZT</div>
@@ -56,7 +58,7 @@
 </div></div>
 <div class="card" data-fmt="online">
 <div class="card-body">
-<div class="badges"><span class="badge format">online</span><span class="badge hours">3 часа/ 1,5 ЗЕ</span><span class="badge">7 sess.</span></div>
+<div class="badges"><span class="badge format">Онлайн</span><span class="badge hours">3 часа/ 1,5 ЗЕ</span><span class="badge">7 занятий</span></div>
 <h3>Интервал QT и лекарственные препараты. Знания на каждый день</h3>
 <div class="meta">29.08.2026- в 11:00</div>
 <div class="price">15 000KZT</div>
@@ -65,7 +67,7 @@
 </div></div>
 <div class="card" data-fmt="online">
 <div class="card-body">
-<div class="badges"><span class="badge format">online</span></div>
+<div class="badges"><span class="badge format">Онлайн</span></div>
 <h3>“ЭхоКГ с нуля для врача-клинициста”</h3>
 <div class="meta"></div>
 
@@ -74,7 +76,7 @@
 </div></div>
 <div class="card" data-fmt="online">
 <div class="card-body">
-<div class="badges"><span class="badge format">online</span><span class="badge hours">6 часов / 3 ЗЕ</span></div>
+<div class="badges"><span class="badge format">Онлайн</span><span class="badge hours">6 часов / 3 ЗЕ</span></div>
 <h3>Особенности Холтеровского мониторирования у пациентов с ЭКС</h3>
 <div class="meta">1.06.2026 - 18:30</div>
 <div class="price">30 000 KZT</div>
@@ -83,7 +85,7 @@
 </div></div>
 <div class="card" data-fmt="offline">
 <div class="card-body">
-<div class="badges"><span class="badge format">offline</span></div>
+<div class="badges"><span class="badge format">Офлайн</span></div>
 <h3>Бранч: «Искусство слышать шепот»</h3>
 <div class="meta">7.06.2026 - 11:00</div>
 <div class="price">10 000KZT</div>
@@ -92,7 +94,7 @@
 </div></div>
 <div class="card" data-fmt="online">
 <div class="card-body">
-<div class="badges"><span class="badge format">online</span><span class="badge hours">9 часов / 4,5 ЗЕ</span><span class="badge">2 sess.</span></div>
+<div class="badges"><span class="badge format">Онлайн</span><span class="badge hours">9 часов / 4,5 ЗЕ</span><span class="badge">2 занятия</span></div>
 <h3>Кардиоонкология</h3>
 <div class="meta">По мере формиования группыы</div>
 <div class="price">50 000KZT</div>
@@ -101,7 +103,7 @@
 </div></div>
 <div class="card" data-fmt="offline">
 <div class="card-body">
-<div class="badges"><span class="badge format">offline</span><span class="badge">2 sess.</span></div>
+<div class="badges"><span class="badge format">Офлайн</span><span class="badge">2 занятия</span></div>
 <h3>Нагрузочное тестирование в кардиологии: от показаний к клиническим решениям</h3>
 <div class="meta">Курс в записи</div>
 <div class="price">30 000KZT</div>
@@ -110,7 +112,7 @@
 </div></div>
 <div class="card" data-fmt="online">
 <div class="card-body">
-<div class="badges"><span class="badge format">online</span><span class="badge hours">6 часов / 3 ЗЕ</span><span class="badge">2 sess.</span></div>
+<div class="badges"><span class="badge format">Онлайн</span><span class="badge hours">6 часов / 3 ЗЕ</span><span class="badge">2 занятия</span></div>
 <h3>Психотропные препараты в кардиологии: где заканчивается помощь и начинается риск?</h3>
 <div class="meta">29.05.2026</div>
 <div class="price">10 000 KZT</div>
@@ -119,7 +121,7 @@
 </div></div>
 <div class="card" data-fmt="offline">
 <div class="card-body">
-<div class="badges"><span class="badge format">offline</span></div>
+<div class="badges"><span class="badge format">Офлайн</span></div>
 <h3>«Спирография в клинической практике: интерпретация без ошибок» Врождённые пороки сердца</h3>
 <div class="meta">по мере формирования группыы</div>
 
@@ -128,7 +130,7 @@
 </div></div>
 <div class="card" data-fmt="offline">
 <div class="card-body">
-<div class="badges"><span class="badge format">offline</span><span class="badge hours">16 часов /8 ЗЕ</span></div>
+<div class="badges"><span class="badge format">Офлайн</span><span class="badge hours">16 часов /8 ЗЕ</span></div>
 <h3>Функциональная диагностика 24/7: клинические нюансы Холтера и СМАДа</h3>
 <div class="meta">10.03.2026 - 17:30-19:00 (+3)</div>
 <div class="price">16 000 KZT</div>
@@ -137,7 +139,7 @@
 </div></div>
 <div class="card" data-fmt="online">
 <div class="card-body">
-<div class="badges"><span class="badge format">online</span><span class="badge hours">12 часов /6 ЗЕ</span></div>
+<div class="badges"><span class="badge format">Онлайн</span><span class="badge hours">12 часов /6 ЗЕ</span></div>
 <h3>Школа активного мозга (Для врачей и вдумчивых пациентов)</h3>
 <div class="meta">13.03.2026 - 19:30-21:00</div>
 <div class="price">12 000 KZT</div>
@@ -146,7 +148,7 @@
 </div></div>
 <div class="card" data-fmt="online">
 <div class="card-body">
-<div class="badges"><span class="badge format">online</span><span class="badge hours">18 часов /9 ЗЕ</span></div>
+<div class="badges"><span class="badge format">Онлайн</span><span class="badge hours">18 часов /9 ЗЕ</span></div>
 <h3>Сложные ВПС простым языком: что должен знать каждый врач Очно! Проводит детский кардиолог</h3>
 <div class="meta">по мере формирования группы</div>
 <div class="price">20 000 KZT</div>
@@ -155,7 +157,7 @@
 </div></div>
 <div class="card" data-fmt="online">
 <div class="card-body">
-<div class="badges"><span class="badge format">online</span></div>
+<div class="badges"><span class="badge format">Онлайн</span></div>
 <h3>“ЭКГ” На Казахском языке</h3>
 <div class="meta">по мере формирования группы</div>
 
@@ -174,7 +176,7 @@
 </div></section></main>
 <footer><div class="container">
 <div><h3>Doctrine</h3><p>Образовательный центр для врачей. Онлайн и офлайн в Алматы.</p><small>ТОО «Образовательный центр DOCTRINE» · БИН 210140019512 · © <span data-year>2026</span> Все права защищены.</small></div>
-<div><h4>Menu</h4><div><a href="schedule.html">Расписание</a></div><div><a href="online.html">Онлайн</a></div><div><a href="offline.html">Офлайн</a></div><div><a href="teachers.html">Преподаватели</a></div><div><a href="offer.html">Публичная оферта</a></div></div>
+<div><h4>Меню</h4><div><a href="schedule.html">Расписание</a></div><div><a href="teachers.html">Преподаватели</a></div><div><a href="offer.html">Публичная оферта</a></div></div>
 <div><h4>Контакты</h4><div><a href="https://wa.me/77770357345">WhatsApp: +7 777 035 73 45</a></div><div><a href="https://www.instagram.com/doctrine_centre">Instagram</a></div><div><small>г. Алматы, ул. Тимирязева, 61/68</small></div></div>
 </div></footer>
 <script src="../assets/js/main.js"></script>
