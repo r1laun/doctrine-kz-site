@@ -48,7 +48,7 @@ T = {
         "course_h": "Программа курса", "back": "← Назад к расписанию",
         "offer_h": "Публичная оферта", "offer_t": "Договор публичной оферты на оказание образовательных услуг опубликован на сайте центра. Полный текст уточняйте у координатора — страница в процессе переноса с оригинального сайта.",
         "footer_about": "Образовательный центр для врачей. Онлайн и офлайн в Алматы.",
-        "rights": "Все права защищены.", "teachers_page_sub": "Нажмите на карточку, чтобы узнать больше.",
+        "rights": "Все права защищены.", "teachers_page_sub": "Нажмите «Подробнее», чтобы узнать о каждом.",
         "menu_h": "Меню", "fmt_online": "Онлайн", "fmt_offline": "Офлайн",
         "search_ph": "Найти курс или преподавателя…", "shown": "Показано",
         "founder_alt": "Основатель центра Doctrine",
@@ -81,7 +81,7 @@ T = {
         "course_h": "Курс бағдарламасы", "back": "← Кестеге оралу",
         "offer_h": "Жария оферта", "offer_t": "Білім беру қызметтері туралы жария оферта мәтіні координатордан сұралады — бет түпнұсқа сайттан көшірілуде.",
         "footer_about": "Дәрігерлерге арналған білім орталығы. Алматыда онлайн және офлайн.",
-        "rights": "Барлық құқықтар қорғалған.", "teachers_page_sub": "Толығырақ білу үшін карточканы басыңыз.",
+        "rights": "Барлық құқықтар қорғалған.", "teachers_page_sub": "Әрқайсысы туралы білу үшін «Толығырақ» басыңыз.",
         "menu_h": "Мәзір", "fmt_online": "Онлайн", "fmt_offline": "Офлайн",
         "search_ph": "Курс немесе оқытушыны іздеу…", "shown": "Көрсетілді",
         "founder_alt": "Doctrine орталығының негізін қалаушы",
@@ -114,7 +114,7 @@ T = {
         "course_h": "Course program", "back": "← Back to schedule",
         "offer_h": "Public offer", "offer_t": "The public offer for educational services is available from the coordinator — this page is being migrated from the original site.",
         "footer_about": "Education centre for physicians. Online and offline in Almaty.",
-        "rights": "All rights reserved.", "teachers_page_sub": "Click a card to learn more.",
+        "rights": "All rights reserved.", "teachers_page_sub": "Click “Details” to learn about each teacher.",
         "menu_h": "Menu", "fmt_online": "Online", "fmt_offline": "Offline",
         "search_ph": "Search courses or teachers…", "shown": "Showing",
         "founder_alt": "Founder of the Doctrine centre",
@@ -303,17 +303,25 @@ def page_course(lang):
 
 def page_teachers(lang):
     t = T[lang]
-    cards = "".join(
-        f'<div class="card teacher-card"><img src="{x["photo"]}" alt="{esc(x["name"])}" loading="lazy"><div class="card-body"><h3>{esc(x["name"])}</h3><p>{esc(x["spec"])}</p><p class="meta">{esc(x["work"])} {esc(x["exp"])}</p></div></div>'
-        for x in TEACHERS)
-    about = "".join(
-        f'<div class="session"><h4>{esc(x["name"])}</h4><p class="meta">{esc(x["spec"])}</p><p>{esc(x["about"][:600])}</p></div>'
-        for x in TEACHERS if x["about"])
+    exp_l = {"ru": "Стаж", "kk": "Өтіл", "en": "Experience"}[lang]
+    work_l = {"ru": "Место работы", "kk": "Жұмыс орны", "en": "Workplace"}[lang]
+    cards = ""
+    for x in TEACHERS:
+        rows = ""
+        if x["exp"]:
+            rows += f'<div class="meta"><b>{exp_l}:</b> {esc(x["exp"])}</div>'
+        if x["work"]:
+            rows += f'<div class="meta"><b>{work_l}:</b> {esc(x["work"])}</div>'
+        about = ""
+        if x["about"]:
+            paras = "".join(f"<p>{esc(p)}</p>" for p in x["about"].split("\n") if p.strip())
+            about = f"<details><summary>{esc(t['detail'])}</summary>{paras}</details>"
+        cards += (f'<div class="card teacher-card"><img src="{x["photo"]}" alt="{esc(x["name"])}" loading="lazy">'
+                  f'<div class="card-body"><h3>{esc(x["name"])}</h3><p>{esc(x["spec"])}</p>{rows}{about}</div></div>')
     return (head(lang, t["teachers_h"], t["meta_desc"]) + header(lang, "teachers.html", "teachers.html") + f"""
 <section class="section"><div class="container">
 <h1>{esc(t["teachers_h"])}</h1><p class="sub">{esc(t["teachers_page_sub"])}</p>
 <div class="grid-4">{cards}</div>
-<h2 style="margin-top:36px">О преподавателях</h2>{about}
 </div></section>
 """ + contacts_section(lang) + footer(lang))
 

@@ -69,6 +69,9 @@ a{color:inherit}
 .teacher-card img{width:100%;height:250px;object-fit:cover;object-position:center 20%}
 .teacher-card h3{font-size:17px;margin:0}
 .teacher-card p{font-size:13.5px;color:var(--muted);margin:0}
+.teacher-card details{margin-top:8px;text-align:left;font-size:13.5px}
+.teacher-card summary{cursor:pointer;font-weight:700;color:var(--teal)}
+.teacher-card details p{margin:8px 0;color:var(--ink)}
 /* formats */
 .format-card{padding:30px}
 .format-card h3{margin-top:0;font-size:22px}

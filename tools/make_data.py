@@ -64,12 +64,17 @@ teachers_csv = rows("teachers.csv")
 teach_map = {}
 teachers = []
 photo_renames = {
-    "img/Зурдунова.jpeg": "Зурдунова.jpeg",
-    "img/Лещинская-Попова.jpeg": "Лещинская-Попова.jpeg",
-    "img/Халикназарова Дилафруз Муратжановна.jpeg": "Халикназарова-Дилафруз-Муратжановна.jpeg",
-    "img/Хахазова Карлыгаш Болатовна.jpeg": "Хахазова-Карлыгаш-Болатовна.jpeg",
-    "img/Азим Саида Юсуфовна.jpeg": "Азим-Саида-Юсуфовна.jpeg",
+    "img/Зурдунова.jpeg": "teacher-zhurdunova.jpg",
+    "img/Лещинская-Попова.jpeg": "teacher-leshinskaya.jpg",
+    "img/Халикназарова Дилафруз Муратжановна.jpeg": "teacher-khaliknazarova.jpg",
+    "img/Хахазова Карлыгаш Болатовна.jpeg": "teacher-khakhazova.jpg",
+    "img/Азим Саида Юсуфовна.jpeg": "teacher-azimova.jpg",
 }
+NA = {"не указано", "н/д", "n/a", "-", "—"}
+def na(v):
+    v = clean(v)
+    return "" if v.lower() in NA else v
+
 for t in teachers_csv:
     if not clean(t.get("name")) or not clean(t.get("photo")):
         continue
@@ -78,9 +83,9 @@ for t in teachers_csv:
     teachers.append({
         "id": clean(t["id"]),
         "name": clean(t["name"]),
-        "spec": clean(t["spec"]),
-        "work": clean(t["work"]),
-        "exp": clean(t["exp"]),
+        "spec": na(t["spec"]),
+        "work": na(t["work"]),
+        "exp": na(t["exp"]),
         "photo": "../assets/img/" + photo,
         "about": clean_ml(t["about"]),
     })
