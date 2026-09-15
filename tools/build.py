@@ -21,7 +21,7 @@ IG = SITE["instagram"]
 
 T = {
     "ru": {
-        "nav": [("schedule.html", "Расписание"), ("teachers.html", "Преподаватели")],
+        "nav": [("index.html", "Главная"), ("schedule.html", "Расписание"), ("teachers.html", "Преподаватели")],
         "meta_desc": "Doctrine — обучение врачей в Алматы и онлайн: кардиология, ЭКГ, Холтер, СМАД, ЭхоКГ. Курсы и вебинары для медиков Казахстана.",
         "hero_eye": "Образовательный центр для врачей · Алматы",
         "hero_h1": "Глубокие знания от сердца к сердцу",
@@ -54,7 +54,7 @@ T = {
         "founder_alt": "Основатель центра Doctrine",
     },
     "kk": {
-        "nav": [("schedule.html", "Кесте"), ("teachers.html", "Оқытушылар")],
+        "nav": [("index.html", "Басты бет"), ("schedule.html", "Кесте"), ("teachers.html", "Оқытушылар")],
         "meta_desc": "Doctrine — Алматыда және онлайн дәрігерлерді оқыту: кардиология, ЭКГ, Холтер, СМАД, ЭхоКГ. Қазақстан медиктеріне арналған курстар.",
         "hero_eye": "Дәрігерлерге арналған білім орталығы · Алматы",
         "hero_h1": "Жүректен жүрекке терең білім",
@@ -87,7 +87,7 @@ T = {
         "founder_alt": "Doctrine орталығының негізін қалаушы",
     },
     "en": {
-        "nav": [("schedule.html", "Schedule"), ("teachers.html", "Faculty")],
+        "nav": [("index.html", "Home"), ("schedule.html", "Schedule"), ("teachers.html", "Faculty")],
         "meta_desc": "Doctrine — physician training in Almaty and online: cardiology, ECG, Holter, ABPM, Echo. Courses and webinars for doctors in Kazakhstan.",
         "hero_eye": "Education centre for physicians · Almaty",
         "hero_h1": "Deep knowledge from heart to heart",
@@ -157,6 +157,7 @@ def header(lang, active, page="index.html"):
 <a class="logo" href="index.html"><img src="../assets/img/logo.jpg" alt="Doctrine logo"><span><b>Doctrine</b><small>{esc(SITE["tagline"][lang])}</small></span></a>
 <nav class="nav" id="nav">{links}</nav>
 <div class="lang">{langs}</div>
+<a class="btn btn-header" href="{FORM}" target="_blank" rel="noopener">{esc(t["cta_reg"])}</a>
 <button class="burger" id="burgerBtn" aria-label="Menu" aria-expanded="false">☰</button>
 </div></header>
 <main>
@@ -167,7 +168,7 @@ def footer(lang):
     nav = "".join(f'<div><a href="{h}">{esc(l)}</a></div>' for h, l in t["nav"])
     return f"""</main>
 <footer><div class="container">
-<div><h3>Doctrine</h3><p>{esc(t["footer_about"])}</p><small>ТОО «Образовательный центр DOCTRINE» · БИН {SITE["bin"]} · © <span data-year>2026</span> {esc(t["rights"])}</small></div>
+<div><h3>Doctrine</h3><p>{esc(t["footer_about"])}</p><small>ТОО «Образовательный центр DOCTRINE» · БИН {SITE["bin"]}</small><br><small>© <span data-year>2026</span> {esc(t["rights"])}</small></div>
 <div><h4>{esc(t["menu_h"])}</h4>{nav}<div><a href="../files/public-offer.pdf" target="_blank" rel="noopener">{esc(t["offer_h"])} (PDF)</a></div></div>
 <div><h4>{esc(t["contacts_h"])}</h4><div><a href="{WA}">WhatsApp: {esc(SITE["phone"])}</a></div><div><a href="{IG}">Instagram</a></div><div><small>{esc(SITE["address"][lang])}</small></div></div>
 </div></footer>
