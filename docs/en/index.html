@@ -72,7 +72,7 @@
 <div class="reviews-head"><div><h2>Reviews</h2><p class="sub">Real feedback from our learners.</p></div></div>
 <div class="grid-3"><div class="card review-card"><div class="card-body"><div class="review-stars">★★★★★</div><p class="review-text">“Мне очень понравилось очень познавательно. Интересно доктора всё доступно объясняют”</p><div class="review-person"><span class="review-ava">А</span><span><b>Абубакир</b><small>Сложный ВПС</small></span></div></div></div></div>
 <form class="review-form" id="reviewForm">
-<div class="review-form-head"><h3>Send review</h3><p class="meta">Your review will be sent to our WhatsApp and published after moderation.</p></div>
+<div class="review-form-head"><h3>Send review</h3><p class="meta">Your review appears on the site instantly.</p></div>
 <div class="review-form-grid">
 <input name="name" maxlength="80" placeholder="Your name *" required>
 <input name="course" maxlength="120" placeholder="Which course you took">
@@ -81,7 +81,17 @@
 <button class="btn btn-primary" type="submit">Send review</button>
 </form>
 </div></section>
-<script>window.DOCTRINE_WA = "https://wa.me/77770357345";</script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script>
+window.DOCTRINE_FB = {
+  apiKey: "AIzaSyB8kkzQ5oh298uooOgJfIHBmhI7YVJe7PM",
+  authDomain: "doctrine-1ebe5.firebaseapp.com",
+  databaseURL: "https://doctrine-1ebe5-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "doctrine-1ebe5"
+};
+window.DOCTRINE_REVIEWS = [{"name": "Абубакир", "course": "Сложный ВПС", "text": "Мне очень понравилось очень познавательно. Интересно доктора всё доступно объясняют", "date": 1777918090743}];
+</script>
 <script src="../assets/js/reviews.js"></script><section class="section"><div class="container faq"><h2>FAQ</h2><details><summary>Do you issue a certificate?</summary><p>Yes. You receive a centre certificate; selected webinars grant credit units. See each course card for details.</p></details><details><summary>How do I enroll?</summary><p>Click “Enroll” — a participant form (Google Form) opens. Fill it in and we will contact you on WhatsApp.</p></details><details><summary>How does online work?</summary><p>Live webinars + recordings. Links and materials arrive by email and WhatsApp.</p></details><details><summary>Where are offline classes?</summary><p>In Almaty. Ask the coordinator on WhatsApp for the exact venue.</p></details><details><summary>Can I pay in installments?</summary><p>Message us on WhatsApp — we will find a suitable option.</p></details></div></section><section class="section"><div class="container">
 <h2>Contacts</h2>
 <div class="contact-cards">

@@ -44,7 +44,7 @@ T = {
         "reviews_h": "Отзывы", "reviews_sub": "Настоящие отзывы наших слушателей.",
         "rev_name_ph": "Ваше имя", "rev_course_ph": "Какой курс прошли",
         "rev_text_ph": "Ваш отзыв…", "rev_send": "Отправить отзыв",
-        "rev_note": "Отзыв отправится нам в WhatsApp и появится на сайте после проверки.",
+        "rev_note": "Отзыв сразу появится на сайте.",
         "rev_empty": "Пока отзывов нет — станьте первым!", "faq_h": "Частые вопросы",
         "faq": [("Выдаёте ли сертификат?", "Да. После завершения программы вы получаете сертификат центра; по ряду вебинаров начисляются зачётные единицы (ЗЕ). Детали указаны в карточке каждого курса."),
                 ("Как записаться?", "Нажмите «Записаться» — откроется анкета участника (Google Form). Заполните её, мы свяжемся с вами в WhatsApp и подтвердим место."),
@@ -81,7 +81,7 @@ T = {
         "reviews_h": "Пікірлер", "reviews_sub": "Тыңдаушыларымыздың нақты пікірлері.",
         "rev_name_ph": "Атыңыз", "rev_course_ph": "Қай курстан өттіңіз",
         "rev_text_ph": "Пікіріңіз…", "rev_send": "Пікір жіберу",
-        "rev_note": "Пікір WhatsApp арқылы жіберіледі және тексеруден кейін сайтта шығады.",
+        "rev_note": "Пікір сайтта бірден шығады.",
         "rev_empty": "Пікірлер әлі жоқ — бірінші болыңыз!", "faq_h": "Жиі қойылатын сұрақтар",
         "faq": [("Сертификат беріле ме?", "Иә. Бағдарлама соңында орталық сертификаты беріледі; кейбір вебинарларға сынақ бірліктері (ЗЕ) есептеледі."),
                 ("Қалай жазыламын?", "«Жазылу» батырмасын басыңыз — қатысушы сауалнамасы (Google Form) ашылады. Толтырыңыз, WhatsApp арқылы хабарласамыз."),
@@ -118,7 +118,7 @@ T = {
         "reviews_h": "Reviews", "reviews_sub": "Real feedback from our learners.",
         "rev_name_ph": "Your name", "rev_course_ph": "Which course you took",
         "rev_text_ph": "Your review…", "rev_send": "Send review",
-        "rev_note": "Your review will be sent to our WhatsApp and published after moderation.",
+        "rev_note": "Your review appears on the site instantly.",
         "rev_empty": "No reviews yet — be the first!", "faq_h": "FAQ",
         "faq": [("Do you issue a certificate?", "Yes. You receive a centre certificate; selected webinars grant credit units. See each course card for details."),
                 ("How do I enroll?", "Click “Enroll” — a participant form (Google Form) opens. Fill it in and we will contact you on WhatsApp."),
@@ -239,6 +239,7 @@ def course_cards(lang, limit=None, fmt=None):
 
 def reviews_section(lang):
     t = T[lang]
+    baked = json.dumps(REVIEWS[:12], ensure_ascii=False).replace("</", "<\\/")
     cards = ""
     for r in REVIEWS[:12]:
         initial = esc((r.get("name") or "?").strip()[:1].upper())
@@ -264,7 +265,17 @@ def reviews_section(lang):
 <button class="btn btn-primary" type="submit">{esc(t["rev_send"])}</button>
 </form>
 </div></section>
-<script>window.DOCTRINE_WA = "{WA}";</script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script>
+window.DOCTRINE_FB = {{
+  apiKey: "AIzaSyB8kkzQ5oh298uooOgJfIHBmhI7YVJe7PM",
+  authDomain: "doctrine-1ebe5.firebaseapp.com",
+  databaseURL: "https://doctrine-1ebe5-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "doctrine-1ebe5"
+}};
+window.DOCTRINE_REVIEWS = {baked};
+</script>
 <script src="../assets/js/reviews.js"></script>"""
 
 def contacts_section(lang):

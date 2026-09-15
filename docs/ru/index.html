@@ -72,7 +72,7 @@
 <div class="reviews-head"><div><h2>Отзывы</h2><p class="sub">Настоящие отзывы наших слушателей.</p></div></div>
 <div class="grid-3"><div class="card review-card"><div class="card-body"><div class="review-stars">★★★★★</div><p class="review-text">“Мне очень понравилось очень познавательно. Интересно доктора всё доступно объясняют”</p><div class="review-person"><span class="review-ava">А</span><span><b>Абубакир</b><small>Сложный ВПС</small></span></div></div></div></div>
 <form class="review-form" id="reviewForm">
-<div class="review-form-head"><h3>Отправить отзыв</h3><p class="meta">Отзыв отправится нам в WhatsApp и появится на сайте после проверки.</p></div>
+<div class="review-form-head"><h3>Отправить отзыв</h3><p class="meta">Отзыв сразу появится на сайте.</p></div>
 <div class="review-form-grid">
 <input name="name" maxlength="80" placeholder="Ваше имя *" required>
 <input name="course" maxlength="120" placeholder="Какой курс прошли">
@@ -81,7 +81,17 @@
 <button class="btn btn-primary" type="submit">Отправить отзыв</button>
 </form>
 </div></section>
-<script>window.DOCTRINE_WA = "https://wa.me/77770357345";</script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script>
+window.DOCTRINE_FB = {
+  apiKey: "AIzaSyB8kkzQ5oh298uooOgJfIHBmhI7YVJe7PM",
+  authDomain: "doctrine-1ebe5.firebaseapp.com",
+  databaseURL: "https://doctrine-1ebe5-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "doctrine-1ebe5"
+};
+window.DOCTRINE_REVIEWS = [{"name": "Абубакир", "course": "Сложный ВПС", "text": "Мне очень понравилось очень познавательно. Интересно доктора всё доступно объясняют", "date": 1777918090743}];
+</script>
 <script src="../assets/js/reviews.js"></script><section class="section"><div class="container faq"><h2>Частые вопросы</h2><details><summary>Выдаёте ли сертификат?</summary><p>Да. После завершения программы вы получаете сертификат центра; по ряду вебинаров начисляются зачётные единицы (ЗЕ). Детали указаны в карточке каждого курса.</p></details><details><summary>Как записаться?</summary><p>Нажмите «Записаться» — откроется анкета участника (Google Form). Заполните её, мы свяжемся с вами в WhatsApp и подтвердим место.</p></details><details><summary>Как проходит онлайн?</summary><p>Вебинары идут в прямом эфире + доступны в записи. Ссылка и материалы приходят на email и в WhatsApp.</p></details><details><summary>Где проходят офлайн-занятия?</summary><p>В Алматы. Точный адрес каждой группы уточняйте у координатора в WhatsApp.</p></details><details><summary>Можно ли оплатить частями?</summary><p>Напишите нам в WhatsApp — подберём удобный вариант.</p></details></div></section><section class="section"><div class="container">
 <h2>Контакты</h2>
 <div class="contact-cards">

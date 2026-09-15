@@ -72,7 +72,7 @@
 <div class="reviews-head"><div><h2>Пікірлер</h2><p class="sub">Тыңдаушыларымыздың нақты пікірлері.</p></div></div>
 <div class="grid-3"><div class="card review-card"><div class="card-body"><div class="review-stars">★★★★★</div><p class="review-text">“Мне очень понравилось очень познавательно. Интересно доктора всё доступно объясняют”</p><div class="review-person"><span class="review-ava">А</span><span><b>Абубакир</b><small>Сложный ВПС</small></span></div></div></div></div>
 <form class="review-form" id="reviewForm">
-<div class="review-form-head"><h3>Пікір жіберу</h3><p class="meta">Пікір WhatsApp арқылы жіберіледі және тексеруден кейін сайтта шығады.</p></div>
+<div class="review-form-head"><h3>Пікір жіберу</h3><p class="meta">Пікір сайтта бірден шығады.</p></div>
 <div class="review-form-grid">
 <input name="name" maxlength="80" placeholder="Атыңыз *" required>
 <input name="course" maxlength="120" placeholder="Қай курстан өттіңіз">
@@ -81,7 +81,17 @@
 <button class="btn btn-primary" type="submit">Пікір жіберу</button>
 </form>
 </div></section>
-<script>window.DOCTRINE_WA = "https://wa.me/77770357345";</script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script>
+window.DOCTRINE_FB = {
+  apiKey: "AIzaSyB8kkzQ5oh298uooOgJfIHBmhI7YVJe7PM",
+  authDomain: "doctrine-1ebe5.firebaseapp.com",
+  databaseURL: "https://doctrine-1ebe5-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "doctrine-1ebe5"
+};
+window.DOCTRINE_REVIEWS = [{"name": "Абубакир", "course": "Сложный ВПС", "text": "Мне очень понравилось очень познавательно. Интересно доктора всё доступно объясняют", "date": 1777918090743}];
+</script>
 <script src="../assets/js/reviews.js"></script><section class="section"><div class="container faq"><h2>Жиі қойылатын сұрақтар</h2><details><summary>Сертификат беріле ме?</summary><p>Иә. Бағдарлама соңында орталық сертификаты беріледі; кейбір вебинарларға сынақ бірліктері (ЗЕ) есептеледі.</p></details><details><summary>Қалай жазыламын?</summary><p>«Жазылу» батырмасын басыңыз — қатысушы сауалнамасы (Google Form) ашылады. Толтырыңыз, WhatsApp арқылы хабарласамыз.</p></details><details><summary>Онлайн қалай өтеді?</summary><p>Вебинарлар тікелей эфирде + жазбада қолжетімді. Сілтеме email мен WhatsApp-қа келеді.</p></details><details><summary>Офлайн сабақтар қайда?</summary><p>Алматыда. Нақты мекенжайды WhatsApp арқылы координатордан сұраңыз.</p></details><details><summary>Бөліп төлеуге бола ма?</summary><p>WhatsApp-қа жазыңыз — ыңғайлы нұсқа табамыз.</p></details></div></section><section class="section"><div class="container">
 <h2>Байланыс</h2>
 <div class="contact-cards">
