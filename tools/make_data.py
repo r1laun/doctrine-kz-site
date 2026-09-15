@@ -141,9 +141,9 @@ site = {
     "instagram": INSTAGRAM,
     "phone": "+7 777 035 73 45",
     "email": "doctrine.centre@gmail.com",
-    "address": {"ru": "г. Алматы, ул. Тимирязева, 61/68",
-                "kk": "Алматы қ., Тимирязев к-сі, 61/68",
-                "en": "Almaty, Timiryazev str., 61/68"},
+    "address": {"ru": "г. Алматы",
+                "kk": "Алматы қ.",
+                "en": "Almaty"},
     "bin": "210140019512",
     "founder": {
         "name": {"ru": "Лещинская-Попова Инна Евгеньевна",

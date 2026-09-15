@@ -303,26 +303,28 @@ def page_course(lang):
 
 def page_teachers(lang):
     t = T[lang]
-    exp_l = {"ru": "Стаж", "kk": "Өтіл", "en": "Experience"}[lang]
-    work_l = {"ru": "Место работы", "kk": "Жұмыс орны", "en": "Workplace"}[lang]
+    close_l = {"ru": "Закрыть", "kk": "Жабу", "en": "Close"}[lang]
     cards = ""
     for x in TEACHERS:
-        rows = ""
-        if x["exp"]:
-            rows += f'<div class="meta"><b>{exp_l}:</b> {esc(x["exp"])}</div>'
-        if x["work"]:
-            rows += f'<div class="meta"><b>{work_l}:</b> {esc(x["work"])}</div>'
-        about = ""
-        if x["about"]:
-            paras = "".join(f"<p>{esc(p)}</p>" for p in x["about"].split("\n") if p.strip())
-            about = f"<details><summary>{esc(t['detail'])}</summary>{paras}</details>"
-        cards += (f'<div class="card teacher-card"><img src="{x["photo"]}" alt="{esc(x["name"])}" loading="lazy">'
-                  f'<div class="card-body"><h3>{esc(x["name"])}</h3><p>{esc(x["spec"])}</p>{rows}{about}</div></div>')
+        meta = ""
+        if x["spec"]:
+            meta += f'<p>{esc(x["spec"])}</p>'
+        cards += (f'<div class="card teacher-card teacher-open" data-teacher="{x["id"]}" role="button" tabindex="0" aria-haspopup="dialog">'
+                  f'<img src="{x["photo"]}" alt="{esc(x["name"])}" loading="lazy">'
+                  f'<div class="card-body"><h3>{esc(x["name"])}</h3>{meta}'
+                  f'<span class="btn btn-ghost">{esc(t["detail"])}</span></div></div>')
     return (head(lang, t["teachers_h"], t["meta_desc"]) + header(lang, "teachers.html", "teachers.html") + f"""
 <section class="section"><div class="container">
 <h1>{esc(t["teachers_h"])}</h1><p class="sub">{esc(t["teachers_page_sub"])}</p>
 <div class="grid-4">{cards}</div>
 </div></section>
+<div class="t-modal" id="teacherModal" role="dialog" aria-modal="true" hidden>
+<div class="t-modal-overlay" data-close></div>
+<div class="t-modal-window">
+<button class="t-modal-close" data-close aria-label="{esc(close_l)}">×</button>
+<div id="teacherModalBody"></div>
+</div></div>
+<script src="../assets/js/teachers.js"></script>
 """ + contacts_section(lang) + footer(lang))
 
 def page_404(lang):
