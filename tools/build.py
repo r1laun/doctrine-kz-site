@@ -57,6 +57,7 @@ T = {
         "contacts_h": "Контакты", "addr_label": "Адрес",
         "sched_h": "Расписание", "sched_sub": "Все курсы и модули центра. Нажмите «Записаться» - откроется анкета.",
         "filter_all": "Все", "filter_online": "Онлайн", "filter_offline": "Офлайн",
+        "sort_new": "Сначала новые", "sort_old": "Сначала старые",
         "course_h": "Программа курса", "back": "← Назад к расписанию",
         "offer_h": "Публичная оферта", "offer_t": "Договор публичной оферты на оказание образовательных услуг опубликован на сайте центра. Полный текст уточняйте у координатора - страница в процессе переноса с оригинального сайта.",
         "footer_about": "Образовательный центр для врачей. Онлайн и офлайн в Алматы.",
@@ -97,6 +98,7 @@ T = {
         "contacts_h": "Байланыс", "addr_label": "Мекенжай",
         "sched_h": "Кесте", "sched_sub": "Орталықтың барлық курстары мен модульдері.",
         "filter_all": "Барлығы", "filter_online": "Онлайн", "filter_offline": "Офлайн",
+        "sort_new": "Алдымен жаңалар", "sort_old": "Алдымен ескілер",
         "course_h": "Курс бағдарламасы", "back": "← Кестеге оралу",
         "offer_h": "Жария оферта", "offer_t": "Білім беру қызметтері туралы жария оферта мәтіні координатордан сұралады - бет түпнұсқа сайттан көшірілуде.",
         "footer_about": "Дәрігерлерге арналған білім орталығы. Алматыда онлайн және офлайн.",
@@ -137,6 +139,7 @@ T = {
         "contacts_h": "Contacts", "addr_label": "Address",
         "sched_h": "Schedule", "sched_sub": "All courses and modules of the centre. Click enroll to open the form.",
         "filter_all": "All", "filter_online": "Online", "filter_offline": "Offline",
+        "sort_new": "Newest first", "sort_old": "Oldest first",
         "course_h": "Course program", "back": "← Back to schedule",
         "offer_h": "Public offer", "offer_t": "The public offer for educational services is available from the coordinator - this page is being migrated from the original site.",
         "footer_about": "Education centre for physicians. Online and offline in Almaty.",
@@ -236,7 +239,8 @@ def course_cards(lang, limit=None, fmt=None):
         n = len(c["sessions"])
         fmt_label = T[lang]["fmt_online"] if c["format"] == "online" else T[lang]["fmt_offline"]
         fmt_cls = "fmt-online" if c["format"] == "online" else "fmt-offline"
-        out.append(f"""<div class="card" data-fmt="{c["format"]}">
+        ts = (c.get("latest") or "").replace("-", "")
+        out.append(f"""<div class="card" data-fmt="{c["format"]}" data-ts="{ts}">
 <div class="card-body">
 <div class="badges"><span class="badge format {fmt_cls}">{esc(fmt_label)}</span>{f'<span class="badge hours">{esc(hours)}</span>' if hours else ""}{f'<span class="badge">{n} {sess_word(lang, n)}</span>' if n > 1 else ""}</div>
 <h3>{esc(title)}</h3>
@@ -345,10 +349,12 @@ def page_schedule(lang):
 <button data-filter="all" class="active">{esc(t["filter_all"])}</button>
 <button data-filter="online">{esc(t["filter_online"])}</button>
 <button data-filter="offline">{esc(t["filter_offline"])}</button>
+<button data-sort="new" class="active">{esc(t["sort_new"])}</button>
+<button data-sort="old">{esc(t["sort_old"])}</button>
 <input id="courseSearch" type="search" placeholder="{esc(t["search_ph"])}" aria-label="{esc(t["search_ph"])}">
 <span class="meta" id="courseCount"></span>
 </div>
-<div class="grid-3">{course_cards(lang)}</div>
+<div class="grid-3" id="courseGrid">{course_cards(lang)}</div>
 </div></section>
 """ + contacts_section(lang) + footer(lang))
 

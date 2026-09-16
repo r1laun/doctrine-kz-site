@@ -24,6 +24,35 @@ def clean_ml(v):
              for str_ln in str(v or "").replace("—", "-").split("\n") for ln in [str_ln]]
     return "\n".join(ln for ln in lines if ln)
 
+def norm_title(v):
+    return clean(v).lower().replace("ё", "е")
+
+DATE_RE = re.compile(r"(\d{1,2})[.\-/](\d{1,2})[.\-/](\d{2,4})")
+
+def parse_dates(v):
+    """All dd.mm.yyyy dates found in a schedule cell -> sorted [(y,m,d)]."""
+    out = []
+    for d, m, y in DATE_RE.findall(str(v or "")):
+        y = int(y)
+        if y < 100:
+            y += 2000
+        try:
+            out.append((y, int(m), int(d)))
+        except ValueError:
+            pass
+    return sorted(out)
+
+def latest_iso(dates):
+    if not dates:
+        return ""
+    y, m, d = dates[-1]
+    try:
+        import datetime
+        datetime.date(y, m, d)
+    except ValueError:
+        return ""
+    return f"{y:04d}-{m:02d}-{d:02d}"
+
 _RU = {"а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "e",
         "ж": "zh", "з": "z", "и": "i", "й": "i", "к": "k", "л": "l", "м": "m",
         "н": "n", "о": "o", "п": "p", "р": "r", "с": "s", "т": "t", "у": "u",
@@ -91,6 +120,25 @@ for t in teachers_csv:
     })
 
 cat_title = {clean(r["ID Курса"]): clean(r["Название курса"]) for r in courses_csv}
+# norm catalog title -> course id (to fix rows whose ID column is wrong/empty,
+# e.g. "ЭхоКГ с нуля" conducts tagged К004, С049 with empty ID)
+cat_by_title = {}
+for cid, t in cat_title.items():
+    if t:
+        cat_by_title.setdefault(norm_title(t), cid)
+
+def resolve_cid(row):
+    rt = norm_title(row.get("Название курса"))
+    if rt:
+        if rt in cat_by_title:
+            return cat_by_title[rt]
+        for ct, cid in cat_by_title.items():
+            if len(rt) > 20 and (rt in ct or ct in rt):
+                return cid
+    return clean(row.get("ID Курса"))
+
+for r in sched:
+    r["_cid"] = resolve_cid(r)
 
 courses = []
 for c in courses_csv:
@@ -98,7 +146,7 @@ for c in courses_csv:
     title_ru = clean(c["Название курса"])
     if not cid or not title_ru:
         continue
-    items = [r for r in sched if clean(r["ID Курса"]) == cid]
+    items = [r for r in sched if r["_cid"] == cid]
     # detect online/offline by text hints
     blob = " ".join(clean(r["Дата и время"]) + " " + clean(r["Описание"]) for r in items).lower()
     fmt = "online"
@@ -107,6 +155,12 @@ for c in courses_csv:
     if "вебинар" in blob or "online" in blob or "запись" in blob:
         fmt = "online"
     tr = TITLE_I18N.get(cid, {})
+    latest = ""
+    for r in items:
+        for dt in parse_dates(r.get("Дата и время")):
+            iso = latest_iso([dt])
+            if iso > latest:
+                latest = iso
     courses.append({
         "id": cid,
         "slug": slugify(title_ru) or cid.lower(),
@@ -115,6 +169,7 @@ for c in courses_csv:
                   "en": tr.get("en", title_ru)},
         "format": fmt,
         "cover": "zaglushka",
+        "latest": latest,
         "sessions": [{
             "sid": clean(r["ID Проведения"]),
             "kind": clean(r["Тип"]),
@@ -128,6 +183,10 @@ for c in courses_csv:
             "month": clean(r["Месяц"]),
         } for r in items],
     })
+
+# Newest-first: courses with the latest conduct date on top;
+# "" sorts smallest, so with reverse=True undated stay at the end.
+courses.sort(key=lambda c: c["latest"] or "", reverse=True)
 
 site = {
     "name": "Doctrine",

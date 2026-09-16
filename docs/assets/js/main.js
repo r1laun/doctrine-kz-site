@@ -42,20 +42,22 @@
   }
   // schedule filters
   var fbtns = document.querySelectorAll("[data-filter]");
+  var sbtns = document.querySelectorAll("[data-sort]");
+  var grid = document.getElementById("courseGrid");
   var search = document.getElementById("courseSearch");
   var count = document.getElementById("courseCount");
   var LS_KEY = "doctrine_sched_filter";
   function readState() {
-    var st = {fmt: "all", q: ""};
+    var st = {fmt: "all", q: "", sort: "new"};
     try {
       var p = new URLSearchParams(window.location.search);
       if (p.get("fmt")) st.fmt = p.get("fmt");
       if (p.get("q")) st.q = p.get("q");
-      else {
-        var ls = JSON.parse(localStorage.getItem(LS_KEY) || "{}");
-        if (!p.get("fmt") && ls.fmt) st.fmt = ls.fmt;
-        if (ls.q) st.q = ls.q;
-      }
+      if (p.get("sort")) st.sort = p.get("sort");
+      var ls = JSON.parse(localStorage.getItem(LS_KEY) || "{}");
+      if (!p.get("fmt") && ls.fmt) st.fmt = ls.fmt;
+      if (!p.get("q") && ls.q) st.q = ls.q;
+      if (!p.get("sort") && ls.sort) st.sort = ls.sort;
     } catch (e) { /* ignore */ }
     return st;
   }
@@ -65,18 +67,24 @@
   if (fbtns.length) {
     var state = readState();
     var activeFmt = (state.fmt === "online" || state.fmt === "offline") ? state.fmt : "all";
+    var sortOrder = (state.sort === "old") ? "old" : "new";
     if (search && state.q) search.value = state.q;
     fbtns.forEach(function (b) {
       b.classList.toggle("active", b.getAttribute("data-filter") === activeFmt);
     });
+    sbtns.forEach(function (b) {
+      b.classList.toggle("active", b.getAttribute("data-sort") === sortOrder);
+    });
     function save() {
       try {
-        localStorage.setItem(LS_KEY, JSON.stringify({fmt: activeFmt, q: search ? search.value : ""}));
+        localStorage.setItem(LS_KEY, JSON.stringify({fmt: activeFmt, q: search ? search.value : "", sort: sortOrder}));
         var url = new URL(window.location.href);
         if (activeFmt === "all") url.searchParams.delete("fmt");
         else url.searchParams.set("fmt", activeFmt);
         if (search && search.value) url.searchParams.set("q", search.value);
         else url.searchParams.delete("q");
+        if (sortOrder === "new") url.searchParams.delete("sort");
+        else url.searchParams.set("sort", sortOrder);
         history.replaceState(null, "", url.toString());
       } catch (e) { /* ignore */ }
     }
@@ -94,12 +102,36 @@
       if (count) count.textContent = shown + " / " + total;
       if (persist) save();
     }
+    function tsOf(card) {
+      return card.getAttribute("data-ts") || "";
+    }
+    function applySort(persist) {
+      if (!grid) { if (persist) save(); return; }
+      var cards = Array.prototype.slice.call(grid.querySelectorAll("[data-fmt]"));
+      cards.sort(function (a, b) {
+        var ta = tsOf(a), tb = tsOf(b);
+        if (!ta && !tb) return 0;
+        if (!ta) return 1;
+        if (!tb) return -1;
+        return (sortOrder === "old") ? (ta < tb ? -1 : 1) : (ta > tb ? -1 : 1);
+      });
+      cards.forEach(function (c) { grid.appendChild(c); });
+      if (persist) save();
+    }
     fbtns.forEach(function (btn) {
       btn.addEventListener("click", function () {
         fbtns.forEach(function (b) { b.classList.remove("active"); });
         btn.classList.add("active");
         activeFmt = btn.getAttribute("data-filter");
         apply(true);
+      });
+    });
+    sbtns.forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        sbtns.forEach(function (b) { b.classList.remove("active"); });
+        btn.classList.add("active");
+        sortOrder = btn.getAttribute("data-sort");
+        applySort(true);
       });
     });
     if (search) {
@@ -111,5 +143,6 @@
       });
     }
     apply(false);
+    applySort(false);
   }
 })();
