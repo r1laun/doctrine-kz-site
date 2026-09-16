@@ -118,12 +118,6 @@ a{color:inherit}
 .t-modal-body .t-about-text p{font-size:15px;line-height:1.75;margin:0 0 12px;color:#33464d}
 body.t-modal-open{overflow:hidden}
 @media(max-width:1100px){.teachers-grid{grid-auto-columns:minmax(220px,70vw)}}
-@media(max-width:640px){
-  .teachers-grid{grid-template-columns:1fr 1fr}
-  .t-info{grid-template-columns:1fr}
-  .t-modal-hero img{width:150px;height:150px;margin-bottom:0}
-  .t-modal-body{padding:24px 20px}
-}
 /* formats */
 .format-card{padding:30px}
 .format-card h3{margin-top:0;font-size:22px}
@@ -180,18 +174,76 @@ footer small{color:#9db8bc}
 /* responsive */
 @media(max-width:960px){
   .grid-3,.grid-4{grid-template-columns:1fr 1fr}
-  .hero-grid{grid-template-columns:1fr}
+  .hero-grid{grid-template-columns:1fr;gap:28px;padding:36px 0 44px}
+  .hero-photo{max-width:340px}
   .hero-photo img{max-width:320px}
-  footer .container{grid-template-columns:1fr}
+  .hero p.lead{font-size:16.5px}
+  footer .container{grid-template-columns:1fr;gap:18px}
+  .teachers-grid{grid-auto-columns:minmax(230px,68vw)}
+  .format-card{padding:24px}
 }
 @media(max-width:640px){
-  .nav{display:none;position:absolute;top:100%;left:12px;right:12px;background:#fff;flex-direction:column;padding:10px;border-radius:16px;box-shadow:0 14px 34px rgba(0,0,0,.2)}
-  .nav.open{display:flex}
-  .nav a{border-radius:12px}
-  .nav a.active{background:var(--mint)}
-  .burger{display:block}
-  .btn-header{display:none}
+  body{font-size:15px}
+  .container{width:min(var(--max),calc(100% - 24px))}
+  .header-inner{position:relative;width:min(var(--max),calc(100% - 24px));gap:10px;padding:8px 0;flex-wrap:nowrap}
+  .logo{padding:4px 10px 4px 4px;gap:8px;min-width:0;flex-shrink:1}
+  .logo img{width:40px;height:40px}
+  .logo b{font-size:19px}
   .logo small{display:none}
-  .grid-3,.grid-4{grid-template-columns:1fr}
-  .lang{margin-left:0}
+  .lang{margin-left:auto;flex-shrink:0}
+  .lang a{padding:6px 8px;font-size:11.5px}
+  .burger{display:flex;align-items:center;justify-content:center;flex-shrink:0;width:42px;height:42px;margin-left:0}
+  .nav{display:none;position:absolute;top:calc(100% + 8px);left:0;right:0;background:#fff;flex-direction:column;padding:10px;border-radius:16px;box-shadow:0 14px 34px rgba(0,0,0,.22);z-index:60;gap:4px}
+  .nav.open{display:flex}
+  .nav a{border-radius:12px;padding:12px 16px;font-size:16px}
+  .nav a.active{background:var(--mint)}
+  .btn-header{display:none}
+  /* hero */
+  .hero-grid{gap:24px;padding:28px 0 36px}
+  .hero-photo{max-width:280px;margin:0 auto}
+  .hero-badge{left:0;bottom:14px;padding:8px 14px}
+  .hero-badge b{font-size:24px}
+  .hero h1{font-size:26px}
+  .hero p.lead{font-size:15.5px}
+  .cta-row{flex-direction:column;align-items:stretch}
+  .cta-row .btn{justify-content:center;width:100%;padding:14px 20px}
+  /* sections */
+  .section{padding:32px 0}
+  .grid-3,.grid-4{grid-template-columns:1fr;gap:16px}
+  .card-body{padding:16px}
+  /* teachers strip -> stacked list on phones */
+  .teachers-grid{grid-auto-flow:row;grid-template-columns:1fr;grid-auto-columns:auto;overflow-x:visible}
+  .teachers-grid .teacher-card img{height:230px}
+  .t-modal{padding:12px}
+  .t-modal-window{width:calc(100vw - 24px);border-radius:18px}
+  .t-modal-hero{padding:24px 18px 0}
+  .t-modal-hero-inner{gap:14px}
+  .t-modal-hero img{width:110px;height:110px;margin-bottom:-24px}
+  .t-modal-body{padding:40px 18px 20px}
+  .t-info{grid-template-columns:1fr}
+  /* reviews / forms */
+  .review-form{padding:20px 16px;margin-top:24px}
+  .review-form-grid{grid-template-columns:1fr}
+  .reviews-head{flex-direction:column;align-items:flex-start}
+  /* filters */
+  .filters{gap:8px}
+  .filters button{flex:1;padding:10px 12px;font-size:13.5px;white-space:nowrap}
+  .filters input[type="search"]{flex-basis:100%;min-width:0}
+  /* course page */
+  .course-hero{padding:28px 0}
+  .course-hero .btn{width:100%;justify-content:center;margin-top:8px}
+  .session{padding:14px}
+  /* misc: no horizontal scroll */
+  html,body{overflow-x:hidden}
+  img{max-width:100%}
+  footer .container{padding:26px 0}
+}
+@media(max-width:380px){
+  .logo b{font-size:17px}
+  .lang a{padding:6px 7px;font-size:11px}
+  .hero h1{font-size:23px}
+  .trust-grid{gap:8px}
+  .trust-item b{font-size:18px}
+  .trust-item span{font-size:11px}
+  .btn{font-size:14.5px}
 }

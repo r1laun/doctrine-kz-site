@@ -4,12 +4,28 @@
   var burger = document.getElementById("burgerBtn");
   var nav = document.getElementById("nav");
   if (burger && nav) {
-    burger.addEventListener("click", function () {
+    burger.addEventListener("click", function (e) {
+      e.stopPropagation();
       var open = nav.classList.toggle("open");
       burger.setAttribute("aria-expanded", open ? "true" : "false");
     });
+    nav.querySelectorAll("a").forEach(function (a) {
+      a.addEventListener("click", function () {
+        nav.classList.remove("open");
+        burger.setAttribute("aria-expanded", "false");
+      });
+    });
+    document.addEventListener("click", function (e) {
+      if (nav.classList.contains("open") && !nav.contains(e.target) && e.target !== burger && !burger.contains(e.target)) {
+        nav.classList.remove("open");
+        burger.setAttribute("aria-expanded", "false");
+      }
+    });
     document.addEventListener("keydown", function (e) {
-      if (e.key === "Escape") nav.classList.remove("open");
+      if (e.key === "Escape") {
+        nav.classList.remove("open");
+        burger.setAttribute("aria-expanded", "false");
+      }
     });
   }
   document.querySelectorAll("[data-year]").forEach(function (el) {
