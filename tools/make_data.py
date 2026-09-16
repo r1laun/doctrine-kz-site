@@ -199,7 +199,7 @@ site = {
     "whatsapp": WHATSAPP,
     "instagram": INSTAGRAM,
     "phone": "+7 777 035 73 45",
-    "email": "doctrine.centre@gmail.com",
+    "email": "doctrine.kz@gmail.com",
     "address": {"ru": "г. Алматы",
                 "kk": "Алматы қ.",
                 "en": "Almaty"},

@@ -1,31 +1,31 @@
 {
- "name": "Doctrine",
- "tagline": {
-  "ru": "глубокие знания от сердца к сердцу",
-  "kk": "жүректен жүрекке терең білім",
-  "en": "deep knowledge from heart to heart"
- },
- "form_url": "https://forms.gle/w3KRJmSDwuwjDRKx6",
- "whatsapp": "https://wa.me/77770357345",
- "instagram": "https://www.instagram.com/doctrine_centre",
- "phone": "+7 777 035 73 45",
- "email": "doctrine.centre@gmail.com",
- "address": {
-  "ru": "г. Алматы",
-  "kk": "Алматы қ.",
-  "en": "Almaty"
- },
- "bin": "210140019512",
- "founder": {
-  "name": {
-   "ru": "Лещинская-Попова Инна Евгеньевна",
-   "kk": "Лещинская-Попова Инна Евгеньевна",
-   "en": "Inna Leshinskaya-Popova"
+  "name": "Doctrine",
+  "tagline": {
+    "ru": "глубокие знания от сердца к сердцу",
+    "kk": "жүректен жүрекке терең білім",
+    "en": "deep knowledge from heart to heart"
   },
-  "role": {
-   "ru": "Основатель и идейный лидер центра, врач-кардиолог, 20 лет в обучении врачей",
-   "kk": "Орталықтың негізін қалаушы, кардиолог дәрігер, дәрігерлерді оқытудағы 20 жылдық тәжірибе",
-   "en": "Founder of the centre, cardiologist, 20 years in physician training"
+  "form_url": "https://forms.gle/w3KRJmSDwuwjDRKx6",
+  "whatsapp": "https://wa.me/77770357345",
+  "instagram": "https://www.instagram.com/doctrine_centre",
+  "phone": "+7 777 035 73 45",
+  "email": "doctrine.kz@gmail.com",
+  "address": {
+    "ru": "г. Алматы",
+    "kk": "Алматы қ.",
+    "en": "Almaty"
+  },
+  "bin": "210140019512",
+  "founder": {
+    "name": {
+      "ru": "Лещинская-Попова Инна Евгеньевна",
+      "kk": "Лещинская-Попова Инна Евгеньевна",
+      "en": "Inna Leshinskaya-Popova"
+    },
+    "role": {
+      "ru": "Основатель и идейный лидер центра, врач-кардиолог, 20 лет в обучении врачей",
+      "kk": "Орталықтың негізін қалаушы, кардиолог дәрігер, дәрігерлерді оқытудағы 20 жылдық тәжірибе",
+      "en": "Founder of the centre, cardiologist, 20 years in physician training"
+    }
   }
- }
 }
