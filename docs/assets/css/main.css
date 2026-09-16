@@ -81,9 +81,9 @@ a{color:inherit}
 .card-body h3{margin:0;font-size:18px}
 .badges{display:flex;gap:8px;flex-wrap:wrap}
 .badge{font-size:12px;font-weight:700;padding:5px 11px;border-radius:999px;color:#fff;background:var(--brand-dark)}
-.badge.hours{background:#5ba9a9}.badge.format{background:#8967ce}
+.badge.hours{background:var(--brand-dark)}.badge.format{background:var(--brand-dark)}
 .meta{font-size:13.5px;color:var(--muted)}
-.price{font-size:22px;font-weight:800;color:var(--accent);margin-top:auto;padding-top:10px}
+.price{font-size:22px;font-weight:800;color:var(--teal);margin-top:auto;padding-top:10px}
 .card .btn{margin-top:10px;justify-content:center;font-size:14px;padding:11px}
 /* teachers */
 .teacher-card{text-align:center}
