@@ -40,7 +40,7 @@
     }).join("");
     var n = (c.sessions || []).length;
     box.innerHTML = "<h1>" + esc(t) + "</h1>"
-      + '<div class="course-meta"><span class="badge format">' + esc(c.format === "offline" ? L.offline : L.online) + "</span>"
+      + '<div class="course-meta"><span class="badge format ' + (c.format === "offline" ? "fmt-offline" : "fmt-online") + '">' + esc(c.format === "offline" ? L.offline : L.online) + "</span>"
       + (n > 1 ? '<span class="meta">' + n + " " + sessWord(n) + "</span>" : "") + "</div>"
       + sessions;
   }).catch(function () {

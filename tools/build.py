@@ -30,6 +30,8 @@ T = {
         "meta_desc": "Doctrine - обучение врачей в Алматы и онлайн: кардиология, ЭКГ, Холтер, СМАД, ЭхоКГ. Курсы и вебинары для медиков Казахстана.",
         "hero_eye": "Образовательный центр для врачей · Алматы",
         "hero_h1": "Глубокие знания от сердца к сердцу",
+        "hero_h1_a": "Глубокие знания",
+        "hero_h1_b": "от сердца к сердцу",
         "hero_p": "Меня зовут Инна Евгеньевна - я основатель Doctrine и врач-кардиолог с 20-летним опытом обучения врачей. Наши преподаватели - практикующие клиницисты. Учим тому, что работает у постели пациента.",
         "cta_sched": "Смотреть расписание", "cta_reg": "Записаться на обучение",
         "trust": [("200+", "выданных сертификатов"), ("10+", "курсов"),
@@ -68,6 +70,8 @@ T = {
         "meta_desc": "Doctrine - Алматыда және онлайн дәрігерлерді оқыту: кардиология, ЭКГ, Холтер, СМАД, ЭхоКГ. Қазақстан медиктеріне арналған курстар.",
         "hero_eye": "Дәрігерлерге арналған білім орталығы · Алматы",
         "hero_h1": "Жүректен жүрекке терең білім",
+        "hero_h1_a": "Жүректен жүрекке",
+        "hero_h1_b": "терең білім",
         "hero_p": "Менің атым Инна Евгеньевна - Doctrine негізін қалаушы, кардиолог, дәрігерлерді оқытудағы 20 жылдық тәжірибем бар. Оқытушыларымыз - тәжірибелі клиницистер.",
         "cta_sched": "Кестені көру", "cta_reg": "Оқуға жазылу",
         "trust": [("200+", "берілген сертификат"), ("10+", "курс"),
@@ -106,6 +110,8 @@ T = {
         "meta_desc": "Doctrine - physician training in Almaty and online: cardiology, ECG, Holter, ABPM, Echo. Courses and webinars for doctors in Kazakhstan.",
         "hero_eye": "Education centre for physicians · Almaty",
         "hero_h1": "Deep knowledge from heart to heart",
+        "hero_h1_a": "Deep knowledge",
+        "hero_h1_b": "from heart to heart",
         "hero_p": "I'm Inna Leshinskaya-Popova - founder of Doctrine and a cardiologist with 20 years of physician training experience. Our teachers are practising clinicians.",
         "cta_sched": "View schedule", "cta_reg": "Enroll now",
         "trust": [("200+", "certificates issued"), ("10+", "courses"),
@@ -229,9 +235,10 @@ def course_cards(lang, limit=None, fmt=None):
         dates = dlines[0] + (f" (+{len(dlines) - 1})" if len(dlines) > 1 else "")
         n = len(c["sessions"])
         fmt_label = T[lang]["fmt_online"] if c["format"] == "online" else T[lang]["fmt_offline"]
+        fmt_cls = "fmt-online" if c["format"] == "online" else "fmt-offline"
         out.append(f"""<div class="card" data-fmt="{c["format"]}">
 <div class="card-body">
-<div class="badges"><span class="badge format">{esc(fmt_label)}</span>{f'<span class="badge hours">{esc(hours)}</span>' if hours else ""}{f'<span class="badge">{n} {sess_word(lang, n)}</span>' if n > 1 else ""}</div>
+<div class="badges"><span class="badge format {fmt_cls}">{esc(fmt_label)}</span>{f'<span class="badge hours">{esc(hours)}</span>' if hours else ""}{f'<span class="badge">{n} {sess_word(lang, n)}</span>' if n > 1 else ""}</div>
 <h3>{esc(title)}</h3>
 <div class="meta">{esc(dates)}</div>
 <div class="price">{esc(price) if price else "&nbsp;"}</div>
@@ -309,7 +316,7 @@ def page_index(lang):
 <section class="hero"><div class="container hero-grid">
 <div class="hero-photo"><img src="../assets/img/founder.jpg" alt="{esc(t["founder_alt"])}"><div class="hero-badge"><b>20+</b><span>{esc(t["hero_badge"])}</span></div></div>
 <div><span class="hero-eyebrow">{esc(t["hero_eye"])}</span>
-<h1>{esc(t["hero_h1"])}</h1>
+<h1>{esc(t["hero_h1_a"])}<br>{esc(t["hero_h1_b"])}</h1>
 <p class="lead">{esc(t["hero_p"])}</p>
 <div class="cta-row"><a class="btn btn-primary" href="schedule.html">{esc(t["cta_sched"])}</a>
 <a class="btn btn-ghost" href="{FORM}" target="_blank" rel="noopener">{esc(t["cta_reg"])}</a></div>
