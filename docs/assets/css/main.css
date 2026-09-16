@@ -201,8 +201,10 @@ footer small{color:#9db8bc}
   .nav a.active{background:var(--mint)}
   .btn-header{display:none}
   /* hero */
-  .hero-grid{gap:24px;padding:28px 0 36px}
-  .hero-photo{max-width:280px;margin:0 auto}
+  .hero-grid{gap:24px;padding:28px 0 36px;justify-items:center}
+  .hero-grid>div:last-child{width:100%}
+  .hero-photo{width:100%;max-width:220px;margin:0 auto;justify-self:center}
+  .hero-photo img{width:100%;max-width:220px;margin:0 auto}
   .hero-badge{left:0;bottom:14px;padding:8px 14px}
   .hero-badge b{font-size:24px}
   .hero h1{font-size:26px}
@@ -219,8 +221,9 @@ footer small{color:#9db8bc}
   .t-modal{padding:12px}
   .t-modal-window{width:calc(100vw - 24px);border-radius:18px}
   .t-modal-hero{padding:24px 18px 0}
-  .t-modal-hero-inner{gap:14px}
-  .t-modal-hero img{width:110px;height:110px;margin-bottom:-24px}
+  .t-modal-hero-inner{gap:12px;flex-direction:column;align-items:flex-start}
+  .t-modal-hero-text{order:-1;width:100%;padding-bottom:0}
+  .t-modal-hero img{width:140px;height:140px;margin-bottom:-24px}
   .t-modal-body{padding:40px 18px 20px}
   .t-info{grid-template-columns:1fr}
   /* reviews / forms */
