@@ -10,6 +10,7 @@
   "format": "online",
   "cover": "zaglushka",
   "latest": "2026-11-07",
+  "open": false,
   "sessions": [
    {
     "sid": "С001",
@@ -72,6 +73,7 @@
   "format": "online",
   "cover": "zaglushka",
   "latest": "2026-09-14",
+  "open": false,
   "sessions": [
    {
     "sid": "С008",
@@ -110,6 +112,7 @@
   "format": "online",
   "cover": "zaglushka",
   "latest": "2026-08-29",
+  "open": false,
   "sessions": [
    {
     "sid": "С009",
@@ -136,6 +139,7 @@
   "format": "offline",
   "cover": "zaglushka",
   "latest": "2026-08-21",
+  "open": true,
   "sessions": [
    {
     "sid": "С002",
@@ -438,6 +442,7 @@
   "format": "online",
   "cover": "zaglushka",
   "latest": "2026-07-18",
+  "open": true,
   "sessions": [
    {
     "sid": "С012",
@@ -524,6 +529,7 @@
   "format": "offline",
   "cover": "zaglushka",
   "latest": "2026-06-07",
+  "open": false,
   "sessions": [
    {
     "sid": "С018",
@@ -550,6 +556,7 @@
   "format": "online",
   "cover": "zaglushka",
   "latest": "2026-06-01",
+  "open": false,
   "sessions": [
    {
     "sid": "С017",
@@ -576,6 +583,7 @@
   "format": "online",
   "cover": "zaglushka",
   "latest": "2026-05-29",
+  "open": true,
   "sessions": [
    {
     "sid": "С038",
@@ -614,6 +622,7 @@
   "format": "online",
   "cover": "zaglushka",
   "latest": "2026-05-28",
+  "open": true,
   "sessions": [
    {
     "sid": "С026",
@@ -652,6 +661,7 @@
   "format": "offline",
   "cover": "zaglushka",
   "latest": "2026-05-21",
+  "open": true,
   "sessions": [
    {
     "sid": "С027",
@@ -690,6 +700,7 @@
   "format": "offline",
   "cover": "zaglushka",
   "latest": "2026-03-31",
+  "open": true,
   "sessions": [
    {
     "sid": "С039",
@@ -728,6 +739,7 @@
   "format": "offline",
   "cover": "zaglushka",
   "latest": "2026-03-19",
+  "open": false,
   "sessions": [
    {
     "sid": "С047",
@@ -754,6 +766,7 @@
   "format": "online",
   "cover": "zaglushka",
   "latest": "2026-03-13",
+  "open": false,
   "sessions": [
    {
     "sid": "С048",
@@ -780,6 +793,7 @@
   "format": "online",
   "cover": "zaglushka",
   "latest": "",
+  "open": true,
   "sessions": [
    {
     "sid": "С050",
@@ -806,6 +820,7 @@
   "format": "online",
   "cover": "zaglushka",
   "latest": "",
+  "open": true,
   "sessions": [
    {
     "sid": "С051",

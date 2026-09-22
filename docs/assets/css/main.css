@@ -84,6 +84,16 @@ a{color:inherit}
 .badge.hours{background:var(--brand-dark)}.badge.format{background:var(--brand-dark)}
 .badge.format.fmt-online{background:var(--teal)}
 .badge.format.fmt-offline{background:var(--brand-dark)}
+.badge-past{background:#7d8f96}
+/* archive: past courses */
+.archive{margin-top:30px;background:#fff;border:1px dashed #b9cdd1;border-radius:var(--radius);padding:6px 18px 18px;box-shadow:var(--shadow)}
+.archive summary{cursor:pointer;font-weight:800;font-size:17px;padding:14px 4px;color:var(--muted)}
+.archive summary:hover{color:var(--teal)}
+.archive .grid-3{margin-top:6px}
+.card.is-past{box-shadow:0 4px 14px rgba(35,62,70,.08)}
+.card.is-past img{filter:grayscale(45%)}
+.past-banner{background:#eef3f4;border:1px solid var(--line);border-left:5px solid #7d8f96;border-radius:12px;padding:14px 18px;margin:16px 0;font-size:15.5px}
+.past-banner b{display:block;margin-bottom:2px}
 .meta{font-size:13.5px;color:var(--muted)}
 .price{font-size:22px;font-weight:800;color:var(--teal);margin-top:auto;padding-top:10px}
 .card .btn{margin-top:10px;justify-content:center;font-size:14px;padding:11px}

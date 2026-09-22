@@ -2,7 +2,7 @@
 Run: python3 tools/build.py
 Output: docs/{ru,kk,en}/*.html + sitemap/robots/root index.
 """
-import json, os, html
+import json, os, html, re
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCS = os.path.join(ROOT, "docs")
@@ -64,6 +64,7 @@ T = {
         "rights": "Все права защищены.", "teachers_page_sub": "Нажмите «Подробнее», чтобы узнать о каждом.",
         "menu_h": "Меню", "fmt_online": "Онлайн", "fmt_offline": "Офлайн",
         "search_ph": "Найти курс или преподавателя…", "shown": "Показано",
+        "archive_h": "Архив", "archive_sub": "Прошедшие курсы — набор в эти группы завершён.",
         "founder_alt": "Основатель центра Doctrine",
     },
     "kk": {
@@ -105,6 +106,7 @@ T = {
         "rights": "Барлық құқықтар қорғалған.", "teachers_page_sub": "Әрқайсысы туралы білу үшін «Толығырақ» басыңыз.",
         "menu_h": "Мәзір", "fmt_online": "Онлайн", "fmt_offline": "Офлайн",
         "search_ph": "Курс немесе оқытушыны іздеу…", "shown": "Көрсетілді",
+        "archive_h": "Мұрағат", "archive_sub": "Өткен курстар — бұл топтарға қабылдау аяқталды.",
         "founder_alt": "Doctrine орталығының негізін қалаушы",
     },
     "en": {
@@ -146,6 +148,7 @@ T = {
         "rights": "All rights reserved.", "teachers_page_sub": "Click “Details” to learn about each teacher.",
         "menu_h": "Menu", "fmt_online": "Online", "fmt_offline": "Offline",
         "search_ph": "Search courses or teachers…", "shown": "Showing",
+        "archive_h": "Archive", "archive_sub": "Past courses — enrollment for these groups is closed.",
         "founder_alt": "Founder of the Doctrine centre",
     },
 }
@@ -224,6 +227,45 @@ def sess_word(lang, n):
         return "сабақ"
     return "sessions"
 
+DATE_RE = re.compile(r"(\d{1,2})[.\-/](\d{1,2})[.\-/](\d{2,4})")
+
+def sess_dates(s):
+    out = []
+    for d, m, y in DATE_RE.findall(s.get("dates") or ""):
+        y = int(y)
+        if y < 100:
+            y += 2000
+        try:
+            out.append((y, int(m), int(d)))
+        except ValueError:
+            pass
+    return sorted(out)
+
+def is_open_text(v):
+    t = str(v or "").lower().replace("ё", "е")
+    return ("по мере" in t) or ("запис" in t)
+
+def pick_display(c):
+    """Session shown on the card: open-enrollment conduct first,
+    else the conduct with the latest date, else the first session."""
+    sessions = c.get("sessions") or [{}]
+    for s in sessions:
+        if is_open_text(s.get("dates")):
+            return s
+    best, bestd = None, None
+    for s in sessions:
+        ds = sess_dates(s)
+        if ds and (bestd is None or ds[-1] > bestd):
+            best, bestd = s, ds[-1]
+    return best or sessions[0]
+
+def first_nonempty(sessions, key):
+    for s in sessions:
+        v = (s.get(key) or "").strip()
+        if v:
+            return v
+    return ""
+
 def course_cards(lang, limit=None, fmt=None):
     out = []
     items = COURSES if limit is None else COURSES[:limit]
@@ -231,16 +273,18 @@ def course_cards(lang, limit=None, fmt=None):
         if fmt and c["format"] != fmt:
             continue
         title = c["title"].get(lang) or c["title"]["ru"]
-        first = c["sessions"][0] if c["sessions"] else {}
-        price = first.get("price", "")
-        hours = first.get("hours", "")
-        dlines = (first.get("dates", "") or "").split("\n")
+        sessions = c.get("sessions") or [{}]
+        disp = pick_display(c)
+        price = (disp.get("price") or "").strip() or first_nonempty(sessions, "price")
+        hours = (disp.get("hours") or "").strip() or first_nonempty(sessions, "hours")
+        dlines = (disp.get("dates", "") or "").split("\n")
         dates = dlines[0] + (f" (+{len(dlines) - 1})" if len(dlines) > 1 else "")
         n = len(c["sessions"])
         fmt_label = T[lang]["fmt_online"] if c["format"] == "online" else T[lang]["fmt_offline"]
         fmt_cls = "fmt-online" if c["format"] == "online" else "fmt-offline"
         ts = (c.get("latest") or "").replace("-", "")
-        out.append(f"""<div class="card" data-fmt="{c["format"]}" data-ts="{ts}">
+        open_attr = ' data-open="1"' if c.get("open") else ""
+        out.append(f"""<div class="card" data-fmt="{c["format"]}" data-ts="{ts}"{open_attr}>
 <div class="card-body">
 <div class="badges"><span class="badge format {fmt_cls}">{esc(fmt_label)}</span>{f'<span class="badge hours">{esc(hours)}</span>' if hours else ""}{f'<span class="badge">{n} {sess_word(lang, n)}</span>' if n > 1 else ""}</div>
 <h3>{esc(title)}</h3>
@@ -330,7 +374,7 @@ def page_index(lang):
 </div></section>
 <section class="section"><div class="container">
 <h2>{esc(t["pop"])}</h2><p class="sub">{esc(t["pop_sub"])}</p>
-<div class="grid-3">{course_cards(lang, limit=3)}</div>
+<div class="grid-3" id="popGrid">{course_cards(lang, limit=3)}</div>
 <p><a class="btn btn-ghost" href="schedule.html">{esc(t["all_sched"])}</a></p>
 </div></section>
 <section class="section alt"><div class="container">
@@ -355,6 +399,10 @@ def page_schedule(lang):
 <span class="meta" id="courseCount"></span>
 </div>
 <div class="grid-3" id="courseGrid">{course_cards(lang)}</div>
+<details class="archive" id="archiveBlock" hidden>
+<summary>{esc(t["archive_h"])} (<span id="archiveCount">0</span>) — {esc(t["archive_sub"])}</summary>
+<div class="grid-3" id="archiveGrid"></div>
+</details>
 </div></section>
 """ + contacts_section(lang) + footer(lang))
 

@@ -156,7 +156,11 @@ for c in courses_csv:
         fmt = "online"
     tr = TITLE_I18N.get(cid, {})
     latest = ""
+    open_ended = False
     for r in items:
+        blob = norm_title(r.get("Дата и время"))
+        if "по мере" in blob or "запис" in blob:
+            open_ended = True
         for dt in parse_dates(r.get("Дата и время")):
             iso = latest_iso([dt])
             if iso > latest:
@@ -170,6 +174,7 @@ for c in courses_csv:
         "format": fmt,
         "cover": "zaglushka",
         "latest": latest,
+        "open": open_ended,
         "sessions": [{
             "sid": clean(r["ID Проведения"]),
             "kind": clean(r["Тип"]),

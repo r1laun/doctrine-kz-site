@@ -40,6 +40,72 @@
       }
     });
   }
+  // auto-archive: courses whose latest date passed move to Archive
+  // (courses with data-open="1" — rolling intake / recordings — never close)
+  var archLang = document.documentElement.lang || "ru";
+  var archL = {
+    ru: {done: "Завершён", next: "Следующий поток →"},
+    kk: {done: "Аяқталды", next: "Келесі ағын →"},
+    en: {done: "Finished", next: "Next intake →"}
+  }[archLang] || {done: "Завершён", next: "Следующий поток →"};
+  var waLink = document.querySelector('a[href*="wa.me"]');
+  var waHref = waLink ? waLink.getAttribute("href") : null;
+  function todayStamp() {
+    var d = new Date();
+    return d.getFullYear() * 10000 + (d.getMonth() + 1) * 100 + d.getDate();
+  }
+  function isPastCard(card) {
+    if (card.hasAttribute("data-open")) return false;
+    var ts = parseInt(card.getAttribute("data-ts") || "0", 10);
+    return !!ts && ts < todayStamp();
+  }
+  function markPastCard(card) {
+    if (card.classList.contains("is-past")) return;
+    card.classList.add("is-past");
+    var badges = card.querySelector(".badges");
+    if (badges && !badges.querySelector(".badge-past")) {
+      var b = document.createElement("span");
+      b.className = "badge badge-past";
+      b.textContent = archL.done;
+      badges.insertBefore(b, badges.firstChild);
+    }
+    var btn = card.querySelector('a.btn-primary[href*="forms.gle"]');
+    if (btn) {
+      btn.textContent = archL.next;
+      if (waHref) btn.setAttribute("href", waHref);
+    }
+  }
+  (function runArchive() {
+    var today = todayStamp();
+    if (!today) return;
+    // schedule page: move past cards into the archive grid
+    var archGrid = document.getElementById("archiveGrid");
+    var archBlock = document.getElementById("archiveBlock");
+    var archCount = document.getElementById("archiveCount");
+    var schedGrid = document.getElementById("courseGrid");
+    if (schedGrid && archGrid) {
+      var moved = 0;
+      Array.prototype.slice.call(schedGrid.querySelectorAll("[data-fmt]")).forEach(function (card) {
+        if (isPastCard(card)) {
+          markPastCard(card);
+          card.style.display = "";
+          archGrid.appendChild(card);
+          moved++;
+        }
+      });
+      if (archBlock && moved > 0) {
+        archBlock.hidden = false;
+        if (archCount) archCount.textContent = moved;
+      }
+    }
+    // home page "upcoming": only mark, keep in place
+    var popGrid = document.getElementById("popGrid");
+    if (popGrid) {
+      popGrid.querySelectorAll("[data-fmt]").forEach(function (card) {
+        if (isPastCard(card)) markPastCard(card);
+      });
+    }
+  })();
   // schedule filters
   var fbtns = document.querySelectorAll("[data-filter]");
   var sbtns = document.querySelectorAll("[data-sort]");
@@ -91,7 +157,8 @@
     function apply(persist) {
       var q = norm(search && search.value);
       var shown = 0, total = 0;
-      document.querySelectorAll("[data-fmt]").forEach(function (card) {
+      var scope = grid || document;
+      scope.querySelectorAll("[data-fmt]").forEach(function (card) {
         total++;
         var okFmt = (activeFmt === "all") || (card.getAttribute("data-fmt") === activeFmt);
         var okQ = !q || norm(card.textContent).indexOf(q) !== -1;
