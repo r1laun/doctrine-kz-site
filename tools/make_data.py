@@ -341,6 +341,7 @@ for c in courses_csv:
         "cover": "zaglushka",
         "latest": latest,
         "open": open_ended,
+        "archived": False,
         "sessions": [{
             "sid": clean(r["ID Проведения"]),
             "kind": clean(r["Тип"]),
@@ -355,15 +356,21 @@ for c in courses_csv:
         } for r in items],
     })
 
-# New table takes over when present: it holds the actual lineup
-# and fully replaces the old catalog (old data stays in git history).
-if os.path.exists(NEW_SCHED):
-    courses = build_new_courses(NEW_SCHED)
+# New table holds the actual lineup; the old catalog stays on the site
+# as the Archive (old data also remains in git history).
+new_courses = build_new_courses(NEW_SCHED) if os.path.exists(NEW_SCHED) else []
+if new_courses:
     print(f"new schedule: {os.path.basename(NEW_SCHED)}")
+for c in courses:
+    c["archived"] = True
+for c in new_courses:
+    c["archived"] = False
 
-# Newest-first: courses with the latest conduct date on top;
-# "" sorts smallest, so with reverse=True undated stay at the end.
-courses.sort(key=lambda c: c["latest"] or "", reverse=True)
+def _newest_first(lst):
+    return sorted(lst, key=lambda c: c["latest"] or "", reverse=True)
+
+# active lineup first, archive after; newest-first inside each group
+courses = _newest_first(new_courses) + _newest_first(courses)
 
 site = {
     "name": "Doctrine",

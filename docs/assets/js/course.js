@@ -58,10 +58,11 @@
       });
       var dn = new Date();
       var todayTs = dn.getFullYear() * 10000 + (dn.getMonth() + 1) * 100 + dn.getDate();
-      if (!openEnded && maxTs && maxTs < todayTs) {
+      if (c.archived || (!openEnded && maxTs && maxTs < todayTs)) {
         var banner = document.createElement("div");
         banner.className = "past-banner";
-        banner.innerHTML = "<b>" + esc(L.doneT) + "</b>" + esc(L.doneT2);
+        var reallyPast = !openEnded && maxTs && maxTs < todayTs;
+        banner.innerHTML = "<b>" + esc(L.doneT) + "</b>" + (reallyPast ? esc(L.doneT2) : "");
         box.insertBefore(banner, box.firstChild.nextSibling);
         var wa = document.querySelector('a[href*="wa.me"]');
         if (wa) {

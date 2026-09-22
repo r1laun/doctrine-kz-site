@@ -78,25 +78,20 @@
   (function runArchive() {
     var today = todayStamp();
     if (!today) return;
-    // schedule page: move past cards into the archive grid
+    // schedule page: move newly-past cards into the archive grid
+    // (old-catalog cards are prerendered there by build.py)
     var archGrid = document.getElementById("archiveGrid");
-    var archBlock = document.getElementById("archiveBlock");
     var archCount = document.getElementById("archiveCount");
     var schedGrid = document.getElementById("courseGrid");
     if (schedGrid && archGrid) {
-      var moved = 0;
       Array.prototype.slice.call(schedGrid.querySelectorAll("[data-fmt]")).forEach(function (card) {
         if (isPastCard(card)) {
           markPastCard(card);
           card.style.display = "";
           archGrid.appendChild(card);
-          moved++;
         }
       });
-      if (archBlock && moved > 0) {
-        archBlock.hidden = false;
-        if (archCount) archCount.textContent = moved;
-      }
+      if (archCount) archCount.textContent = archGrid.querySelectorAll("[data-fmt]").length;
     }
     // home page "upcoming": only mark, keep in place
     var popGrid = document.getElementById("popGrid");

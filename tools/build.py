@@ -65,6 +65,7 @@ T = {
         "menu_h": "Меню", "fmt_online": "Онлайн", "fmt_offline": "Офлайн",
         "search_ph": "Найти курс или преподавателя…", "shown": "Показано",
         "archive_h": "Архив", "archive_sub": "Прошедшие курсы — набор в эти группы завершён.",
+        "past_badge": "Завершён", "next_stream": "Следующий поток →",
         "founder_alt": "Основатель центра Doctrine",
     },
     "kk": {
@@ -107,6 +108,7 @@ T = {
         "menu_h": "Мәзір", "fmt_online": "Онлайн", "fmt_offline": "Офлайн",
         "search_ph": "Курс немесе оқытушыны іздеу…", "shown": "Көрсетілді",
         "archive_h": "Мұрағат", "archive_sub": "Өткен курстар — бұл топтарға қабылдау аяқталды.",
+        "past_badge": "Аяқталды", "next_stream": "Келесі ағын →",
         "founder_alt": "Doctrine орталығының негізін қалаушы",
     },
     "en": {
@@ -149,6 +151,7 @@ T = {
         "menu_h": "Menu", "fmt_online": "Online", "fmt_offline": "Offline",
         "search_ph": "Search courses or teachers…", "shown": "Showing",
         "archive_h": "Archive", "archive_sub": "Past courses — enrollment for these groups is closed.",
+        "past_badge": "Finished", "next_stream": "Next intake →",
         "founder_alt": "Founder of the Doctrine centre",
     },
 }
@@ -266,11 +269,22 @@ def first_nonempty(sessions, key):
             return v
     return ""
 
-def course_cards(lang, limit=None, fmt=None):
+def active_top(lang, n):
+    """Top-n active (non-archived) courses for the home page."""
+    pool = [c for c in COURSES if not c.get("archived")][:n]
+    return course_cards(lang, pool=pool)
+
+def course_cards(lang, limit=None, fmt=None, skip_archived=False, only_archived=False, pool=None):
     out = []
-    items = COURSES if limit is None else COURSES[:limit]
+    items = pool if pool is not None else COURSES
+    if limit is not None:
+        items = items[:limit]
     for c in items:
         if fmt and c["format"] != fmt:
+            continue
+        if skip_archived and c.get("archived"):
+            continue
+        if only_archived and not c.get("archived"):
             continue
         title = c["title"].get(lang) or c["title"]["ru"]
         sessions = c.get("sessions") or [{}]
@@ -284,14 +298,18 @@ def course_cards(lang, limit=None, fmt=None):
         fmt_cls = "fmt-online" if c["format"] == "online" else "fmt-offline"
         ts = (c.get("latest") or "").replace("-", "")
         open_attr = ' data-open="1"' if c.get("open") else ""
-        out.append(f"""<div class="card" data-fmt="{c["format"]}" data-ts="{ts}"{open_attr}>
+        is_arch = bool(c.get("archived"))
+        past_badge = f'<span class="badge badge-past">{esc(T[lang]["past_badge"])}</span>' if is_arch else ""
+        enroll_btn = (f'<a class="btn btn-primary" href="{WA}" target="_blank" rel="noopener">{esc(T[lang]["next_stream"])}</a>' if is_arch
+                      else f'<a class="btn btn-primary" href="{FORM}?usp=pp_url&entry_course={c["id"]}" target="_blank" rel="noopener">{esc(T[lang]["enroll"])}</a>')
+        out.append(f"""<div class="card{' is-past' if is_arch else ''}" data-fmt="{c["format"]}" data-ts="{ts}"{open_attr}>
 <div class="card-body">
-<div class="badges"><span class="badge format {fmt_cls}">{esc(fmt_label)}</span>{f'<span class="badge hours">{esc(hours)}</span>' if hours else ""}{f'<span class="badge">{n} {sess_word(lang, n)}</span>' if n > 1 else ""}</div>
+<div class="badges">{past_badge}<span class="badge format {fmt_cls}">{esc(fmt_label)}</span>{f'<span class="badge hours">{esc(hours)}</span>' if hours else ""}{f'<span class="badge">{n} {sess_word(lang, n)}</span>' if n > 1 else ""}</div>
 <h3>{esc(title)}</h3>
 <div class="meta">{esc(dates)}</div>
 <div class="price">{esc(price) if price else "&nbsp;"}</div>
 <a class="btn btn-ghost" href="course.html?id={c["id"]}">{esc(T[lang]["detail"])}</a>
-<a class="btn btn-primary" href="{FORM}?usp=pp_url&entry_course={c["id"]}" target="_blank" rel="noopener">{esc(T[lang]["enroll"])}</a>
+{enroll_btn}
 </div></div>""")
     return "\n".join(out)
 
@@ -374,7 +392,7 @@ def page_index(lang):
 </div></section>
 <section class="section"><div class="container">
 <h2>{esc(t["pop"])}</h2><p class="sub">{esc(t["pop_sub"])}</p>
-<div class="grid-3" id="popGrid">{course_cards(lang, limit=3)}</div>
+<div class="grid-3" id="popGrid">{active_top(lang, 3)}</div>
 <p><a class="btn btn-ghost" href="schedule.html">{esc(t["all_sched"])}</a></p>
 </div></section>
 <section class="section alt"><div class="container">
@@ -398,10 +416,10 @@ def page_schedule(lang):
 <input id="courseSearch" type="search" placeholder="{esc(t["search_ph"])}" aria-label="{esc(t["search_ph"])}">
 <span class="meta" id="courseCount"></span>
 </div>
-<div class="grid-3" id="courseGrid">{course_cards(lang)}</div>
-<details class="archive" id="archiveBlock" hidden>
-<summary>{esc(t["archive_h"])} (<span id="archiveCount">0</span>) — {esc(t["archive_sub"])}</summary>
-<div class="grid-3" id="archiveGrid"></div>
+<div class="grid-3" id="courseGrid">{course_cards(lang, skip_archived=True)}</div>
+<details class="archive" id="archiveBlock">
+<summary>{esc(t["archive_h"])} (<span id="archiveCount">{len([c for c in COURSES if c.get("archived")])}</span>) — {esc(t["archive_sub"])}</summary>
+<div class="grid-3" id="archiveGrid">{course_cards(lang, only_archived=True)}</div>
 </details>
 </div></section>
 """ + contacts_section(lang) + footer(lang))
