@@ -84,7 +84,173 @@ TITLE_I18N = {
              "en": "Cardio-oncology"},
     "К009": {"kk": "Кардиологиядағы жүктемелік тестілеу",
              "en": "Stress testing in cardiology: from indications to decisions"},
+    "К016": {"kk": "ЭхоКГ «Қақпақшалар бақылауда»",
+             "en": "EchoCG 'Valves under control'"},
+    "К017": {"kk": "Жүктілік кезіндегі гипертензиялық бұзылыстар",
+             "en": "Hypertensive disorders in pregnancy"},
+    "К018": {"kk": "QT аралығы және дәрілер",
+             "en": "QT interval and drugs"},
+    "К019": {"kk": "Әйелдің жүрек-қан тамырлары денсаулығы",
+             "en": "Women's cardiovascular health"},
+    "К020": {"kk": "Кардиоонкология",
+             "en": "Cardio-oncology"},
 }
+
+# ---- NEW schedule format: single sheet with columns
+# month | course name | prof name | description | time | date | price (Тенге) | credits | format
+# Dates are day numbers inside the given month(s); empty month cells inherit
+# the previous row (merged cells). Each day becomes one session; rows with the
+# same course name are grouped into one course. Year = current year.
+NEW_MONTHS = {"январь": 1, "января": 1, "февраль": 2, "февраля": 2,
+              "март": 3, "марта": 3, "апрель": 4, "апреля": 4, "май": 5,
+              "мая": 5, "июнь": 6, "июня": 6, "июль": 7, "июля": 7,
+              "август": 8, "августа": 8, "сентябрь": 9, "сентября": 9,
+              "октябрь": 10, "октября": 10, "ноябрь": 11, "ноября": 11,
+              "декабрь": 12, "декабря": 12}
+NEW_MONTH_ABBR = {"янв": 1, "фев": 2, "мар": 3, "апр": 4, "май": 5, "мая": 5,
+                  "июн": 6, "июл": 7, "авг": 8, "сен": 9, "сент": 9,
+                  "окт": 10, "ноя": 11, "нояб": 11, "дек": 12}
+
+def new_month_num(name):
+    t = norm_title(name).replace(".", "")
+    for k, v in NEW_MONTHS.items():
+        if k in t:
+            return v
+    for k, v in NEW_MONTH_ABBR.items():
+        if k in t:
+            return v
+    return None
+
+def new_day_list(v):
+    # "09, 11, 12" or "29 (сен)\n01 (окт)" -> [(day, month_override|None)]
+    out = []
+    for ln in str(v or "").replace("—", "-").split("\n"):
+        for part in ln.split(","):
+            part = part.strip()
+            if not part:
+                continue
+            m = re.match(r"(\d{1,2})\s*(?:\(([^)]+)\))?", part)
+            if not m:
+                continue
+            mon = new_month_num(m.group(2)) if m.group(2) else None
+            out.append((int(m.group(1)), mon))
+    return out
+
+def new_time_map(v):
+    # "19:00 (09, 11)\n11:00 (12)" -> ({9: '19:00', 11: '19:00', 12: '11:00'}, '')
+    # bare "17:00" -> ({}, '17:00'); "n/a"/empty -> ({}, '')
+    mapping, default = {}, ""
+    for ln in str(v or "").split("\n"):
+        ln = ln.strip()
+        if not ln or ln.lower() == "n/a":
+            continue
+        m = re.match(r"(\d{1,2}:\d{2})\s*(?:\(([^)]+)\))?", ln)
+        if not m:
+            continue
+        if m.group(2):
+            for d in re.findall(r"\d{1,2}", m.group(2)):
+                mapping[int(d)] = m.group(1)
+        else:
+            default = m.group(1)
+    return mapping, default
+
+def new_price(v):
+    t = clean(v)
+    if not t or t.lower() in ("n/a", "-", "—"):
+        return ""
+    m = re.match(r"^(\d{1,3})\.(\d{3})$", t)
+    if m:
+        return f"{m.group(1)} {m.group(2)}KZT"
+    if re.match(r"^[\d\s]+$", t):
+        return t + "KZT"
+    return t
+
+def new_format(v):
+    t = norm_title(v)
+    if any(w in t for w in ["офлайн", "оффлайн", "очно", "аудитор"]):
+        return "offline"
+    return "online"
+
+def build_new_courses(path):
+    import datetime
+    year = datetime.date.today().year
+    with open(path, encoding="utf-8-sig") as fh:
+        rows = list(csv.DictReader(fh))
+    last_month = ""
+    groups, order = {}, []
+    for r in rows:
+        title = clean(r.get("course name"))
+        if not title:
+            continue
+        mon = clean(r.get("month")) or last_month
+        if clean(r.get("month")):
+            last_month = clean(r.get("month"))
+        key = norm_title(title)
+        if key not in groups:
+            groups[key] = {"title": title, "items": []}
+            order.append(key)
+        groups[key]["items"].append((r, mon))
+    courses, sid_n = [], 0
+    for idx, key in enumerate(order, start=16):
+        g = groups[key]
+        cid = f"К{idx:03d}"
+        sessions = []
+        fmts = set()
+        for r, mon in g["items"]:
+            fmts.add(new_format(r.get("format")))
+            default_mon = new_month_num(mon.split("-")[0])
+            tmap, tdefault = new_time_map(r.get("time"))
+            for day, mon_ov in new_day_list(r.get("date")):
+                mnum = mon_ov or default_mon
+                if not mnum or not (1 <= day <= 31):
+                    continue
+                try:
+                    datetime.date(year, mnum, day)
+                except ValueError:
+                    continue
+                sid_n += 1
+                tm = tmap.get(day, tdefault)
+                ds = f"{day}.{mnum:02d}.{year}" + (f" - {tm}" if tm else "")
+                sessions.append({
+                    "sid": f"Н{sid_n:03d}",
+                    "kind": "Обычный",
+                    "title": g["title"],
+                    "desc": clean_ml(r.get("description")),
+                    "teacher": clean(r.get("prof name")),
+                    "hours": clean(r.get("credits")),
+                    "dates": ds,
+                    "price": new_price(r.get("price (Тенге)")),
+                    "module_price": "",
+                    "month": mon,
+                })
+        if not sessions:
+            continue
+        fmt = "offline" if fmts == {"offline"} else "online"
+        tr = TITLE_I18N.get(cid, {})
+        latest, open_ended = "", False
+        for s in sessions:
+            blob = norm_title(s["dates"])
+            if "по мере" in blob or "запис" in blob:
+                open_ended = True
+            for dt in parse_dates(s["dates"]):
+                iso = latest_iso([dt])
+                if iso > latest:
+                    latest = iso
+        courses.append({
+            "id": cid,
+            "slug": slugify(g["title"]) or cid.lower(),
+            "title": {"ru": g["title"],
+                      "kk": tr.get("kk", g["title"]),
+                      "en": tr.get("en", g["title"])},
+            "format": fmt,
+            "cover": "zaglushka",
+            "latest": latest,
+            "open": open_ended,
+            "sessions": sessions,
+        })
+    return courses
+
+NEW_SCHED = os.path.join(ORIG, "schedule_new.csv")
 
 sched = rows("schedule.csv")
 courses_csv = rows("courses.csv")
@@ -188,6 +354,12 @@ for c in courses_csv:
             "month": clean(r["Месяц"]),
         } for r in items],
     })
+
+# New table takes over when present: it holds the actual lineup
+# and fully replaces the old catalog (old data stays in git history).
+if os.path.exists(NEW_SCHED):
+    courses = build_new_courses(NEW_SCHED)
+    print(f"new schedule: {os.path.basename(NEW_SCHED)}")
 
 # Newest-first: courses with the latest conduct date on top;
 # "" sorts smallest, so with reverse=True undated stay at the end.
