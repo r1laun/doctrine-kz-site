@@ -171,6 +171,14 @@ def head(lang, title, desc):
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-07751DJT62"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){{dataLayer.push(arguments);}}
+  gtag('js', new Date());
+  gtag('config', 'G-07751DJT62');
+</script>
 <title>{esc(title)} - Doctrine</title>
 <meta name="description" content="{esc(desc)}">
 <link rel="icon" href="../assets/img/logo.jpg">
