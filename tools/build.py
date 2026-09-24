@@ -62,13 +62,22 @@ T = {
         "sort_new": "Сначала новые", "sort_old": "Сначала старые",
         "course_h": "Программа курса", "back": "← Назад к расписанию",
         "offer_h": "Публичная оферта", "offer_t": "Договор публичной оферты на оказание образовательных услуг опубликован на сайте центра. Полный текст уточняйте у координатора - страница в процессе переноса с оригинального сайта.",
-        "footer_about": "Образовательный центр для врачей. Онлайн и офлайн в Алматы.",
+        "footer_about": "Образовательный центр для врачей Doctrine (Доктрина). Онлайн и офлайн в Алматы.",
         "rights": "Все права защищены.", "teachers_page_sub": "Нажмите «Подробнее», чтобы узнать о каждом.",
         "menu_h": "Меню", "fmt_online": "Онлайн", "fmt_offline": "Офлайн",
         "search_ph": "Найти курс или преподавателя…", "shown": "Показано",
         "archive_h": "Архив", "archive_sub": "Прошедшие курсы — набор в эти группы завершён.",
         "past_badge": "Завершён", "next_stream": "Следующий поток →",
         "founder_alt": "Основатель центра Doctrine",
+        "seo_index_t": "Doctrine — центр обучения врачей в Алматы | Доктрина",
+        "seo_index_d": "Doctrine (Доктрина) — образовательный центр для врачей: кардиология, ЭКГ, Холтер, СМАД, ЭхоКГ. Курсы и вебинары онлайн и офлайн в Алматы.",
+        "seo_sched_t": "Расписание курсов — Doctrine (Доктрина) | Алматы и онлайн",
+        "seo_sched_d": "Расписание Doctrine (Доктрина): курсы для врачей — ЭКГ, Холтер, СМАД, ЭхоКГ, кардиология. Даты, цены, онлайн и офлайн в Алматы.",
+        "seo_teach_t": "Преподаватели — Doctrine (Доктрина) | Врачи-клиницисты",
+        "seo_teach_d": "Преподаватели Doctrine (Доктрина) — практикующие врачи-клиницисты: кардиологи, диагносты. Узнайте о каждом наставнике центра.",
+        "seo_course_t": "Программа курса — Doctrine (Доктрина)",
+        "seo_course_d": "Программа курса Doctrine (Доктрина): темы занятий, даты, часы, цена и преподаватель. Запись онлайн и офлайн в Алматы.",
+        "seo_404_t": "404 — Doctrine (Доктрина)",
     },
     "kk": {
         "nav": [("index.html", "Басты бет"), ("schedule.html", "Кесте"), ("teachers.html", "Оқытушылар")],
@@ -105,13 +114,22 @@ T = {
         "sort_new": "Алдымен жаңалар", "sort_old": "Алдымен ескілер",
         "course_h": "Курс бағдарламасы", "back": "← Кестеге оралу",
         "offer_h": "Жария оферта", "offer_t": "Білім беру қызметтері туралы жария оферта мәтіні координатордан сұралады - бет түпнұсқа сайттан көшірілуде.",
-        "footer_about": "Дәрігерлерге арналған білім орталығы. Алматыда онлайн және офлайн.",
+        "footer_about": "Doctrine (Доктрина) — дәрігерлерге арналған білім орталығы. Алматыда онлайн және офлайн.",
         "rights": "Барлық құқықтар қорғалған.", "teachers_page_sub": "Әрқайсысы туралы білу үшін «Толығырақ» басыңыз.",
         "menu_h": "Мәзір", "fmt_online": "Онлайн", "fmt_offline": "Офлайн",
         "search_ph": "Курс немесе оқытушыны іздеу…", "shown": "Көрсетілді",
         "archive_h": "Мұрағат", "archive_sub": "Өткен курстар — бұл топтарға қабылдау аяқталды.",
         "past_badge": "Аяқталды", "next_stream": "Келесі ағын →",
         "founder_alt": "Doctrine орталығының негізін қалаушы",
+        "seo_index_t": "Doctrine — дәрігерлерді оқыту орталығы, Алматы | Доктрина",
+        "seo_index_d": "Doctrine (Доктрина) — дәрігерлерге арналған білім орталығы: кардиология, ЭКГ, Холтер, СМАД, ЭхоКГ. Алматыда онлайн және офлайн курстар.",
+        "seo_sched_t": "Курстар кестесі — Doctrine (Доктрина)",
+        "seo_sched_d": "Doctrine (Доктрина) кестесі: дәрігерлерге арналған курстар — ЭКГ, Холтер, СМАД, ЭхоКГ, кардиология. Күндер, бағалар, Алматыда онлайн және офлайн.",
+        "seo_teach_t": "Оқытушылар — Doctrine (Доктрина)",
+        "seo_teach_d": "Doctrine (Доктрина) оқытушылары — тәжірибелі клиницист-дәрігерлер: кардиологтар, диагносттар.",
+        "seo_course_t": "Курс бағдарламасы — Doctrine (Доктрина)",
+        "seo_course_d": "Doctrine (Доктрина) курс бағдарламасы: сабақ тақырыптары, күндер, сағаттар, бағасы мен оқытушы.",
+        "seo_404_t": "404 — Doctrine (Доктрина)",
     },
     "en": {
         "nav": [("index.html", "Home"), ("schedule.html", "Schedule"), ("teachers.html", "Faculty")],
@@ -148,13 +166,22 @@ T = {
         "sort_new": "Newest first", "sort_old": "Oldest first",
         "course_h": "Course program", "back": "← Back to schedule",
         "offer_h": "Public offer", "offer_t": "The public offer for educational services is available from the coordinator - this page is being migrated from the original site.",
-        "footer_about": "Education centre for physicians. Online and offline in Almaty.",
+        "footer_about": "Doctrine Centre — education centre for physicians. Online and offline in Almaty.",
         "rights": "All rights reserved.", "teachers_page_sub": "Click “Details” to learn about each teacher.",
         "menu_h": "Menu", "fmt_online": "Online", "fmt_offline": "Offline",
         "search_ph": "Search courses or teachers…", "shown": "Showing",
         "archive_h": "Archive", "archive_sub": "Past courses — enrollment for these groups is closed.",
         "past_badge": "Finished", "next_stream": "Next intake →",
         "founder_alt": "Founder of the Doctrine centre",
+        "seo_index_t": "Doctrine Centre — physician training in Almaty",
+        "seo_index_d": "Doctrine Centre — education centre for physicians: cardiology, ECG, Holter, ABPM, Echo. Online and offline courses in Almaty, Kazakhstan.",
+        "seo_sched_t": "Course schedule — Doctrine Centre",
+        "seo_sched_d": "Doctrine Centre schedule: courses for doctors — ECG, Holter, ABPM, Echo, cardiology. Dates, prices, online and offline in Almaty.",
+        "seo_teach_t": "Faculty — Doctrine Centre",
+        "seo_teach_d": "Doctrine Centre faculty — practising clinicians: cardiologists, diagnosticians. Meet our teachers.",
+        "seo_course_t": "Course program — Doctrine Centre",
+        "seo_course_d": "Doctrine Centre course program: topics, dates, hours, price and teacher. Enroll online or offline in Almaty.",
+        "seo_404_t": "404 — Doctrine Centre",
     },
 }
 
@@ -165,7 +192,26 @@ OTHER = {"ru": [("kk", "KZ"), ("en", "EN")], "kk": [("ru", "RU"), ("en", "EN")],
 def esc(s):
     return html.escape(str(s or ""), quote=True)
 
-def head(lang, title, desc):
+OG_LOCALE = {"ru": "ru_RU", "kk": "kk_KZ", "en": "en_US"}
+
+ORG_LD = {
+    "@context": "https://schema.org", "@type": "EducationalOrganization",
+    "name": "Doctrine", "alternateName": ["Доктрина", "Doctrine Centre"],
+    "url": "https://doctrine.kz/", "logo": "https://doctrine.kz/assets/img/logo.jpg",
+    "address": {"@type": "PostalAddress", "addressLocality": "Алматы",
+                "addressRegion": "Алматы", "addressCountry": "KZ"},
+    "sameAs": ["https://www.instagram.com/doctrine_centre"],
+}
+
+def head(lang, title, desc, page="index.html"):
+    canon = f"https://doctrine.kz/{lang}/{page}"
+    hreflangs = "\n".join(
+        f'<link rel="alternate" hreflang="{l}" href="https://doctrine.kz/{l}/{page}">'
+        for l in LANGS)
+    hreflangs += f'\n<link rel="alternate" hreflang="x-default" href="https://doctrine.kz/ru/{page}">'
+    alternates = "\n".join(
+        f'<meta property="og:locale:alternate" content="{OG_LOCALE[l]}">'
+        for l in LANGS if l != lang)
     return f"""<!DOCTYPE html>
 <html lang="{lang}">
 <head>
@@ -179,8 +225,19 @@ def head(lang, title, desc):
   gtag('js', new Date());
   gtag('config', 'G-07751DJT62');
 </script>
-<title>{esc(title)} - Doctrine</title>
+<title>{esc(title)}</title>
 <meta name="description" content="{esc(desc)}">
+<link rel="canonical" href="{canon}">
+{hreflangs}
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Doctrine">
+<meta property="og:title" content="{esc(title)}">
+<meta property="og:description" content="{esc(desc)}">
+<meta property="og:url" content="{canon}">
+<meta property="og:image" content="https://doctrine.kz/assets/img/logo.jpg">
+<meta property="og:locale" content="{OG_LOCALE[lang]}">
+{alternates}
+<script type="application/ld+json">{json.dumps(ORG_LD, ensure_ascii=False)}</script>
 <link rel="icon" href="../assets/img/logo.jpg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -445,7 +502,12 @@ def faq_section(lang):
     t = T[lang]
     items = "".join(f"<details><summary>{esc(q)}</summary><p>{esc(a)}</p></details>"
                     for q, a in t["faq"])
-    return f'<section class="section"><div class="container faq"><h2>{esc(t["faq_h"])}</h2>{items}</div></section>'
+    faq_ld = {"@context": "https://schema.org", "@type": "FAQPage",
+              "mainEntity": [{"@type": "Question", "name": q,
+                              "acceptedAnswer": {"@type": "Answer", "text": a}}
+                             for q, a in t["faq"]]}
+    return (f'<section class="section"><div class="container faq"><h2>{esc(t["faq_h"])}</h2>{items}</div></section>'
+            f'<script type="application/ld+json">{json.dumps(faq_ld, ensure_ascii=False)}</script>')
 
 def page_index(lang):
     t = T[lang]
@@ -454,7 +516,7 @@ def page_index(lang):
     teach3 = "".join(
         f'<div class="card teacher-card"><img src="{x["photo"]}" alt="{esc(tname(x, lang))}" loading="lazy"><div class="card-body"><h3>{esc(tname(x, lang))}</h3><a class="btn btn-ghost" href="teachers.html">{esc(t["detail"])}</a></div></div>'
         for x in top_teachers)
-    return (head(lang, t["hero_h1"], t["meta_desc"]) + header(lang, "index.html", "index.html") + f"""
+    return (head(lang, t["seo_index_t"], t["seo_index_d"], "index.html") + header(lang, "index.html", "index.html") + f"""
 <section class="hero"><div class="container hero-grid">
 <div class="hero-photo"><img src="../assets/img/founder.jpg" alt="{esc(t["founder_alt"])}"><div class="hero-badge"><b>20+</b><span>{esc(t["hero_badge"])}</span></div></div>
 <div><span class="hero-eyebrow">{esc(t["hero_eye"])}</span>
@@ -480,7 +542,7 @@ def page_index(lang):
 
 def page_schedule(lang):
     t = T[lang]
-    return (head(lang, t["sched_h"], t["meta_desc"]) + header(lang, "schedule.html", "schedule.html") + f"""
+    return (head(lang, t["seo_sched_t"], t["seo_sched_d"], "schedule.html") + header(lang, "schedule.html", "schedule.html") + f"""
 <section class="section"><div class="container">
 <h1>{esc(t["sched_h"])}</h1><p class="sub">{esc(t["sched_sub"])}</p>
 <div class="filters" role="group" aria-label="Filter">
@@ -509,7 +571,7 @@ def page_course(lang):
              "provider": {"@type": "EducationalOrganization", "name": "Doctrine"}} 
             for c in COURSES[:10]],
     }
-    return (head(lang, t["course_h"], t["meta_desc"]) + header(lang, "schedule.html", "course.html") + f"""
+    return (head(lang, t["seo_course_t"], t["seo_course_d"], "course.html") + header(lang, "schedule.html", "course.html") + f"""
 <section class="course-hero"><div class="container">
 <a href="schedule.html">{esc(t["back"])}</a>
 <div id="course-detail"><p>…</p></div>
@@ -530,7 +592,7 @@ def page_teachers(lang):
                   f'<img src="{x["photo"]}" alt="{esc(nm)}" loading="lazy">'
                   f'<div class="card-body"><h3>{esc(nm)}</h3>'
                   f'<span class="btn btn-ghost">{esc(t["detail"])}</span></div></div>')
-    return (head(lang, t["teachers_h"], t["meta_desc"]) + header(lang, "teachers.html", "teachers.html") + f"""
+    return (head(lang, t["seo_teach_t"], t["seo_teach_d"], "teachers.html") + header(lang, "teachers.html", "teachers.html") + f"""
 <section class="section"><div class="container">
 <h1>{esc(t["teachers_h"])}</h1><p class="sub">{esc(t["teachers_page_sub"])}</p>
 <div class="teachers-grid">{cards}</div>
@@ -545,7 +607,8 @@ def page_teachers(lang):
 """ + contacts_section(lang) + footer(lang))
 
 def page_404(lang):
-    return (head(lang, "404", "Page not found") + header(lang, "", "404.html") +
+    t = T[lang]
+    return (head(lang, t["seo_404_t"], t["meta_desc"], "404.html") + header(lang, "", "404.html") +
             '<section class="section"><div class="container"><h1>404</h1><p><a href="index.html">← Home</a></p></div></section>' + footer(lang))
 
 BUILDERS = {"index.html": page_index, "schedule.html": page_schedule,
