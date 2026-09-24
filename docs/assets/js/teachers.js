@@ -15,6 +15,10 @@
       .replace(/&/g, "&amp;").replace(/</g, "&lt;")
       .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
+  function pick(v) {
+    if (v && typeof v === "object") return v[lang] || v.ru || "";
+    return v || "";
+  }
   function data() {
     if (cache) return Promise.resolve(cache);
     return fetch("../data/teachers.json").then(function (r) { return r.json(); }).then(function (t) {
@@ -30,9 +34,9 @@
       if (!t) { body.innerHTML = "<p>" + esc(L.fail) + "</p>"; }
       else {
         var info = "";
-        if (t.exp) info += '<div class="t-info-item"><small>' + esc(L.exp) + "</small><span>" + esc(t.exp) + "</span></div>";
-        if (t.work) info += '<div class="t-info-item"><small>' + esc(L.work) + "</small><span>" + esc(t.work) + "</span></div>";
-        var paras = String(t.about || "").split("\n").filter(function (p) { return p.trim(); })
+        if (pick(t.exp)) info += '<div class="t-info-item"><small>' + esc(L.exp) + "</small><span>" + esc(pick(t.exp)) + "</span></div>";
+        if (pick(t.work)) info += '<div class="t-info-item"><small>' + esc(L.work) + "</small><span>" + esc(pick(t.work)) + "</span></div>";
+        var paras = String(pick(t.about) || "").split("\n").filter(function (p) { return p.trim(); })
           .map(function (p, i) {
             var txt = esc(p);
             // numbered "1. Кто я" style headings become bold lead-ins
@@ -41,9 +45,9 @@
             return "<p>" + txt + "</p>";
           }).join("");
         body.innerHTML = '<div class="t-modal-hero"><div class="t-modal-hero-inner">'
-          + '<img src="' + esc(t.photo) + '" alt="' + esc(t.name) + '">'
-          + '<div class="t-modal-hero-text"><h2>' + esc(t.name) + "</h2>"
-          + (t.spec ? '<span class="t-spec-pill">' + esc(t.spec) + "</span>" : "")
+          + '<img src="' + esc(t.photo) + '" alt="' + esc(pick(t.name)) + '">'
+          + '<div class="t-modal-hero-text"><h2>' + esc(pick(t.name)) + "</h2>"
+          + (pick(t.spec) ? '<span class="t-spec-pill">' + esc(pick(t.spec)) + "</span>" : "")
           + "</div></div></div>"
           + '<div class="t-modal-body">'
           + (info ? '<div class="t-info">' + info + "</div>" : "")

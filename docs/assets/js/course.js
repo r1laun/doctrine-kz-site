@@ -25,6 +25,38 @@
       .replace(/&/g, "&amp;").replace(/</g, "&lt;")
       .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
+  function pick(v) {
+    if (v && typeof v === "object") return v[lang] || v.ru || "";
+    return v || "";
+  }
+  function trHours(text) {
+    if (lang === "ru" || !text) return text || "";
+    var t = String(text);
+    if (lang === "kk") return t.replace(/часов|часа|ч\./g, "сағ.");
+    t = t.replace(/часов|часа|ч\./g, "h").replace(/ЗЕ/g, "credits");
+    return t.replace(/(\d),(\d)/g, "$1.$2");
+  }
+  function trDates(text) {
+    if (lang === "ru" || !text) return text || "";
+    return String(text).split("\n").map(function (ln) {
+      var n = ln.toLowerCase().replace(/ё/g, "е");
+      if (n.indexOf("по мере") !== -1) return lang === "kk" ? "Топ құрылуына қарай" : "As the group forms";
+      if (n.indexOf("курс в записи") !== -1) return lang === "kk" ? "Жазбадағы курс" : "Recorded course";
+      return ln;
+    }).join("\n");
+  }
+  var TEACHER_LINE = {
+    "Азим Саида Юсуфовна,": {"kk": "Азим Саида Юсуфовна", "en": "Азим Саида Юсуфовна"},
+    "Хахазова Карлыгаш Болатовна,": {"kk": "Хахазова Карлыгаш Болатовна", "en": "Хахазова Карлыгаш Болатовна"},
+    "Алиева Гузель РахматовнаВрач кардиолог высшей категории, функциональной диагностики, специалист по Холтеровскому мониторированию, включая пациентов с имлантируемыми устройствами": {"kk": "Алиева Гузель Рахматовна, жоғары санатты кардиолог, функционалдық диагностика дәрігері, имплантацияланған құрылғылары бар пациенттерді қоса алғанда, холтерлік мониторинг маманы", "en": "Алиева Гузель Рахматовна, cardiologist of the highest category, functional diagnostics physician, specialist in Holter monitoring, including patients with implantable devices"},
+    "Лещинская-Попова Инна Евгеньевна, врач-кардиолог, магистр медицинских наук, основатель центра Doctrine, педагог с почти 20 летним стажем, обладатель Курмет Грамотасы МЗРК (2016 г), врач-блогер16": {"kk": "Лещинская-Попова Инна Евгеньевна, кардиолог дәрігер, медицина ғылымдарының магистрі, Doctrine орталығының негізін қалаушы, 20 жылға жуық өтілі бар педагог, ҚР ДСМ Құрмет грамотасының иегері (2016 ж), дәрігер-блогер16", "en": "Лещинская-Попова Инна Евгеньевна, cardiologist, Master of Medical Sciences, founder of the Doctrine Center, educator with almost 20 years of experience, holder of the Certificate of Honor of the Ministry of Health of the Republic of Kazakhstan (2016), physician-blogger16"},
+    "Лещинская Елена Евгеньевна - нейрологопед, дефектолог, специалист по сенсорной интеграции. Педагог высшей категории. Кандидат в магистры психологии": {"kk": "Лещинская Елена Евгеньевна - нейрологопед, дефектолог, сенсорлық интеграция маманы. Жоғары санатты педагог. Психология магистріне кандидат", "en": "Лещинская Елена Евгеньевна - neuro speech-language therapist, defectologist, sensory integration specialist. Teacher of the highest category. Candidate for a Master's degree in Psychology"}
+  };
+  function trTeacherLine(line) {
+    var hit = TEACHER_LINE[line];
+    if (hit) return hit[lang] || line;
+    return line.replace(/[,;]+$/, "");
+  }
   fetch("../data/courses.json").then(function (r) { return r.json(); }).then(function (courses) {
     var c = courses.find(function (x) { return x.id === id; }) || courses[0];
     if (!c) { box.innerHTML = "<p>" + esc(L.notfound) + "</p>"; return; }
@@ -40,11 +72,12 @@
     });
     var sessions = groups.map(function (g) {
       var s = g.s;
+      var desc = pick(s.desc);
       var rows = [];
-      if (s.hours) rows.push("<div><b>" + esc(L.hours) + ":</b> " + esc(s.hours) + "</div>");
-      if (g.dates.length) rows.push('<div class="dates">' + g.dates.map(function (d) { return esc(d); }).join("<br>") + "</div>");
-      if (s.teacher) rows.push("<div><b>" + esc(L.teacher) + ":</b> " + esc(s.teacher).split("\n")[0] + "</div>");
-      if (s.desc) rows.push("<div>" + esc(s.desc).replace(/\n/g, "<br>") + "</div>");
+      if (s.hours) rows.push("<div><b>" + esc(L.hours) + ":</b> " + esc(trHours(s.hours)) + "</div>");
+      if (g.dates.length) rows.push('<div class="dates">' + g.dates.map(function (d) { return esc(trDates(d)); }).join("<br>") + "</div>");
+      if (s.teacher) rows.push("<div><b>" + esc(L.teacher) + ":</b> " + esc(trTeacherLine(String(s.teacher).split("\n")[0].trim())) + "</div>");
+      if (desc) rows.push("<div>" + esc(desc).replace(/\n/g, "<br>") + "</div>");
       var price = s.price ? '<div class="price">' + esc(s.price) + "</div>" : "";
       return '<div class="session"><h4>' + esc(s.title || t) + " <span class='meta'>[" + esc(s.kind || "") + "]</span></h4>" + rows.join("") + price + "</div>";
     }).join("");

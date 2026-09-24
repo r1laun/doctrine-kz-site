@@ -230,6 +230,32 @@ def sess_word(lang, n):
         return "сабақ"
     return "sessions"
 
+def tr_hours(text, lang):
+    if lang == "ru" or not text:
+        return text or ""
+    t = str(text)
+    if lang == "kk":
+        t = re.sub(r"часов|часа|ч\.", "сағ.", t)
+    else:
+        t = re.sub(r"часов|часа|ч\.", "h", t)
+        t = t.replace("ЗЕ", "credits")
+        t = re.sub(r"(\d),(\d)", r"\1.\2", t)
+    return t
+
+def tr_dates(text, lang):
+    if lang == "ru" or not text:
+        return text or ""
+    out = []
+    for ln in str(text).split("\n"):
+        n = ln.lower().replace("ё", "е")
+        if "по мере" in n:
+            out.append("Топ құрылуына қарай" if lang == "kk" else "As the group forms")
+        elif "курс в записи" in n:
+            out.append("Жазбадағы курс" if lang == "kk" else "Recorded course")
+        else:
+            out.append(ln)
+    return "\n".join(out)
+
 DATE_RE = re.compile(r"(\d{1,2})[.\-/](\d{1,2})[.\-/](\d{2,4})")
 
 def sess_dates(s):
@@ -290,8 +316,8 @@ def course_cards(lang, limit=None, fmt=None, skip_archived=False, only_archived=
         sessions = c.get("sessions") or [{}]
         disp = pick_display(c)
         price = (disp.get("price") or "").strip() or first_nonempty(sessions, "price")
-        hours = (disp.get("hours") or "").strip() or first_nonempty(sessions, "hours")
-        dlines = (disp.get("dates", "") or "").split("\n")
+        hours = tr_hours((disp.get("hours") or "").strip() or first_nonempty(sessions, "hours"), lang)
+        dlines = tr_dates(disp.get("dates", "") or "", lang).split("\n")
         dates = dlines[0] + (f" (+{len(dlines) - 1})" if len(dlines) > 1 else "")
         n = len(c["sessions"])
         fmt_label = T[lang]["fmt_online"] if c["format"] == "online" else T[lang]["fmt_offline"]

@@ -1,7 +1,9 @@
 """Build docs/data/*.json from original Google Sheets CSVs + Google Form course list.
 Run: python3 tools/make_data.py
 """
-import csv, json, re, os
+import csv, json, re, os, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from i18n_data import DESC_TR, TITLES, FRAGS, TEACH
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ORIG = os.path.join(ROOT, "_original")
@@ -210,7 +212,7 @@ def build_new_courses(path):
                 "sid": f"Н{sid_n:03d}",
                 "kind": "Обычный",
                 "title": title,
-                "desc": clean_ml(r.get("description")),
+                    "desc": tr_desc(clean_ml(r.get("description"))),
                 "teacher": clean(r.get("prof name")),
                 "hours": clean(r.get("credits")),
                 "dates": ds,
@@ -264,19 +266,46 @@ def na(v):
     v = clean(v)
     return "" if v.lower() in NA else v
 
+def en_terms(s):
+    """Replace Cyrillic cardiology terms left in EN texts (with declensions)."""
+    s = re.sub(r"ХМ-?ЭКГ", "Holter ECG", s)
+    s = re.sub(r"[Хх]олтер[а-яё]*", "Holter", s)
+    s = re.sub(r"СМАД[А-Я]*|Смад[а-я]*|смад[а-я]*", "ABPM", s)
+    s = s.replace("ЭКГ", "ECG").replace("экг", "ECG")
+    return s
+
+def tr_desc(d):
+    """RU description -> {ru, kk, en} dict (fallback: RU for all)."""
+    d = d or ""
+    hit = DESC_TR.get(d.strip())
+    if hit:
+        return {"ru": d, "kk": hit["kk"], "en": en_terms(hit["en"])}
+    return {"ru": d, "kk": d, "en": d}
+
+def tr_teacher_field(tid, field, base):
+    hit = TEACH.get(f"T{tid}", {}).get(field)
+    if hit:
+        return {"ru": base, "kk": hit["kk"], "en": en_terms(hit["en"])}
+    return {"ru": base, "kk": base, "en": base}
+
+# Old-catalog titles missing from TITLE_I18N (keys in pool are latin K007..)
+for _k, _v in TITLES.items():
+    TITLE_I18N.setdefault("К" + _k[1:], {"kk": _v["kk"], "en": _v["en"]})
+
 for t in teachers_csv:
     if not clean(t.get("name")) or not clean(t.get("photo")):
         continue
     photo = photo_renames.get(clean(t["photo"]), os.path.basename(clean(t["photo"])))
     teach_map[clean(t["name"]).replace("  ", " ")] = t["id"]
+    tid = clean(t["id"])
     teachers.append({
-        "id": clean(t["id"]),
+        "id": tid,
         "name": clean(t["name"]),
-        "spec": na(t["spec"]),
-        "work": na(t["work"]),
-        "exp": na(t["exp"]),
+        "spec": tr_teacher_field(tid, "spec", na(t["spec"])),
+        "work": tr_teacher_field(tid, "work", na(t["work"])),
+        "exp": tr_teacher_field(tid, "exp", na(t["exp"])),
         "photo": "../assets/img/" + photo,
-        "about": clean_ml(t["about"]),
+        "about": tr_teacher_field(tid, "about", clean_ml(t["about"])),
     })
 
 cat_title = {clean(r["ID Курса"]): clean(r["Название курса"]) for r in courses_csv}
@@ -340,7 +369,7 @@ for c in courses_csv:
             "sid": clean(r["ID Проведения"]),
             "kind": clean(r["Тип"]),
             "title": clean(r["Название курса"]),
-            "desc": clean_ml(r["Описание"]),
+            "desc": tr_desc(clean_ml(r["Описание"])),
             "teacher": clean_ml(r["Преподаватель"]),
             "hours": clean(r["Часы/ЗЕ"]),
             "dates": clean_ml(r["Дата и время"]),
