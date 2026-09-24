@@ -92,7 +92,9 @@ TITLE_I18N = {
              "en": "QT interval and drugs"},
     "К019": {"kk": "Әйелдің жүрек-қан тамырлары денсаулығы",
              "en": "Women's cardiovascular health"},
-    "К020": {"kk": "Кардиоонкология",
+    "К020": {"kk": "ЭхоКГ «Қақпақшалар бақылауда»",
+             "en": "EchoCG 'Valves under control'"},
+    "К021": {"kk": "Кардиоонкология",
              "en": "Cardio-oncology"},
 }
 
@@ -177,7 +179,7 @@ def build_new_courses(path):
     with open(path, encoding="utf-8-sig") as fh:
         rows = list(csv.DictReader(fh))
     last_month = ""
-    groups, order = {}, []
+    flows = []  # one table row = one intake (поток), even if the course name repeats
     for r in rows:
         title = clean(r.get("course name"))
         if not title:
@@ -185,47 +187,39 @@ def build_new_courses(path):
         mon = clean(r.get("month")) or last_month
         if clean(r.get("month")):
             last_month = clean(r.get("month"))
-        key = norm_title(title)
-        if key not in groups:
-            groups[key] = {"title": title, "items": []}
-            order.append(key)
-        groups[key]["items"].append((r, mon))
+        flows.append((title, r, mon))
     courses, sid_n = [], 0
-    for idx, key in enumerate(order, start=16):
-        g = groups[key]
+    for idx, (title, r, mon) in enumerate(flows, start=16):
         cid = f"К{idx:03d}"
         sessions = []
-        fmts = set()
-        for r, mon in g["items"]:
-            fmts.add(new_format(r.get("format")))
-            default_mon = new_month_num(mon.split("-")[0])
-            tmap, tdefault = new_time_map(r.get("time"))
-            for day, mon_ov in new_day_list(r.get("date")):
-                mnum = mon_ov or default_mon
-                if not mnum or not (1 <= day <= 31):
-                    continue
-                try:
-                    datetime.date(year, mnum, day)
-                except ValueError:
-                    continue
-                sid_n += 1
-                tm = tmap.get(day, tdefault)
-                ds = f"{day}.{mnum:02d}.{year}" + (f" - {tm}" if tm else "")
-                sessions.append({
-                    "sid": f"Н{sid_n:03d}",
-                    "kind": "Обычный",
-                    "title": g["title"],
-                    "desc": clean_ml(r.get("description")),
-                    "teacher": clean(r.get("prof name")),
-                    "hours": clean(r.get("credits")),
-                    "dates": ds,
-                    "price": new_price(r.get("price (Тенге)")),
-                    "module_price": "",
-                    "month": mon,
-                })
+        fmt = new_format(r.get("format"))
+        default_mon = new_month_num(mon.split("-")[0])
+        tmap, tdefault = new_time_map(r.get("time"))
+        for day, mon_ov in new_day_list(r.get("date")):
+            mnum = mon_ov or default_mon
+            if not mnum or not (1 <= day <= 31):
+                continue
+            try:
+                datetime.date(year, mnum, day)
+            except ValueError:
+                continue
+            sid_n += 1
+            tm = tmap.get(day, tdefault)
+            ds = f"{day}.{mnum:02d}.{year}" + (f" - {tm}" if tm else "")
+            sessions.append({
+                "sid": f"Н{sid_n:03d}",
+                "kind": "Обычный",
+                "title": title,
+                "desc": clean_ml(r.get("description")),
+                "teacher": clean(r.get("prof name")),
+                "hours": clean(r.get("credits")),
+                "dates": ds,
+                "price": new_price(r.get("price (Тенге)")),
+                "module_price": "",
+                "month": mon,
+            })
         if not sessions:
             continue
-        fmt = "offline" if fmts == {"offline"} else "online"
         tr = TITLE_I18N.get(cid, {})
         latest, open_ended = "", False
         for s in sessions:
@@ -238,10 +232,10 @@ def build_new_courses(path):
                     latest = iso
         courses.append({
             "id": cid,
-            "slug": slugify(g["title"]) or cid.lower(),
-            "title": {"ru": g["title"],
-                      "kk": tr.get("kk", g["title"]),
-                      "en": tr.get("en", g["title"])},
+            "slug": slugify(title) or cid.lower(),
+            "title": {"ru": title,
+                      "kk": tr.get("kk", title),
+                      "en": tr.get("en", title)},
             "format": fmt,
             "cover": "zaglushka",
             "latest": latest,
