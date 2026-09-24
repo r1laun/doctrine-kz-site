@@ -473,7 +473,7 @@ with open(os.path.join(OUT, "site.json"), "w", encoding="utf-8") as f:
 # Never invent reviews.
 try:
     import subprocess
-    base = "https://doctrine-1ebe5-default-rtdb.europe-west1.firebasedatabase.app"
+    base = "https://doctrine-kz-default-rtdb.europe-west1.firebasedatabase.app"
     out = os.path.join(OUT, "reviews.json")
     main = json.loads(subprocess.check_output(
         ["curl", "-skL", base + "/mainReviews.json"], timeout=20).decode("utf-8") or "null") or {}

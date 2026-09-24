@@ -376,10 +376,10 @@ def reviews_section(lang):
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script>
 window.DOCTRINE_FB = {{
-  apiKey: "AIzaSyB8kkzQ5oh298uooOgJfIHBmhI7YVJe7PM",
-  authDomain: "doctrine-1ebe5.firebaseapp.com",
-  databaseURL: "https://doctrine-1ebe5-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "doctrine-1ebe5"
+  apiKey: "AIzaSyAh3B_OLanMc70tt-RP6h4_ki1F7X9BeZk",
+  authDomain: "doctrine-kz.firebaseapp.com",
+  databaseURL: "https://doctrine-kz-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "doctrine-kz"
 }};
 window.DOCTRINE_REVIEWS = {baked};
 </script>
@@ -520,7 +520,7 @@ with open(os.path.join(DOCS, "index.html"), "w", encoding="utf-8") as f:
     f.write('<!DOCTYPE html><html><head><meta charset="UTF-8"><meta http-equiv="refresh" content="0;url=ru/"></head><body><a href="ru/">ru</a></body></html>')
 with open(os.path.join(DOCS, ".nojekyll"), "w") as f:
     f.write("")
-BASE = "https://r1laun.github.io/doctrine-kz-site"
+BASE = "https://doctrine.kz"
 urls = [f"{BASE}/{l}/{p}" for l in LANGS for p in
         ["index.html", "schedule.html", "course.html", "teachers.html"]]
 with open(os.path.join(DOCS, "sitemap.xml"), "w", encoding="utf-8") as f:
