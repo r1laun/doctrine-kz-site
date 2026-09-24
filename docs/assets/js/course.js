@@ -52,10 +52,33 @@
     "Лещинская-Попова Инна Евгеньевна, врач-кардиолог, магистр медицинских наук, основатель центра Doctrine, педагог с почти 20 летним стажем, обладатель Курмет Грамотасы МЗРК (2016 г), врач-блогер16": {"kk": "Лещинская-Попова Инна Евгеньевна, кардиолог дәрігер, медицина ғылымдарының магистрі, Doctrine орталығының негізін қалаушы, 20 жылға жуық өтілі бар педагог, ҚР ДСМ Құрмет грамотасының иегері (2016 ж), дәрігер-блогер16", "en": "Лещинская-Попова Инна Евгеньевна, cardiologist, Master of Medical Sciences, founder of the Doctrine Center, educator with almost 20 years of experience, holder of the Certificate of Honor of the Ministry of Health of the Republic of Kazakhstan (2016), physician-blogger16"},
     "Лещинская Елена Евгеньевна - нейрологопед, дефектолог, специалист по сенсорной интеграции. Педагог высшей категории. Кандидат в магистры психологии": {"kk": "Лещинская Елена Евгеньевна - нейрологопед, дефектолог, сенсорлық интеграция маманы. Жоғары санатты педагог. Психология магистріне кандидат", "en": "Лещинская Елена Евгеньевна - neuro speech-language therapist, defectologist, sensory integration specialist. Teacher of the highest category. Candidate for a Master's degree in Psychology"}
   };
+  function trTeacher(line) {
+    if (lang === "en") return translitLatin(line);
+    return line;
+  }
   function trTeacherLine(line) {
     var hit = TEACHER_LINE[line];
     if (hit) return hit[lang] || line;
     return line.replace(/[,;]+$/, "");
+  }
+  var KIND_TR = {
+    "kk": {"Обычный": "Әдеттегі", "Модуль": "Модуль", "Модульный": "Модульдік"},
+    "en": {"Обычный": "Regular", "Модуль": "Module", "Модульный": "Modular"}
+  };
+  function trKind(kind) {
+    if (lang === "ru" || !kind) return kind || "";
+    return (KIND_TR[lang] && KIND_TR[lang][kind]) || kind;
+  }
+  var TR_TABLE = {"а":"a","б":"b","в":"v","г":"g","д":"d","е":"e","ё":"yo","ж":"zh","з":"z","и":"i","й":"y","к":"k","л":"l","м":"m","н":"n","о":"o","п":"p","р":"r","с":"s","т":"t","у":"u","ф":"f","х":"kh","ц":"ts","ч":"ch","ш":"sh","щ":"shch","ъ":"","ы":"y","ь":"","э":"e","ю":"yu","я":"ya","ә":"a","ғ":"gh","қ":"q","ң":"ng","ө":"o","ұ":"u","ү":"u","һ":"h","і":"i"};
+  function translitLatin(s) {
+    return String(s || "").split("").map(function (ch) {
+      var low = ch.toLowerCase();
+      if (TR_TABLE[low] !== undefined) {
+        var lat = TR_TABLE[low];
+        return (ch !== low) ? lat.charAt(0).toUpperCase() + lat.slice(1) : lat;
+      }
+      return ch;
+    }).join("");
   }
   fetch("../data/courses.json").then(function (r) { return r.json(); }).then(function (courses) {
     var c = courses.find(function (x) { return x.id === id; }) || courses[0];
@@ -65,7 +88,9 @@
     // so dates list together and the price shows once for the whole course
     var groups = [];
     (c.sessions || []).forEach(function (s) {
-      var key = [s.title, s.kind, s.hours, s.teacher, s.desc, s.price, s.module_price].join("\x00");
+      var titleKey = (s.title && s.title.ru) || s.title || "";
+      var descKey = (s.desc && s.desc.ru) || s.desc || "";
+      var key = [titleKey, s.kind, s.hours, s.teacher, descKey, s.price, s.module_price].join("\x00");
       var g = (groups.length && groups[groups.length - 1].key === key) ? groups[groups.length - 1] : null;
       if (!g) { g = {key: key, s: s, dates: []}; groups.push(g); }
       if (s.dates) g.dates.push(s.dates);
@@ -76,10 +101,10 @@
       var rows = [];
       if (s.hours) rows.push("<div><b>" + esc(L.hours) + ":</b> " + esc(trHours(s.hours)) + "</div>");
       if (g.dates.length) rows.push('<div class="dates">' + g.dates.map(function (d) { return esc(trDates(d)); }).join("<br>") + "</div>");
-      if (s.teacher) rows.push("<div><b>" + esc(L.teacher) + ":</b> " + esc(trTeacherLine(String(s.teacher).split("\n")[0].trim())) + "</div>");
+      if (s.teacher) rows.push("<div><b>" + esc(L.teacher) + ":</b> " + esc(trTeacher(trTeacherLine(String(s.teacher).split("\n")[0].trim()))) + "</div>");
       if (desc) rows.push("<div>" + esc(desc).replace(/\n/g, "<br>") + "</div>");
       var price = s.price ? '<div class="price">' + esc(s.price) + "</div>" : "";
-      return '<div class="session"><h4>' + esc(s.title || t) + " <span class='meta'>[" + esc(s.kind || "") + "]</span></h4>" + rows.join("") + price + "</div>";
+      return '<div class="session"><h4>' + esc(pick(s.title) || t) + " <span class='meta'>[" + esc(trKind(s.kind)) + "]</span></h4>" + rows.join("") + price + "</div>";
     }).join("");
     var n = (c.sessions || []).length;
     box.innerHTML = "<h1>" + esc(t) + "</h1>"

@@ -230,6 +230,12 @@ def sess_word(lang, n):
         return "сабақ"
     return "sessions"
 
+def tname(x, lang):
+    n = x.get("name", "")
+    if isinstance(n, dict):
+        return n.get(lang) or n.get("ru") or ""
+    return n
+
 def tr_hours(text, lang):
     if lang == "ru" or not text:
         return text or ""
@@ -402,7 +408,7 @@ def page_index(lang):
     top_teachers = [x for tid in ("2", "5", "3")
                     for x in TEACHERS if x["id"] == tid]
     teach3 = "".join(
-        f'<div class="card teacher-card"><img src="{x["photo"]}" alt="{esc(x["name"])}" loading="lazy"><div class="card-body"><h3>{esc(x["name"])}</h3><a class="btn btn-ghost" href="teachers.html">{esc(t["detail"])}</a></div></div>'
+        f'<div class="card teacher-card"><img src="{x["photo"]}" alt="{esc(tname(x, lang))}" loading="lazy"><div class="card-body"><h3>{esc(tname(x, lang))}</h3><a class="btn btn-ghost" href="teachers.html">{esc(t["detail"])}</a></div></div>'
         for x in top_teachers)
     return (head(lang, t["hero_h1"], t["meta_desc"]) + header(lang, "index.html", "index.html") + f"""
 <section class="hero"><div class="container hero-grid">
@@ -475,9 +481,10 @@ def page_teachers(lang):
     close_l = {"ru": "Закрыть", "kk": "Жабу", "en": "Close"}[lang]
     cards = ""
     for x in TEACHERS:
+        nm = tname(x, lang)
         cards += (f'<div class="card teacher-card teacher-open" data-teacher="{x["id"]}" role="button" tabindex="0" aria-haspopup="dialog">'
-                  f'<img src="{x["photo"]}" alt="{esc(x["name"])}" loading="lazy">'
-                  f'<div class="card-body"><h3>{esc(x["name"])}</h3>'
+                  f'<img src="{x["photo"]}" alt="{esc(nm)}" loading="lazy">'
+                  f'<div class="card-body"><h3>{esc(nm)}</h3>'
                   f'<span class="btn btn-ghost">{esc(t["detail"])}</span></div></div>')
     return (head(lang, t["teachers_h"], t["meta_desc"]) + header(lang, "teachers.html", "teachers.html") + f"""
 <section class="section"><div class="container">

@@ -3,7 +3,7 @@ Run: python3 tools/make_data.py
 """
 import csv, json, re, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from i18n_data import DESC_TR, TITLES, FRAGS, TEACH
+from i18n_data import DESC_TR, TITLES, FRAGS, TEACH, SESSION_TITLE_TR
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ORIG = os.path.join(ROOT, "_original")
@@ -212,7 +212,7 @@ def build_new_courses(path):
                 "sid": f"Н{sid_n:03d}",
                 "kind": "Обычный",
                 "title": title,
-                    "desc": tr_desc(clean_ml(r.get("description"))),
+                "desc": tr_desc(clean_ml(r.get("description"))),
                 "teacher": clean(r.get("prof name")),
                 "hours": clean(r.get("credits")),
                 "dates": ds,
@@ -223,6 +223,11 @@ def build_new_courses(path):
         if not sessions:
             continue
         tr = TITLE_I18N.get(cid, {})
+        ctitle = {"ru": title,
+                  "kk": tr.get("kk", title),
+                  "en": tr.get("en", title)}
+        for s in sessions:
+            s["title"] = dict(ctitle)
         latest, open_ended = "", False
         for s in sessions:
             blob = norm_title(s["dates"])
@@ -235,9 +240,7 @@ def build_new_courses(path):
         courses.append({
             "id": cid,
             "slug": slugify(title) or cid.lower(),
-            "title": {"ru": title,
-                      "kk": tr.get("kk", title),
-                      "en": tr.get("en", title)},
+            "title": ctitle,
             "format": fmt,
             "cover": "zaglushka",
             "latest": latest,
@@ -274,6 +277,41 @@ def en_terms(s):
     s = s.replace("ЭКГ", "ECG").replace("экг", "ECG")
     return s
 
+_TR_TABLE = {"а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "yo",
+    "ж": "zh", "з": "z", "и": "i", "й": "y", "к": "k", "л": "l", "м": "m",
+    "н": "n", "о": "o", "п": "p", "р": "r", "с": "s", "т": "t", "у": "u",
+    "ф": "f", "х": "kh", "ц": "ts", "ч": "ch", "ш": "sh", "щ": "shch",
+    "ъ": "", "ы": "y", "ь": "", "э": "e", "ю": "yu", "я": "ya",
+    "ә": "a", "ғ": "gh", "қ": "q", "ң": "ng", "ө": "o", "ұ": "u", "ү": "u",
+    "һ": "h", "і": "i"}
+
+def translit_en(s):
+    """Cyrillic (RU/KZ) name -> Latin for the EN version."""
+    out = []
+    for ch in str(s or ""):
+        low = ch.lower()
+        if low in _TR_TABLE:
+            lat = _TR_TABLE[low]
+            if ch.isupper():
+                lat = lat[:1].upper() + lat[1:]
+            out.append(lat)
+        else:
+            out.append(ch)
+    return "".join(out)
+
+def tr_name(nm):
+    nm = nm or ""
+    return {"ru": nm, "kk": nm, "en": translit_en(nm)}
+
+def tr_sess_title(s_title, course_title):
+    rt = s_title or ""
+    if rt == course_title["ru"]:
+        return dict(course_title)
+    hit = SESSION_TITLE_TR.get(rt.strip())
+    if hit:
+        return {"ru": rt, "kk": hit["kk"], "en": hit["en"]}
+    return {"ru": rt, "kk": rt, "en": rt}
+
 def tr_desc(d):
     """RU description -> {ru, kk, en} dict (fallback: RU for all)."""
     d = d or ""
@@ -298,9 +336,10 @@ for t in teachers_csv:
     photo = photo_renames.get(clean(t["photo"]), os.path.basename(clean(t["photo"])))
     teach_map[clean(t["name"]).replace("  ", " ")] = t["id"]
     tid = clean(t["id"])
+    tname = clean(t["name"])
     teachers.append({
         "id": tid,
-        "name": clean(t["name"]),
+        "name": tr_name(tname),
         "spec": tr_teacher_field(tid, "spec", na(t["spec"])),
         "work": tr_teacher_field(tid, "work", na(t["work"])),
         "exp": tr_teacher_field(tid, "exp", na(t["exp"])),
@@ -344,6 +383,9 @@ for c in courses_csv:
     if "вебинар" in blob or "online" in blob or "запись" in blob:
         fmt = "online"
     tr = TITLE_I18N.get(cid, {})
+    ctitle = {"ru": title_ru,
+              "kk": tr.get("kk", title_ru),
+              "en": tr.get("en", title_ru)}
     latest = ""
     open_ended = False
     for r in items:
@@ -357,9 +399,7 @@ for c in courses_csv:
     courses.append({
         "id": cid,
         "slug": slugify(title_ru) or cid.lower(),
-        "title": {"ru": title_ru,
-                  "kk": tr.get("kk", title_ru),
-                  "en": tr.get("en", title_ru)},
+        "title": ctitle,
         "format": fmt,
         "cover": "zaglushka",
         "latest": latest,
@@ -368,7 +408,7 @@ for c in courses_csv:
         "sessions": [{
             "sid": clean(r["ID Проведения"]),
             "kind": clean(r["Тип"]),
-            "title": clean(r["Название курса"]),
+            "title": tr_sess_title(clean(r["Название курса"]), ctitle),
             "desc": tr_desc(clean_ml(r["Описание"])),
             "teacher": clean_ml(r["Преподаватель"]),
             "hours": clean(r["Часы/ЗЕ"]),

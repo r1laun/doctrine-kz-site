@@ -204,3 +204,42 @@ TEACH = {
  }
 }
 
+
+SESSION_TITLE_TR = {
+ "Модуль HM ECG. Холтеровское мониторирование. Базис": {
+  "kk": "HM ECG модулі. Холтерлік мониторинг. Базис",
+  "en": "HM ECG module. Holter monitoring. Basics"
+ },
+ "Модуль HM ECG PRO. Холтеровское мониторирование: продвинутый уровень интерпретации": {
+  "kk": "HM ECG PRO модулі. Холтерлік мониторинг: интерпретацияның тереңдетілген деңгейі",
+  "en": "HM ECG PRO module. Holter monitoring: advanced interpretation"
+ },
+ "Модуль ABPM. (СМАД) Базис": {
+  "kk": "ABPM модулі. (СМАД) Базис",
+  "en": "ABPM module. Basics"
+ },
+ "Модуль ABPM PRO. (СМАД) продвинутый уровень интерпретации": {
+  "kk": "ABPM PRO модулі. (СМАД) тереңдетілген интерпретация",
+  "en": "ABPM PRO module. Advanced ABPM interpretation"
+ },
+ "Модуль MIX PRO. Разбор реальных кейсов по ХМЭКГ и СМАДу": {
+  "kk": "MIX PRO модулі. ХМЭКГ және СМАД бойынша нақты кейстерді талдау",
+  "en": "MIX PRO module. Real Holter ECG and ABPM cases"
+ },
+ "Модульный курс по \"Холтер и СМАД\"": {
+  "kk": "Холтер және СМАД: қателеспей оқу (модульдік курс)",
+  "en": "Holter & ABPM: how to read without mistakes (modular course)"
+ },
+ "Модуль ABPM. Базис": {
+  "kk": "ABPM модулі. Базис",
+  "en": "ABPM module. Basics"
+ },
+ "Модуль ABPM PRO. продвинутый уровень интерпретации": {
+  "kk": "ABPM PRO модулі. Тереңдетілген интерпретация",
+  "en": "ABPM PRO module. Advanced interpretation"
+ },
+ "«Спирография в клинической практике: интерпретация без ошибок»": {
+  "kk": "«Клиникалық практикадағы спирография: қатесіз интерпретация»",
+  "en": "\"Spirography in clinical practice: error-free interpretation\""
+ }
+}
