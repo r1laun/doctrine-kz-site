@@ -2,7 +2,9 @@
 Run: python3 tools/build.py
 Output: docs/{ru,kk,en}/*.html + sitemap/robots/root index.
 """
-import json, os, html, re
+import json, os, html, re, sys
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from i18n_data import FRAGS
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DOCS = os.path.join(ROOT, "docs")
@@ -281,18 +283,10 @@ def is_open_text(v):
     return ("по мере" in t) or ("запис" in t)
 
 def pick_display(c):
-    """Session shown on the card: open-enrollment conduct first,
-    else the conduct with the latest date, else the first session."""
+    """Session shown on the card: the FIRST session (earliest conduct).
+    Price/hours fall back to other sessions if empty there."""
     sessions = c.get("sessions") or [{}]
-    for s in sessions:
-        if is_open_text(s.get("dates")):
-            return s
-    best, bestd = None, None
-    for s in sessions:
-        ds = sess_dates(s)
-        if ds and (bestd is None or ds[-1] > bestd):
-            best, bestd = s, ds[-1]
-    return best or sessions[0]
+    return sessions[0]
 
 def first_nonempty(sessions, key):
     for s in sessions:
@@ -300,6 +294,47 @@ def first_nonempty(sessions, key):
         if v:
             return v
     return ""
+
+_TR_LAT = {"а": "a", "б": "b", "в": "v", "г": "g", "д": "d", "е": "e", "ё": "yo",
+    "ж": "zh", "з": "z", "и": "i", "й": "y", "к": "k", "л": "l", "м": "m",
+    "н": "n", "о": "o", "п": "p", "р": "r", "с": "s", "т": "t", "у": "u",
+    "ф": "f", "х": "kh", "ц": "ts", "ч": "ch", "ш": "sh", "щ": "shch",
+    "ъ": "", "ы": "y", "ь": "", "э": "e", "ю": "yu", "я": "ya",
+    "ә": "a", "ғ": "gh", "қ": "q", "ң": "ng", "ө": "o", "ұ": "u", "ү": "u",
+    "һ": "h", "і": "i"}
+
+def translit_lat(s):
+    out = []
+    for ch in str(s or ""):
+        low = ch.lower()
+        if low in _TR_LAT:
+            lat = _TR_LAT[low]
+            out.append(lat[:1].upper() + lat[1:] if ch.isupper() else lat)
+        else:
+            out.append(ch)
+    return "".join(out)
+
+_FRAGS_NORM = {k.rstrip(",;"): v for k, v in FRAGS.items()}
+
+def staff_text(c, lang):
+    """All lecturers of the course for the hidden search index:
+    RU names + lang variants + Latin transliteration for EN."""
+    names = []
+    for s in c.get("sessions") or []:
+        line = (s.get("teacher") or "").strip().split("\n")[0].strip().rstrip(",;")
+        if line and line not in names:
+            names.append(line)
+    extra = []
+    for line in names:
+        hit = _FRAGS_NORM.get(line)
+        if hit and hit.get(lang) and hit[lang].rstrip(",;") not in names + extra:
+            extra.append(hit[lang].rstrip(",;"))
+    if lang == "en":
+        for line in list(names) + list(extra):
+            tr = translit_lat(line)
+            if tr != line and tr not in names + extra:
+                extra.append(tr)
+    return ", ".join(names + extra)
 
 def active_top(lang, n):
     """Top-n active (non-archived) courses for the home page."""
@@ -340,6 +375,7 @@ def course_cards(lang, limit=None, fmt=None, skip_archived=False, only_archived=
 <h3>{esc(title)}</h3>
 <div class="meta">{esc(dates)}</div>
 <div class="price">{esc(price) if price else "&nbsp;"}</div>
+<span class="staff-index" hidden>{esc(staff_text(c, lang))}</span>
 <a class="btn btn-ghost" href="course.html?id={c["id"]}">{esc(T[lang]["detail"])}</a>
 {enroll_btn}
 </div></div>""")
