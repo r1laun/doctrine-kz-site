@@ -98,6 +98,8 @@ TITLE_I18N = {
              "en": "EchoCG 'Valves under control'"},
     "К021": {"kk": "Кардиоонкология",
              "en": "Cardio-oncology"},
+    "К022": {"kk": "Холтер мен СМАД-ты қателеспей оқу",
+             "en": "How to read Holter and ABPM without mistakes"},
 }
 
 # ---- NEW schedule format: single sheet with columns
@@ -143,19 +145,21 @@ def new_day_list(v):
 def new_time_map(v):
     # "19:00 (09, 11)\n11:00 (12)" -> ({9: '19:00', 11: '19:00', 12: '11:00'}, '')
     # bare "17:00" -> ({}, '17:00'); "n/a"/empty -> ({}, '')
+    # dots ("19.00") are normalized to colons
     mapping, default = {}, ""
     for ln in str(v or "").split("\n"):
         ln = ln.strip()
         if not ln or ln.lower() == "n/a":
             continue
-        m = re.match(r"(\d{1,2}:\d{2})\s*(?:\(([^)]+)\))?", ln)
+        m = re.match(r"(\d{1,2})[:.](\d{2})\s*(?:\(([^)]+)\))?", ln)
         if not m:
             continue
-        if m.group(2):
-            for d in re.findall(r"\d{1,2}", m.group(2)):
-                mapping[int(d)] = m.group(1)
+        tm = f"{m.group(1)}:{m.group(2)}"
+        if m.group(3):
+            for d in re.findall(r"\d{1,2}", m.group(3)):
+                mapping[int(d)] = tm
         else:
-            default = m.group(1)
+            default = tm
     return mapping, default
 
 def new_price(v):
