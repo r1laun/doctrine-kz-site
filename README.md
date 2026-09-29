@@ -33,6 +33,14 @@ python3 tools/build.py       # перегенерировать HTML
 python3 -m http.server --directory docs  # локальный просмотр
 ```
 
+## Автосинхронизация (каждый день)
+
+Workflow `.github/workflows/daily-sync.yml` каждую ночь в 03:00 по Алматы:
+скачивает таблицу → `make_data.py` → `build.py` → коммит/пуш при изменениях →
+деплой `docs/` на Hoster.kz по FTPS. Ручной запуск — кнопка Run workflow.
+Нужны секреты репозитория: `FTP_HOST`, `FTP_USER`, `FTP_PASS`
+(отдельный FTP-аккаунт Plesk с домашней папкой `httpdocs`).
+
 ## Как добавить новый курс
 
 1. Добавьте строку в Google Таблицу (колонки):

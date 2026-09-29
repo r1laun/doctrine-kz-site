@@ -1,0 +1,59 @@
+name: daily-sync
+# Автосинхронизация с Google Таблицей: каждую ночь забирает свежие CSV,
+# пересобирает сайт, пушит изменения и заливает docs/ на Hoster.kz по FTPS.
+on:
+  schedule:
+    - cron: "0 22 * * *" # 03:00 по Алматы (UTC+5)
+  workflow_dispatch: # ручной запуск кнопкой Run workflow
+permissions:
+  contents: write
+concurrency:
+  group: daily-sync
+  cancel-in-progress: true
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Download schedule CSV
+        run: |
+          curl -sSL "https://docs.google.com/spreadsheets/d/1OSTcmJxk-X7Spxsn5z1B5dSvM0XSEfWewP9UzP_4_V8/export?format=csv" -o _original/schedule_new.csv
+      - name: Rebuild site
+        run: |
+          python3 tools/make_data.py
+          python3 tools/build.py
+      - name: Sanity check
+        run: |
+          python3 -c "import json; c=json.load(open('docs/data/courses.json')); assert len(c)>0 and sum(len(x['sessions']) for x in c)>0, 'empty data'"
+      - name: Commit and push if changed
+        id: commit
+        run: |
+          git config user.name "doctrine-bot"
+          git config user.email "bot@doctrine.kz"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "no changes, skip push"
+          else
+            git commit -m "data: автообновление расписания из таблицы"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Deploy to Hoster.kz via FTPS
+        if: steps.commit.outputs.changed == 'true' && secrets.FTP_HOST != ''
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          protocol: ftps
+          local-dir: ./docs/
+          server-dir: /
+          dangerous-clean-slate: true
+          exclude: |
+            **/.git*
+            **/.DS_Store
