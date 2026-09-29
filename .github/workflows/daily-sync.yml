@@ -43,8 +43,14 @@ jobs:
             git push
             echo "changed=true" >> "$GITHUB_OUTPUT"
           fi
+      - name: Check deploy secrets
+        id: deploy
+        env:
+          FTP_HOST: ${{ secrets.FTP_HOST }}
+        run: |
+          if [ -n "$FTP_HOST" ]; then echo "ready=true" >> "$GITHUB_OUTPUT"; else echo "ready=false" >> "$GITHUB_OUTPUT"; fi
       - name: Deploy to Hoster.kz via FTPS
-        if: steps.commit.outputs.changed == 'true' && secrets.FTP_HOST != ''
+        if: steps.commit.outputs.changed == 'true' && steps.deploy.outputs.ready == 'true'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
         with:
           server: ${{ secrets.FTP_HOST }}
