@@ -102,6 +102,32 @@ TITLE_I18N = {
              "en": "How to read Holter and ABPM without mistakes"},
 }
 
+# New-table titles keyed by RU name (positional IDs shift when rows move,
+# so translations must follow the content, not the ID).
+TITLE_NEW_BY_RU = {
+    "ЭхоКГ «Клапаны под контролем»": {"kk": "ЭхоКГ «Қақпақшалар бақылауда»",
+             "en": "EchoCG 'Valves under control'"},
+    "Гипертензивные расстройства и др. во время беременности": {"kk": "Жүктілік кезіндегі гипертензиялық бұзылыстар",
+             "en": "Hypertensive disorders in pregnancy"},
+    "Интервал QT": {"kk": "QT аралығы және дәрілер",
+             "en": "QT interval and drugs"},
+    "Сердечно-сосудистое здоровье женщины": {"kk": "Әйелдің жүрек-қан тамырлары денсаулығы",
+             "en": "Women's cardiovascular health"},
+    "Кардиоонкология": {"kk": "Кардиоонкология",
+             "en": "Cardio-oncology"},
+    "Как читать холтер и СМАД, что бы не ошибаться?": {"kk": "Холтер мен СМАД-ты қателеспей оқу",
+             "en": "How to read Holter and ABPM without mistakes"},
+    "«ЭКГ» на казахском/русском языках": {"kk": "«ЭКГ» қазақ және орыс тілдерінде",
+             "en": "'ECG' in Kazakh and Russian"},
+    "\"ЭКГ\" на казахском/русском языках": {"kk": "«ЭКГ» қазақ және орыс тілдерінде",
+             "en": "'ECG' in Kazakh and Russian"},
+}
+
+def _tkey(t):
+    return (t or "").replace("«", "").replace("»", "").replace(""", "").replace(""", "").replace('"', "").strip()
+
+_TITLE_NEW_NORM = {_tkey(k): v for k, v in TITLE_NEW_BY_RU.items()}
+
 # ---- NEW schedule format: single sheet with columns
 # month | course name | prof name | description | time | date | price (Тенге) | credits | format
 # Dates are day numbers inside the given month(s); empty month cells inherit
@@ -226,7 +252,7 @@ def build_new_courses(path):
             })
         if not sessions:
             continue
-        tr = TITLE_I18N.get(cid, {})
+        tr = _TITLE_NEW_NORM.get(_tkey(title), TITLE_I18N.get(cid, {}))
         ctitle = {"ru": title,
                   "kk": tr.get("kk", title),
                   "en": tr.get("en", title)}
