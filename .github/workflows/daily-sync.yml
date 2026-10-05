@@ -9,7 +9,7 @@ permissions:
   contents: write
 concurrency:
   group: daily-sync
-  cancel-in-progress: true
+  cancel-in-progress: false
 jobs:
   sync:
     runs-on: ubuntu-latest
@@ -29,6 +29,15 @@ jobs:
       - name: Sanity check
         run: |
           python3 -c "import json; c=json.load(open('docs/data/courses.json')); assert len(c)>0 and sum(len(x['sessions']) for x in c)>0, 'empty data'"
+          test -s docs/index.html
+          test -s docs/ru/index.html
+          test -s docs/kk/index.html
+          test -s docs/en/index.html
+          test -s docs/ru/schedule.html
+          test -s docs/ru/teachers.html
+          test -s docs/data/teachers.json
+          test -f docs/assets/css/main.css
+          echo "pre-deploy check OK: $(find docs -type f | wc -l) files"
       - name: Commit and push if changed
         id: commit
         run: |
@@ -59,7 +68,15 @@ jobs:
           protocol: ftps
           local-dir: ./docs/
           server-dir: /
-          dangerous-clean-slate: true
+          # НЕ включать dangerous-clean-slate: true — иначе при обрыве заливки
+          # httpdocs остается пустым (был инцидент: осталось только .cagefs).
+          # Без вайпа синк только перезаписывает файлы, сайт не ложится.
+          dangerous-clean-slate: false
           exclude: |
             **/.git*
             **/.DS_Store
+      - name: Post-deploy check
+        if: steps.commit.outputs.changed == 'true' && steps.deploy.outputs.ready == 'true'
+        run: |
+          sleep 10
+          curl -skL --max-time 30 https://doctrine.kz/ | grep -q "ru/" && echo "site OK" || (echo "site check FAILED"; exit 1)
