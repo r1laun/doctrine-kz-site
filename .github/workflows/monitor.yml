@@ -1,0 +1,27 @@
+name: monitor
+# Проверка что doctrine.kz жив: каждые 30 минут + вручную.
+# При падении job станет красным и GitHub пришлет уведомление.
+on:
+  schedule:
+    - cron: "*/30 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: monitor
+  cancel-in-progress: false
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check doctrine.kz
+        run: |
+          set -e
+          for p in "" "ru/" "kk/" "en/" "ru/schedule.html" "ru/teachers.html"; do
+            code=$(curl -skL -o /dev/null -w "%{http_code}" --max-time 30 "https://doctrine.kz/$p")
+            echo "$p -> $code"
+            test "$code" = "200"
+          done
+          curl -skL --max-time 30 https://doctrine.kz/ | grep -q "ru/"
+          echo "monitor OK"

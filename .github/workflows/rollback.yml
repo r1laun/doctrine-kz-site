@@ -1,0 +1,51 @@
+name: rollback
+# Ручной откат httpdocs к заведомо хорошей версии.
+# Использование: Actions → rollback → Run workflow → ввести ref (SHA коммита, ветка или тег).
+# По умолчанию — текущий main. Заливает docs/ из выбранного ref БЕЗ вайпа.
+on:
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: "Коммит/ветка для восстановления (например SHA из истории)"
+        required: false
+        default: "main"
+permissions:
+  contents: read
+concurrency:
+  group: daily-sync
+  cancel-in-progress: false
+jobs:
+  redeploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+      - name: Sanity check
+        run: |
+          test -s docs/index.html
+          test -s docs/ru/index.html
+          test -s docs/kk/index.html
+          test -s docs/en/index.html
+          test -s docs/data/courses.json
+          test -s docs/data/teachers.json
+          echo "rollback source OK: $(find docs -type f | wc -l) files from ${{ inputs.ref }}"
+      - name: Deploy to Hoster.kz via FTPS (no wipe)
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_HOST }}
+          username: ${{ secrets.FTP_USER }}
+          password: ${{ secrets.FTP_PASS }}
+          protocol: ftps
+          local-dir: ./docs/
+          server-dir: /
+          # Никогда не включать clean-slate: откат должен чинить, а не вайпать.
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.DS_Store
+      - name: Post-deploy check
+        run: |
+          sleep 10
+          curl -skL --max-time 30 https://doctrine.kz/ | grep -q "ru/" && echo "site OK" || (echo "site check FAILED"; exit 1)

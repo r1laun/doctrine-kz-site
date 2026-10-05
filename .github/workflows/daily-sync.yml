@@ -38,6 +38,12 @@ jobs:
           test -s docs/data/teachers.json
           test -f docs/assets/css/main.css
           echo "pre-deploy check OK: $(find docs -type f | wc -l) files"
+      - name: Backup docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-${{ github.run_number }}
+          path: docs/
+          retention-days: 30
       - name: Commit and push if changed
         id: commit
         run: |
