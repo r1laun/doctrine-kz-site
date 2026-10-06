@@ -66,12 +66,16 @@ jobs:
           if [ -n "$FTP_HOST" ]; then echo "ready=true" >> "$GITHUB_OUTPUT"; else echo "ready=false" >> "$GITHUB_OUTPUT"; fi
       - name: Deploy to Hoster.kz via FTPS
         if: steps.commit.outputs.changed == 'true' && steps.deploy.outputs.ready == 'true'
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
           protocol: ftps
+          port: 21
+          timeout: 120000
+          security: loose
+          log-level: verbose
           local-dir: ./docs/
           server-dir: /
           # НЕ включать dangerous-clean-slate: true — иначе при обрыве заливки

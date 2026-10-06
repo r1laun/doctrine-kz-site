@@ -32,12 +32,16 @@ jobs:
           test -s docs/data/teachers.json
           echo "rollback source OK: $(find docs -type f | wc -l) files from ${{ inputs.ref }}"
       - name: Deploy to Hoster.kz via FTPS (no wipe)
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.FTP_HOST }}
           username: ${{ secrets.FTP_USER }}
           password: ${{ secrets.FTP_PASS }}
           protocol: ftps
+          port: 21
+          timeout: 120000
+          security: loose
+          log-level: verbose
           local-dir: ./docs/
           server-dir: /
           # Никогда не включать clean-slate: откат должен чинить, а не вайпать.
