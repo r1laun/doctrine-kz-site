@@ -327,7 +327,6 @@ footer small{color:#9db8bc}
   .conf-wrap{margin:0 0 18px}
   .conf-full .conf-line{display:flex}
   .conf-full .conf-facts,.conf-full .conf-people-full{display:none}
-  .conf-full .conf-wa{display:none}
   .conf-body,.conf-grid .conf-body{padding:16px}
   .conf-title,.conf-grid .conf-title{font-size:18px}
   .conf .conf-media,.conf-grid .conf-media{aspect-ratio:1600/758}

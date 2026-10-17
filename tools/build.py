@@ -3,6 +3,7 @@ Run: python3 tools/build.py
 Output: docs/{ru,kk,en}/*.html + sitemap/robots/root index.
 """
 import json, os, html, re, sys
+from urllib.parse import quote
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from i18n_data import FRAGS
 
@@ -78,7 +79,7 @@ T = {
         "founder_alt": "Основатель центра Doctrine",
         "conf_badge": "Конференция", "conf_when": "Когда", "conf_venue": "Место",
         "conf_reg": "Регистрация", "conf_more": "Подробнее о конференции →", "conf_more_short": "Подробнее →",
-        "conf_wa": "Написать в WhatsApp", "conf_past": "Мероприятие завершено",
+        "conf_wa": "Написать в WhatsApp", "conf_enroll_wa": "Записаться в WhatsApp", "conf_past": "Мероприятие завершено",
         "conf_topics_h": "Основные темы", "conf_focus_h": "Отдельное внимание",
         "conf_agenda_h": "Что ждёт участников", "conf_audience_h": "Для кого",
         "conf_speakers_h": "Научные руководители", "conf_org_h": "Организаторы",
@@ -137,7 +138,7 @@ T = {
         "founder_alt": "Doctrine орталығының негізін қалаушы",
         "conf_badge": "Конференция", "conf_when": "Қашан", "conf_venue": "Орын",
         "conf_reg": "Тіркелу", "conf_more": "Конференция туралы толығырақ →", "conf_more_short": "Толығырақ →",
-        "conf_wa": "WhatsApp-қа жазу", "conf_past": "Іс-шара аяқталды",
+        "conf_wa": "WhatsApp-қа жазу", "conf_enroll_wa": "WhatsApp арқылы жазылу", "conf_past": "Іс-шара аяқталды",
         "conf_topics_h": "Негізгі тақырыптар", "conf_focus_h": "Ерекше назар",
         "conf_agenda_h": "Қатысушыларды не күтіп тұр", "conf_audience_h": "Кімдерге арналған",
         "conf_speakers_h": "Ғылыми жетекшілер", "conf_org_h": "Ұйымдастырушылар",
@@ -196,7 +197,7 @@ T = {
         "founder_alt": "Founder of the Doctrine centre",
         "conf_badge": "Conference", "conf_when": "When", "conf_venue": "Venue",
         "conf_reg": "Registration", "conf_more": "More about the conference →", "conf_more_short": "Details →",
-        "conf_wa": "Message on WhatsApp", "conf_past": "This event has ended",
+        "conf_wa": "Message on WhatsApp", "conf_enroll_wa": "Register on WhatsApp", "conf_past": "This event has ended",
         "conf_topics_h": "Key topics", "conf_focus_h": "Special focus",
         "conf_agenda_h": "What to expect", "conf_audience_h": "Who it's for",
         "conf_speakers_h": "Scientific supervisors", "conf_org_h": "Organizers",
@@ -600,6 +601,10 @@ def conf_media(lang, small=False, eager=False):
             f'<img src="{jpg}" srcset="{srcset}" sizes="(max-width:960px) 92vw, 1180px" '
             f'width="{w}" height="{h}" alt="{alt}"{load}></picture>')
 
+def conf_wa_link(lang):
+    """WhatsApp с уже подставленным сообщением о регистрации."""
+    return f'{WA.split("?")[0]}?text={quote(cval("enroll_msg", lang))}'
+
 def conf_people(lang):
     """Small avatar strip of the scientific supervisors."""
     out = "".join(
@@ -631,7 +636,7 @@ def conf_block(lang, variant="full", keep=False):
 <h2 class="conf-title"><a href="conference.html">{esc(title)}</a></h2>
 {line}
 <div class="conf-cta">
-<a class="btn btn-primary conf-reg" href="{FORM}" target="_blank" rel="noopener">{esc(t["enroll"])}</a>
+<a class="btn btn-primary conf-reg" href="{conf_wa_link(lang)}" target="_blank" rel="noopener">{esc(t["conf_enroll_wa"])}</a>
 <a class="btn btn-ghost conf-more" href="conference.html">{esc(t["conf_more_short"])}</a>
 </div>"""
     else:
@@ -648,8 +653,7 @@ def conf_block(lang, variant="full", keep=False):
 <div class="conf-people-full">{conf_people(lang)}</div>
 {line}
 <div class="conf-cta">
-<a class="btn btn-primary conf-reg" href="{FORM}" target="_blank" rel="noopener">{esc(t["enroll"])}</a>
-<a class="btn btn-ghost conf-wa" href="{WA}" target="_blank" rel="noopener">{esc(t["conf_wa"])}</a>
+<a class="btn btn-primary conf-reg" href="{conf_wa_link(lang)}" target="_blank" rel="noopener">{esc(t["conf_enroll_wa"])}</a>
 <a class="btn btn-ghost conf-more" href="conference.html">{esc(t["conf_more"])}</a>
 </div>"""
     return f"""
@@ -719,8 +723,8 @@ def page_conference(lang):
 <p>{esc(cval("organizers", lang))}</p>
 <p class="conf-note">{esc(cval("note", lang))}</p>
 <div class="conf-page-cta">
-<a class="btn btn-primary conf-reg" href="{FORM}" target="_blank" rel="noopener">{esc(t["enroll"])}</a>
-<a class="btn btn-ghost conf-wa" href="{WA}" target="_blank" rel="noopener">{esc(t["conf_wa"])}</a>
+<a class="btn btn-primary conf-reg" href="{conf_wa_link(lang)}" target="_blank" rel="noopener">{esc(t["conf_enroll_wa"])}</a>
+<a class="btn btn-ghost conf-more" href="schedule.html">{esc(t["sched_h"])}</a>
 </div>
 </div></section>
 {conf_ld(lang)}

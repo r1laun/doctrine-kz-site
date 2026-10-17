@@ -154,6 +154,11 @@
     "kk": "Жүрек-қан тамырлары және коморбидті пациентті басқару кезінде дәрігердің кездескен мәселелерін талқылауға қосылыңыз!",
     "en": "Join the discussion of the questions a physician faces while managing a cardiovascular and comorbid patient!"
   },
+  "enroll_msg": {
+    "ru": "Здравствуйте! Хочу зарегистрироваться на конференцию «От аритмологии до коморбидного пациента» (III ежегодная научно-практическая конференция Doctrine, 14 ноября 2026, Алматы, отель «Холидей Инн»). Подскажите, пожалуйста, как записаться.",
+    "kk": "Сәлемет! «Аритмологиядан коморбидті пациентке дейін» конференциясына қатысуға жазылғым келеді (Doctrine III жылдық ғылыми-тәжірибелік конференциясы, 2026 ж. 14 қараша, Алматы, «Холидей Инн» қонақүйі). Қалай жазылуға болады?",
+    "en": "Hello! I would like to register for the conference “From Arrhythmology to the Comorbid Patient” (Doctrine III annual scientific and practical conference, 14 November 2026, Almaty, Holiday Inn hotel). How can I register?"
+  },
   "seo": {
     "ru": {
       "t": "III Конференция «От аритмологии до коморбидного пациента» — 14 ноября 2026 | Doctrine",
