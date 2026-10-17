@@ -2,7 +2,7 @@
 Run: python3 tools/build.py
 Output: docs/{ru,kk,en}/*.html + sitemap/robots/root index.
 """
-import json, os, html, re, sys
+import json, os, html, re, sys, hashlib
 from urllib.parse import quote
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from i18n_data import FRAGS
@@ -221,6 +221,21 @@ OTHER = {"ru": [("kk", "KZ"), ("en", "EN")], "kk": [("ru", "RU"), ("en", "EN")],
 def esc(s):
     return html.escape(str(s or ""), quote=True)
 
+_ASSET_V = {}
+
+def av(rel):
+    """Cache-busting query for a static asset: short sha1 of its content.
+    Safari keeps a CSS/JS/image forever without it, so a deploy looks like it
+    did nothing on phones."""
+    if rel not in _ASSET_V:
+        path = os.path.join(DOCS, "assets", rel)
+        try:
+            with open(path, "rb") as f:
+                _ASSET_V[rel] = hashlib.sha1(f.read()).hexdigest()[:8]
+        except FileNotFoundError:
+            _ASSET_V[rel] = ""
+    return f"{rel}?v={_ASSET_V[rel]}" if _ASSET_V[rel] else rel
+
 OG_LOCALE = {"ru": "ru_RU", "kk": "kk_KZ", "en": "en_US"}
 
 ORG_LD = {
@@ -279,7 +294,7 @@ def head(lang, title, desc, page="index.html", og_img="logo.jpg"):
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/main.css">
+<link rel="stylesheet" href="../assets/{av('css/main.css')}">
 </head>
 <body>
 """
@@ -311,7 +326,7 @@ def footer(lang):
 <div><h4>{esc(t["menu_h"])}</h4>{nav}<div><a href="../files/public-offer.pdf" target="_blank" rel="noopener">{esc(t["offer_h"])} (PDF)</a></div></div>
 <div><h4>{esc(t["contacts_h"])}</h4><div><a href="{WA}">WhatsApp: {esc(SITE["phone"])}</a></div><div><a href="{IG}">Instagram</a></div><div><small>{esc(SITE["address"][lang])}</small></div></div>
 </div></footer>
-<script src="../assets/js/main.js"></script>
+<script src="../assets/{av('js/main.js')}"></script>
 </body>
 </html>
 """
@@ -521,7 +536,7 @@ window.DOCTRINE_FB = {{
 }};
 window.DOCTRINE_REVIEWS = {baked};
 </script>
-<script src="../assets/js/reviews.js"></script>"""
+<script src="../assets/{av('js/reviews.js')}"></script>"""
 
 def contacts_section(lang):
     t = T[lang]
@@ -588,14 +603,16 @@ def cval(field, lang):
 def conf_media(lang, small=False, eager=False):
     alt = esc(T[lang]["conf_img_alt"])
     if small:
-        jpg, webp, sizes = ("../assets/img/conf-banner-sm.jpg",
-                            "../assets/img/conf-banner-sm.webp", "1000w")
+        jpg, webp, sizes = ("../assets/" + av('img/conf-banner-sm.jpg'),
+                            "../assets/" + av('img/conf-banner-sm.webp'), "1000w")
         w, h = 1000, 474
     else:
-        jpg, webp, sizes = ("../assets/img/conf-banner.jpg",
-                            "../assets/img/conf-banner.webp", "1600w")
+        jpg, webp, sizes = ("../assets/" + av('img/conf-banner.jpg'),
+                            "../assets/" + av('img/conf-banner.webp'), "1600w")
         w, h = 1600, 758
-    srcset = f"{webp} {sizes}" if not small else f"{webp} {sizes}, ../assets/img/conf-banner.webp 1600w"
+    big_webp = "../assets/" + av('img/conf-banner.webp')
+    srcset = (f"{webp} {sizes}" if not small
+              else f"{webp} {sizes}, {big_webp} 1600w")
     load = ' fetchpriority="high" decoding="sync"' if eager else ' loading="lazy" decoding="async"'
     return (f'<picture><source srcset="{webp}" type="image/webp">'
             f'<img src="{jpg}" srcset="{srcset}" sizes="(max-width:960px) 92vw, 1180px" '
@@ -770,7 +787,7 @@ def page_course(lang):
 <a class="btn btn-ghost" href="{WA}" target="_blank" rel="noopener">WhatsApp</a></p>
 </div></section>
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
-<script src="../assets/js/course.js"></script>
+<script src="../assets/{av('js/course.js')}"></script>
 """ + footer(lang))
 
 def page_teachers(lang):
@@ -794,7 +811,7 @@ def page_teachers(lang):
 <button class="t-modal-close" data-close aria-label="{esc(close_l)}">×</button>
 <div id="teacherModalBody"></div>
 </div></div>
-<script src="../assets/js/teachers.js"></script>
+<script src="../assets/{av('js/teachers.js')}"></script>
 """ + contacts_section(lang) + footer(lang))
 
 def page_404(lang):
