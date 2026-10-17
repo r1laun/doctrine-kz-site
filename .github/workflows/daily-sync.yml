@@ -65,7 +65,10 @@ jobs:
         run: |
           if [ -n "$FTP_HOST" ]; then echo "ready=true" >> "$GITHUB_OUTPUT"; else echo "ready=false" >> "$GITHUB_OUTPUT"; fi
       - name: Deploy to Hoster.kz via FTPS
-        if: steps.commit.outputs.changed == 'true' && steps.deploy.outputs.ready == 'true'
+        # doctrine.kz отдаётся с Hoster (FTP), а не с Pages, поэтому заливка нужна
+        # при каждом запуске: иначе ручные пуши (новые страницы, баннеры, правки
+        # вёрстки) попадали бы на сайт только вместе с изменениями данных бота.
+        if: steps.deploy.outputs.ready == 'true'
         uses: SamKirkland/FTP-Deploy-Action@v4.3.6
         with:
           server: ${{ secrets.FTP_HOST }}
@@ -86,7 +89,12 @@ jobs:
             **/.git*
             **/.DS_Store
       - name: Post-deploy check
-        if: steps.commit.outputs.changed == 'true' && steps.deploy.outputs.ready == 'true'
+        if: steps.deploy.outputs.ready == 'true'
         run: |
           sleep 10
           curl -skL --max-time 30 https://doctrine.kz/ | grep -q "ru/" && echo "site OK" || (echo "site check FAILED"; exit 1)
+          for p in ru/schedule.html ru/conference.html; do
+            code=$(curl -skL -o /dev/null -w "%{http_code}" --max-time 30 "https://doctrine.kz/$p")
+            echo "$p -> $code"
+            test "$code" = "200"
+          done
