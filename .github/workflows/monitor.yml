@@ -18,10 +18,12 @@ jobs:
       - name: Check doctrine.kz
         run: |
           set -e
-          for p in "" "ru/" "kk/" "en/" "ru/schedule.html" "ru/teachers.html"; do
+          for p in "" "ru/" "kk/" "en/" "ru/schedule.html" "ru/teachers.html" "ru/conference.html"; do
             code=$(curl -skL -o /dev/null -w "%{http_code}" --max-time 30 "https://doctrine.kz/$p")
             echo "$p -> $code"
             test "$code" = "200"
           done
+          # страница конференции не должна быть пустой, даже если пропадёт conference.json
+          curl -skL --max-time 30 https://doctrine.kz/ru/conference.html | grep -q "conf-cta"
           curl -skL --max-time 30 https://doctrine.kz/ | grep -q "ru/"
           echo "monitor OK"
