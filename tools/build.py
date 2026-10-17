@@ -620,14 +620,16 @@ def conf_block(lang, variant="full", keep=False):
     keep_cls = " conf-keep" if keep else ""
     badges = (f'<div class="badges"><span class="badge conf-badge">{esc(t["conf_badge"])}</span>'
               f'<span class="badge format fmt-hybrid">{esc(cval("format", lang))}</span></div>')
+    meta = " · ".join([cval("date_short", lang), cval("registration", lang),
+                       cval("venue", lang)])
+    # одна и та же строка-подпись: на телефоне она заменяет подробные факты
+    line = f'<div class="conf-line">{conf_people(lang)}<span>{esc(meta)}</span></div>'
     if variant == "grid":
         # compact: one meta line + two buttons, so the card stays ~250px tall
-        meta = " · ".join([cval("date_short", lang), cval("registration", lang),
-                           cval("venue", lang)])
         body = f"""
 {badges}
 <h2 class="conf-title"><a href="conference.html">{esc(title)}</a></h2>
-<div class="conf-line">{conf_people(lang)}<span>{esc(meta)}</span></div>
+{line}
 <div class="conf-cta">
 <a class="btn btn-primary conf-reg" href="{FORM}" target="_blank" rel="noopener">{esc(t["enroll"])}</a>
 <a class="btn btn-ghost conf-more" href="conference.html">{esc(t["conf_more_short"])}</a>
@@ -642,7 +644,8 @@ def conf_block(lang, variant="full", keep=False):
 {badges}
 <h2 class="conf-title"><a href="conference.html">{esc(title)}</a></h2>
 <div class="conf-facts">{facts}</div>
-{conf_people(lang)}
+<div class="conf-people-full">{conf_people(lang)}</div>
+{line}
 <div class="conf-cta">
 <a class="btn btn-primary conf-reg" href="{FORM}" target="_blank" rel="noopener">{esc(t["enroll"])}</a>
 <a class="btn btn-ghost conf-wa" href="{WA}" target="_blank" rel="noopener">{esc(t["conf_wa"])}</a>
@@ -670,7 +673,7 @@ def conf_ld(lang):
             "@type": "Place",
             "name": "Holiday Inn Almaty",
             "address": {"@type": "PostalAddress",
-                        "streetAddress": "ул. Тимирязева, 2Д",
+                        "streetAddress": "ул. Тимирязева 2Д",
                         "addressLocality": "Алматы",
                         "addressCountry": "KZ"},
         },

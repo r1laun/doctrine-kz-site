@@ -291,11 +291,12 @@ footer small{color:#9db8bc}
 .conf-full .conf-media{aspect-ratio:1600/758}
 .conf-full .conf-title{font-size:clamp(21px,2.4vw,27px)}
 .conf-full .conf-facts{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.conf-full .conf-line{display:none}
 .conf-full .conf-cta .btn{padding:13px 24px;font-size:15px}
 /* grid variant: schedule page, spans the whole 3-column row */
 .conf-wrap{margin:0 0 26px}
-.conf-grid{display:grid;grid-template-columns:minmax(0,44%) minmax(0,1fr)}
-.conf-grid .conf-media{min-height:250px}
+.conf-grid{display:grid;grid-template-columns:minmax(0,52%) minmax(0,1fr)}
+.conf-grid .conf-media{aspect-ratio:1600/758;min-height:0}
 .conf-grid .conf-body{padding:22px 24px}
 .conf-grid .conf-title{font-size:19px}
 /* conference page */
@@ -324,6 +325,9 @@ footer small{color:#9db8bc}
 }
 @media(max-width:640px){
   .conf-wrap{margin:0 0 18px}
+  .conf-full .conf-line{display:flex}
+  .conf-full .conf-facts,.conf-full .conf-people-full{display:none}
+  .conf-full .conf-wa{display:none}
   .conf-body,.conf-grid .conf-body{padding:16px}
   .conf-title,.conf-grid .conf-title{font-size:18px}
   .conf .conf-media,.conf-grid .conf-media{aspect-ratio:1600/758}
