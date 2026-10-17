@@ -21,6 +21,13 @@ try:
         REVIEWS = json.load(f)
 except FileNotFoundError:
     REVIEWS = []
+# Conference: hand-written content (RU/KK/EN), survives the Google Sheets sync
+# because only schedule_new.csv is overwritten by make_data.py/update.sh.
+try:
+    with open(os.path.join(ROOT, "_original", "conference.json"), encoding="utf-8") as f:
+        CONF = json.load(f)
+except FileNotFoundError:
+    CONF = None
 
 FORM = SITE["form_url"]
 WA = SITE["whatsapp"]
@@ -69,6 +76,13 @@ T = {
         "archive_h": "Прошедшие курсы", "archive_sub": "набор в эти группы завершён.",
         "past_badge": "Завершён", "next_stream": "Следующий поток →",
         "founder_alt": "Основатель центра Doctrine",
+        "conf_badge": "Конференция", "conf_when": "Когда", "conf_venue": "Место",
+        "conf_reg": "Регистрация", "conf_more": "Подробнее о конференции →", "conf_more_short": "Подробнее →",
+        "conf_wa": "Написать в WhatsApp", "conf_past": "Мероприятие завершено",
+        "conf_topics_h": "Основные темы", "conf_focus_h": "Отдельное внимание",
+        "conf_agenda_h": "Что ждёт участников", "conf_audience_h": "Для кого",
+        "conf_speakers_h": "Научные руководители", "conf_org_h": "Организаторы",
+        "conf_img_alt": "Баннер конференции Doctrine",
         "seo_index_t": "Doctrine — центр обучения врачей в Алматы | Доктрина",
         "seo_index_d": "Doctrine (Доктрина) — образовательный центр для врачей: кардиология, ЭКГ, Холтер, СМАД, ЭхоКГ. Курсы и вебинары онлайн и офлайн в Алматы.",
         "seo_sched_t": "Расписание курсов — Doctrine (Доктрина) | Алматы и онлайн",
@@ -121,6 +135,13 @@ T = {
         "archive_h": "Өткен курстар", "archive_sub": "бұл топтарға қабылдау аяқталды.",
         "past_badge": "Аяқталды", "next_stream": "Келесі ағын →",
         "founder_alt": "Doctrine орталығының негізін қалаушы",
+        "conf_badge": "Конференция", "conf_when": "Қашан", "conf_venue": "Орын",
+        "conf_reg": "Тіркелу", "conf_more": "Конференция туралы толығырақ →", "conf_more_short": "Толығырақ →",
+        "conf_wa": "WhatsApp-қа жазу", "conf_past": "Іс-шара аяқталды",
+        "conf_topics_h": "Негізгі тақырыптар", "conf_focus_h": "Ерекше назар",
+        "conf_agenda_h": "Қатысушыларды не күтіп тұр", "conf_audience_h": "Кімдерге арналған",
+        "conf_speakers_h": "Ғылыми жетекшілер", "conf_org_h": "Ұйымдастырушылар",
+        "conf_img_alt": "Doctrine конференциясының баннері",
         "seo_index_t": "Doctrine — дәрігерлерді оқыту орталығы, Алматы | Доктрина",
         "seo_index_d": "Doctrine (Доктрина) — дәрігерлерге арналған білім орталығы: кардиология, ЭКГ, Холтер, СМАД, ЭхоКГ. Алматыда онлайн және офлайн курстар.",
         "seo_sched_t": "Курстар кестесі — Doctrine (Доктрина)",
@@ -173,6 +194,13 @@ T = {
         "archive_h": "Past courses", "archive_sub": "enrollment for these groups is closed.",
         "past_badge": "Finished", "next_stream": "Next intake →",
         "founder_alt": "Founder of the Doctrine centre",
+        "conf_badge": "Conference", "conf_when": "When", "conf_venue": "Venue",
+        "conf_reg": "Registration", "conf_more": "More about the conference →", "conf_more_short": "Details →",
+        "conf_wa": "Message on WhatsApp", "conf_past": "This event has ended",
+        "conf_topics_h": "Key topics", "conf_focus_h": "Special focus",
+        "conf_agenda_h": "What to expect", "conf_audience_h": "Who it's for",
+        "conf_speakers_h": "Scientific supervisors", "conf_org_h": "Organizers",
+        "conf_img_alt": "Doctrine conference banner",
         "seo_index_t": "Doctrine Centre — physician training in Almaty",
         "seo_index_d": "Doctrine Centre — education centre for physicians: cardiology, ECG, Holter, ABPM, Echo. Online and offline courses in Almaty, Kazakhstan.",
         "seo_sched_t": "Course schedule — Doctrine Centre",
@@ -203,7 +231,7 @@ ORG_LD = {
     "sameAs": ["https://www.instagram.com/doctrine_centre"],
 }
 
-def head(lang, title, desc, page="index.html"):
+def head(lang, title, desc, page="index.html", og_img="logo.jpg"):
     canon = f"https://doctrine.kz/{lang}/{page}"
     hreflangs = "\n".join(
         f'<link rel="alternate" hreflang="{l}" href="https://doctrine.kz/{l}/{page}">'
@@ -242,7 +270,7 @@ def head(lang, title, desc, page="index.html"):
 <meta property="og:title" content="{esc(title)}">
 <meta property="og:description" content="{esc(desc)}">
 <meta property="og:url" content="{canon}">
-<meta property="og:image" content="https://doctrine.kz/assets/img/logo.jpg">
+<meta property="og:image" content="https://doctrine.kz/assets/img/{esc(og_img)}">
 <meta property="og:locale" content="{OG_LOCALE[lang]}">
 {alternates}
 <script type="application/ld+json">{json.dumps(ORG_LD, ensure_ascii=False)}</script>
@@ -536,6 +564,7 @@ def page_index(lang):
 <section class="trust"><div class="container trust-grid">
 {"".join(f'<div class="trust-item"><b>{b}</b><span>{s}</span></div>' for b, s in t["trust"])}
 </div></section>
+<section class="section conf-sec"><div class="container">{conf_block(lang, "full")}</div></section>
 <section class="section"><div class="container">
 <h2>{esc(t["pop"])}</h2><p class="sub">{esc(t["pop_sub"])}</p>
 <div class="grid-3" id="popGrid">{active_top(lang, 3)}</div>
@@ -547,6 +576,151 @@ def page_index(lang):
 <p><a class="btn btn-ghost" href="teachers.html">{esc(t["all_teachers"])}</a></p>
 </div></section>
 """ + reviews_section(lang) + faq_section(lang) + contacts_section(lang) + footer(lang))
+
+def cval(field, lang):
+    """Localized field of the conference content (CONF)."""
+    v = (CONF or {}).get(field) or ""
+    if isinstance(v, dict):
+        return v.get(lang) or v.get("ru") or ""
+    return str(v)
+
+def conf_media(lang, small=False, eager=False):
+    alt = esc(T[lang]["conf_img_alt"])
+    if small:
+        jpg, webp, sizes = ("../assets/img/conf-banner-sm.jpg",
+                            "../assets/img/conf-banner-sm.webp", "1000w")
+        w, h = 1000, 474
+    else:
+        jpg, webp, sizes = ("../assets/img/conf-banner.jpg",
+                            "../assets/img/conf-banner.webp", "1600w")
+        w, h = 1600, 758
+    srcset = f"{webp} {sizes}" if not small else f"{webp} {sizes}, ../assets/img/conf-banner.webp 1600w"
+    load = ' fetchpriority="high" decoding="sync"' if eager else ' loading="lazy" decoding="async"'
+    return (f'<picture><source srcset="{webp}" type="image/webp">'
+            f'<img src="{jpg}" srcset="{srcset}" sizes="(max-width:960px) 92vw, 1180px" '
+            f'width="{w}" height="{h}" alt="{alt}"{load}></picture>')
+
+def conf_people(lang):
+    """Small avatar strip of the scientific supervisors."""
+    out = "".join(
+        f'<img src="{esc(s.get("photo") or "")}" '
+        f'alt="{esc((s.get("name") or {}).get(lang) or (s.get("name") or {}).get("ru", ""))}" loading="lazy">'
+        for s in (CONF or {}).get("speakers", []) if s.get("photo"))
+    return f'<div class="conf-people">{out}</div>' if out else ""
+
+def conf_block(lang, variant="full", keep=False):
+    """Conference banner: 'full' = media on top (home, conference page),
+    'grid' = compact side-by-side card that spans the whole 3-column row.
+    keep=True: do not hide after the date (own page), just close registration."""
+    if not CONF:
+        return ""
+    t = T[lang]
+    title = cval("short_title" if variant == "grid" else "title", lang)
+    until = CONF["date"].replace("-", "")
+    keep_cls = " conf-keep" if keep else ""
+    badges = (f'<div class="badges"><span class="badge conf-badge">{esc(t["conf_badge"])}</span>'
+              f'<span class="badge format fmt-hybrid">{esc(cval("format", lang))}</span></div>')
+    if variant == "grid":
+        # compact: one meta line + two buttons, so the card stays ~250px tall
+        meta = " · ".join([cval("date_short", lang), cval("registration", lang),
+                           cval("venue", lang)])
+        body = f"""
+{badges}
+<h2 class="conf-title"><a href="conference.html">{esc(title)}</a></h2>
+<div class="conf-line">{conf_people(lang)}<span>{esc(meta)}</span></div>
+<div class="conf-cta">
+<a class="btn btn-primary conf-reg" href="{FORM}" target="_blank" rel="noopener">{esc(t["enroll"])}</a>
+<a class="btn btn-ghost conf-more" href="conference.html">{esc(t["conf_more_short"])}</a>
+</div>"""
+    else:
+        facts = "".join(
+            f'<div class="conf-fact"><small>{esc(lbl)}</small><span>{esc(val)}</span></div>'
+            for lbl, val in [(t["conf_when"], cval("date_label", lang)),
+                             (t["conf_reg"], cval("registration", lang)),
+                             (t["conf_venue"], cval("venue", lang))])
+        body = f"""
+{badges}
+<h2 class="conf-title"><a href="conference.html">{esc(title)}</a></h2>
+<div class="conf-facts">{facts}</div>
+{conf_people(lang)}
+<div class="conf-cta">
+<a class="btn btn-primary conf-reg" href="{FORM}" target="_blank" rel="noopener">{esc(t["enroll"])}</a>
+<a class="btn btn-ghost conf-wa" href="{WA}" target="_blank" rel="noopener">{esc(t["conf_wa"])}</a>
+<a class="btn btn-ghost conf-more" href="conference.html">{esc(t["conf_more"])}</a>
+</div>"""
+    return f"""
+<div class="conf conf-{variant}{keep_cls}" data-conf-until="{until}">
+<a class="conf-media" href="conference.html" tabindex="-1" aria-hidden="true">{conf_media(lang, small=(variant == "grid"))}</a>
+<div class="conf-body">{body}
+</div></div>"""
+
+def conf_ld(lang):
+    ld = {
+        "@context": "https://schema.org", "@type": "MedicalEvent",
+        "name": cval("title", "ru"),
+        "description": ((CONF.get("seo") or {}).get("ru") or {}).get("d", ""),
+        "startDate": CONF["date"] + "T08:00:00+05:00",
+        "endDate": CONF["date"] + "T18:00:00+05:00",
+        "eventStatus": "https://schema.org/EventScheduled",
+        "eventAttendanceMode": "https://schema.org/HybridEventAttendanceMode",
+        "image": "https://doctrine.kz/assets/img/conf-banner-og.jpg",
+        "inLanguage": ["ru", "kk", "en"],
+        "url": f"https://doctrine.kz/{lang}/conference.html",
+        "location": {
+            "@type": "Place",
+            "name": "Holiday Inn Almaty",
+            "address": {"@type": "PostalAddress",
+                        "streetAddress": "ул. Тимирязева, 2Д",
+                        "addressLocality": "Алматы",
+                        "addressCountry": "KZ"},
+        },
+        "organizer": {"@type": "Organization",
+                      "name": "ТОО «Образовательный центр Doctrine»"},
+        "performer": [{"@type": "Person", "name": cval_s}
+                      for cval_s in [(s.get("name") or {}).get("ru") for s in CONF.get("speakers", [])]],
+    }
+    return f'<script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>'
+
+def page_conference(lang):
+    if not CONF:
+        return ""
+    t = T[lang]
+    seo = (CONF.get("seo") or {}).get(lang) or {}
+    title = seo.get("t") or cval("title", lang)
+    desc = seo.get("d") or cval("lead", lang)
+    topics = "".join(f'<li>{esc(x.get(lang) or x.get("ru"))}</li>' for x in CONF.get("topics", []))
+    speakers = "".join(
+        f'<div class="card conf-speaker"><img src="{esc(s.get("photo") or "")}" '
+        f'alt="{esc((s.get("name") or {}).get(lang) or "")}" loading="lazy">'
+        f'<div class="card-body"><h3>{esc((s.get("name") or {}).get(lang) or "")}</h3>'
+        f'<p class="meta">{esc((s.get("role") or {}).get(lang) or "")}</p></div></div>'
+        for s in CONF.get("speakers", []) if s.get("photo"))
+    return (head(lang, title, desc, "conference.html", og_img="conf-banner-og.jpg")
+            + header(lang, "schedule.html", "conference.html")
+            + f"""
+<section class="conf-hero"><div class="container">{conf_block(lang, "full", keep=True)}
+<p class="conf-past-note">{esc(t["conf_past"])}</p></div></section>
+<section class="section"><div class="container conf-content">
+<p class="conf-lead">{esc(cval("lead", lang))}</p>
+<h2>{esc(t["conf_topics_h"])}</h2>
+<ul class="conf-topics">{topics}</ul>
+<div class="conf-focus"><b>{esc(t["conf_focus_h"])}</b><p>{esc(cval("focus", lang))}</p></div>
+<h2>{esc(t["conf_agenda_h"])}</h2>
+<p>{esc(cval("agenda", lang))}</p>
+<h2>{esc(t["conf_audience_h"])}</h2>
+<p>{esc(cval("audience", lang))}</p>
+<h2>{esc(t["conf_speakers_h"])}</h2>
+<div class="grid-3 conf-speakers">{speakers}</div>
+<h2>{esc(t["conf_org_h"])}</h2>
+<p>{esc(cval("organizers", lang))}</p>
+<p class="conf-note">{esc(cval("note", lang))}</p>
+<div class="conf-page-cta">
+<a class="btn btn-primary conf-reg" href="{FORM}" target="_blank" rel="noopener">{esc(t["enroll"])}</a>
+<a class="btn btn-ghost conf-wa" href="{WA}" target="_blank" rel="noopener">{esc(t["conf_wa"])}</a>
+</div>
+</div></section>
+{conf_ld(lang)}
+""" + contacts_section(lang) + footer(lang))
 
 def page_schedule(lang):
     t = T[lang]
@@ -562,6 +736,7 @@ def page_schedule(lang):
 <input id="courseSearch" type="search" placeholder="{esc(t["search_ph"])}" aria-label="{esc(t["search_ph"])}">
 <span class="meta" id="courseCount"></span>
 </div>
+<div class="conf-wrap" id="confTop">{conf_block(lang, "grid")}</div>
 <div class="grid-3" id="courseGrid">{course_cards(lang, skip_archived=True)}</div>
 <details class="archive" id="archiveBlock">
 <summary>{esc(t["archive_h"])} (<span id="archiveCount">{len([c for c in COURSES if c.get("archived")])}</span>) — {esc(t["archive_sub"])}</summary>
@@ -621,14 +796,20 @@ def page_404(lang):
 
 BUILDERS = {"index.html": page_index, "schedule.html": page_schedule,
             "course.html": page_course, "teachers.html": page_teachers,
+            "conference.html": page_conference,
             "404.html": page_404}
 
 for lang in LANGS:
     d = os.path.join(DOCS, lang)
     os.makedirs(d, exist_ok=True)
     for name, fn in BUILDERS.items():
-        with open(os.path.join(d, name), "w", encoding="utf-8") as f:
-            f.write(fn(lang))
+        page = fn(lang)
+        path = os.path.join(d, name)
+        if page:
+            with open(path, "w", encoding="utf-8") as f:
+                f.write(page)
+        elif os.path.exists(path):  # e.g. conference page without conference.json
+            os.remove(path)
 
 # root redirect + sitemap + robots
 with open(os.path.join(DOCS, "index.html"), "w", encoding="utf-8") as f:
@@ -636,8 +817,10 @@ with open(os.path.join(DOCS, "index.html"), "w", encoding="utf-8") as f:
 with open(os.path.join(DOCS, ".nojekyll"), "w") as f:
     f.write("")
 BASE = "https://doctrine.kz"
-urls = [f"{BASE}/{l}/{p}" for l in LANGS for p in
-        ["index.html", "schedule.html", "course.html", "teachers.html"]]
+pages = ["index.html", "schedule.html", "course.html", "teachers.html"]
+if CONF:
+    pages.append("conference.html")
+urls = [f"{BASE}/{l}/{p}" for l in LANGS for p in pages]
 with open(os.path.join(DOCS, "sitemap.xml"), "w", encoding="utf-8") as f:
     f.write('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
             + "".join(f"<url><loc>{u}</loc></url>\n" for u in urls) + "</urlset>")

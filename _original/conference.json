@@ -1,0 +1,171 @@
+{
+  "id": "CONF-2026",
+  "date": "2026-11-14",
+  "title": {
+    "ru": "III Ежегодная научно-практическая конференция «От аритмологии до коморбидного пациента»",
+    "kk": "III Жылдық ғылыми-тәжірибелік конференция «Аритмологиядан коморбидті пациентке дейін»",
+    "en": "III Annual Scientific & Practical Conference “From Arrhythmology to the Comorbid Patient”"
+  },
+  "short_title": {
+    "ru": "От аритмологии до коморбидного пациента",
+    "kk": "Аритмологиядан коморбидті пациентке дейін",
+    "en": "From Arrhythmology to the Comorbid Patient"
+  },
+  "date_label": {
+    "ru": "14 ноября 2026, суббота",
+    "kk": "2026 жылғы 14 қараша, сенбі",
+    "en": "14 November 2026, Saturday"
+  },
+  "date_short": {
+    "ru": "14 ноября 2026",
+    "kk": "14 қараша 2026",
+    "en": "14 November 2026"
+  },
+  "registration": {
+    "ru": "с 8:00",
+    "kk": "сағат 8:00-ден",
+    "en": "from 8:00"
+  },
+  "format": {
+    "ru": "Онлайн + очно (гибрид)",
+    "kk": "Онлайн + офлайн (гибрид)",
+    "en": "Online + offline (hybrid)"
+  },
+  "venue": {
+    "ru": "г. Алматы, отель «Холидей Инн», ул. Тимирязева, 2Д",
+    "kk": "Алматы қ., «Холидей Инн» қонақүйі, Тимирязева көш., 2Д",
+    "en": "Almaty, Holiday Inn hotel, 2D Timiryazev St."
+  },
+  "lead": {
+    "ru": "Приглашаем врачей на конференцию, посвящённую современным подходам к диагностике, лечению и длительному наблюдению пациентов с сердечно-сосудистыми заболеваниями и сопутствующей патологией. В повседневной практике нарушения ритма, артериальная гипертензия, ИБС и сердечная недостаточность часто сочетаются с болезнями других органов и систем — программа помогает учитывать эту взаимосвязь при обследовании и выборе терапии.",
+    "kk": "Жүрек-қан тамырлары аурулары мен қосарлы патологиясы бар науқастарды диагностика, емдеу және ұзақ узақ бақылауға қатысты заманауи тәсілдерге арналған конференцияға дәрігерлерді шақырамыз. Күнделікті тәжірибеде ырғақ бұзылулары, артериялық гипертензия, ЖИА және жүректің жетіспеуі басқа органдар мен жүйелердің ауруларымен жиі қатар жүреді — бағдарлама осы байланысты ескеруге көмектеседі.",
+    "en": "We invite physicians to a conference dedicated to modern approaches to the diagnosis, treatment and long-term follow-up of patients with cardiovascular diseases and comorbidity. In everyday practice, rhythm disorders, arterial hypertension, coronary artery disease and heart failure often occur together with conditions of other organs and systems — the program helps to account for this interaction when examining patients and choosing therapy."
+  },
+  "topics": [
+    {
+      "ru": "Аритмология: диагностика и лечение нарушений ритма, особенности ведения пациента отдельных групп",
+      "kk": "Аритмология: жүрек ырғақы бұзылуларын диагностика және емдеу, жекелеген топтардағы пациентті жүргізу ерекшеліктері",
+      "en": "Arrhythmology: diagnosis and treatment of rhythm disorders, specifics of managing patients in selected groups"
+    },
+    {
+      "ru": "Имплантируемые устройства: что важно знать кардиологу, терапевту и врачу общей практики",
+      "kk": "Имплантацияланатын құрылғылар: кардиологқа, терапевтке және отбасылық дәрігерге не маңызды",
+      "en": "Implantable devices: what a cardiologist, a therapist and a general practitioner need to know"
+    },
+    {
+      "ru": "Дислипидемии и атеросклероз",
+      "kk": "Дислипидемия және атеросклероз",
+      "en": "Dyslipidaemia and atherosclerosis"
+    },
+    {
+      "ru": "Ишемическая болезнь сердца: диагностика, оценка риска, лечение",
+      "kk": "Жүректің ишемиялық ауруы: диагностика, тәуекелді бағалау, емдеу",
+      "en": "Coronary artery disease: diagnosis, risk assessment, treatment"
+    },
+    {
+      "ru": "Хроническая сердечная недостаточность и нарушения ритма",
+      "kk": "Жүректің созылмалы жетіспеуі және ырғақ бұзылулары",
+      "en": "Chronic heart failure and rhythm disorders"
+    },
+    {
+      "ru": "Артериальная гипертензия и её связь с аритмиями",
+      "kk": "Артериялық гипертензия және оның аритмиялармен байланысы",
+      "en": "Arterial hypertension and its link to arrhythmias"
+    },
+    {
+      "ru": "Функциональная диагностика: ЭКГ, холтеровское мониторирование, СМАД, ЭхоКГ, strain-анализ, нагрузочные пробы",
+      "kk": "Функционалдық диагностика: ЭКГ, холтерлік мониторинг, СМАД, ЭхоКГ, strain-талдау, жүктемелік сынақтар",
+      "en": "Functional diagnostics: ECG, Holter monitoring, ABPM, EchoCG, strain analysis, stress tests"
+    },
+    {
+      "ru": "Коморбидный пациент: сочетание сердечно-сосудистых заболеваний с неврологической, психиатрической, пульмонологической и гастроэнтерологической патологией",
+      "kk": "Коморбидті пациент: жүрек-қан тамырлары ауруларының неврологиялық, психиатриялық, пульмонологиялық және гастроэнтерологиялық патологиямен қатар жүруі",
+      "en": "The comorbid patient: cardiovascular disease combined with neurological, psychiatric, pulmonological and gastroenterological pathology"
+    },
+    {
+      "ru": "Рациональная фармакотерапия и место нутрицевтиков в комплексном ведении пациентов",
+      "kk": "Рационалды фармакотерапия және күрделі емдеуде нутрицевтиктердің орны",
+      "en": "Rational pharmacotherapy and the place of nutraceuticals in comprehensive patient management"
+    }
+  ],
+  "focus": {
+    "ru": "Отдельное внимание будет уделено тревожным расстройствам, паническим атакам, ПТСР, деменции и паркинсонизму в работе врача, ведущего кардиологического пациента.",
+    "kk": "Ерекше назар бөлінгелесі — дәрігердің жүрек пациентін жүргізу жұмысындағы мадақи ауытпау, паника шабуылы, ПТСР, деменция және паркинсонизм.",
+    "en": "Special attention will be paid to anxiety disorders, panic attacks, PTSD, dementia and parkinsonism in the work of a physician managing a cardiac patient."
+  },
+  "agenda": {
+    "ru": "Доклады специалистов и клинические разборы с практическими алгоритмами, медицинская выставка, общение с коллегами и компаниями-партнёрами, конкурс для врачей с сертификатами на обучение в центре Doctrine и другими призами. Будет онлайн-трансляция, а запись докладов станет доступна позже.",
+    "kk": "Мамандардың баяндамалары және клиникалық талдаулар (практикалық алгоритмдермен), медициналық көрме, әріптестер мен серіктес компаниялармен әңгіме, дәрігерлерге арналған бәйге — Doctrine орталығында оқуға сертификаттар және басқа сыйлықтар. Онлайн-трансляция жоспарланған, баяндамалардың жазбасы кейін қолжетімді болады.",
+    "en": "Specialist talks and clinical case discussions with practical algorithms, a medical exhibition, networking with colleagues and partner companies, and a contest for physicians with certificates for training at the Doctrine centre and other prizes. There will be an online broadcast; recordings of the talks will become available later."
+  },
+  "audience": {
+    "ru": "Кардиологи, аритмологи, терапевты, врачи общей практики, специалисты функциональной диагностики, неврологи, пульмонологи, гастроэнтерологи, эндокринологи, клинические фармакологи и другие специалисты, ведущие пациентов с сердечно-сосудистой и сочетанной патологией.",
+    "kk": "Кардиологтар, аритмологтар, терапевттар, отбасылық дәрігерлер, функционалдық диагностика мамандары, неврологтар, пульмонологтар, гастроэнтерологтар, эндокринологтар, клиникалық фармакологтар және жүрек-қан тамырлары және қосарлы патологиясы бар науқастарды жүргізетін басқа мамандар.",
+    "en": "Cardiologists, arrhythmologists, therapists, general practitioners, functional diagnostics specialists, neurologists, pulmonologists, gastroenterologists, endocrinologists, clinical pharmacologists and other specialists managing patients with cardiovascular and combined conditions."
+  },
+  "speakers": [
+    {
+      "name": {
+        "ru": "Лещинская-Попова Инна Евгеньевна",
+        "kk": "Лещинская-Попова Инна Евгеньевна",
+        "en": "Leshchinskaya-Popova Inna Evgenevna"
+      },
+      "role": {
+        "ru": "кардиолог, магистр медицинских наук, основатель Образовательного центра Doctrine",
+        "kk": "кардиолог, медицина ғылымдарының магистрі, Doctrine Білім орталығының негізін қалаушы",
+        "en": "cardiologist, Master of Medical Sciences, founder of the Doctrine Education Centre"
+      },
+      "photo": "../assets/img/teacher-leshinskaya.jpg"
+    },
+    {
+      "name": {
+        "ru": "Халикназарова Дилафруз Муратжановна",
+        "kk": "Халикназарова Дилафруз Муратжановна",
+        "en": "Khaliknazarova Dilafruz Muratzhanovna"
+      },
+      "role": {
+        "ru": "кардиолог высшей категории, врач УЗД, основатель клиники Medical doctor Di, преподаватель центра Doctrine",
+        "kk": "жоғары санатты кардиолог, УДД дәрігері, Medical doctor Di клиникасының негізін қалаушы, Doctrine орталығының оқытушысы",
+        "en": "cardiologist, higher category, ultrasound diagnostics physician, founder of the Medical doctor Di clinic, lecturer of the Doctrine centre"
+      },
+      "photo": "../assets/img/teacher-khaliknazarova.jpg"
+    },
+    {
+      "name": {
+        "ru": "Азим Саида Юсуфовна",
+        "kk": "Азим Саида Юсуфовна",
+        "en": "Azim Saida Yusufovna"
+      },
+      "role": {
+        "ru": "кардиолог, врач функциональной диагностики, преподаватель центра Doctrine",
+        "kk": "кардиолог, функционалдық диагностика дәрігері, Doctrine орталығының оқытушысы",
+        "en": "cardiologist, functional diagnostics physician, lecturer of the Doctrine centre"
+      },
+      "photo": "../assets/img/teacher-azimova.jpg"
+    }
+  ],
+  "organizers": {
+    "ru": "ТОО «Образовательный центр Doctrine» и ТОО «О май Групп»",
+    "kk": "ТОО «Doctrine Білім орталығы» және ТОО «О май Групп»",
+    "en": "LLP “Doctrine Education Centre” and LLP “O my Group”"
+  },
+  "note": {
+    "ru": "Присоединяйтесь к обсуждению вопросов, с которыми врач сталкивается при ведении сердечно-сосудистого и коморбидного пациента!",
+    "kk": "Жүрек-қан тамырлары және коморбидті пациентті басқару кезінде дәрігердің кездескен мәселелерін талқылауға қосылыңыз!",
+    "en": "Join the discussion of the questions a physician faces while managing a cardiovascular and comorbid patient!"
+  },
+  "seo": {
+    "ru": {
+      "t": "III Конференция «От аритмологии до коморбидного пациента» — 14 ноября 2026 | Doctrine",
+      "d": "Ежегодная научно-практическая конференция Doctrine для врачей 14 ноября 2026 в Алматы (отель «Холидей Инн») + онлайн: аритмология, ИБС, сердечная недостаточность, функциональная диагностика, коморбидный пациент."
+    },
+    "kk": {
+      "t": "III Конференция «Аритмологиядан коморбидті пациентке дейін» — 14 қараша 2026 | Doctrine",
+      "d": "Дәрігерлерге арналған Doctrine жылдық ғылыми-тәжірибелік конференциясы 2026 жылғы 14 қарашада Алматыда («Холидей Инн») және онлайн: аритмология, ЖИА, жүрек жетіспеуі, функционалдық диагностика, коморбидті пациент."
+    },
+    "en": {
+      "t": "III Conference “From Arrhythmology to the Comorbid Patient” — 14 Nov 2026 | Doctrine",
+      "d": "Doctrine annual scientific and practical conference for physicians on 14 November 2026 in Almaty (Holiday Inn hotel) plus online: arrhythmology, coronary artery disease, heart failure, functional diagnostics, the comorbid patient."
+    }
+  }
+}

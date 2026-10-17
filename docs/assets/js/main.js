@@ -100,6 +100,34 @@
         if (isPastCard(card)) markPastCard(card);
       });
     }
+})();
+  // conference: the banner is not a course card, so it lives outside the grids
+  // (always on top, never filtered/sorted) and hides itself once the date passed
+  (function conference() {
+    var blocks = document.querySelectorAll("[data-conf-until]");
+    if (!blocks.length) return;
+    var today = todayStamp();
+    var lg = document.documentElement.lang || "ru";
+    var waL = {ru: "Написать в WhatsApp", kk: "WhatsApp-қа жазу",
+               en: "Message on WhatsApp"}[lg] || "Написать в WhatsApp";
+    blocks.forEach(function (el) {
+      var until = parseInt(el.getAttribute("data-conf-until") || "", 10);
+      if (!until || until >= today) return;
+      // on the conference page the banner stays, registration switches to WhatsApp
+      if (el.classList.contains("conf-keep")) {
+        el.classList.add("is-over");
+        var note = el.parentNode ? el.parentNode.querySelector(".conf-past-note") : null;
+        if (note) note.style.display = "block";
+        el.querySelectorAll(".conf-reg").forEach(function (b) {
+          if (waHref) b.setAttribute("href", waHref);
+          b.textContent = waL;
+          b.classList.remove("btn-primary");
+          b.classList.add("btn-ghost");
+        });
+        return;
+      }
+      el.style.display = "none";
+    });
   })();
   // schedule filters
   var fbtns = document.querySelectorAll("[data-filter]");
