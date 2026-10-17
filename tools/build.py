@@ -572,7 +572,7 @@ def page_index(lang):
 </div></section>
 <section class="section alt"><div class="container">
 <h2>{esc(t["teachers_h"])}</h2><p class="sub">{esc(t["teachers_sub"])}</p>
-<div class="grid-3">{teach3}</div>
+<div class="grid-3 home-teachers">{teach3}</div>
 <p><a class="btn btn-ghost" href="teachers.html">{esc(t["all_teachers"])}</a></p>
 </div></section>
 """ + reviews_section(lang) + faq_section(lang) + contacts_section(lang) + footer(lang))
@@ -643,6 +643,7 @@ def conf_block(lang, variant="full", keep=False):
         body = f"""
 {badges}
 <h2 class="conf-title"><a href="conference.html">{esc(title)}</a></h2>
+<h2 class="conf-title conf-title-sm"><a href="conference.html">{esc(cval("short_title", lang))}</a></h2>
 <div class="conf-facts">{facts}</div>
 <div class="conf-people-full">{conf_people(lang)}</div>
 {line}
