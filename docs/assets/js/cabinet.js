@@ -1,5 +1,6 @@
 // Doctrine Personal Cabinet: registration & sign-in by phone number or email,
-// doctor profile, 1-click enrollment for courses & conference, and "My courses".
+// doctor profile, 1-click enrollment (including ?enroll=ID from schedule/course pages),
+// payment statuses, and unlocked access to closed chat, recordings, and certificates.
 (function () {
   var root = document.getElementById("cabinetRoot");
   if (!root) return;
@@ -14,24 +15,31 @@
       errNotFound: "Аккаунт не найден. Проверьте номер/почту или зарегистрируйтесь.",
       errWrongPass: "Неверный пароль. Попробуйте ещё раз.",
       saved: "Профиль сохранён ✓",
-      enrolledToast: "Заявка добавлена в «Мои курсы и заявки» ✓",
-      statusApplied: "Заявка принята",
-      statusConfirmed: "Подтверждено",
-      statusDone: "Завершён",
-      enroll1Click: "Записаться в 1 клик",
-      enrolledBtn: "Вы записаны ✓",
-      cancelEnroll: "Отменить запись",
-      waConfirm: "Написать координатору в WhatsApp →",
-      materialBtn: "Материалы / эфир →",
-      certBtn: "Скачать сертификат →",
-      emptyMy: "У вас пока нет активных записей. Выберите курс или конференцию ниже и нажмите «Записаться в 1 клик».",
+      enrolledBanner: "Курс добавлен в ваши заявки ✓ Консультация и реквизиты для оплаты — в карточке курса ниже.",
+      pendingEnrollHint: "Войдите или создайте аккаунт за 15 секунд — и вы будете автоматически записаны на: ",
+      statusApplied: "Заявка · ожидает оплаты",
+      statusPaid: "Оплачено · доступ открыт ✓",
+      statusDone: "Сертификат выдан ✓",
+      paidDateLbl: "Оплачено: ",
+      lockNote: "🔒 Закрытый чат курса, запись лекций и именной сертификат откроются здесь автоматически после подтверждения оплаты.",
+      paidWaitLinks: "Оплата подтверждена ✓ Ссылки на закрытый чат и запись появятся здесь перед стартом потока.",
+      enroll1Click: "Записаться · бронь",
+      enrolledBtn: "В ваших заявках ✓",
+      paidBtn: "Оплачено ✓",
+      cancelEnroll: "Отменить заявку",
+      waConsultPay: "Проконсультироваться / Оплатить в WhatsApp →",
+      waCoordinator: "Написать координатору в WhatsApp →",
+      chatBtn: "💬 Закрытый чат курса →",
+      recordBtn: "▶️ Смотреть запись / эфир →",
+      certBtn: "🎓 Скачать сертификат →",
+      emptyMy: "У вас пока нет активных заявок. Выберите курс или конференцию ниже или в расписании — запись бесплатна и ни к чему не обязывает.",
       confBadge: "Конференция",
       online: "Онлайн",
       offline: "Офлайн",
       hybrid: "Очно + онлайн",
-      waMsgPrefix: "Здравствуйте! Я записался(-ась) через личный кабинет Doctrine на «",
-      waMsgMid: "». ФИО: ",
-      waMsgPhone: ", тел.: "
+      waPayPrefix: "Здравствуйте! Я оставил(а) заявку в личном кабинете Doctrine на курс «",
+      waPayMid: "». Хочу проконсультироваться / получить реквизиты для оплаты. Врач: ",
+      waPayPhone: ", тел.: "
     },
     kk: {
       errId: "Дұрыс телефон нөмірін (мысалы, +7 777 000 00 00) немесе email енгізіңіз.",
@@ -41,24 +49,31 @@
       errNotFound: "Аккаунт табылмады. Нөмірді/поштаны тексеріңіз немесе тіркеліңіз.",
       errWrongPass: "Құпиясөз қате. Қайтадан көріңіз.",
       saved: "Профиль сақталды ✓",
-      enrolledToast: "Өтінім «Менің курстарым» бөліміне қосылды ✓",
-      statusApplied: "Өтінім қабылданды",
-      statusConfirmed: "Расталды",
-      statusDone: "Аяқталды",
-      enroll1Click: "1 басумен жазылу",
-      enrolledBtn: "Сіз жазылдыңыз ✓",
-      cancelEnroll: "Жазылудан бас тарту",
-      waConfirm: "Координаторға WhatsApp-қа жазу →",
-      materialBtn: "Материалдар / эфир →",
-      certBtn: "Сертификатты жүктеу →",
-      emptyMy: "Сізде әзірге жазбалар жоқ. Төменнен курс немесе конференцияны таңдап, «1 басумен жазылу» түймесін басыңыз.",
+      enrolledBanner: "Курс өтінімдеріңізге қосылды ✓ Кеңес алу және төлем деректемелері төменде.",
+      pendingEnrollHint: "Аккаунтқа кіріңіз немесе тіркеліңіз — сіз автоматты түрде келесі бағдарламаға жазыласыз: ",
+      statusApplied: "Өтінім · төлем күтілуде",
+      statusPaid: "Төленді · қолжетімді ✓",
+      statusDone: "Сертификат берілді ✓",
+      paidDateLbl: "Төленген күні: ",
+      lockNote: "🔒 Жабық чат, дәрістер жазбасы және сертификат төлем расталғаннан кейін осында автоматты түрде ашылады.",
+      paidWaitLinks: "Төлем расталды ✓ Жабық чат пен жазба сілтемелері курс басталар алдында осында пайда болады.",
+      enroll1Click: "Жазылу · бронь",
+      enrolledBtn: "Өтінімдерде ✓",
+      paidBtn: "Төленді ✓",
+      cancelEnroll: "Өтінімді болдырмау",
+      waConsultPay: "WhatsApp арқылы кеңес алу / төлеу →",
+      waCoordinator: "Координаторға WhatsApp-қа жазу →",
+      chatBtn: "💬 Курстың жабық чаты →",
+      recordBtn: "▶️ Жазбаны / эфирді көру →",
+      certBtn: "🎓 Сертификатты жүктеу →",
+      emptyMy: "Сізде әзірге белсенді өтінімдер жоқ. Төменнен немесе кестеден курс таңдап, 1 басумен өтінім қалдырыңыз.",
       confBadge: "Конференция",
       online: "Онлайн",
       offline: "Офлайн",
       hybrid: "Офлайн + онлайн",
-      waMsgPrefix: "Сәлеметсіз бе! Мен Doctrine жеке кабинеті арқылы «",
-      waMsgMid: "» бағдарламасына жазылдым. Аты-жөнім: ",
-      waMsgPhone: ", тел.: "
+      waPayPrefix: "Сәлеметсіз бе! Мен Doctrine жеке кабинетінде «",
+      waPayMid: "» курсына өтінім қалдырдым. Кеңес алғым / төлем деректемелерін алғым келеді. Дәрігер: ",
+      waPayPhone: ", тел.: "
     },
     en: {
       errId: "Enter a valid phone number (e.g. +7 777 000 00 00) or email address.",
@@ -68,29 +83,37 @@
       errNotFound: "Account not found. Check your phone/email or register a new account.",
       errWrongPass: "Incorrect password. Please try again.",
       saved: "Profile saved ✓",
-      enrolledToast: "Added to “My courses & applications” ✓",
-      statusApplied: "Application received",
-      statusConfirmed: "Confirmed",
-      statusDone: "Completed",
-      enroll1Click: "1-click enroll",
-      enrolledBtn: "Enrolled ✓",
-      cancelEnroll: "Cancel",
-      waConfirm: "Message coordinator on WhatsApp →",
-      materialBtn: "Materials / stream →",
-      certBtn: "Download certificate →",
-      emptyMy: "You have no active enrollments yet. Choose a course or conference below and click “1-click enroll”.",
+      enrolledBanner: "Course added to your applications ✓ Consultation and payment details are available below.",
+      pendingEnrollHint: "Sign in or register in 15 seconds to automatically apply for: ",
+      statusApplied: "Application · awaiting payment",
+      statusPaid: "Paid · access unlocked ✓",
+      statusDone: "Certificate issued ✓",
+      paidDateLbl: "Paid on: ",
+      lockNote: "🔒 Access to the private course chat, lecture recordings and certificate unlocks automatically once payment is confirmed.",
+      paidWaitLinks: "Payment confirmed ✓ Private chat and recording links will appear here before the course starts.",
+      enroll1Click: "Apply · reserve",
+      enrolledBtn: "In your applications ✓",
+      paidBtn: "Paid ✓",
+      cancelEnroll: "Cancel application",
+      waConsultPay: "Consult / Pay via WhatsApp →",
+      waCoordinator: "Message coordinator on WhatsApp →",
+      chatBtn: "💬 Private course chat →",
+      recordBtn: "▶️ Watch recording / stream →",
+      certBtn: "🎓 Download certificate →",
+      emptyMy: "You have no active applications yet. Select a course or conference below to reserve your spot.",
       confBadge: "Conference",
       online: "Online",
       offline: "Offline",
       hybrid: "In person + online",
-      waMsgPrefix: "Hello! I registered via the Doctrine personal account for “",
-      waMsgMid: "”. Name: ",
-      waMsgPhone: ", phone: "
+      waPayPrefix: "Hello! I applied via my Doctrine account for “",
+      waPayMid: "”. I would like to consult / get payment details. Doctor: ",
+      waPayPhone: ", phone: "
     }
   }[lang] || {};
 
   var LS_USER = "doctrine_cabinet_user";
   var LS_DB = "doctrine_cabinet_db";
+  var LS_LINKS = "doctrine_cabinet_course_links";
   var WA_BASE = "https://wa.me/77770357345";
 
   function esc(s) {
@@ -99,7 +122,6 @@
       .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
-  // Normalize phone (+7XXXXXXXXXX) or email
   function parseIdentifier(raw) {
     var v = String(raw || "").trim();
     if (!v) return null;
@@ -119,7 +141,6 @@
     return { type: "phone", value: "+" + digits, key: "p_" + digits };
   }
 
-  // Deterministic SHA-256 (Web Crypto API with pure-JS fallback)
   function fallbackHash(str) {
     var h1 = 0xdeadbeef ^ str.length, h2 = 0x41c6ce57 ^ str.length;
     for (var i = 0, ch; i < str.length; i++) {
@@ -145,22 +166,19 @@
     return Promise.resolve(fallbackHash(salted));
   }
 
-  // Local cache + Firebase Realtime Database sync
-  var db = null;
-  try {
-    if (window.firebase && window.DOCTRINE_CABINET_FB) {
-      var appName = "doctrineCabinet";
-      var existing = (window.firebase.apps || []).find(function (a) { return a.name === appName; });
-      var app = existing || window.firebase.initializeApp(window.DOCTRINE_CABINET_FB, appName);
-      db = app.database();
-    }
-  } catch (e) { db = null; }
+  var FB_REST = "https://doctrine-1ebe5-default-rtdb.europe-west1.firebasedatabase.app";
 
   function readLocalDB() {
     try { return JSON.parse(localStorage.getItem(LS_DB) || "{}"); } catch (e) { return {}; }
   }
   function writeLocalDB(data) {
     try { localStorage.setItem(LS_DB, JSON.stringify(data || {})); } catch (e) { /* ignore */ }
+  }
+  function getCourseLinks() {
+    try { return JSON.parse(localStorage.getItem(LS_LINKS) || "{}"); } catch (e) { return {}; }
+  }
+  function setCourseLinks(links) {
+    try { localStorage.setItem(LS_LINKS, JSON.stringify(links || {})); } catch (e) { /* ignore */ }
   }
   function getSessionUser() {
     try { return JSON.parse(localStorage.getItem(LS_USER) || "null"); } catch (e) { return null; }
@@ -169,52 +187,41 @@
     try {
       if (u) localStorage.setItem(LS_USER, JSON.stringify(u));
       else localStorage.removeItem(LS_USER);
-      if (window. updateDoctrineCabinetNav) window.updateDoctrineCabinetNav();
+      if (window.updateDoctrineCabinetNav) window.updateDoctrineCabinetNav();
     } catch (e) { /* ignore */ }
   }
+
+  var courseLinksMap = getCourseLinks();
+  fetch(FB_REST + "/cabinetCourseLinks.json")
+    .then(function (r) { return r.json(); })
+    .then(function (val) {
+      if (val && typeof val === "object") {
+        courseLinksMap = val;
+        setCourseLinks(val);
+        var u = getSessionUser();
+        if (u) renderMyCourses(u);
+      }
+    })
+    .catch(function () { /* offline fallback */ });
 
   function fetchUserByKey(key) {
     var local = readLocalDB();
     var localHit = (local.users && local.users[key]) || null;
-    if (!db) return Promise.resolve(localHit);
 
-    return new Promise(function (resolve) {
-      var done = false;
-      var timer = setTimeout(function () {
-        if (!done) { done = true; resolve(localHit); }
-      }, 4500);
-
-      db.ref("cabinetUsers/" + key).once("value", function (snap) {
-        var val = snap && snap.val();
-        if (val) {
-          clearTimeout(timer);
-          if (!done) { done = true; resolve(val); }
-          return;
-        }
-        // Check alias table (when user logs in with secondary phone/email)
-        db.ref("cabinetAliases/" + key).once("value", function (asnap) {
-          var targetUid = asnap && asnap.val();
-          if (!targetUid) {
-            clearTimeout(timer);
-            if (!done) { done = true; resolve(localHit); }
-            return;
-          }
-          db.ref("cabinetUsers/" + targetUid).once("value", function (usnap) {
-            clearTimeout(timer);
-            if (!done) { done = true; resolve((usnap && usnap.val()) || localHit); }
-          }, function () {
-            clearTimeout(timer);
-            if (!done) { done = true; resolve(localHit); }
+    return fetch(FB_REST + "/cabinetUsers/" + encodeURIComponent(key) + ".json")
+      .then(function (r) { return r.json(); })
+      .then(function (val) {
+        if (val && val.uid) return val;
+        return fetch(FB_REST + "/cabinetAliases/" + encodeURIComponent(key) + ".json")
+          .then(function (r2) { return r2.json(); })
+          .then(function (targetUid) {
+            if (!targetUid) return localHit;
+            return fetch(FB_REST + "/cabinetUsers/" + encodeURIComponent(targetUid) + ".json")
+              .then(function (r3) { return r3.json(); })
+              .then(function (uVal) { return (uVal && uVal.uid) ? uVal : localHit; });
           });
-        }, function () {
-          clearTimeout(timer);
-          if (!done) { done = true; resolve(localHit); }
-        });
-      }, function () {
-        clearTimeout(timer);
-        if (!done) { done = true; resolve(localHit); }
-      });
-    });
+      })
+      .catch(function () { return localHit; });
   }
 
   function saveUserRecord(user) {
@@ -232,25 +239,49 @@
     writeLocalDB(local);
     setSessionUser(user);
 
-    if (!db) return Promise.resolve(user);
-    return new Promise(function (resolve) {
-      var timer = setTimeout(function () { resolve(user); }, 4000);
-      db.ref("cabinetUsers/" + user.uid).set(user, function () {
-        if (user.phone) {
-          var p = parseIdentifier(user.phone);
-          if (p && p.key !== user.uid) db.ref("cabinetAliases/" + p.key).set(user.uid);
-        }
-        if (user.email) {
-          var em = parseIdentifier(user.email);
-          if (em && em.key !== user.uid) db.ref("cabinetAliases/" + em.key).set(user.uid);
-        }
-        clearTimeout(timer);
-        resolve(user);
-      });
-    });
+    var reqs = [
+      fetch(FB_REST + "/cabinetUsers/" + encodeURIComponent(user.uid) + ".json", {
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(user)
+      }).catch(function () { return null; })
+    ];
+    if (user.phone) {
+      var p = parseIdentifier(user.phone);
+      if (p && p.key !== user.uid) {
+        reqs.push(fetch(FB_REST + "/cabinetAliases/" + encodeURIComponent(p.key) + ".json", {
+          method: "PUT",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(user.uid)
+        }).catch(function () { return null; }));
+      }
+    }
+    if (user.email) {
+      var em = parseIdentifier(user.email);
+      if (em && em.key !== user.uid) {
+        reqs.push(fetch(FB_REST + "/cabinetAliases/" + encodeURIComponent(em.key) + ".json", {
+          method: "PUT",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(user.uid)
+        }).catch(function () { return null; }));
+      }
+    }
+    return Promise.all(reqs).then(function () { return user; });
   }
 
-  // DOM elements
+  var catalogAll = window.DOCTRINE_CABINET_ITEMS || [];
+  var nowD = new Date();
+  var todayTs = nowD.getFullYear() * 10000 + (nowD.getMonth() + 1) * 100 + nowD.getDate();
+  var catalog = catalogAll.filter(function (c) {
+    if (c.open) return true;
+    var ts = parseInt(c.ts || "0", 10);
+    return !ts || ts >= todayTs;
+  });
+
+  // Check if URL has ?enroll=COURSE_ID
+  var urlParams = new URLSearchParams(window.location.search);
+  var pendingEnrollId = (urlParams.get("enroll") || "").trim();
+
   var authView = document.getElementById("cabAuthView");
   var dashView = document.getElementById("cabDashView");
   var tabLogin = document.getElementById("cabTabLogin");
@@ -265,12 +296,22 @@
   var availList = document.getElementById("cabAvailCourses");
   var userTitle = document.getElementById("cabUserGreeting");
   var userSub = document.getElementById("cabUserContact");
+  var dashNotice = document.getElementById("cabDashNotice");
 
   function showAuthMsg(text, isOk) {
     if (!authMsg) return;
     authMsg.textContent = text || "";
     authMsg.className = "cab-alert " + (isOk ? "is-ok" : "is-err");
     authMsg.hidden = !text;
+  }
+
+  function showDashNotice(text) {
+    if (!dashNotice) return;
+    dashNotice.textContent = text || "";
+    dashNotice.hidden = !text;
+    if (text) {
+      setTimeout(function () { dashNotice.hidden = true; }, 6000);
+    }
   }
 
   function switchTab(mode) {
@@ -285,14 +326,44 @@
   if (tabLogin) tabLogin.addEventListener("click", function () { switchTab("login"); });
   if (tabReg) tabReg.addEventListener("click", function () { switchTab("register"); });
 
-  var catalogAll = window.DOCTRINE_CABINET_ITEMS || [];
-  var nowD = new Date();
-  var todayTs = nowD.getFullYear() * 10000 + (nowD.getMonth() + 1) * 100 + nowD.getDate();
-  var catalog = catalogAll.filter(function (c) {
-    if (c.open) return true;
-    var ts = parseInt(c.ts || "0", 10);
-    return !ts || ts >= todayTs;
-  });
+  function enrollUserInCourse(u, cid) {
+    var cat = catalogAll.find(function (x) { return x.id === cid; });
+    if (!cat || !u) return Promise.resolve(u);
+    u.enrollments = u.enrollments || {};
+    if (u.enrollments[cid]) return Promise.resolve(u);
+    var cTitle = (cat.title && (cat.title[lang] || cat.title.ru)) || cid;
+    var cDates = (cat.dates && (cat.dates[lang] || cat.dates.ru)) || "";
+    var now = Date.now();
+    u.enrollments[cid] = {
+      courseId: cid,
+      title: (cat.title && cat.title.ru) || cTitle,
+      dates: cDates,
+      price: cat.price || "",
+      format: cat.format || "online",
+      status: "applied",
+      createdAt: now
+    };
+    u.updatedAt = now;
+    fetch(FB_REST + "/cabinetApplications/" + encodeURIComponent(u.uid + "_" + cid) + ".json", {
+      method: "PUT",
+      headers: {"Content-Type": "application/json"},
+      body: JSON.stringify({
+        id: u.uid + "_" + cid,
+        uid: u.uid,
+        name: u.name || "",
+        phone: u.phone || "",
+        email: u.email || "",
+        specialty: u.specialty || "",
+        city: u.city || "",
+        courseId: cid,
+        courseTitle: (cat.title && cat.title.ru) || cTitle,
+        price: cat.price || "",
+        status: "applied",
+        createdAt: now
+      })
+    }).catch(function () { return null; });
+    return saveUserRecord(u);
+  }
 
   function renderMyCourses(user) {
     if (!myList) return;
@@ -307,35 +378,67 @@
     });
     myList.innerHTML = keys.map(function (cid) {
       var item = map[cid];
-      var cat = catalog.find(function (x) { return x.id === cid; }) || {};
+      var cat = catalogAll.find(function (x) { return x.id === cid; }) || {};
       var title = (cat.title && (cat.title[lang] || cat.title.ru)) || item.title || cid;
       var dates = (cat.dates && (cat.dates[lang] || cat.dates.ru)) || item.dates || "";
+      var price = cat.price || item.price || "";
       var fmt = cat.format || item.format || "online";
       var fmtLabel = fmt === "conf" ? L.confBadge : (fmt === "offline" ? L.offline : L.online);
-      var statusLabel = item.status === "confirmed" ? L.statusConfirmed
-        : (item.status === "done" ? L.statusDone : L.statusApplied);
-      var statusCls = item.status === "confirmed" ? "st-confirmed" : "st-applied";
-      var waText = L.waMsgPrefix + title + L.waMsgMid + (user.name || "")
-        + (user.phone ? L.waMsgPhone + user.phone : "");
+
+      var st = item.status || "applied";
+      var isPaid = (st === "paid" || st === "completed" || st === "confirmed");
+      var isDone = (st === "completed" || !!item.certUrl);
+
+      var statusLabel = isDone ? L.statusDone : (isPaid ? L.statusPaid : L.statusApplied);
+      var statusCls = isPaid ? "st-confirmed" : "st-applied";
+
+      var shared = courseLinksMap[cid] || {};
+      var chatUrl = item.chatUrl || shared.chatUrl || "";
+      var recordUrl = item.recordUrl || shared.recordUrl || item.materialUrl || "";
+      var certUrl = item.certUrl || "";
+
+      var waText = L.waPayPrefix + title + (price ? " (" + price + ")" : "") + L.waPayMid + (user.name || "")
+        + (user.phone ? L.waPayPhone + user.phone : "");
       var waHref = WA_BASE + "?text=" + encodeURIComponent(waText);
-      var extraLinks = "";
-      if (item.materialUrl) {
-        extraLinks += '<a class="btn btn-primary btn-sm" href="' + esc(item.materialUrl) + '" target="_blank" rel="noopener">' + esc(L.materialBtn) + "</a>";
+
+      var accessBlock = "";
+      if (isPaid) {
+        var btns = [];
+        if (chatUrl) {
+          btns.push('<a class="btn btn-primary btn-sm" href="' + esc(chatUrl) + '" target="_blank" rel="noopener">' + esc(L.chatBtn) + "</a>");
+        }
+        if (recordUrl) {
+          btns.push('<a class="btn btn-primary btn-sm" href="' + esc(recordUrl) + '" target="_blank" rel="noopener">' + esc(L.recordBtn) + "</a>");
+        }
+        if (certUrl) {
+          btns.push('<a class="btn btn-ghost btn-sm cab-cert-btn" href="' + esc(certUrl) + '" target="_blank" rel="noopener">' + esc(L.certBtn) + "</a>");
+        }
+        var paidMeta = item.paidDate ? '<div class="cab-paid-date">' + esc(L.paidDateLbl + item.paidDate) + (item.paidAmount ? " · " + esc(item.paidAmount) + " KZT" : "") + "</div>" : "";
+        accessBlock = paidMeta + (btns.length
+          ? '<div class="cab-unlocked-box">' + btns.join("") + "</div>"
+          : '<div class="cab-unlocked-wait">' + esc(L.paidWaitLinks) + "</div>");
+      } else {
+        accessBlock = '<div class="cab-lock-box">' + esc(L.lockNote) + "</div>";
       }
-      if (item.certUrl) {
-        extraLinks += '<a class="btn btn-ghost btn-sm" href="' + esc(item.certUrl) + '" target="_blank" rel="noopener">' + esc(L.certBtn) + "</a>";
-      }
-      return '<div class="cab-course-item">'
+
+      var cancelBtn = !isPaid
+        ? '<button type="button" class="cab-cancel-btn" data-cancel-id="' + esc(cid) + '">' + esc(L.cancelEnroll) + "</button>"
+        : "";
+
+      return '<div class="cab-course-item' + (isPaid ? " is-paid" : "") + '">'
         + '<div class="cab-course-top">'
         + '<div class="badges"><span class="badge format">' + esc(fmtLabel) + '</span>'
-        + '<span class="badge cab-status ' + statusCls + '">' + esc(statusLabel) + "</span></div>"
-        + '<button type="button" class="cab-cancel-btn" data-cancel-id="' + esc(cid) + '">' + esc(L.cancelEnroll) + "</button>"
+        + '<span class="badge cab-status ' + statusCls + '">' + esc(statusLabel) + "</span>"
+        + (price && !isPaid ? '<span class="badge hours">' + esc(price) + "</span>" : "")
+        + "</div>"
+        + cancelBtn
         + "</div>"
         + "<h4>" + esc(title) + "</h4>"
         + (dates ? '<div class="meta">' + esc(dates) + "</div>" : "")
+        + accessBlock
         + '<div class="cab-course-actions">'
-        + extraLinks
-        + '<a class="btn btn-ghost btn-sm" href="' + esc(waHref) + '" target="_blank" rel="noopener">' + esc(L.waConfirm) + "</a>"
+        + '<a class="btn ' + (isPaid ? "btn-ghost" : "btn-primary") + ' btn-sm" href="' + esc(waHref) + '" target="_blank" rel="noopener">'
+        + esc(isPaid ? L.waCoordinator : L.waConsultPay) + "</a>"
         + "</div></div>";
     }).join("");
 
@@ -345,6 +448,10 @@
         var u = getSessionUser();
         if (!u || !u.enrollments || !u.enrollments[cid]) return;
         delete u.enrollments[cid];
+        u.updatedAt = Date.now();
+        fetch(FB_REST + "/cabinetApplications/" + encodeURIComponent(u.uid + "_" + cid) + ".json", {
+          method: "DELETE"
+        }).catch(function () { return null; });
         saveUserRecord(u).then(function () {
           renderMyCourses(u);
           renderAvailCourses(u);
@@ -365,9 +472,11 @@
         ? '<span class="badge conf-badge">' + esc(L.confBadge) + '</span><span class="badge format fmt-hybrid">' + esc(L.hybrid) + "</span>"
         : '<span class="badge format ' + (c.format === "offline" ? "fmt-offline" : "fmt-online") + '">' + esc(c.format === "offline" ? L.offline : L.online) + "</span>"
           + (c.hours ? '<span class="badge hours">' + esc(c.hours) + "</span>" : "");
-      var isEnrolled = !!enrolledMap[c.id];
+      var existing = enrolledMap[c.id];
+      var isEnrolled = !!existing;
+      var isPaid = existing && (existing.status === "paid" || existing.status === "completed");
       var btnCls = isEnrolled ? "btn btn-ghost btn-sm is-enrolled" : "btn btn-primary btn-sm";
-      var btnTxt = isEnrolled ? L.enrolledBtn : L.enroll1Click;
+      var btnTxt = isPaid ? L.paidBtn : (isEnrolled ? L.enrolledBtn : L.enroll1Click);
       return '<div class="cab-avail-card' + (isConf ? " is-conf" : "") + '">'
         + '<div class="badges">' + badge + "</div>"
         + "<h4>" + esc(title) + "</h4>"
@@ -383,44 +492,36 @@
         var cid = btn.getAttribute("data-enroll-id");
         var u = getSessionUser();
         if (!u) return;
-        var cat = catalog.find(function (x) { return x.id === cid; });
-        if (!cat) return;
-        u.enrollments = u.enrollments || {};
-        var cTitle = (cat.title && (cat.title[lang] || cat.title.ru)) || cid;
-        var cDates = (cat.dates && (cat.dates[lang] || cat.dates.ru)) || "";
-        u.enrollments[cid] = {
-          courseId: cid,
-          title: cTitle,
-          dates: cDates,
-          format: cat.format || "online",
-          status: "applied",
-          createdAt: Date.now()
-        };
-        if (db) {
-          db.ref("cabinetApplications").push({
-            uid: u.uid,
-            name: u.name || "",
-            phone: u.phone || "",
-            email: u.email || "",
-            specialty: u.specialty || "",
-            city: u.city || "",
-            courseId: cid,
-            courseTitle: (cat.title && cat.title.ru) || cTitle,
-            createdAt: Date.now()
-          });
-        }
-        saveUserRecord(u).then(function () {
-          renderMyCourses(u);
-          renderAvailCourses(u);
+        enrollUserInCourse(u, cid).then(function (updated) {
+          showDashNotice(L.enrolledBanner);
+          renderMyCourses(updated);
+          renderAvailCourses(updated);
         });
       });
     });
+  }
+
+  function clearEnrollParamFromUrl() {
+    try {
+      var u = new URL(window.location.href);
+      if (u.searchParams.has("enroll")) {
+        u.searchParams.delete("enroll");
+        history.replaceState(null, "", u.toString());
+      }
+    } catch (e) { /* ignore */ }
   }
 
   function renderDashboard(user) {
     if (!user) {
       if (authView) authView.hidden = false;
       if (dashView) dashView.hidden = true;
+      if (pendingEnrollId) {
+        var targetCat = catalogAll.find(function (x) { return x.id === pendingEnrollId; });
+        if (targetCat) {
+          var tName = (targetCat.title && (targetCat.title[lang] || targetCat.title.ru)) || pendingEnrollId;
+          showAuthMsg(L.pendingEnrollHint + "«" + tName + "»", true);
+        }
+      }
       return;
     }
     if (authView) authView.hidden = true;
@@ -442,19 +543,37 @@
       profForm.elements.city.value = user.city || "";
       profForm.elements.workplace.value = user.workplace || "";
     }
-    renderMyCourses(user);
-    renderAvailCourses(user);
 
-    // Refresh user from cloud in background if available
-    if (db && user.uid) {
-      db.ref("cabinetUsers/" + user.uid).once("value", function (snap) {
-        var remote = snap && snap.val();
-        if (remote && (remote.updatedAt || 0) > (user.updatedAt || 0)) {
-          setSessionUser(remote);
-          renderMyCourses(remote);
-          renderAvailCourses(remote);
-        }
+    if (pendingEnrollId) {
+      var cidToEnroll = pendingEnrollId;
+      pendingEnrollId = "";
+      clearEnrollParamFromUrl();
+      enrollUserInCourse(user, cidToEnroll).then(function (updated) {
+        showDashNotice(L.enrolledBanner);
+        renderMyCourses(updated);
+        renderAvailCourses(updated);
       });
+    } else {
+      renderMyCourses(user);
+      renderAvailCourses(user);
+    }
+
+    // Refresh user from cloud so admin changes (payment status, chatUrl, certUrl) appear immediately
+    if (user.uid) {
+      fetch(FB_REST + "/cabinetUsers/" + encodeURIComponent(user.uid) + ".json")
+        .then(function (r) { return r.json(); })
+        .then(function (remote) {
+          if (remote && remote.uid && (remote.updatedAt || 0) >= (user.updatedAt || 0)) {
+            var local = readLocalDB();
+            local.users = local.users || {};
+            local.users[remote.uid] = remote;
+            writeLocalDB(local);
+            setSessionUser(remote);
+            renderMyCourses(remote);
+            renderAvailCourses(remote);
+          }
+        })
+        .catch(function () { /* ignore */ });
     }
   }
 
@@ -583,6 +702,5 @@
     });
   }
 
-  // Initial state
   renderDashboard(getSessionUser());
 })();

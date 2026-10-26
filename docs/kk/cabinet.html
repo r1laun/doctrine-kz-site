@@ -40,7 +40,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/main.css?v=d700a042">
+<link rel="stylesheet" href="../assets/css/main.css?v=dd37cfc0">
 </head>
 <body>
 <header class="site-header"><div class="header-inner">
@@ -106,6 +106,7 @@
 </div>
 
 <div class="cab-dash" id="cabDashView" hidden>
+<div id="cabDashNotice" class="cab-alert is-ok" hidden></div>
 <div class="cab-dash-bar">
 <div>
 <h2 id="cabUserGreeting">—</h2>
@@ -170,18 +171,10 @@
 </div>
 
 </div></section>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script>
-window.DOCTRINE_CABINET_FB = {
-  apiKey: "AIzaSyB8kkzQ5oh298uooOgJfIHBmhI7YVJe7PM",
-  authDomain: "doctrine-1ebe5.firebaseapp.com",
-  databaseURL: "https://doctrine-1ebe5-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "doctrine-1ebe5"
-};
 window.DOCTRINE_CABINET_ITEMS = [{"id": "CONF-2026", "title": {"ru": "III Ежегодная научно-практическая конференция «От аритмологии до коморбидного пациента»", "kk": "III Жылдық ғылыми-тәжірибелік конференция «Аритмологиядан коморбидті пациентке дейін»", "en": "III Annual Scientific & Practical Conference “From Arrhythmology to the Comorbid Patient”"}, "dates": {"ru": "14 ноября 2026 · г. Алматы, отель «Холидей Инн», ул. Тимирязева 2Д", "kk": "14 қараша 2026 · Алматы қ., «Холидей Инн» қонақүйі, Тимирязева көш. 2Д", "en": "14 November 2026 · Almaty, Holiday Inn hotel, 2D Timiryazev St."}, "price": "", "hours": "", "format": "conf", "ts": "20261114", "open": false}, {"id": "К025", "title": {"ru": "Как читать холтер и СМАД, что бы не ошибаться?", "kk": "Холтер мен СМАД-ты қателеспей оқу", "en": "How to read Holter and ABPM without mistakes"}, "dates": {"ru": "16.11.2026 - 19:00", "kk": "16.11.2026 - 19:00", "en": "16.11.2026 - 19:00"}, "price": "45 000KZT", "hours": "30 ч. (15 ЗЕ)", "format": "online", "ts": "20261127", "open": false}, {"id": "К023", "title": {"ru": "\"ЭКГ\" на казахском/русском языках", "kk": "«ЭКГ» қазақ және орыс тілдерінде", "en": "'ECG' in Kazakh and Russian"}, "dates": {"ru": "26.10.2026", "kk": "26.10.2026", "en": "26.10.2026"}, "price": "100 000KZT", "hours": "20 ч. (10 ЗЕ)", "format": "online", "ts": "20261119", "open": false}, {"id": "К024", "title": {"ru": "ЭхоКГ «Клапаны под контролем»", "kk": "ЭхоКГ «Қақпақшалар бақылауда»", "en": "EchoCG 'Valves under control'"}, "dates": {"ru": "3.11.2026 - 19:00", "kk": "3.11.2026 - 19:00", "en": "3.11.2026 - 19:00"}, "price": "45 000KZT", "hours": "10 ч. (5 ЗЕ)", "format": "online", "ts": "20261110", "open": false}, {"id": "К022", "title": {"ru": "Особенности Холтеровского мониторирования у пациентов с ЭКС", "kk": "Холтер мен СМАД-ты қателеспей оқу", "en": "How to read Holter and ABPM without mistakes"}, "dates": {"ru": "22.10.2026 - 18:30", "kk": "22.10.2026 - 18:30", "en": "22.10.2026 - 18:30"}, "price": "30 000KZT", "hours": "6 ч. (3 ЗЕ)", "format": "online", "ts": "20261030", "open": false}, {"id": "К021", "title": {"ru": "Как читать холтер и СМАД, что бы не ошибаться?", "kk": "Холтер мен СМАД-ты қателеспей оқу", "en": "How to read Holter and ABPM without mistakes"}, "dates": {"ru": "12.10.2026 - 19:00", "kk": "12.10.2026 - 19:00", "en": "12.10.2026 - 19:00"}, "price": "45 000KZT", "hours": "30 ч. (15 ЗЕ)", "format": "online", "ts": "20261024", "open": false}, {"id": "К020", "title": {"ru": "Кардиоонкология", "kk": "Кардиоонкология", "en": "Cardio-oncology"}, "dates": {"ru": "19.10.2026 - 19:00", "kk": "19.10.2026 - 19:00", "en": "19.10.2026 - 19:00"}, "price": "50 000KZT", "hours": "9 ч. (4.5 ЗЕ)", "format": "online", "ts": "20261023", "open": false}, {"id": "К019", "title": {"ru": "ЭхоКГ «Клапаны под контролем»", "kk": "ЭхоКГ «Қақпақшалар бақылауда»", "en": "EchoCG 'Valves under control'"}, "dates": {"ru": "7.10.2026 - 19:00", "kk": "7.10.2026 - 19:00", "en": "7.10.2026 - 19:00"}, "price": "45 000KZT", "hours": "10 ч. (5 ЗЕ)", "format": "online", "ts": "20261011", "open": false}, {"id": "К018", "title": {"ru": "Сердечно-сосудистое здоровье женщины", "kk": "Әйелдің жүрек-қан тамырлары денсаулығы", "en": "Women's cardiovascular health"}, "dates": {"ru": "29.09.2026 - 17:00", "kk": "29.09.2026 - 17:00", "en": "29.09.2026 - 17:00"}, "price": "30 000KZT", "hours": "6 ч. (3 ЗЕ)", "format": "online", "ts": "20261001", "open": false}, {"id": "К017", "title": {"ru": "Интервал QT", "kk": "QT аралығы және дәрілер", "en": "QT interval and drugs"}, "dates": {"ru": "25.09.2026 - 17:30", "kk": "25.09.2026 - 17:30", "en": "25.09.2026 - 17:30"}, "price": "15 000KZT", "hours": "3 ч. (1.5 ЗЕ)", "format": "online", "ts": "20260925", "open": false}, {"id": "К016", "title": {"ru": "Гипертензивные расстройства и др. во время беременности", "kk": "Жүктілік кезіндегі гипертензиялық бұзылыстар", "en": "Hypertensive disorders in pregnancy"}, "dates": {"ru": "22.09.2026 - 17:00", "kk": "22.09.2026 - 17:00", "en": "22.09.2026 - 17:00"}, "price": "20 000KZT", "hours": "3 ч. (1.5 ЗЕ)", "format": "online", "ts": "20260922", "open": false}];
 </script>
-<script src="../assets/js/cabinet.js?v=bdba7a44"></script>
+<script src="../assets/js/cabinet.js?v=97072b45"></script>
 <section class="section"><div class="container">
 <h2>Байланыс</h2>
 <div class="contact-cards">
@@ -196,6 +189,6 @@ window.DOCTRINE_CABINET_ITEMS = [{"id": "CONF-2026", "title": {"ru": "III Еже
 <div><h4>Мәзір</h4><div><a href="index.html">Басты бет</a></div><div><a href="schedule.html">Кесте</a></div><div><a href="teachers.html">Оқытушылар</a></div><div><a href="cabinet.html">Жеке кабинет</a></div><div><a href="../files/public-offer.pdf" target="_blank" rel="noopener">Жария оферта (PDF)</a></div></div>
 <div><h4>Байланыс</h4><div><a href="https://wa.me/77770357345">WhatsApp: +7 777 035 73 45</a></div><div><a href="https://www.instagram.com/doctrine_centre">Instagram</a></div><div><small>Алматы қ.</small></div></div>
 </div></footer>
-<script src="../assets/js/main.js?v=81359f2f"></script>
+<script src="../assets/js/main.js?v=10e9181c"></script>
 </body>
 </html>
