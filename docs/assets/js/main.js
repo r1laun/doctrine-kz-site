@@ -235,4 +235,14 @@
     apply(false);
     applySort(false);
   }
+  // highlight "Cabinet" nav item when doctor is signed in
+  window.updateDoctrineCabinetNav = function () {
+    try {
+      var u = JSON.parse(localStorage.getItem("doctrine_cabinet_user") || "null");
+      document.querySelectorAll('a[href="cabinet.html"]').forEach(function (a) {
+        a.classList.toggle("has-user", !!(u && u.uid));
+      });
+    } catch (e) { /* ignore */ }
+  };
+  window.updateDoctrineCabinetNav();
 })();

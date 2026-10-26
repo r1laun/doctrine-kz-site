@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="qJzxeKkHh609EgW7CYFq2U6r2_7NLROGmrEPiGJlGwE">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-07751DJT62"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-07751DJT62');
+</script>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113473930', 'ym');
+    ym(113473930, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/113473930" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<title>Личный кабинет врача — Doctrine (Доктрина)</title>
+<meta name="description" content="Личный кабинет врача образовательного центра Doctrine: вход и регистрация по номеру телефона или почте, профиль, мои курсы и запись в 1 клик.">
+<link rel="canonical" href="https://doctrine.kz/ru/cabinet.html">
+<link rel="alternate" hreflang="ru" href="https://doctrine.kz/ru/cabinet.html">
+<link rel="alternate" hreflang="kk" href="https://doctrine.kz/kk/cabinet.html">
+<link rel="alternate" hreflang="en" href="https://doctrine.kz/en/cabinet.html">
+<link rel="alternate" hreflang="x-default" href="https://doctrine.kz/ru/cabinet.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Doctrine">
+<meta property="og:title" content="Личный кабинет врача — Doctrine (Доктрина)">
+<meta property="og:description" content="Личный кабинет врача образовательного центра Doctrine: вход и регистрация по номеру телефона или почте, профиль, мои курсы и запись в 1 клик.">
+<meta property="og:url" content="https://doctrine.kz/ru/cabinet.html">
+<meta property="og:image" content="https://doctrine.kz/assets/img/logo.jpg">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:locale:alternate" content="kk_KZ">
+<meta property="og:locale:alternate" content="en_US">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "EducationalOrganization", "name": "Doctrine", "alternateName": ["Доктрина", "Doctrine Centre"], "url": "https://doctrine.kz/", "logo": "https://doctrine.kz/assets/img/logo.jpg", "address": {"@type": "PostalAddress", "addressLocality": "Алматы", "addressRegion": "Алматы", "addressCountry": "KZ"}, "sameAs": ["https://www.instagram.com/doctrine_centre"]}</script>
+<link rel="icon" href="../assets/img/logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/main.css?v=d700a042">
+</head>
+<body>
+<header class="site-header"><div class="header-inner">
+<a class="logo" href="index.html"><img src="../assets/img/logo.jpg" alt="Doctrine logo"><span><b>Doctrine</b><small>глубокие знания от сердца к сердцу</small></span></a>
+<nav class="nav" id="nav"><a href="index.html" class="">Главная</a><a href="schedule.html" class="">Расписание</a><a href="teachers.html" class="">Преподаватели</a><a href="cabinet.html" class="active">Кабинет</a></nav>
+<div class="lang"><a href="../ru/cabinet.html" data-langlink class="active">RU</a><a href="../kk/cabinet.html" data-langlink class="">KZ</a><a href="../en/cabinet.html" data-langlink class="">EN</a></div>
+<a class="btn btn-header" href="https://forms.gle/w3KRJmSDwuwjDRKx6" target="_blank" rel="noopener">Записаться на обучение</a>
+<button class="burger" id="burgerBtn" aria-label="Menu" aria-expanded="false">☰</button>
+</div></header>
+<main>
+
+<section class="section cab-sec"><div class="container" id="cabinetRoot">
+<div class="cab-head">
+<h1>Личный кабинет врача</h1>
+<p class="sub">Вход и регистрация по номеру телефона или электронной почте.</p>
+</div>
+
+<div class="cab-auth-wrap" id="cabAuthView">
+<div class="card cab-auth-card">
+<div class="cab-tabs" role="tablist">
+<button type="button" class="cab-tab active" id="cabTabLogin">Вход</button>
+<button type="button" class="cab-tab" id="cabTabReg">Регистрация</button>
+</div>
+<div id="cabAuthMsg" class="cab-alert" hidden></div>
+
+<form id="cabLoginForm" class="cab-form" autocomplete="on">
+<label class="cab-field"><span>Номер телефона или Email *</span>
+<input name="identifier" type="text" autocomplete="username" placeholder="+7 777 000 00 00 или doctor@mail.kz" required>
+</label>
+<label class="cab-field"><span>Пароль *</span>
+<input name="password" type="password" autocomplete="current-password" placeholder="Минимум 6 символов" required>
+</label>
+<button type="submit" class="btn btn-primary cab-submit">Войти в кабинет</button>
+<p class="meta cab-help"><a href="https://wa.me/77770357345" target="_blank" rel="noopener">Забыли пароль или нужна помощь? Напишите координатору в WhatsApp.</a></p>
+</form>
+
+<form id="cabRegForm" class="cab-form" autocomplete="on" hidden>
+<label class="cab-field"><span>ФИО врача *</span>
+<input name="name" type="text" autocomplete="name" maxlength="100" placeholder="Иванова Айгуль Сериковна" required>
+</label>
+<div class="cab-form-row">
+<label class="cab-field"><span>Номер телефона или Email *</span>
+<input name="identifier" type="text" autocomplete="username" placeholder="+7 777 000 00 00 или doctor@mail.kz" required>
+</label>
+<label class="cab-field"><span>Второй контакт (по желанию)</span>
+<input name="secondary" type="text" placeholder="Email (если выше телефон) или телефон">
+</label>
+</div>
+<div class="cab-form-row">
+<label class="cab-field"><span>Специальность</span>
+<input name="specialty" type="text" maxlength="80" placeholder="Кардиолог, терапевт, ВОП, врач ФД/УЗД…">
+</label>
+<label class="cab-field"><span>Город</span>
+<input name="city" type="text" maxlength="60" placeholder="Алматы">
+</label>
+</div>
+<label class="cab-field"><span>Пароль *</span>
+<input name="password" type="password" autocomplete="new-password" minlength="6" placeholder="Минимум 6 символов" required>
+</label>
+<button type="submit" class="btn btn-primary cab-submit">Создать аккаунт</button>
+</form>
+</div>
+</div>
+
+<div class="cab-dash" id="cabDashView" hidden>
+<div class="cab-dash-bar">
+<div>
+<h2 id="cabUserGreeting">—</h2>
+<div class="meta" id="cabUserContact"></div>
+</div>
+<button type="button" class="btn btn-ghost btn-sm" id="cabLogoutBtn">Выйти</button>
+</div>
+
+<div class="cab-grid">
+<div class="card cab-panel">
+<div class="card-body">
+<h3>Профиль врача</h3>
+<form id="cabProfileForm" class="cab-form">
+<label class="cab-field"><span>ФИО врача *</span>
+<input name="name" type="text" maxlength="100" required>
+</label>
+<div class="cab-form-row">
+<label class="cab-field"><span>Телефон</span>
+<input name="phone" type="tel" maxlength="30" placeholder="+7 777 000 00 00">
+</label>
+<label class="cab-field"><span>Email</span>
+<input name="email" type="email" maxlength="80" placeholder="doctor@mail.kz">
+</label>
+</div>
+<div class="cab-form-row">
+<label class="cab-field"><span>Специальность</span>
+<input name="specialty" type="text" maxlength="80" placeholder="Кардиолог, терапевт, ВОП, врач ФД/УЗД…">
+</label>
+<label class="cab-field"><span>Город</span>
+<input name="city" type="text" maxlength="60" placeholder="Алматы">
+</label>
+</div>
+<label class="cab-field"><span>Место работы / клиника</span>
+<input name="workplace" type="text" maxlength="120" placeholder="Название клиники или центра">
+</label>
+<div class="cab-prof-actions">
+<button type="submit" class="btn btn-primary">Сохранить профиль</button>
+<span id="cabProfileMsg" class="cab-saved-note" hidden></span>
+</div>
+</form>
+</div>
+</div>
+
+<div class="cab-main-col">
+<div class="card cab-panel">
+<div class="card-body">
+<h3>Мои курсы и заявки</h3>
+<p class="meta">Ваши записи на курсы и конференцию, статусы и ссылки на материалы.</p>
+<div id="cabMyCourses" class="cab-my-list"></div>
+</div>
+</div>
+
+<div class="card cab-panel">
+<div class="card-body">
+<h3>Быстрая запись в 1 клик</h3>
+<p class="meta">Запишитесь без повторного заполнения анкет — ваши данные подставятся из профиля.</p>
+<div id="cabAvailCourses" class="cab-avail-grid"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div></section>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script>
+window.DOCTRINE_CABINET_FB = {
+  apiKey: "AIzaSyB8kkzQ5oh298uooOgJfIHBmhI7YVJe7PM",
+  authDomain: "doctrine-1ebe5.firebaseapp.com",
+  databaseURL: "https://doctrine-1ebe5-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "doctrine-1ebe5"
+};
+window.DOCTRINE_CABINET_ITEMS = [{"id": "CONF-2026", "title": {"ru": "III Ежегодная научно-практическая конференция «От аритмологии до коморбидного пациента»", "kk": "III Жылдық ғылыми-тәжірибелік конференция «Аритмологиядан коморбидті пациентке дейін»", "en": "III Annual Scientific & Practical Conference “From Arrhythmology to the Comorbid Patient”"}, "dates": {"ru": "14 ноября 2026 · г. Алматы, отель «Холидей Инн», ул. Тимирязева 2Д", "kk": "14 қараша 2026 · Алматы қ., «Холидей Инн» қонақүйі, Тимирязева көш. 2Д", "en": "14 November 2026 · Almaty, Holiday Inn hotel, 2D Timiryazev St."}, "price": "", "hours": "", "format": "conf", "ts": "20261114", "open": false}, {"id": "К023", "title": {"ru": "\"ЭКГ\" на казахском/русском языках", "kk": "«ЭКГ» қазақ және орыс тілдерінде", "en": "'ECG' in Kazakh and Russian"}, "dates": {"ru": "26.10.2026", "kk": "26.10.2026", "en": "26.10.2026"}, "price": "100 000KZT", "hours": "20 ч. (10 ЗЕ)", "format": "online", "ts": "20261119", "open": false}, {"id": "К024", "title": {"ru": "ЭхоКГ «Клапаны под контролем»", "kk": "ЭхоКГ «Қақпақшалар бақылауда»", "en": "EchoCG 'Valves under control'"}, "dates": {"ru": "3.11.2026 - 19:00", "kk": "3.11.2026 - 19:00", "en": "3.11.2026 - 19:00"}, "price": "45 000KZT", "hours": "10 ч. (5 ЗЕ)", "format": "online", "ts": "20261106", "open": false}, {"id": "К022", "title": {"ru": "Особенности Холтеровского мониторирования у пациентов с ЭКС", "kk": "Холтер мен СМАД-ты қателеспей оқу", "en": "How to read Holter and ABPM without mistakes"}, "dates": {"ru": "22.10.2026 - 18:30", "kk": "22.10.2026 - 18:30", "en": "22.10.2026 - 18:30"}, "price": "30 000KZT", "hours": "6 ч. (3 ЗЕ)", "format": "online", "ts": "20261030", "open": false}, {"id": "К021", "title": {"ru": "Как читать холтер и СМАД, что бы не ошибаться?", "kk": "Холтер мен СМАД-ты қателеспей оқу", "en": "How to read Holter and ABPM without mistakes"}, "dates": {"ru": "12.10.2026 - 19:00", "kk": "12.10.2026 - 19:00", "en": "12.10.2026 - 19:00"}, "price": "45 000KZT", "hours": "30 ч. (15 ЗЕ)", "format": "online", "ts": "20261024", "open": false}, {"id": "К020", "title": {"ru": "Кардиоонкология", "kk": "Кардиоонкология", "en": "Cardio-oncology"}, "dates": {"ru": "19.10.2026 - 19:00", "kk": "19.10.2026 - 19:00", "en": "19.10.2026 - 19:00"}, "price": "50 000KZT", "hours": "9 ч. (4.5 ЗЕ)", "format": "online", "ts": "20261023", "open": false}, {"id": "К019", "title": {"ru": "ЭхоКГ «Клапаны под контролем»", "kk": "ЭхоКГ «Қақпақшалар бақылауда»", "en": "EchoCG 'Valves under control'"}, "dates": {"ru": "7.10.2026 - 19:00", "kk": "7.10.2026 - 19:00", "en": "7.10.2026 - 19:00"}, "price": "45 000KZT", "hours": "10 ч. (5 ЗЕ)", "format": "online", "ts": "20261011", "open": false}, {"id": "К018", "title": {"ru": "Сердечно-сосудистое здоровье женщины", "kk": "Әйелдің жүрек-қан тамырлары денсаулығы", "en": "Women's cardiovascular health"}, "dates": {"ru": "29.09.2026 - 17:00", "kk": "29.09.2026 - 17:00", "en": "29.09.2026 - 17:00"}, "price": "30 000KZT", "hours": "6 ч. (3 ЗЕ)", "format": "online", "ts": "20261001", "open": false}, {"id": "К017", "title": {"ru": "Интервал QT", "kk": "QT аралығы және дәрілер", "en": "QT interval and drugs"}, "dates": {"ru": "25.09.2026 - 17:30", "kk": "25.09.2026 - 17:30", "en": "25.09.2026 - 17:30"}, "price": "15 000KZT", "hours": "3 ч. (1.5 ЗЕ)", "format": "online", "ts": "20260925", "open": false}, {"id": "К016", "title": {"ru": "Гипертензивные расстройства и др. во время беременности", "kk": "Жүктілік кезіндегі гипертензиялық бұзылыстар", "en": "Hypertensive disorders in pregnancy"}, "dates": {"ru": "22.09.2026 - 17:00", "kk": "22.09.2026 - 17:00", "en": "22.09.2026 - 17:00"}, "price": "20 000KZT", "hours": "3 ч. (1.5 ЗЕ)", "format": "online", "ts": "20260922", "open": false}];
+</script>
+<script src="../assets/js/cabinet.js?v=bdba7a44"></script>
+<section class="section"><div class="container">
+<h2>Контакты</h2>
+<div class="contact-cards">
+<div class="contact-card"><small>WhatsApp</small><a href="https://wa.me/77770357345" target="_blank" rel="noopener">+7 777 035 73 45</a></div>
+<div class="contact-card"><small>Instagram</small><a href="https://www.instagram.com/doctrine_centre" target="_blank" rel="noopener">doctrine_centre</a></div>
+<div class="contact-card"><small>Адрес</small><span>г. Алматы</span></div>
+<div class="contact-card"><small>Email</small><span>doctrine.kz@gmail.com</span></div>
+</div>
+</div></section></main>
+<footer><div class="container">
+<div><h3>Doctrine</h3><p>Образовательный центр для врачей Doctrine (Доктрина). Онлайн и офлайн в Алматы.</p><small>ТОО «Образовательный центр DOCTRINE» · БИН 210140019512</small><br><small>© <span data-year>2026</span> Все права защищены.</small></div>
+<div><h4>Меню</h4><div><a href="index.html">Главная</a></div><div><a href="schedule.html">Расписание</a></div><div><a href="teachers.html">Преподаватели</a></div><div><a href="cabinet.html">Кабинет</a></div><div><a href="../files/public-offer.pdf" target="_blank" rel="noopener">Публичная оферта (PDF)</a></div></div>
+<div><h4>Контакты</h4><div><a href="https://wa.me/77770357345">WhatsApp: +7 777 035 73 45</a></div><div><a href="https://www.instagram.com/doctrine_centre">Instagram</a></div><div><small>г. Алматы</small></div></div>
+</div></footer>
+<script src="../assets/js/main.js?v=81359f2f"></script>
+</body>
+</html>

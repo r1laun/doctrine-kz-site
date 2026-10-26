@@ -18,7 +18,7 @@ jobs:
       - name: Check doctrine.kz
         run: |
           set -e
-          for p in "" "ru/" "kk/" "en/" "ru/schedule.html" "ru/teachers.html" "ru/conference.html"; do
+          for p in "" "ru/" "kk/" "en/" "ru/schedule.html" "ru/teachers.html" "ru/conference.html" "ru/cabinet.html"; do
             code=$(curl -skL -o /dev/null -w "%{http_code}" --max-time 30 "https://doctrine.kz/$p")
             echo "$p -> $code"
             test "$code" = "200"

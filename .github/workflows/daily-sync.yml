@@ -35,6 +35,7 @@ jobs:
           test -s docs/en/index.html
           test -s docs/ru/schedule.html
           test -s docs/ru/teachers.html
+          test -s docs/ru/cabinet.html
           test -s docs/data/teachers.json
           test -f docs/assets/css/main.css
           echo "pre-deploy check OK: $(find docs -type f | wc -l) files"
@@ -93,7 +94,7 @@ jobs:
         run: |
           sleep 10
           curl -skL --max-time 30 https://doctrine.kz/ | grep -q "ru/" && echo "site OK" || (echo "site check FAILED"; exit 1)
-          for p in ru/schedule.html ru/conference.html; do
+          for p in ru/schedule.html ru/conference.html ru/cabinet.html; do
             code=$(curl -skL -o /dev/null -w "%{http_code}" --max-time 30 "https://doctrine.kz/$p")
             echo "$p -> $code"
             test "$code" = "200"

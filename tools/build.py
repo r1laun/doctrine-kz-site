@@ -36,7 +36,7 @@ IG = SITE["instagram"]
 
 T = {
     "ru": {
-        "nav": [("index.html", "Главная"), ("schedule.html", "Расписание"), ("teachers.html", "Преподаватели")],
+        "nav": [("index.html", "Главная"), ("schedule.html", "Расписание"), ("teachers.html", "Преподаватели"), ("cabinet.html", "Кабинет")],
         "meta_desc": "Doctrine - обучение врачей в Алматы и онлайн: кардиология, ЭКГ, Холтер, СМАД, ЭхоКГ. Курсы и вебинары для медиков Казахстана.",
         "hero_eye": "Образовательный центр для врачей · Алматы",
         "hero_h1": "Глубокие знания от сердца к сердцу",
@@ -92,10 +92,12 @@ T = {
         "seo_teach_d": "Преподаватели Doctrine (Доктрина) — практикующие врачи-клиницисты: кардиологи, диагносты. Узнайте о каждом наставнике центра.",
         "seo_course_t": "Программа курса — Doctrine (Доктрина)",
         "seo_course_d": "Программа курса Doctrine (Доктрина): темы занятий, даты, часы, цена и преподаватель. Запись онлайн и офлайн в Алматы.",
+        "seo_cab_t": "Личный кабинет врача — Doctrine (Доктрина)",
+        "seo_cab_d": "Личный кабинет врача образовательного центра Doctrine: вход и регистрация по номеру телефона или почте, профиль, мои курсы и запись в 1 клик.",
         "seo_404_t": "404 — Doctrine (Доктрина)",
     },
     "kk": {
-        "nav": [("index.html", "Басты бет"), ("schedule.html", "Кесте"), ("teachers.html", "Оқытушылар")],
+        "nav": [("index.html", "Басты бет"), ("schedule.html", "Кесте"), ("teachers.html", "Оқытушылар"), ("cabinet.html", "Жеке кабинет")],
         "meta_desc": "Doctrine - Алматыда және онлайн дәрігерлерді оқыту: кардиология, ЭКГ, Холтер, СМАД, ЭхоКГ. Қазақстан медиктеріне арналған курстар.",
         "hero_eye": "Дәрігерлерге арналған білім орталығы · Алматы",
         "hero_h1": "Жүректен жүрекке терең білім",
@@ -151,10 +153,12 @@ T = {
         "seo_teach_d": "Doctrine (Доктрина) оқытушылары — тәжірибелі клиницист-дәрігерлер: кардиологтар, диагносттар.",
         "seo_course_t": "Курс бағдарламасы — Doctrine (Доктрина)",
         "seo_course_d": "Doctrine (Доктрина) курс бағдарламасы: сабақ тақырыптары, күндер, сағаттар, бағасы мен оқытушы.",
+        "seo_cab_t": "Дәрігердің жеке кабинеті — Doctrine (Доктрина)",
+        "seo_cab_d": "Doctrine білім орталығының жеке кабинеті: телефон нөмірі немесе email арқылы кіру және тіркелу, менің курстарым, 1 басумен жазылу.",
         "seo_404_t": "404 — Doctrine (Доктрина)",
     },
     "en": {
-        "nav": [("index.html", "Home"), ("schedule.html", "Schedule"), ("teachers.html", "Faculty")],
+        "nav": [("index.html", "Home"), ("schedule.html", "Schedule"), ("teachers.html", "Faculty"), ("cabinet.html", "Account")],
         "meta_desc": "Doctrine - physician training in Almaty and online: cardiology, ECG, Holter, ABPM, Echo. Courses and webinars for doctors in Kazakhstan.",
         "hero_eye": "Education centre for physicians · Almaty",
         "hero_h1": "Deep knowledge from heart to heart",
@@ -210,6 +214,8 @@ T = {
         "seo_teach_d": "Doctrine Centre faculty — practising clinicians: cardiologists, diagnosticians. Meet our teachers.",
         "seo_course_t": "Course program — Doctrine Centre",
         "seo_course_d": "Doctrine Centre course program: topics, dates, hours, price and teacher. Enroll online or offline in Almaty.",
+        "seo_cab_t": "Physician Account — Doctrine Centre",
+        "seo_cab_d": "Doctrine Centre physician personal account: sign in or register by phone number or email, manage profile, view enrolled courses and enroll in 1 click.",
         "seo_404_t": "404 — Doctrine Centre",
     },
 }
@@ -819,9 +825,280 @@ def page_404(lang):
     return (head(lang, t["seo_404_t"], t["meta_desc"], "404.html") + header(lang, "", "404.html") +
             '<section class="section"><div class="container"><h1>404</h1><p><a href="index.html">← Home</a></p></div></section>' + footer(lang))
 
+CAB_L = {
+    "ru": {
+        "h1": "Личный кабинет врача",
+        "sub": "Вход и регистрация по номеру телефона или электронной почте.",
+        "tab_login": "Вход",
+        "tab_reg": "Регистрация",
+        "id_lbl": "Номер телефона или Email",
+        "id_ph": "+7 777 000 00 00 или doctor@mail.kz",
+        "sec_lbl": "Второй контакт (по желанию)",
+        "sec_ph": "Email (если выше телефон) или телефон",
+        "pass_lbl": "Пароль",
+        "pass_ph": "Минимум 6 символов",
+        "name_lbl": "ФИО врача",
+        "name_ph": "Иванова Айгуль Сериковна",
+        "spec_lbl": "Специальность",
+        "spec_ph": "Кардиолог, терапевт, ВОП, врач ФД/УЗД…",
+        "city_lbl": "Город",
+        "city_ph": "Алматы",
+        "work_lbl": "Место работы / клиника",
+        "work_ph": "Название клиники или центра",
+        "phone_lbl": "Телефон",
+        "email_lbl": "Email",
+        "btn_login": "Войти в кабинет",
+        "btn_reg": "Создать аккаунт",
+        "prof_h": "Профиль врача",
+        "btn_save": "Сохранить профиль",
+        "btn_logout": "Выйти",
+        "my_h": "Мои курсы и заявки",
+        "my_sub": "Ваши записи на курсы и конференцию, статусы и ссылки на материалы.",
+        "avail_h": "Быстрая запись в 1 клик",
+        "avail_sub": "Запишитесь без повторного заполнения анкет — ваши данные подставятся из профиля.",
+        "help_note": "Забыли пароль или нужна помощь? Напишите координатору в WhatsApp.",
+    },
+    "kk": {
+        "h1": "Дәрігердің жеке кабинеті",
+        "sub": "Телефон нөмірі немесе электрондық пошта арқылы кіру және тіркелу.",
+        "tab_login": "Кіру",
+        "tab_reg": "Тіркелу",
+        "id_lbl": "Телефон нөмірі немесе Email",
+        "id_ph": "+7 777 000 00 00 немесе doctor@mail.kz",
+        "sec_lbl": "Қосымша байланыс (қалауыңызша)",
+        "sec_ph": "Email немесе телефон нөмірі",
+        "pass_lbl": "Құпиясөз",
+        "pass_ph": "Кемінде 6 таңба",
+        "name_lbl": "Дәрігердің аты-жөні",
+        "name_ph": "Ахметова Айгүл Серікқызы",
+        "spec_lbl": "Мамандығы",
+        "spec_ph": "Кардиолог, терапевт, ЖПД, ФД/УДЗ дәрігері…",
+        "city_lbl": "Қала",
+        "city_ph": "Алматы",
+        "work_lbl": "Жұмыс орны / клиника",
+        "work_ph": "Клиника немесе орталық атауы",
+        "phone_lbl": "Телефон",
+        "email_lbl": "Email",
+        "btn_login": "Кабинетке кіру",
+        "btn_reg": "Аккаунт ашу",
+        "prof_h": "Дәрігер профилі",
+        "btn_save": "Профильді сақтау",
+        "btn_logout": "Шығу",
+        "my_h": "Менің курстарым мен өтінімдерім",
+        "my_sub": "Курстар мен конференцияға жазылулар, мәртебелер және материалдар.",
+        "avail_h": "1 басумен жылдам жазылу",
+        "avail_sub": "Сауалнаманы қайта толтырмай жазылыңыз — деректеріңіз профильден алынады.",
+        "help_note": "Құпиясөзді ұмыттыңыз ба? Координаторға WhatsApp-қа жазыңыз.",
+    },
+    "en": {
+        "h1": "Physician Account",
+        "sub": "Sign in or register using your phone number or email address.",
+        "tab_login": "Sign in",
+        "tab_reg": "Register",
+        "id_lbl": "Phone number or Email",
+        "id_ph": "+7 777 000 00 00 or doctor@mail.kz",
+        "sec_lbl": "Secondary contact (optional)",
+        "sec_ph": "Email (if phone above) or phone number",
+        "pass_lbl": "Password",
+        "pass_ph": "At least 6 characters",
+        "name_lbl": "Full name",
+        "name_ph": "Dr. Aigul Ivanova",
+        "spec_lbl": "Specialty",
+        "spec_ph": "Cardiologist, GP, functional diagnostics…",
+        "city_lbl": "City",
+        "city_ph": "Almaty",
+        "work_lbl": "Workplace / clinic",
+        "work_ph": "Hospital or medical centre",
+        "phone_lbl": "Phone",
+        "email_lbl": "Email",
+        "btn_login": "Sign in",
+        "btn_reg": "Create account",
+        "prof_h": "Physician profile",
+        "btn_save": "Save profile",
+        "btn_logout": "Sign out",
+        "my_h": "My courses & applications",
+        "my_sub": "Your course and conference enrollments, statuses and material links.",
+        "avail_h": "1-click enrollment",
+        "avail_sub": "Enroll without re-filling forms — your profile details are used automatically.",
+        "help_note": "Forgot your password or need help? Message our coordinator on WhatsApp.",
+    },
+}
+
+def cabinet_catalog_items():
+    items = []
+    if CONF:
+        items.append({
+            "id": CONF["id"],
+            "title": CONF["title"],
+            "dates": {l: f'{cval("date_short", l)} · {cval("venue", l)}' for l in LANGS},
+            "price": "",
+            "hours": "",
+            "format": "conf",
+            "ts": CONF["date"].replace("-", ""),
+            "open": False,
+        })
+    for c in COURSES:
+        if c.get("archived"):
+            continue
+        sessions = c.get("sessions") or [{}]
+        disp = pick_display(c)
+        price = (disp.get("price") or "").strip() or first_nonempty(sessions, "price")
+        hours = (disp.get("hours") or "").strip() or first_nonempty(sessions, "hours")
+        d_raw = (disp.get("dates") or "").strip()
+        d_first = d_raw.split("\n")[0] if d_raw else ""
+        items.append({
+            "id": c["id"],
+            "title": c["title"],
+            "dates": {l: tr_dates(d_first, l) for l in LANGS},
+            "price": price,
+            "hours": hours,
+            "format": c.get("format") or "online",
+            "ts": (c.get("latest") or "").replace("-", ""),
+            "open": bool(c.get("open")),
+        })
+    return items
+
+def page_cabinet(lang):
+    t = T[lang]
+    cl = CAB_L[lang]
+    baked_items = json.dumps(cabinet_catalog_items(), ensure_ascii=False).replace("</", "<\\/")
+    return (head(lang, t["seo_cab_t"], t["seo_cab_d"], "cabinet.html")
+            + header(lang, "cabinet.html", "cabinet.html") + f"""
+<section class="section cab-sec"><div class="container" id="cabinetRoot">
+<div class="cab-head">
+<h1>{esc(cl["h1"])}</h1>
+<p class="sub">{esc(cl["sub"])}</p>
+</div>
+
+<div class="cab-auth-wrap" id="cabAuthView">
+<div class="card cab-auth-card">
+<div class="cab-tabs" role="tablist">
+<button type="button" class="cab-tab active" id="cabTabLogin">{esc(cl["tab_login"])}</button>
+<button type="button" class="cab-tab" id="cabTabReg">{esc(cl["tab_reg"])}</button>
+</div>
+<div id="cabAuthMsg" class="cab-alert" hidden></div>
+
+<form id="cabLoginForm" class="cab-form" autocomplete="on">
+<label class="cab-field"><span>{esc(cl["id_lbl"])} *</span>
+<input name="identifier" type="text" autocomplete="username" placeholder="{esc(cl["id_ph"])}" required>
+</label>
+<label class="cab-field"><span>{esc(cl["pass_lbl"])} *</span>
+<input name="password" type="password" autocomplete="current-password" placeholder="{esc(cl["pass_ph"])}" required>
+</label>
+<button type="submit" class="btn btn-primary cab-submit">{esc(cl["btn_login"])}</button>
+<p class="meta cab-help"><a href="{WA}" target="_blank" rel="noopener">{esc(cl["help_note"])}</a></p>
+</form>
+
+<form id="cabRegForm" class="cab-form" autocomplete="on" hidden>
+<label class="cab-field"><span>{esc(cl["name_lbl"])} *</span>
+<input name="name" type="text" autocomplete="name" maxlength="100" placeholder="{esc(cl["name_ph"])}" required>
+</label>
+<div class="cab-form-row">
+<label class="cab-field"><span>{esc(cl["id_lbl"])} *</span>
+<input name="identifier" type="text" autocomplete="username" placeholder="{esc(cl["id_ph"])}" required>
+</label>
+<label class="cab-field"><span>{esc(cl["sec_lbl"])}</span>
+<input name="secondary" type="text" placeholder="{esc(cl["sec_ph"])}">
+</label>
+</div>
+<div class="cab-form-row">
+<label class="cab-field"><span>{esc(cl["spec_lbl"])}</span>
+<input name="specialty" type="text" maxlength="80" placeholder="{esc(cl["spec_ph"])}">
+</label>
+<label class="cab-field"><span>{esc(cl["city_lbl"])}</span>
+<input name="city" type="text" maxlength="60" placeholder="{esc(cl["city_ph"])}">
+</label>
+</div>
+<label class="cab-field"><span>{esc(cl["pass_lbl"])} *</span>
+<input name="password" type="password" autocomplete="new-password" minlength="6" placeholder="{esc(cl["pass_ph"])}" required>
+</label>
+<button type="submit" class="btn btn-primary cab-submit">{esc(cl["btn_reg"])}</button>
+</form>
+</div>
+</div>
+
+<div class="cab-dash" id="cabDashView" hidden>
+<div class="cab-dash-bar">
+<div>
+<h2 id="cabUserGreeting">—</h2>
+<div class="meta" id="cabUserContact"></div>
+</div>
+<button type="button" class="btn btn-ghost btn-sm" id="cabLogoutBtn">{esc(cl["btn_logout"])}</button>
+</div>
+
+<div class="cab-grid">
+<div class="card cab-panel">
+<div class="card-body">
+<h3>{esc(cl["prof_h"])}</h3>
+<form id="cabProfileForm" class="cab-form">
+<label class="cab-field"><span>{esc(cl["name_lbl"])} *</span>
+<input name="name" type="text" maxlength="100" required>
+</label>
+<div class="cab-form-row">
+<label class="cab-field"><span>{esc(cl["phone_lbl"])}</span>
+<input name="phone" type="tel" maxlength="30" placeholder="+7 777 000 00 00">
+</label>
+<label class="cab-field"><span>{esc(cl["email_lbl"])}</span>
+<input name="email" type="email" maxlength="80" placeholder="doctor@mail.kz">
+</label>
+</div>
+<div class="cab-form-row">
+<label class="cab-field"><span>{esc(cl["spec_lbl"])}</span>
+<input name="specialty" type="text" maxlength="80" placeholder="{esc(cl["spec_ph"])}">
+</label>
+<label class="cab-field"><span>{esc(cl["city_lbl"])}</span>
+<input name="city" type="text" maxlength="60" placeholder="{esc(cl["city_ph"])}">
+</label>
+</div>
+<label class="cab-field"><span>{esc(cl["work_lbl"])}</span>
+<input name="workplace" type="text" maxlength="120" placeholder="{esc(cl["work_ph"])}">
+</label>
+<div class="cab-prof-actions">
+<button type="submit" class="btn btn-primary">{esc(cl["btn_save"])}</button>
+<span id="cabProfileMsg" class="cab-saved-note" hidden></span>
+</div>
+</form>
+</div>
+</div>
+
+<div class="cab-main-col">
+<div class="card cab-panel">
+<div class="card-body">
+<h3>{esc(cl["my_h"])}</h3>
+<p class="meta">{esc(cl["my_sub"])}</p>
+<div id="cabMyCourses" class="cab-my-list"></div>
+</div>
+</div>
+
+<div class="card cab-panel">
+<div class="card-body">
+<h3>{esc(cl["avail_h"])}</h3>
+<p class="meta">{esc(cl["avail_sub"])}</p>
+<div id="cabAvailCourses" class="cab-avail-grid"></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+</div></section>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+<script>
+window.DOCTRINE_CABINET_FB = {{
+  apiKey: "AIzaSyB8kkzQ5oh298uooOgJfIHBmhI7YVJe7PM",
+  authDomain: "doctrine-1ebe5.firebaseapp.com",
+  databaseURL: "https://doctrine-1ebe5-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "doctrine-1ebe5"
+}};
+window.DOCTRINE_CABINET_ITEMS = {baked_items};
+</script>
+<script src="../assets/{av('js/cabinet.js')}"></script>
+""" + contacts_section(lang) + footer(lang))
+
 BUILDERS = {"index.html": page_index, "schedule.html": page_schedule,
             "course.html": page_course, "teachers.html": page_teachers,
-            "conference.html": page_conference,
+            "conference.html": page_conference, "cabinet.html": page_cabinet,
             "404.html": page_404}
 
 for lang in LANGS:
@@ -842,7 +1119,7 @@ with open(os.path.join(DOCS, "index.html"), "w", encoding="utf-8") as f:
 with open(os.path.join(DOCS, ".nojekyll"), "w") as f:
     f.write("")
 BASE = "https://doctrine.kz"
-pages = ["index.html", "schedule.html", "course.html", "teachers.html"]
+pages = ["index.html", "schedule.html", "course.html", "teachers.html", "cabinet.html"]
 if CONF:
     pages.append("conference.html")
 urls = [f"{BASE}/{l}/{p}" for l in LANGS for p in pages]
