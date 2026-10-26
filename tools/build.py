@@ -491,7 +491,7 @@ def course_cards(lang, limit=None, fmt=None, skip_archived=False, only_archived=
         is_arch = bool(c.get("archived"))
         past_badge = f'<span class="badge badge-past">{esc(T[lang]["past_badge"])}</span>' if is_arch else ""
         enroll_btn = (f'<a class="btn btn-primary" href="{WA}" target="_blank" rel="noopener">{esc(T[lang]["next_stream"])}</a>' if is_arch
-                      else f'<a class="btn btn-primary" href="cabinet.html?enroll={c["id"]}" data-course-enroll="{c["id"]}" data-course-title="{esc(c["title"]["ru"])}" data-course-dates="{esc(dates)}" data-course-price="{esc(price)}" data-course-fmt="{c["format"]}">{esc(T[lang]["enroll"])}</a>')
+                      else f'<a class="btn btn-primary" href="{FORM}?usp=pp_url&entry_course={c["id"]}" target="_blank" rel="noopener">{esc(T[lang]["enroll"])}</a>')
         out.append(f"""<div class="card{' is-past' if is_arch else ''}" data-fmt="{c["format"]}" data-ts="{ts}"{open_attr}>
 <div class="card-body">
 <div class="badges">{past_badge}<span class="badge format {fmt_cls}">{esc(fmt_label)}</span>{f'<span class="badge hours">{esc(hours)}</span>' if hours else ""}{f'<span class="badge">{n} {sess_word(lang, n)}</span>' if n > 1 else ""}</div>
@@ -789,7 +789,7 @@ def page_course(lang):
 <section class="course-hero"><div class="container">
 <a href="schedule.html">{esc(t["back"])}</a>
 <div id="course-detail"><p>…</p></div>
-<p><a class="btn btn-primary" id="courseEnrollBtn" href="cabinet.html">{esc(t["enroll"])}</a>
+<p><a class="btn btn-primary" href="{FORM}" target="_blank" rel="noopener">{esc(t["enroll"])}</a>
 <a class="btn btn-ghost" href="{WA}" target="_blank" rel="noopener">WhatsApp</a></p>
 </div></section>
 <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False)}</script>
@@ -1018,7 +1018,6 @@ def page_cabinet(lang):
 </div>
 
 <div class="cab-dash" id="cabDashView" hidden>
-<div id="cabDashNotice" class="cab-alert is-ok" hidden></div>
 <div class="cab-dash-bar">
 <div>
 <h2 id="cabUserGreeting">—</h2>
@@ -1083,211 +1082,24 @@ def page_cabinet(lang):
 </div>
 
 </div></section>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script>
+window.DOCTRINE_CABINET_FB = {{
+  apiKey: "AIzaSyB8kkzQ5oh298uooOgJfIHBmhI7YVJe7PM",
+  authDomain: "doctrine-1ebe5.firebaseapp.com",
+  databaseURL: "https://doctrine-1ebe5-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "doctrine-1ebe5"
+}};
 window.DOCTRINE_CABINET_ITEMS = {baked_items};
 </script>
 <script src="../assets/{av('js/cabinet.js')}"></script>
 """ + contacts_section(lang) + footer(lang))
 
-def page_admin(lang):
-    baked_items = json.dumps(cabinet_catalog_items(), ensure_ascii=False).replace("</", "<\\/")
-    return (head(lang, "Админ-панель координатора — Doctrine", "Управление оплатами, заявками, закрытыми чатами и сертификатами врачей Doctrine.", "admin.html")
-            + header(lang, "", "admin.html") + f"""
-<section class="section adm-sec"><div class="container" id="adminRoot">
-<div class="cab-head">
-<h1>Панель координатора Doctrine</h1>
-<p class="sub">Учёт оплат (кто, когда и за что заплатил), подтверждение заявок, ссылки на закрытые чаты, записи и сертификаты.</p>
-</div>
-
-<div class="cab-auth-wrap" id="admLoginView">
-<div class="card cab-auth-card">
-<h3>Вход для координатора</h3>
-<div id="admLoginErr" class="cab-alert is-err" hidden></div>
-<form id="admLoginForm" class="cab-form">
-<label class="cab-field"><span>Пароль администратора</span>
-<input name="password" type="password" placeholder="Введите пароль" required>
-</label>
-<button type="submit" class="btn btn-primary cab-submit">Войти в админ-панель</button>
-</form>
-</div>
-</div>
-
-<div id="admPanelView" hidden>
-<div class="adm-kpis">
-<div class="card adm-kpi"><span>Оплачено записей</span><b id="kpiPaidCount">0</b></div>
-<div class="card adm-kpi"><span>Общая сумма оплат</span><b id="kpiPaidSum">0 KZT</b></div>
-<div class="card adm-kpi"><span>Ожидают оплаты</span><b id="kpiPendingCount">0</b></div>
-<div class="card adm-kpi"><span>Врачей в базе</span><b id="kpiDocCount">0</b></div>
-</div>
-
-<div class="adm-toolbar">
-<div class="adm-nav-tabs">
-<button type="button" class="adm-nav-tab active" data-adm-tab="payments">💳 Оплаты (кто, когда и на что)</button>
-<button type="button" class="adm-nav-tab" data-adm-tab="apps">📋 Заявки врачей</button>
-<button type="button" class="adm-nav-tab" data-adm-tab="links">🔒 Закрытые чаты и записи</button>
-<button type="button" class="adm-nav-tab" data-adm-tab="doctors">👨‍⚕️ База врачей</button>
-</div>
-<div class="adm-toolbar-right">
-<button type="button" class="btn btn-ghost btn-sm" id="admRefreshBtn">↻ Обновить</button>
-<button type="button" class="btn btn-ghost btn-sm" id="admLogoutBtn">Выйти</button>
-</div>
-</div>
-
-<!-- TAB 1: ОПЛАТЫ -->
-<div class="card cab-panel adm-pane" data-adm-pane="payments">
-<div class="card-body">
-<div class="adm-pane-head">
-<div>
-<h3>Реестр оплат: кто, когда и за что заплатил</h3>
-<p class="meta" id="admPaymentsFilteredSum"></p>
-</div>
-<div class="adm-pane-actions">
-<button type="button" class="btn btn-primary btn-sm" id="admToggleManualBtn">+ Внести оплату вручную</button>
-<button type="button" class="btn btn-ghost btn-sm" id="admExportPaymentsBtn">⬇ Скачать Excel / CSV</button>
-</div>
-</div>
-
-<div id="admManualPayBox" class="adm-manual-box" hidden>
-<h4>Добавить оплату вручную (если врач оплатил напрямую через Kaspi / WhatsApp)</h4>
-<form id="admManualPayForm" class="cab-form">
-<div class="cab-form-row">
-<label class="cab-field"><span>ФИО врача *</span>
-<input name="name" type="text" placeholder="Иванова Айгуль Сериковна" required>
-</label>
-<label class="cab-field"><span>Телефон или Email врача *</span>
-<input name="contact" type="text" placeholder="+7 777 000 00 00" required>
-</label>
-</div>
-<div class="cab-form-row">
-<label class="cab-field"><span>За какой курс / конференцию *</span>
-<select name="courseId" id="admManualCourse" class="adm-select"></select>
-</label>
-<label class="cab-field"><span>Сумма оплаты (KZT) *</span>
-<input name="amount" id="admManualAmount" type="number" placeholder="45000" required>
-</label>
-</div>
-<div class="cab-form-row">
-<label class="cab-field"><span>Дата оплаты *</span>
-<input name="paidDate" type="date" required>
-</label>
-<label class="cab-field"><span>Способ оплаты / комментарий</span>
-<input name="note" type="text" placeholder="Kaspi / перевод / счёт">
-</label>
-</div>
-<label class="cab-field"><span>Ссылка на именной сертификат (если уже готов)</span>
-<input name="certUrl" type="url" placeholder="https://drive.google.com/...">
-</label>
-<div>
-<button type="submit" class="btn btn-primary btn-sm">Сохранить оплату и открыть доступ врачу ✓</button>
-</div>
-</form>
-</div>
-
-<div class="adm-filters">
-<select id="admPayCourseFilter" class="adm-select"></select>
-<input id="admPaySearch" type="search" class="adm-search" placeholder="Поиск по ФИО, телефону, курсу, способу оплаты…">
-</div>
-
-<div class="adm-table-wrap">
-<table class="adm-table">
-<thead>
-<tr>
-<th>Когда</th>
-<th>Кто заплатил (Врач)</th>
-<th>За что (Курс / Конференция)</th>
-<th>Сумма и способ</th>
-<th>Сертификат участника</th>
-<th>Действие</th>
-</tr>
-</thead>
-<tbody id="admPaymentsBody"></tbody>
-</table>
-</div>
-</div>
-</div>
-
-<!-- TAB 2: ЗАЯВКИ -->
-<div class="card cab-panel adm-pane" data-adm-pane="apps" hidden>
-<div class="card-body">
-<h3>Заявки врачей из личного кабинета</h3>
-<p class="meta">Здесь отображаются все врачи, нажавшие «Записаться». Подтвердите оплату, чтобы открыть врачу закрытый чат и запись курса.</p>
-<div class="adm-filters">
-<select id="admAppStatusFilter" class="adm-select">
-<option value="all">Все статусы</option>
-<option value="applied">Ожидают оплаты / Консультация</option>
-<option value="paid">Оплачено (доступ открыт)</option>
-<option value="completed">Сертификат выдан</option>
-</select>
-<select id="admAppCourseFilter" class="adm-select"></select>
-<input id="admAppSearch" type="search" class="adm-search" placeholder="Поиск по ФИО или телефону врача…">
-</div>
-<div class="adm-table-wrap">
-<table class="adm-table">
-<thead>
-<tr>
-<th>Врач и контакты</th>
-<th>Курс / Конференция</th>
-<th>Статус</th>
-<th>Подтверждение оплаты / Выдача сертификата</th>
-</tr>
-</thead>
-<tbody id="admAppsBody"></tbody>
-</table>
-</div>
-</div>
-</div>
-
-<!-- TAB 3: ДОСТУПЫ КУРСОВ -->
-<div class="card cab-panel adm-pane" data-adm-pane="links" hidden>
-<div class="card-body">
-<h3>Закрытые чаты и записи лекций по курсам</h3>
-<p class="meta">Укажите ссылку на закрытый чат (WhatsApp / Telegram) и ссылку на запись/эфир один раз для курса — они автоматически откроются в личном кабинете у всех врачей, у которых по этому курсу подтверждена оплата.</p>
-<div id="admLinksList" class="adm-links-list"></div>
-</div>
-</div>
-
-<!-- TAB 4: БАЗА ВРАЧЕЙ -->
-<div class="card cab-panel adm-pane" data-adm-pane="doctors" hidden>
-<div class="card-body">
-<div class="adm-pane-head">
-<div>
-<h3>Зарегистрированные врачи</h3>
-<p class="meta">Все врачи, создавшие личный кабинет на сайте.</p>
-</div>
-<button type="button" class="btn btn-ghost btn-sm" id="admExportDoctorsBtn">⬇ Скачать базу врачей (CSV)</button>
-</div>
-<div class="adm-filters">
-<input id="admDocSearch" type="search" class="adm-search" placeholder="Поиск по ФИО, специальности, городу, телефону…">
-</div>
-<div class="adm-table-wrap">
-<table class="adm-table">
-<thead>
-<tr>
-<th>ФИО врача</th>
-<th>Телефон / Email</th>
-<th>Специальность / Город</th>
-<th>Курсы и оплаты</th>
-<th>Регистрация</th>
-</tr>
-</thead>
-<tbody id="admDoctorsBody"></tbody>
-</table>
-</div>
-</div>
-</div>
-
-</div>
-</div></section>
-<script>
-window.DOCTRINE_CABINET_ITEMS = {baked_items};
-</script>
-<script src="../assets/{av('js/admin.js')}"></script>
-""" + footer(lang))
-
 BUILDERS = {"index.html": page_index, "schedule.html": page_schedule,
             "course.html": page_course, "teachers.html": page_teachers,
             "conference.html": page_conference, "cabinet.html": page_cabinet,
-            "admin.html": page_admin, "404.html": page_404}
+            "404.html": page_404}
 
 for lang in LANGS:
     d = os.path.join(DOCS, lang)

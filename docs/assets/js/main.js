@@ -69,14 +69,10 @@
       b.textContent = archL.done;
       badges.insertBefore(b, badges.firstChild);
     }
-    var btn = card.querySelector('a.btn-primary[data-course-enroll], a.btn-primary[href*="forms.gle"]');
+    var btn = card.querySelector('a.btn-primary[href*="forms.gle"]');
     if (btn) {
       btn.textContent = archL.next;
-      btn.removeAttribute("data-course-enroll");
-      if (waHref) {
-        btn.setAttribute("href", waHref);
-        btn.setAttribute("target", "_blank");
-      }
+      if (waHref) btn.setAttribute("href", waHref);
     }
   }
   (function runArchive() {
@@ -239,139 +235,13 @@
     apply(false);
     applySort(false);
   }
-  // highlight "Cabinet" nav item when doctor is signed in + 1-click enroll from schedule/course cards
-  var cabLabels = {
-    ru: {
-      inApps: "В моих заявках · Кабинет →",
-      paid: "Оплачено · Открыть в кабинете →",
-      toastTitle: "Заявка добавлена в личный кабинет ✓",
-      toastSub: "Вы можете проконсультироваться или перейти к оплате в кабинете.",
-      toastBtn: "Открыть кабинет →"
-    },
-    kk: {
-      inApps: "Өтінімдерде · Кабинет →",
-      paid: "Төленді · Кабинетті ашу →",
-      toastTitle: "Өтінім жеке кабинетке қосылды ✓",
-      toastSub: "Кабинетте кеңес алуға немесе төлемге өтуге болады.",
-      toastBtn: "Кабинетті ашу →"
-    },
-    en: {
-      inApps: "In applications · Account →",
-      paid: "Paid · Open in account →",
-      toastTitle: "Application added to your account ✓",
-      toastSub: "You can consult or proceed to payment in your account.",
-      toastBtn: "Open account →"
-    }
-  }[archLang] || {};
-
-  var FB_REST = "https://doctrine-1ebe5-default-rtdb.europe-west1.firebasedatabase.app";
-
-  function showEnrollToast() {
-    var existing = document.getElementById("doctrineEnrollToast");
-    if (existing) existing.remove();
-    var div = document.createElement("div");
-    div.id = "doctrineEnrollToast";
-    div.className = "enroll-toast";
-    div.innerHTML = '<div><b>' + cabLabels.toastTitle + '</b><span>' + cabLabels.toastSub + '</span></div>'
-      + '<a class="btn btn-primary btn-sm" href="cabinet.html">' + cabLabels.toastBtn + "</a>";
-    document.body.appendChild(div);
-    setTimeout(function () { if (div.parentNode) div.remove(); }, 6500);
-  }
-
-  window.syncDoctrineEnrollButtons = function () {
-    try {
-      var u = JSON.parse(localStorage.getItem("doctrine_cabinet_user") || "null");
-      var map = (u && u.enrollments) || {};
-      document.querySelectorAll("[data-course-enroll]").forEach(function (btn) {
-        var cid = btn.getAttribute("data-course-enroll");
-        var rec = cid && map[cid];
-        if (rec) {
-          var isPaid = (rec.status === "paid" || rec.status === "completed");
-          btn.textContent = isPaid ? cabLabels.paid : cabLabels.inApps;
-          btn.setAttribute("href", "cabinet.html");
-          btn.classList.add("is-enrolled-link");
-        }
-      });
-    } catch (e) { /* ignore */ }
-  };
-
-  document.addEventListener("click", function (e) {
-    var btn = e.target && e.target.closest ? e.target.closest("[data-course-enroll]") : null;
-    if (!btn) return;
-    var cid = btn.getAttribute("data-course-enroll");
-    if (!cid) return;
-    var u = null;
-    try { u = JSON.parse(localStorage.getItem("doctrine_cabinet_user") || "null"); } catch (err) { u = null; }
-    // If not signed in, let link navigate to cabinet.html?enroll=ID (auto-enrolls after login/reg)
-    if (!u || !u.uid) return;
-    u.enrollments = u.enrollments || {};
-    if (u.enrollments[cid]) return; // already enrolled -> normal navigation to cabinet.html
-
-    e.preventDefault();
-    var cTitle = btn.getAttribute("data-course-title") || cid;
-    var cDates = btn.getAttribute("data-course-dates") || "";
-    var cPrice = btn.getAttribute("data-course-price") || "";
-    var cFmt = btn.getAttribute("data-course-fmt") || "online";
-    var now = Date.now();
-    var entry = {
-      courseId: cid,
-      title: cTitle,
-      dates: cDates,
-      price: cPrice,
-      format: cFmt,
-      status: "applied",
-      createdAt: now
-    };
-    u.enrollments[cid] = entry;
-    u.updatedAt = now;
-    try {
-      localStorage.setItem("doctrine_cabinet_user", JSON.stringify(u));
-      var dbLocal = JSON.parse(localStorage.getItem("doctrine_cabinet_db") || "{}");
-      dbLocal.users = dbLocal.users || {};
-      dbLocal.users[u.uid] = u;
-      localStorage.setItem("doctrine_cabinet_db", JSON.stringify(dbLocal));
-    } catch (err) { /* ignore */ }
-
-    // Sync to Firebase RTDB via REST so it works on any page without loading Firebase SDK
-    try {
-      fetch(FB_REST + "/cabinetUsers/" + encodeURIComponent(u.uid) + "/enrollments/" + encodeURIComponent(cid) + ".json", {
-        method: "PUT",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify(entry)
-      });
-      fetch(FB_REST + "/cabinetApplications/" + encodeURIComponent(u.uid + "_" + cid) + ".json", {
-        method: "PUT",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({
-          id: u.uid + "_" + cid,
-          uid: u.uid,
-          name: u.name || "",
-          phone: u.phone || "",
-          email: u.email || "",
-          specialty: u.specialty || "",
-          city: u.city || "",
-          courseId: cid,
-          courseTitle: cTitle,
-          price: cPrice,
-          status: "applied",
-          createdAt: now
-        })
-      });
-    } catch (err) { /* ignore */ }
-
-    window.syncDoctrineEnrollButtons();
-    showEnrollToast();
-  });
-
+  // highlight "Cabinet" nav item when doctor is signed in
   window.updateDoctrineCabinetNav = function () {
     try {
       var u = JSON.parse(localStorage.getItem("doctrine_cabinet_user") || "null");
       document.querySelectorAll('a[href="cabinet.html"]').forEach(function (a) {
-        if (!a.hasAttribute("data-course-enroll")) {
-          a.classList.toggle("has-user", !!(u && u.uid));
-        }
+        a.classList.toggle("has-user", !!(u && u.uid));
       });
-      window.syncDoctrineEnrollButtons();
     } catch (e) { /* ignore */ }
   };
   window.updateDoctrineCabinetNav();

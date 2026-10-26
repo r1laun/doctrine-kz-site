@@ -111,17 +111,6 @@
       + '<div class="course-meta"><span class="badge format ' + (c.format === "offline" ? "fmt-offline" : "fmt-online") + '">' + esc(c.format === "offline" ? L.offline : L.online) + "</span>"
       + (n > 1 ? '<span class="meta">' + n + " " + sessWord(n) + "</span>" : "") + "</div>"
       + sessions;
-    var enrollBtn = document.getElementById("courseEnrollBtn");
-    if (enrollBtn && c.id) {
-      var firstSess = (c.sessions && c.sessions[0]) || {};
-      enrollBtn.setAttribute("href", "cabinet.html?enroll=" + encodeURIComponent(c.id));
-      enrollBtn.setAttribute("data-course-enroll", c.id);
-      enrollBtn.setAttribute("data-course-title", (c.title && c.title.ru) || t);
-      enrollBtn.setAttribute("data-course-dates", (firstSess.dates || "").split("\n")[0]);
-      enrollBtn.setAttribute("data-course-price", firstSess.price || "");
-      enrollBtn.setAttribute("data-course-fmt", c.format || "online");
-      if (window.syncDoctrineEnrollButtons) window.syncDoctrineEnrollButtons();
-    }
     // past course? all dates passed and no rolling intake -> banner + WhatsApp instead of enroll
     try {
       var maxTs = 0, openEnded = false;
@@ -145,11 +134,9 @@
         box.insertBefore(banner, box.firstChild.nextSibling);
         var wa = document.querySelector('a[href*="wa.me"]');
         if (wa) {
-          document.querySelectorAll('#courseEnrollBtn, a.btn-primary[href*="forms.gle"]').forEach(function (a) {
+          document.querySelectorAll('a.btn-primary[href*="forms.gle"]').forEach(function (a) {
             a.textContent = L.next;
-            a.removeAttribute("data-course-enroll");
             a.setAttribute("href", wa.getAttribute("href"));
-            a.setAttribute("target", "_blank");
           });
         }
       }
