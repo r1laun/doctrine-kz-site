@@ -1057,14 +1057,9 @@ def page_cabinet(lang):
 <h3>{esc(cl["my_h"])}</h3>
 <p class="meta">{esc(cl["my_sub"])}</p>
 <div id="cabMyCourses" class="cab-my-list"></div>
+<div class="cab-prof-actions" style="margin-top:14px">
+<a class="btn btn-ghost btn-sm" href="schedule.html">{esc(t["cta_sched"])} →</a>
 </div>
-</div>
-
-<div class="card cab-panel">
-<div class="card-body">
-<h3>{esc(cl["avail_h"])}</h3>
-<p class="meta">{esc(cl["avail_sub"])}</p>
-<div id="cabAvailCourses" class="cab-avail-grid"></div>
 </div>
 </div>
 </div>
