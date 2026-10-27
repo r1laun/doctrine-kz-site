@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="google-site-verification" content="qJzxeKkHh609EgW7CYFq2U6r2_7NLROGmrEPiGJlGwE">
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-07751DJT62"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-07751DJT62');
+</script>
+<!-- Yandex.Metrika counter -->
+<script type="text/javascript">
+    (function(m,e,t,r,i,k,a){m[i]=m[i]||function(){(m[i].a=m[i].a||[]).push(arguments)};m[i].l=1*new Date();for (var j = 0; j < document.scripts.length; j++) {if (document.scripts[j].src === r) { return; }}k=e.createElement(t),a=e.getElementsByTagName(t)[0],k.async=1,k.src=r,a.parentNode.insertBefore(k,a)})(window, document,'script','https://mc.yandex.ru/metrika/tag.js?id=113473930', 'ym');
+    ym(113473930, 'init', {ssr:true, webvisor:true, clickmap:true, ecommerce:"dataLayer", referrer: document.referrer, url: location.href, accurateTrackBounce:true, trackLinks:true});
+</script>
+<noscript><div><img src="https://mc.yandex.ru/watch/113473930" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+<!-- /Yandex.Metrika counter -->
+<title>Управление доступами к видеокурсам — Doctrine</title>
+<meta name="description" content="Панель координатора Doctrine: привязка закрытых YouTube-видео и открытие доступа врачам.">
+<link rel="canonical" href="https://doctrine.kz/en/admin.html">
+<link rel="alternate" hreflang="ru" href="https://doctrine.kz/ru/admin.html">
+<link rel="alternate" hreflang="kk" href="https://doctrine.kz/kk/admin.html">
+<link rel="alternate" hreflang="en" href="https://doctrine.kz/en/admin.html">
+<link rel="alternate" hreflang="x-default" href="https://doctrine.kz/ru/admin.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Doctrine">
+<meta property="og:title" content="Управление доступами к видеокурсам — Doctrine">
+<meta property="og:description" content="Панель координатора Doctrine: привязка закрытых YouTube-видео и открытие доступа врачам.">
+<meta property="og:url" content="https://doctrine.kz/en/admin.html">
+<meta property="og:image" content="https://doctrine.kz/assets/img/logo.jpg">
+<meta property="og:locale" content="en_US">
+<meta property="og:locale:alternate" content="ru_RU">
+<meta property="og:locale:alternate" content="kk_KZ">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "EducationalOrganization", "name": "Doctrine", "alternateName": ["Доктрина", "Doctrine Centre"], "url": "https://doctrine.kz/", "logo": "https://doctrine.kz/assets/img/logo.jpg", "address": {"@type": "PostalAddress", "addressLocality": "Алматы", "addressRegion": "Алматы", "addressCountry": "KZ"}, "sameAs": ["https://www.instagram.com/doctrine_centre"]}</script>
+<link rel="icon" href="../assets/img/logo.jpg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/main.css?v=a5e8f8ed">
+</head>
+<body>
+<header class="site-header"><div class="header-inner">
+<a class="logo" href="index.html"><img src="../assets/img/logo.jpg" alt="Doctrine logo"><span><b>Doctrine</b><small>deep knowledge from heart to heart</small></span></a>
+<nav class="nav" id="nav"><a href="index.html" class="">Home</a><a href="schedule.html" class="">Schedule</a><a href="teachers.html" class="">Faculty</a><a href="cabinet.html" class="">Account</a></nav>
+<div class="lang"><a href="../ru/admin.html" data-langlink class="">RU</a><a href="../kk/admin.html" data-langlink class="">KZ</a><a href="../en/admin.html" data-langlink class="active">EN</a></div>
+<a class="btn btn-header" href="https://forms.gle/w3KRJmSDwuwjDRKx6" target="_blank" rel="noopener">Enroll now</a>
+<button class="burger" id="burgerBtn" aria-label="Menu" aria-expanded="false">☰</button>
+</div></header>
+<main>
+
+<section class="section adm-sec"><div class="container" id="adminRoot">
+<div class="cab-head">
+<h1>Управление видеокурсами и доступами</h1>
+<p class="sub">Привязка закрытых видео с YouTube и открытие персонального доступа оплатившим врачам.</p>
+</div>
+
+<div class="cab-auth-wrap" id="admLoginView">
+<div class="card cab-auth-card">
+<h3>Вход для координатора</h3>
+<div id="admLoginErr" class="cab-alert is-err" hidden></div>
+<form id="admLoginForm" class="cab-form">
+<label class="cab-field"><span>Пароль администратора</span>
+<input name="password" type="password" placeholder="Введите пароль" required>
+</label>
+<button type="submit" class="btn btn-primary cab-submit">Войти</button>
+</form>
+</div>
+</div>
+
+<div id="admPanelView" hidden>
+<div class="adm-toolbar">
+<div><b>Панель координатора Doctrine</b></div>
+<div class="adm-toolbar-right">
+<button type="button" class="btn btn-ghost btn-sm" id="admRefreshBtn">↻ Обновить данные</button>
+<button type="button" class="btn btn-ghost btn-sm" id="admLogoutBtn">Выйти</button>
+</div>
+</div>
+
+<div class="cab-grid adm-two-col">
+<div class="card cab-panel">
+<div class="card-body">
+<h3>1. Открыть доступ врачу</h3>
+<p class="meta">Выберите зарегистрированного врача и курс — запись сразу появится у него в личном кабинете в защищённом плеере.</p>
+<div id="admGrantMsg" class="cab-alert is-ok" hidden></div>
+<form id="admGrantForm" class="cab-form">
+<label class="cab-field"><span>Врач (из зарегистрированных в кабинете) *</span>
+<select name="uid" id="admGrantUser" class="adm-select" required></select>
+</label>
+<label class="cab-field"><span>Курс (к которому открываем запись) *</span>
+<select name="courseId" id="admGrantCourse" class="adm-select" required></select>
+</label>
+<label class="cab-field"><span>Срок доступа к видеозаписи</span>
+<select name="days" class="adm-select">
+<option value="0">Бессрочно</option>
+<option value="30">На 30 дней</option>
+<option value="60">На 60 дней</option>
+<option value="90">На 90 дней</option>
+</select>
+</label>
+<label class="cab-field"><span>Ссылка на именной сертификат (по желанию)</span>
+<input name="certUrl" type="url" placeholder="https://drive.google.com/...">
+</label>
+<button type="submit" class="btn btn-primary cab-submit">Открыть доступ к курсу ✓</button>
+</form>
+</div>
+</div>
+
+<div class="card cab-panel">
+<div class="card-body">
+<h3>Зарегистрированные врачи и их доступы</h3>
+<div class="adm-filters">
+<input id="admDocSearch" type="search" class="adm-search" placeholder="Поиск врача по ФИО или номеру телефона…">
+</div>
+<div class="adm-table-wrap">
+<table class="adm-table">
+<thead>
+<tr>
+<th>ФИО врача</th>
+<th>Контакты</th>
+<th>Открытые курсы</th>
+<th>Действие</th>
+</tr>
+</thead>
+<tbody id="admDoctorsBody"></tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card cab-panel" style="margin-top:22px">
+<div class="card-body">
+<h3>2. Видеозаписи курсов (ссылки с YouTube «Доступ по ссылке»)</h3>
+<p class="meta">На YouTube поставьте у видео режим «Доступ по ссылке» (Unlisted) и вставьте ссылку ниже. Врач не увидит саму ссылку и не сможет перейти на YouTube — видео откроется только внутри защищённого плеера с водяным знаком врача.</p>
+<div class="adm-filters">
+<input id="admCourseSearch" type="search" class="adm-search" placeholder="Найти курс по названию или коду (например, ЭКГ, Холтер, К023)…">
+</div>
+<div id="admCourseVideosList" class="adm-links-list"></div>
+</div>
+</div>
+
+</div>
+</div></section>
+<script>
+window.DOCTRINE_ADMIN_COURSES = [{"id": "К025", "title": {"ru": "Как читать холтер и СМАД, что бы не ошибаться?", "kk": "Холтер мен СМАД-ты қателеспей оқу", "en": "How to read Holter and ABPM without mistakes"}, "dates": {"ru": "16.11.2026 - 19:00", "kk": "16.11.2026 - 19:00", "en": "16.11.2026 - 19:00"}, "price": "45 000KZT", "hours": "30 ч. (15 ЗЕ)", "format": "online", "ts": "20261127", "open": false, "archived": false}, {"id": "К023", "title": {"ru": "\"ЭКГ\" на казахском/русском языках", "kk": "«ЭКГ» қазақ және орыс тілдерінде", "en": "'ECG' in Kazakh and Russian"}, "dates": {"ru": "26.10.2026 - 19:30", "kk": "26.10.2026 - 19:30", "en": "26.10.2026 - 19:30"}, "price": "100 000KZT", "hours": "20 ч. (10 ЗЕ)", "format": "online", "ts": "20261119", "open": false, "archived": false}, {"id": "К024", "title": {"ru": "ЭхоКГ «Клапаны под контролем»", "kk": "ЭхоКГ «Қақпақшалар бақылауда»", "en": "EchoCG 'Valves under control'"}, "dates": {"ru": "3.11.2026 - 19:00", "kk": "3.11.2026 - 19:00", "en": "3.11.2026 - 19:00"}, "price": "45 000KZT", "hours": "10 ч. (5 ЗЕ)", "format": "online", "ts": "20261110", "open": false, "archived": false}, {"id": "К022", "title": {"ru": "Особенности Холтеровского мониторирования у пациентов с ЭКС", "kk": "Холтер мен СМАД-ты қателеспей оқу", "en": "How to read Holter and ABPM without mistakes"}, "dates": {"ru": "22.10.2026 - 18:30", "kk": "22.10.2026 - 18:30", "en": "22.10.2026 - 18:30"}, "price": "30 000KZT", "hours": "6 ч. (3 ЗЕ)", "format": "online", "ts": "20261030", "open": false, "archived": false}, {"id": "К021", "title": {"ru": "Как читать холтер и СМАД, что бы не ошибаться?", "kk": "Холтер мен СМАД-ты қателеспей оқу", "en": "How to read Holter and ABPM without mistakes"}, "dates": {"ru": "12.10.2026 - 19:00", "kk": "12.10.2026 - 19:00", "en": "12.10.2026 - 19:00"}, "price": "45 000KZT", "hours": "30 ч. (15 ЗЕ)", "format": "online", "ts": "20261024", "open": false, "archived": false}, {"id": "К020", "title": {"ru": "Кардиоонкология", "kk": "Кардиоонкология", "en": "Cardio-oncology"}, "dates": {"ru": "19.10.2026 - 19:00", "kk": "19.10.2026 - 19:00", "en": "19.10.2026 - 19:00"}, "price": "50 000KZT", "hours": "9 ч. (4.5 ЗЕ)", "format": "online", "ts": "20261023", "open": false, "archived": false}, {"id": "К019", "title": {"ru": "ЭхоКГ «Клапаны под контролем»", "kk": "ЭхоКГ «Қақпақшалар бақылауда»", "en": "EchoCG 'Valves under control'"}, "dates": {"ru": "7.10.2026 - 19:00", "kk": "7.10.2026 - 19:00", "en": "7.10.2026 - 19:00"}, "price": "45 000KZT", "hours": "10 ч. (5 ЗЕ)", "format": "online", "ts": "20261011", "open": false, "archived": false}, {"id": "К018", "title": {"ru": "Сердечно-сосудистое здоровье женщины", "kk": "Әйелдің жүрек-қан тамырлары денсаулығы", "en": "Women's cardiovascular health"}, "dates": {"ru": "29.09.2026 - 17:00", "kk": "29.09.2026 - 17:00", "en": "29.09.2026 - 17:00"}, "price": "30 000KZT", "hours": "6 ч. (3 ЗЕ)", "format": "online", "ts": "20261001", "open": false, "archived": false}, {"id": "К017", "title": {"ru": "Интервал QT", "kk": "QT аралығы және дәрілер", "en": "QT interval and drugs"}, "dates": {"ru": "25.09.2026 - 17:30", "kk": "25.09.2026 - 17:30", "en": "25.09.2026 - 17:30"}, "price": "15 000KZT", "hours": "3 ч. (1.5 ЗЕ)", "format": "online", "ts": "20260925", "open": false, "archived": false}, {"id": "К016", "title": {"ru": "Гипертензивные расстройства и др. во время беременности", "kk": "Жүктілік кезіндегі гипертензиялық бұзылыстар", "en": "Hypertensive disorders in pregnancy"}, "dates": {"ru": "22.09.2026 - 17:00", "kk": "22.09.2026 - 17:00", "en": "22.09.2026 - 17:00"}, "price": "20 000KZT", "hours": "3 ч. (1.5 ЗЕ)", "format": "online", "ts": "20260922", "open": false, "archived": false}, {"id": "К001", "title": {"ru": "Эхокардиография. Продвинутый уровень. Клапаны под контролем", "kk": "Эхокардиография. Жоғары деңгей. Қақпақшалар бақылауда", "en": "Echocardiography. Advanced level. Valves under control"}, "dates": {"ru": "5.08.2026 - 19:00", "kk": "5.08.2026 - 19:00", "en": "5.08.2026 - 19:00"}, "price": "45 000KZT", "hours": "10 часов / 5 ЗЕ", "format": "online", "ts": "20261107", "open": false, "archived": true}, {"id": "К003", "title": {"ru": "Авторская методика обучения ЭКГ на казахском языке", "kk": "Қазақ тілінде ЭКГ-ның авторлық оқыту әдістемесі", "en": "Author's ECG training method in Kazakh"}, "dates": {"ru": "24.08.2026 - 19:30", "kk": "24.08.2026 - 19:30", "en": "24.08.2026 - 19:30"}, "price": "80 000KZT", "hours": "20 часов / 10 ЗЕ", "format": "online", "ts": "20260914", "open": false, "archived": true}, {"id": "К004", "title": {"ru": "Интервал QT и лекарственные препараты. Знания на каждый день", "kk": "QT аралығы және дәрілер. Күнделікті білім", "en": "QT interval and drugs. Everyday knowledge"}, "dates": {"ru": "29.08.2026- в 11:00", "kk": "29.08.2026- в 11:00", "en": "29.08.2026- в 11:00"}, "price": "15 000KZT", "hours": "3 часа/ 1,5 ЗЕ", "format": "online", "ts": "20260829", "open": false, "archived": true}, {"id": "К002", "title": {"ru": "Модульный курс по \"Холтер и СМАД\" Как читать холтер и СМАД что бы не ошибаться?", "kk": "Холтер және СМАД: қателеспей оқу (модульдік курс)", "en": "Holter & ABPM: how to read without mistakes (modular course)"}, "dates": {"ru": "", "kk": "", "en": ""}, "price": "45 000KZT", "hours": "", "format": "offline", "ts": "20260821", "open": true, "archived": true}, {"id": "К005", "title": {"ru": "“ЭхоКГ с нуля для врача-клинициста”", "kk": "Клиницист дәрігерге арналған ЭхоКГ нөлден", "en": "EchoCG from scratch for clinicians"}, "dates": {"ru": "По мере формирования группы", "kk": "Топ құрылуына қарай", "en": "As the group forms"}, "price": "30 000 KZT", "hours": "10 часов / 5 ЗЕ", "format": "online", "ts": "20260718", "open": true, "archived": true}, {"id": "К007", "title": {"ru": "Бранч: «Искусство слышать шепот»", "kk": "Бранч: «Сыбырды ести білу өнері»", "en": "Brunch: The Art of Hearing the Whisper"}, "dates": {"ru": "7.06.2026 - 11:00", "kk": "7.06.2026 - 11:00", "en": "7.06.2026 - 11:00"}, "price": "10 000KZT", "hours": "", "format": "offline", "ts": "20260607", "open": false, "archived": true}, {"id": "К006", "title": {"ru": "Особенности Холтеровского мониторирования у пациентов с ЭКС", "kk": "ЭКС бар пациенттерде холтерлік мониторинг ерекшеліктері", "en": "Holter monitoring in patients with pacemakers"}, "dates": {"ru": "1.06.2026 - 18:30", "kk": "1.06.2026 - 18:30", "en": "1.06.2026 - 18:30"}, "price": "30 000 KZT", "hours": "6 часов / 3 ЗЕ", "format": "online", "ts": "20260601", "open": false, "archived": true}, {"id": "К010", "title": {"ru": "Психотропные препараты в кардиологии: где заканчивается помощь и начинается риск?", "kk": "Кардиологиядағы психотропты препараттар: көмек қайда аяқталып, қауіп қайда басталады?", "en": "Psychotropic drugs in cardiology: where help ends and risk begins?"}, "dates": {"ru": "29.05.2026", "kk": "29.05.2026", "en": "29.05.2026"}, "price": "10 000 KZT", "hours": "6 часов / 3 ЗЕ", "format": "online", "ts": "20260529", "open": true, "archived": true}, {"id": "К008", "title": {"ru": "Кардиоонкология", "kk": "Кардиоонкология", "en": "Cardio-oncology"}, "dates": {"ru": "По мере формиования группыы", "kk": "Топ құрылуына қарай", "en": "As the group forms"}, "price": "50 000KZT", "hours": "9 часов / 4,5 ЗЕ", "format": "online", "ts": "20260528", "open": true, "archived": true}, {"id": "К009", "title": {"ru": "Нагрузочное тестирование в кардиологии: от показаний к клиническим решениям", "kk": "Кардиологиядағы жүктемелік тестілеу", "en": "Stress testing in cardiology: from indications to decisions"}, "dates": {"ru": "Курс в записи", "kk": "Жазбадағы курс", "en": "Recorded course"}, "price": "30 000KZT", "hours": "", "format": "offline", "ts": "20260521", "open": true, "archived": true}, {"id": "К011", "title": {"ru": "«Спирография в клинической практике: интерпретация без ошибок» Врождённые пороки сердца", "kk": "«Клиникалық практикадағы спирография: қатесіз түсіндіру» Туа біткен жүрек ақаулары", "en": "\"Spirometry in Clinical Practice: Error-Free Interpretation\" Congenital Heart Disease"}, "dates": {"ru": "по мере формирования группыы", "kk": "Топ құрылуына қарай", "en": "As the group forms"}, "price": "12 000 KZT", "hours": "", "format": "offline", "ts": "20260331", "open": true, "archived": true}, {"id": "К012", "title": {"ru": "Функциональная диагностика 24/7: клинические нюансы Холтера и СМАДа", "kk": "24/7 функционалдық диагностика: Холтер мен СМАД-тың клиникалық нюанстары", "en": "Functional Diagnostics 24/7: Clinical Nuances of Holter and ABPM"}, "dates": {"ru": "10.03.2026 - 17:30-19:00", "kk": "10.03.2026 - 17:30-19:00", "en": "10.03.2026 - 17:30-19:00"}, "price": "16 000 KZT", "hours": "16 часов /8 ЗЕ", "format": "offline", "ts": "20260319", "open": false, "archived": true}, {"id": "К013", "title": {"ru": "Школа активного мозга (Для врачей и вдумчивых пациентов)", "kk": "Белсенді ми мектебі (Дәрігерлер мен ойлы пациенттерге арналған)", "en": "Active Brain School (For physicians and thoughtful patients)"}, "dates": {"ru": "13.03.2026 - 19:30-21:00", "kk": "13.03.2026 - 19:30-21:00", "en": "13.03.2026 - 19:30-21:00"}, "price": "12 000 KZT", "hours": "12 часов /6 ЗЕ", "format": "online", "ts": "20260313", "open": false, "archived": true}, {"id": "К014", "title": {"ru": "Сложные ВПС простым языком: что должен знать каждый врач Очно! Проводит детский кардиолог", "kk": "Күрделі ТЖА қарапайым тілмен: әрбір дәрігер нені білуі керек", "en": "Complex CHD in Simple Terms: What Every Physician Should Know"}, "dates": {"ru": "по мере формирования группы", "kk": "Топ құрылуына қарай", "en": "As the group forms"}, "price": "20 000 KZT", "hours": "18 часов /9 ЗЕ", "format": "online", "ts": "", "open": true, "archived": true}, {"id": "К015", "title": {"ru": "“ЭКГ” На Казахском языке", "kk": "“ЭКГ” Қазақ тілінде", "en": "\"ECG\" in Kazakh"}, "dates": {"ru": "по мере формирования группы", "kk": "Топ құрылуына қарай", "en": "As the group forms"}, "price": "", "hours": "", "format": "online", "ts": "", "open": true, "archived": true}];
+</script>
+<script src="../assets/js/admin.js?v=300268c4"></script>
+</main>
+<footer><div class="container">
+<div><h3>Doctrine</h3><p>Doctrine Centre — education centre for physicians. Online and offline in Almaty.</p><small>ТОО «Образовательный центр DOCTRINE» · БИН 210140019512</small><br><small>© <span data-year>2026</span> All rights reserved.</small></div>
+<div><h4>Menu</h4><div><a href="index.html">Home</a></div><div><a href="schedule.html">Schedule</a></div><div><a href="teachers.html">Faculty</a></div><div><a href="cabinet.html">Account</a></div><div><a href="../files/public-offer.pdf" target="_blank" rel="noopener">Public offer (PDF)</a></div></div>
+<div><h4>Contacts</h4><div><a href="https://wa.me/77770357345">WhatsApp: +7 777 035 73 45</a></div><div><a href="https://www.instagram.com/doctrine_centre">Instagram</a></div><div><small>Almaty</small></div></div>
+</div></footer>
+<script src="../assets/js/main.js?v=81359f2f"></script>
+</body>
+</html>

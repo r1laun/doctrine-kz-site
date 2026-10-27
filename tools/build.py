@@ -926,8 +926,10 @@ CAB_L = {
 
 def cabinet_catalog_items():
     items = []
+    seen_titles = set()
     for c in COURSES:
-        if c.get("archived"):
+        ru_t = (c["title"].get("ru") or "").strip()
+        if not ru_t:
             continue
         sessions = c.get("sessions") or [{}]
         disp = pick_display(c)
@@ -944,7 +946,9 @@ def cabinet_catalog_items():
             "format": c.get("format") or "online",
             "ts": (c.get("latest") or "").replace("-", ""),
             "open": bool(c.get("open")),
+            "archived": bool(c.get("archived")),
         })
+        seen_titles.add(ru_t)
     return items
 
 def page_cabinet(lang):
@@ -1052,6 +1056,41 @@ def page_cabinet(lang):
 </div>
 
 <div class="cab-main-col">
+<div class="card cab-panel cab-player-panel" id="cabPlayerPanel" hidden>
+<div class="card-body">
+<div class="cab-player-head">
+<div>
+<span class="badge cab-status st-confirmed">Защищённый просмотр · Doctrine</span>
+<h3 id="cabPlayerCourseTitle">—</h3>
+</div>
+<button type="button" class="btn btn-ghost btn-sm" id="cabClosePlayerBtn">✕</button>
+</div>
+<div id="cabPlayerLessons" class="cab-lessons-bar" hidden></div>
+<div class="cab-player-stage" id="cabPlayerStage">
+<div class="cab-player-video">
+<div id="cabYtMount"></div>
+<div class="cab-player-shield" id="cabPlayerShield"></div>
+<div class="cab-watermark" id="cabWatermark"></div>
+</div>
+<div class="cab-player-controls">
+<button type="button" class="cab-ctrl-btn" id="cabBtnPlay" aria-label="Play/Pause">▶</button>
+<button type="button" class="cab-ctrl-btn cab-ctrl-sm" id="cabBtnBack15">−15с</button>
+<button type="button" class="cab-ctrl-btn cab-ctrl-sm" id="cabBtnFwd15">+15с</button>
+<input type="range" class="cab-seek" id="cabSeekSlider" min="0" max="1000" value="0">
+<span class="cab-time" id="cabTimeLabel">00:00 / 00:00</span>
+<select class="cab-speed" id="cabSpeedSelect" aria-label="Speed">
+<option value="1">1x</option>
+<option value="1.25">1.25x</option>
+<option value="1.5">1.5x</option>
+<option value="2">2x</option>
+</select>
+<button type="button" class="cab-ctrl-btn cab-ctrl-sm" id="cabBtnFullscreen">⛶</button>
+</div>
+</div>
+<p class="meta cab-protect-note">🔒 Видео предназначено исключительно для вашего личного аккаунта. На кадр нанесён персональный водяной знак (ФИО и телефон).</p>
+</div>
+</div>
+
 <div class="card cab-panel">
 <div class="card-body">
 <h3>{esc(cl["my_h"])}</h3>
@@ -1067,24 +1106,119 @@ def page_cabinet(lang):
 </div>
 
 </div></section>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
 <script>
-window.DOCTRINE_CABINET_FB = {{
-  apiKey: "AIzaSyB8kkzQ5oh298uooOgJfIHBmhI7YVJe7PM",
-  authDomain: "doctrine-1ebe5.firebaseapp.com",
-  databaseURL: "https://doctrine-1ebe5-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "doctrine-1ebe5"
-}};
 window.DOCTRINE_CABINET_ITEMS = {baked_items};
 </script>
 <script src="../assets/{av('js/cabinet.js')}"></script>
 """ + contacts_section(lang) + footer(lang))
 
+def page_admin(lang):
+    baked_items = json.dumps(cabinet_catalog_items(), ensure_ascii=False).replace("</", "<\\/")
+    return (head(lang, "Управление доступами к видеокурсам — Doctrine", "Панель координатора Doctrine: привязка закрытых YouTube-видео и открытие доступа врачам.", "admin.html")
+            + header(lang, "", "admin.html") + f"""
+<section class="section adm-sec"><div class="container" id="adminRoot">
+<div class="cab-head">
+<h1>Управление видеокурсами и доступами</h1>
+<p class="sub">Привязка закрытых видео с YouTube и открытие персонального доступа оплатившим врачам.</p>
+</div>
+
+<div class="cab-auth-wrap" id="admLoginView">
+<div class="card cab-auth-card">
+<h3>Вход для координатора</h3>
+<div id="admLoginErr" class="cab-alert is-err" hidden></div>
+<form id="admLoginForm" class="cab-form">
+<label class="cab-field"><span>Пароль администратора</span>
+<input name="password" type="password" placeholder="Введите пароль" required>
+</label>
+<button type="submit" class="btn btn-primary cab-submit">Войти</button>
+</form>
+</div>
+</div>
+
+<div id="admPanelView" hidden>
+<div class="adm-toolbar">
+<div><b>Панель координатора Doctrine</b></div>
+<div class="adm-toolbar-right">
+<button type="button" class="btn btn-ghost btn-sm" id="admRefreshBtn">↻ Обновить данные</button>
+<button type="button" class="btn btn-ghost btn-sm" id="admLogoutBtn">Выйти</button>
+</div>
+</div>
+
+<div class="cab-grid adm-two-col">
+<div class="card cab-panel">
+<div class="card-body">
+<h3>1. Открыть доступ врачу</h3>
+<p class="meta">Выберите зарегистрированного врача и курс — запись сразу появится у него в личном кабинете в защищённом плеере.</p>
+<div id="admGrantMsg" class="cab-alert is-ok" hidden></div>
+<form id="admGrantForm" class="cab-form">
+<label class="cab-field"><span>Врач (из зарегистрированных в кабинете) *</span>
+<select name="uid" id="admGrantUser" class="adm-select" required></select>
+</label>
+<label class="cab-field"><span>Курс (к которому открываем запись) *</span>
+<select name="courseId" id="admGrantCourse" class="adm-select" required></select>
+</label>
+<label class="cab-field"><span>Срок доступа к видеозаписи</span>
+<select name="days" class="adm-select">
+<option value="0">Бессрочно</option>
+<option value="30">На 30 дней</option>
+<option value="60">На 60 дней</option>
+<option value="90">На 90 дней</option>
+</select>
+</label>
+<label class="cab-field"><span>Ссылка на именной сертификат (по желанию)</span>
+<input name="certUrl" type="url" placeholder="https://drive.google.com/...">
+</label>
+<button type="submit" class="btn btn-primary cab-submit">Открыть доступ к курсу ✓</button>
+</form>
+</div>
+</div>
+
+<div class="card cab-panel">
+<div class="card-body">
+<h3>Зарегистрированные врачи и их доступы</h3>
+<div class="adm-filters">
+<input id="admDocSearch" type="search" class="adm-search" placeholder="Поиск врача по ФИО или номеру телефона…">
+</div>
+<div class="adm-table-wrap">
+<table class="adm-table">
+<thead>
+<tr>
+<th>ФИО врача</th>
+<th>Контакты</th>
+<th>Открытые курсы</th>
+<th>Действие</th>
+</tr>
+</thead>
+<tbody id="admDoctorsBody"></tbody>
+</table>
+</div>
+</div>
+</div>
+</div>
+
+<div class="card cab-panel" style="margin-top:22px">
+<div class="card-body">
+<h3>2. Видеозаписи курсов (ссылки с YouTube «Доступ по ссылке»)</h3>
+<p class="meta">На YouTube поставьте у видео режим «Доступ по ссылке» (Unlisted) и вставьте ссылку ниже. Врач не увидит саму ссылку и не сможет перейти на YouTube — видео откроется только внутри защищённого плеера с водяным знаком врача.</p>
+<div class="adm-filters">
+<input id="admCourseSearch" type="search" class="adm-search" placeholder="Найти курс по названию или коду (например, ЭКГ, Холтер, К023)…">
+</div>
+<div id="admCourseVideosList" class="adm-links-list"></div>
+</div>
+</div>
+
+</div>
+</div></section>
+<script>
+window.DOCTRINE_ADMIN_COURSES = {baked_items};
+</script>
+<script src="../assets/{av('js/admin.js')}"></script>
+""" + footer(lang))
+
 BUILDERS = {"index.html": page_index, "schedule.html": page_schedule,
             "course.html": page_course, "teachers.html": page_teachers,
             "conference.html": page_conference, "cabinet.html": page_cabinet,
-            "404.html": page_404}
+            "admin.html": page_admin, "404.html": page_404}
 
 for lang in LANGS:
     d = os.path.join(DOCS, lang)

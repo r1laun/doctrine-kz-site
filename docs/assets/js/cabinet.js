@@ -1,5 +1,8 @@
-// Doctrine Personal Cabinet: registration & sign-in by phone number or email,
-// doctor profile, 1-click enrollment for courses & conference, and "My courses".
+// Doctrine Personal Cabinet:
+// - Registration & sign-in by phone number (+7...) or email
+// - Single-device session guard (prevents sharing login/password with others)
+// - Protected YouTube course player (controls=0 + full click/contextmenu shield +
+//   custom Doctrine controls + dynamic floating watermark with doctor's name & phone)
 (function () {
   var root = document.getElementById("cabinetRoot");
   if (!root) return;
@@ -13,24 +16,24 @@
       errExists: "Аккаунт с этим номером или почтой уже зарегистрирован. Войдите во вкладке «Вход».",
       errNotFound: "Аккаунт не найден. Проверьте номер/почту или зарегистрируйтесь.",
       errWrongPass: "Неверный пароль. Попробуйте ещё раз.",
+      errOtherDevice: "Выполнен вход в ваш аккаунт с другого устройства. Для защиты видеозаписей курсов одновременный доступ с нескольких устройств запрещён.",
       saved: "Профиль сохранён ✓",
-      enrolledToast: "Заявка отправлена в Google Form и добавлена в «Мои курсы и заявки» ✓ Мы свяжемся с вами для консультации и оплаты.",
-      statusApplied: "Заявка отправлена",
-      statusConfirmed: "Подтверждено",
-      statusDone: "Завершён",
-      enroll1Click: "Записаться в 1 клик",
-      enrolledBtn: "Вы записаны ✓",
-      cancelEnroll: "Отменить запись",
+      statusOpen: "Доступ к записи открыт ✓",
+      statusExpired: "Срок доступа истёк",
+      statusApplied: "Ожидает открытия доступа",
+      untilLbl: "Доступ до: ",
+      watchBtn: "▶️ Смотреть запись курса",
+      closePlayer: "✕ Закрыть плеер",
+      certBtn: "🎓 Скачать сертификат →",
       waConfirm: "Написать координатору в WhatsApp →",
-      materialBtn: "Материалы / эфир →",
-      certBtn: "Скачать сертификат →",
-      emptyMy: "У вас пока нет активных записей. Выберите подходящий курс в разделе «Расписание».",
-      confBadge: "Конференция",
+      emptyMy: "У вас пока нет открытых видеозаписей курсов. После оплаты курса координатор откроет доступ, и запись появится здесь.",
+      lessonWord: "Урок",
+      fsBtn: "⛶ На весь экран",
+      protectNote: "🔒 Защищённый просмотр: видео предназначено только для вашего аккаунта. На кадр нанесён персональный водяной знак.",
       online: "Онлайн",
       offline: "Офлайн",
-      hybrid: "Очно + онлайн",
-      waMsgPrefix: "Здравствуйте! Я записался(-ась) через личный кабинет Doctrine на «",
-      waMsgMid: "». ФИО: ",
+      waMsgPrefix: "Здравствуйте! Пишу из личного кабинета Doctrine по курсу «",
+      waMsgMid: "». Врач: ",
       waMsgPhone: ", тел.: "
     },
     kk: {
@@ -40,24 +43,24 @@
       errExists: "Бұл нөмір немесе email тіркелген. «Кіру» қойындысы арқылы кіріңіз.",
       errNotFound: "Аккаунт табылмады. Нөмірді/поштаны тексеріңіз немесе тіркеліңіз.",
       errWrongPass: "Құпиясөз қате. Қайтадан көріңіз.",
+      errOtherDevice: "Аккаунтыңызға басқа құрылғыдан кіру орындалды. Курс жазбаларын қорғау үшін бірнеше құрылғыдан бір уақытта қарауға тыйым салынады.",
       saved: "Профиль сақталды ✓",
-      enrolledToast: "Өтінім Google Form-ға жіберілді және «Менің курстарым» бөліміне қосылды ✓ Кеңес алу және төлем бойынша хабарласамыз.",
-      statusApplied: "Өтінім жіберілді",
-      statusConfirmed: "Расталды",
-      statusDone: "Аяқталды",
-      enroll1Click: "1 басумен жазылу",
-      enrolledBtn: "Сіз жазылдыңыз ✓",
-      cancelEnroll: "Жазылудан бас тарту",
+      statusOpen: "Жазбаға қолжетімділік ашық ✓",
+      statusExpired: "Мерзімі аяқталды",
+      statusApplied: "Қолжетімділік күтілуде",
+      untilLbl: "Мерзімі: ",
+      watchBtn: "▶️ Курс жазбасын көру",
+      closePlayer: "✕ Плеерді жабу",
+      certBtn: "🎓 Сертификатты жүктеу →",
       waConfirm: "Координаторға WhatsApp-қа жазу →",
-      materialBtn: "Материалдар / эфир →",
-      certBtn: "Сертификатты жүктеу →",
-      emptyMy: "Сізде әзірге белсенді жазбалар жоқ. «Кесте» бөлімінен курс таңдаңыз.",
-      confBadge: "Конференция",
+      emptyMy: "Сізде әзірге ашық курс жазбалары жоқ. Төлем расталғаннан кейін координатор қолжетімділікті ашады.",
+      lessonWord: "Сабақ",
+      fsBtn: "⛶ Толық экран",
+      protectNote: "🔒 Қорғалған бейне: тек сіздің аккаунтыңызға арналған. Бейнеде жеке су белгісі бар.",
       online: "Онлайн",
       offline: "Офлайн",
-      hybrid: "Офлайн + онлайн",
-      waMsgPrefix: "Сәлеметсіз бе! Мен Doctrine жеке кабинеті арқылы «",
-      waMsgMid: "» бағдарламасына жазылдым. Аты-жөнім: ",
+      waMsgPrefix: "Сәлеметсіз бе! Doctrine жеке кабинетінен «",
+      waMsgMid: "» курсы бойынша жазып отырмын. Дәрігер: ",
       waMsgPhone: ", тел.: "
     },
     en: {
@@ -67,30 +70,33 @@
       errExists: "An account with this phone or email already exists. Please sign in.",
       errNotFound: "Account not found. Check your phone/email or register a new account.",
       errWrongPass: "Incorrect password. Please try again.",
+      errOtherDevice: "Your account was signed in on another device. Simultaneous viewing on multiple devices is disabled to protect course recordings.",
       saved: "Profile saved ✓",
-      enrolledToast: "Application submitted to Google Form and added to “My courses” ✓ We will contact you regarding consultation and payment.",
-      statusApplied: "Application sent",
-      statusConfirmed: "Confirmed",
-      statusDone: "Completed",
-      enroll1Click: "1-click enroll",
-      enrolledBtn: "Enrolled ✓",
-      cancelEnroll: "Cancel",
+      statusOpen: "Recording access active ✓",
+      statusExpired: "Access expired",
+      statusApplied: "Awaiting access activation",
+      untilLbl: "Valid until: ",
+      watchBtn: "▶️ Watch course recording",
+      closePlayer: "✕ Close player",
+      certBtn: "🎓 Download certificate →",
       waConfirm: "Message coordinator on WhatsApp →",
-      materialBtn: "Materials / stream →",
-      certBtn: "Download certificate →",
-      emptyMy: "You have no active enrollments yet. Browse upcoming programs in the “Schedule” section.",
-      confBadge: "Conference",
+      emptyMy: "You have no active course recordings yet. Once your payment is confirmed, the coordinator will unlock your course here.",
+      lessonWord: "Lesson",
+      fsBtn: "⛶ Fullscreen",
+      protectNote: "🔒 Protected playback: licensed for your personal account only with a dynamic watermark.",
       online: "Online",
       offline: "Offline",
-      hybrid: "In person + online",
-      waMsgPrefix: "Hello! I registered via the Doctrine personal account for “",
-      waMsgMid: "”. Name: ",
+      waMsgPrefix: "Hello! Writing from my Doctrine account regarding “",
+      waMsgMid: "”. Doctor: ",
       waMsgPhone: ", phone: "
     }
   }[lang] || {};
 
+  var FB_REST = "https://doctrine-1ebe5-default-rtdb.europe-west1.firebasedatabase.app";
   var LS_USER = "doctrine_cabinet_user";
   var LS_DB = "doctrine_cabinet_db";
+  var LS_VIDEOS = "doctrine_cabinet_videos";
+  var LS_TOKEN = "doctrine_cabinet_session_token";
   var WA_BASE = "https://wa.me/77770357345";
 
   function esc(s) {
@@ -99,7 +105,6 @@
       .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
   }
 
-  // Normalize phone (+7XXXXXXXXXX) or email
   function parseIdentifier(raw) {
     var v = String(raw || "").trim();
     if (!v) return null;
@@ -119,7 +124,6 @@
     return { type: "phone", value: "+" + digits, key: "p_" + digits };
   }
 
-  // Deterministic SHA-256 (Web Crypto API with pure-JS fallback)
   function fallbackHash(str) {
     var h1 = 0xdeadbeef ^ str.length, h2 = 0x41c6ce57 ^ str.length;
     for (var i = 0, ch; i < str.length; i++) {
@@ -145,16 +149,21 @@
     return Promise.resolve(fallbackHash(salted));
   }
 
-  // Local cache + Firebase Realtime Database sync
-  var db = null;
-  try {
-    if (window.firebase && window.DOCTRINE_CABINET_FB) {
-      var appName = "doctrineCabinet";
-      var existing = (window.firebase.apps || []).find(function (a) { return a.name === appName; });
-      var app = existing || window.firebase.initializeApp(window.DOCTRINE_CABINET_FB, appName);
-      db = app.database();
+  function generateSessionToken() {
+    return "st_" + Date.now() + "_" + Math.random().toString(36).slice(2, 10);
+  }
+
+  function decodeYtId(encoded) {
+    var s = String(encoded || "").trim();
+    if (!s) return "";
+    if (s.indexOf("obf:") === 0) {
+      try {
+        var rev = s.slice(4).split("").reverse().join("");
+        return atob(rev);
+      } catch (e) { return ""; }
     }
-  } catch (e) { db = null; }
+    return s;
+  }
 
   function readLocalDB() {
     try { return JSON.parse(localStorage.getItem(LS_DB) || "{}"); } catch (e) { return {}; }
@@ -162,62 +171,65 @@
   function writeLocalDB(data) {
     try { localStorage.setItem(LS_DB, JSON.stringify(data || {})); } catch (e) { /* ignore */ }
   }
+  function getCourseVideosMap() {
+    try { return JSON.parse(localStorage.getItem(LS_VIDEOS) || "{}"); } catch (e) { return {}; }
+  }
+  function setCourseVideosMap(v) {
+    try { localStorage.setItem(LS_VIDEOS, JSON.stringify(v || {})); } catch (e) { /* ignore */ }
+  }
   function getSessionUser() {
     try { return JSON.parse(localStorage.getItem(LS_USER) || "null"); } catch (e) { return null; }
   }
-  function setSessionUser(u) {
+  function setSessionUser(u, token) {
     try {
-      if (u) localStorage.setItem(LS_USER, JSON.stringify(u));
-      else localStorage.removeItem(LS_USER);
-      if (window. updateDoctrineCabinetNav) window.updateDoctrineCabinetNav();
+      if (u) {
+        localStorage.setItem(LS_USER, JSON.stringify(u));
+        if (token) localStorage.setItem(LS_TOKEN, token);
+      } else {
+        localStorage.removeItem(LS_USER);
+        localStorage.removeItem(LS_TOKEN);
+      }
+      if (window.updateDoctrineCabinetNav) window.updateDoctrineCabinetNav();
     } catch (e) { /* ignore */ }
   }
+  function getLocalToken() {
+    try { return localStorage.getItem(LS_TOKEN) || ""; } catch (e) { return ""; }
+  }
+
+  var courseVideosMap = getCourseVideosMap();
+  fetch(FB_REST + "/cabinetCourseVideos.json")
+    .then(function (r) { return r.json(); })
+    .then(function (val) {
+      if (val && typeof val === "object") {
+        courseVideosMap = val;
+        setCourseVideosMap(val);
+        var u = getSessionUser();
+        if (u) renderMyCourses(u);
+      }
+    })
+    .catch(function () { /* ignore */ });
 
   function fetchUserByKey(key) {
     var local = readLocalDB();
     var localHit = (local.users && local.users[key]) || null;
-    if (!db) return Promise.resolve(localHit);
 
-    return new Promise(function (resolve) {
-      var done = false;
-      var timer = setTimeout(function () {
-        if (!done) { done = true; resolve(localHit); }
-      }, 4500);
-
-      db.ref("cabinetUsers/" + key).once("value", function (snap) {
-        var val = snap && snap.val();
-        if (val) {
-          clearTimeout(timer);
-          if (!done) { done = true; resolve(val); }
-          return;
-        }
-        // Check alias table (when user logs in with secondary phone/email)
-        db.ref("cabinetAliases/" + key).once("value", function (asnap) {
-          var targetUid = asnap && asnap.val();
-          if (!targetUid) {
-            clearTimeout(timer);
-            if (!done) { done = true; resolve(localHit); }
-            return;
-          }
-          db.ref("cabinetUsers/" + targetUid).once("value", function (usnap) {
-            clearTimeout(timer);
-            if (!done) { done = true; resolve((usnap && usnap.val()) || localHit); }
-          }, function () {
-            clearTimeout(timer);
-            if (!done) { done = true; resolve(localHit); }
+    return fetch(FB_REST + "/cabinetUsers/" + encodeURIComponent(key) + ".json")
+      .then(function (r) { return r.json(); })
+      .then(function (val) {
+        if (val && val.uid) return val;
+        return fetch(FB_REST + "/cabinetAliases/" + encodeURIComponent(key) + ".json")
+          .then(function (r2) { return r2.json(); })
+          .then(function (targetUid) {
+            if (!targetUid) return localHit;
+            return fetch(FB_REST + "/cabinetUsers/" + encodeURIComponent(targetUid) + ".json")
+              .then(function (r3) { return r3.json(); })
+              .then(function (uVal) { return (uVal && uVal.uid) ? uVal : localHit; });
           });
-        }, function () {
-          clearTimeout(timer);
-          if (!done) { done = true; resolve(localHit); }
-        });
-      }, function () {
-        clearTimeout(timer);
-        if (!done) { done = true; resolve(localHit); }
-      });
-    });
+      })
+      .catch(function () { return localHit; });
   }
 
-  function saveUserRecord(user) {
+  function saveUserRecord(user, newToken) {
     var local = readLocalDB();
     local.users = local.users || {};
     local.users[user.uid] = user;
@@ -230,24 +242,36 @@
       if (eId) local.users[eId.key] = user;
     }
     writeLocalDB(local);
-    setSessionUser(user);
+    setSessionUser(user, newToken);
 
-    if (!db) return Promise.resolve(user);
-    return new Promise(function (resolve) {
-      var timer = setTimeout(function () { resolve(user); }, 4000);
-      db.ref("cabinetUsers/" + user.uid).set(user, function () {
-        if (user.phone) {
-          var p = parseIdentifier(user.phone);
-          if (p && p.key !== user.uid) db.ref("cabinetAliases/" + p.key).set(user.uid);
-        }
-        if (user.email) {
-          var em = parseIdentifier(user.email);
-          if (em && em.key !== user.uid) db.ref("cabinetAliases/" + em.key).set(user.uid);
-        }
-        clearTimeout(timer);
-        resolve(user);
-      });
-    });
+    var reqs = [
+      fetch(FB_REST + "/cabinetUsers/" + encodeURIComponent(user.uid) + ".json", {
+        method: "PUT",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify(user)
+      }).catch(function () { return null; })
+    ];
+    if (user.phone) {
+      var p = parseIdentifier(user.phone);
+      if (p && p.key !== user.uid) {
+        reqs.push(fetch(FB_REST + "/cabinetAliases/" + encodeURIComponent(p.key) + ".json", {
+          method: "PUT",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(user.uid)
+        }).catch(function () { return null; }));
+      }
+    }
+    if (user.email) {
+      var em = parseIdentifier(user.email);
+      if (em && em.key !== user.uid) {
+        reqs.push(fetch(FB_REST + "/cabinetAliases/" + encodeURIComponent(em.key) + ".json", {
+          method: "PUT",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify(user.uid)
+        }).catch(function () { return null; }));
+      }
+    }
+    return Promise.all(reqs).then(function () { return user; });
   }
 
   // DOM elements
@@ -262,69 +286,26 @@
   var profMsg = document.getElementById("cabProfileMsg");
   var logoutBtn = document.getElementById("cabLogoutBtn");
   var myList = document.getElementById("cabMyCourses");
-  var availList = document.getElementById("cabAvailCourses");
   var userTitle = document.getElementById("cabUserGreeting");
   var userSub = document.getElementById("cabUserContact");
-  var dashNotice = document.getElementById("cabDashNotice");
 
-  var GFORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLScYw9nEO2795mUJKK9XbUweuwuwEyh7T97OE5DnzlL49QUw-w/formResponse";
+  // Player DOM
+  var playerPanel = document.getElementById("cabPlayerPanel");
+  var playerCourseTitle = document.getElementById("cabPlayerCourseTitle");
+  var playerLessonsBar = document.getElementById("cabPlayerLessons");
+  var playerStage = document.getElementById("cabPlayerStage");
+  var playerShield = document.getElementById("cabPlayerShield");
+  var watermarkEl = document.getElementById("cabWatermark");
+  var btnPlayPause = document.getElementById("cabBtnPlay");
+  var btnBack15 = document.getElementById("cabBtnBack15");
+  var btnFwd15 = document.getElementById("cabBtnFwd15");
+  var seekSlider = document.getElementById("cabSeekSlider");
+  var timeLabel = document.getElementById("cabTimeLabel");
+  var speedSelect = document.getElementById("cabSpeedSelect");
+  var btnFullscreen = document.getElementById("cabBtnFullscreen");
+  var btnClosePlayer = document.getElementById("cabClosePlayerBtn");
 
-  function mapCourseToGFormOption(courseTitleRu) {
-    var t = String(courseTitleRu || "").toLowerCase().replace(/ё/g, "е");
-    if (t.indexOf("клапан") !== -1) return 'Эхокардиография. Продвинутый уровень. «Клапаны под контролем" Октябрь, 45 тыс';
-    if (t.indexOf("холтер") !== -1 && t.indexOf("смад") !== -1) return "Как читать Холтер и СМАД, чтобы не ошибаться? Ноябрь, Онлайн 45 тыс";
-    if (t.indexOf("кардиоонкол") !== -1) return "Кардиоонкология онлайн 50 тыс. октябрь- 19, 21,  23";
-    if (t.indexOf("экг") !== -1) return "Электрокардиография (полный курс) 100 тыс тенге октябрь  на казахском/русском";
-    if (t.indexOf("гипертенз") !== -1 || t.indexOf("беремен") !== -1) return "Гипертензивные расстройства  и другие сердечно-сосудистые патологии во время беременности. 1 вебинар. 3 часа, 1.5 зачетных единиц  22 сентября, 17.00. Стоимость  20 тыс";
-    if (t.indexOf("qt") !== -1) return "Интервал QT  и ЛП.1 вебинар. 3 часа, 1.5 ЗЕ. по мере формирования групп Стоимость 15 тыс";
-    if (t.indexOf("женщин") !== -1) return "Сердечно сосудистое здоровье женщины в разные периоды жизни. 2 Вебинара. 6 часов, 3 зачетные единицы. Стоимость 25 тыс";
-    if (t.indexOf("экс") !== -1) return "Особенности Холтеровского мониторирования у пациентов с ЭКС, 30 тыс";
-    if (t.indexOf("с нуля") !== -1) return "ЭХОКГ с нуля для врача-клинициста,  40 тыс тенге (предзапись)";
-    if (t.indexOf("нагрузоч") !== -1) return "Нагрузочное тестирование в записи стоимость:30 тысяч тенге";
-    return 'Эхокардиография. Продвинутый уровень. «Клапаны под контролем" Октябрь, 45 тыс';
-  }
-
-  function submitGoogleForm(user, cat) {
-    try {
-      var ruTitle = (cat && cat.title && cat.title.ru) || (cat && cat.id) || "";
-      var datesStr = (cat && cat.dates && cat.dates.ru) || "";
-      var params = new URLSearchParams();
-      params.append("entry.879967369", user.name || "Врач (личный кабинет)");
-      params.append("entry.1929126407", "Личный кабинет");
-      params.append("entry.1550552032", "предпочитаю не указывать");
-      params.append("entry.1441737628", user.phone || user.email || "Не указан");
-      params.append("entry.2080135981", user.email || (user.phone ? user.phone + " (WhatsApp)" : "cabinet@doctrine.kz"));
-      params.append("entry.792610250", user.specialty || "Врач");
-      params.append("entry.567902859", "3-5 лет");
-      params.append("entry.1829931592", user.workplace || "Личный кабинет сайта");
-      params.append("entry.1272487501", user.city || "Казахстан");
-      params.append("entry.108758175", mapCourseToGFormOption(ruTitle));
-      params.append("entry.1303695089", "Сайт");
-      params.append("entry.843712369", "Я даю согласие на обработку моих персональных данных в соответствии с законодательством РК");
-      params.append("entry.970047895", "Ознакомлен (а)");
-      params.append("entry.1941425607", "Заявка в 1 клик из личного кабинета Doctrine: " + ruTitle + (datesStr ? " (" + datesStr + ")" : "") + (cat && cat.price ? ", " + cat.price : ""));
-      params.append("fvv", "1");
-      params.append("pageHistory", "0");
-
-      return fetch(GFORM_ACTION, {
-        method: "POST",
-        mode: "no-cors",
-        headers: {"Content-Type": "application/x-www-form-urlencoded"},
-        body: params.toString()
-      }).catch(function () { return null; });
-    } catch (e) {
-      return Promise.resolve(null);
-    }
-  }
-
-  function showDashNotice(text) {
-    if (!dashNotice) return;
-    dashNotice.textContent = text || "";
-    dashNotice.hidden = !text;
-    if (text) {
-      setTimeout(function () { dashNotice.hidden = true; }, 6500);
-    }
-  }
+  var catalogAll = window.DOCTRINE_CABINET_ITEMS || [];
 
   function showAuthMsg(text, isOk) {
     if (!authMsg) return;
@@ -345,14 +326,234 @@
   if (tabLogin) tabLogin.addEventListener("click", function () { switchTab("login"); });
   if (tabReg) tabReg.addEventListener("click", function () { switchTab("register"); });
 
-  var catalogAll = window.DOCTRINE_CABINET_ITEMS || [];
-  var nowD = new Date();
-  var todayTs = nowD.getFullYear() * 10000 + (nowD.getMonth() + 1) * 100 + nowD.getDate();
-  var catalog = catalogAll.filter(function (c) {
-    if (c.open) return true;
-    var ts = parseInt(c.ts || "0", 10);
-    return !ts || ts >= todayTs;
-  });
+  // ================= PROTECTED YOUTUBE PLAYER =================
+  var ytPlayer = null;
+  var ytApiReady = false;
+  var pendingVideoId = "";
+  var progressTimer = null;
+  var watermarkTimer = null;
+
+  function fmtSec(sec) {
+    var s = Math.max(0, Math.floor(sec || 0));
+    var h = Math.floor(s / 3600);
+    var m = Math.floor((s % 3600) / 60);
+    var rem = s % 60;
+    var mm = String(m).padStart(2, "0");
+    var ss = String(rem).padStart(2, "0");
+    return h > 0 ? (h + ":" + mm + ":" + ss) : (mm + ":" + ss);
+  }
+
+  var WM_POSITIONS = [
+    { top: "12%", left: "6%" },
+    { top: "18%", left: "24%" },
+    { top: "68%", left: "8%" },
+    { top: "62%", left: "22%" },
+    { top: "38%", left: "14%" }
+  ];
+  var wmIdx = 0;
+
+  function updateWatermark(user) {
+    if (!watermarkEl || !user) return;
+    var label = (user.name || "Врач") + " · " + (user.phone || user.email || user.uid) + " · Doctrine.kz";
+    watermarkEl.textContent = label;
+    var pos = WM_POSITIONS[wmIdx % WM_POSITIONS.length];
+    wmIdx++;
+    watermarkEl.style.top = pos.top;
+    watermarkEl.style.left = pos.left;
+  }
+
+  function startWatermarkLoop(user) {
+    if (watermarkTimer) clearInterval(watermarkTimer);
+    updateWatermark(user);
+    watermarkTimer = setInterval(function () {
+      updateWatermark(user);
+    }, 12000);
+  }
+
+  function stopPlayer() {
+    if (progressTimer) { clearInterval(progressTimer); progressTimer = null; }
+    if (watermarkTimer) { clearInterval(watermarkTimer); watermarkTimer = null; }
+    if (ytPlayer && ytPlayer.stopVideo) {
+      try { ytPlayer.stopVideo(); } catch (e) { /* ignore */ }
+    }
+    if (playerPanel) playerPanel.hidden = true;
+  }
+
+  function startProgressLoop() {
+    if (progressTimer) clearInterval(progressTimer);
+    progressTimer = setInterval(function () {
+      if (!ytPlayer || !ytPlayer.getCurrentTime || !ytPlayer.getDuration) return;
+      var cur = ytPlayer.getCurrentTime() || 0;
+      var dur = ytPlayer.getDuration() || 0;
+      if (seekSlider && dur > 0) {
+        seekSlider.value = String(Math.round((cur / dur) * 1000));
+      }
+      if (timeLabel) {
+        timeLabel.textContent = fmtSec(cur) + " / " + fmtSec(dur);
+      }
+    }, 500);
+  }
+
+  function ensureYouTubeApi(cb) {
+    if (window.YT && window.YT.Player) {
+      ytApiReady = true;
+      cb();
+      return;
+    }
+    var prev = window.onYouTubeIframeAPIReady;
+    window.onYouTubeIframeAPIReady = function () {
+      ytApiReady = true;
+      if (prev) prev();
+      cb();
+    };
+    if (!document.getElementById("doctrineYtApiScript")) {
+      var tag = document.createElement("script");
+      tag.id = "doctrineYtApiScript";
+      tag.src = "https://www.youtube.com/iframe_api";
+      document.head.appendChild(tag);
+    }
+  }
+
+  function loadVideoById(videoId, user) {
+    if (!videoId) return;
+    pendingVideoId = videoId;
+    startWatermarkLoop(user);
+
+    ensureYouTubeApi(function () {
+      if (ytPlayer && ytPlayer.loadVideoById) {
+        ytPlayer.loadVideoById(pendingVideoId);
+        startProgressLoop();
+        return;
+      }
+      ytPlayer = new window.YT.Player("cabYtMount", {
+        host: "https://www.youtube-nocookie.com",
+        videoId: pendingVideoId,
+        playerVars: {
+          autoplay: 1,
+          controls: 0,
+          rel: 0,
+          modestbranding: 1,
+          disablekb: 1,
+          fs: 0,
+          iv_load_policy: 3,
+          playsinline: 1,
+          origin: window.location.origin
+        },
+        events: {
+          onReady: function () {
+            startProgressLoop();
+          },
+          onStateChange: function (ev) {
+            if (!btnPlayPause) return;
+            var playing = (ev.data === window.YT.PlayerState.PLAYING);
+            btnPlayPause.textContent = playing ? "❚❚" : "▶";
+          }
+        }
+      });
+    });
+  }
+
+  function togglePlayPause() {
+    if (!ytPlayer || !ytPlayer.getPlayerState) return;
+    var st = ytPlayer.getPlayerState();
+    if (st === 1) ytPlayer.pauseVideo();
+    else ytPlayer.playVideo();
+  }
+
+  if (playerShield) {
+    playerShield.addEventListener("click", togglePlayPause);
+    playerShield.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+  }
+  if (playerStage) {
+    playerStage.addEventListener("contextmenu", function (e) { e.preventDefault(); });
+  }
+  if (btnPlayPause) {
+    btnPlayPause.addEventListener("click", togglePlayPause);
+  }
+  if (btnBack15) {
+    btnBack15.addEventListener("click", function () {
+      if (!ytPlayer || !ytPlayer.getCurrentTime) return;
+      ytPlayer.seekTo(Math.max(0, ytPlayer.getCurrentTime() - 15), true);
+    });
+  }
+  if (btnFwd15) {
+    btnFwd15.addEventListener("click", function () {
+      if (!ytPlayer || !ytPlayer.getCurrentTime) return;
+      ytPlayer.seekTo(ytPlayer.getCurrentTime() + 15, true);
+    });
+  }
+  if (seekSlider) {
+    seekSlider.addEventListener("input", function () {
+      if (!ytPlayer || !ytPlayer.getDuration) return;
+      var dur = ytPlayer.getDuration() || 0;
+      if (dur > 0) {
+        var target = (parseFloat(seekSlider.value) / 1000) * dur;
+        ytPlayer.seekTo(target, true);
+      }
+    });
+  }
+  if (speedSelect) {
+    speedSelect.addEventListener("change", function () {
+      if (!ytPlayer || !ytPlayer.setPlaybackRate) return;
+      ytPlayer.setPlaybackRate(parseFloat(speedSelect.value) || 1);
+    });
+  }
+  if (btnFullscreen && playerStage) {
+    btnFullscreen.addEventListener("click", function () {
+      if (document.fullscreenElement || document.webkitFullscreenElement) {
+        if (document.exitFullscreen) document.exitFullscreen();
+        else if (document.webkitExitFullscreen) document.webkitExitFullscreen();
+      } else {
+        if (playerStage.requestFullscreen) playerStage.requestFullscreen();
+        else if (playerStage.webkitRequestFullscreen) playerStage.webkitRequestFullscreen();
+      }
+    });
+  }
+  if (btnClosePlayer) {
+    btnClosePlayer.addEventListener("click", stopPlayer);
+  }
+
+  function openCoursePlayer(user, cid, courseTitle, lessons) {
+    if (!playerPanel || !lessons || !lessons.length) return;
+    // Verify single-device session before playing
+    verifySingleDeviceSession(user).then(function (valid) {
+      if (!valid) return;
+      playerPanel.hidden = false;
+      if (playerCourseTitle) playerCourseTitle.textContent = courseTitle;
+      if (playerLessonsBar) {
+        if (lessons.length > 1) {
+          playerLessonsBar.hidden = false;
+          playerLessonsBar.innerHTML = lessons.map(function (ls, idx) {
+            var lbl = ls.title || (L.lessonWord + " " + (idx + 1));
+            return '<button type="button" class="cab-lesson-btn' + (idx === 0 ? " active" : "") + '" data-lesson-idx="' + idx + '">' + esc(lbl) + "</button>";
+          }).join("");
+          playerLessonsBar.querySelectorAll("[data-lesson-idx]").forEach(function (b) {
+            b.addEventListener("click", function () {
+              var i = parseInt(b.getAttribute("data-lesson-idx"), 10) || 0;
+              playerLessonsBar.querySelectorAll(".cab-lesson-btn").forEach(function (x) { x.classList.remove("active"); });
+              b.classList.add("active");
+              loadVideoById(decodeYtId(lessons[i].ytId), user);
+            });
+          });
+        } else {
+          playerLessonsBar.hidden = true;
+          playerLessonsBar.innerHTML = "";
+        }
+      }
+      playerPanel.scrollIntoView({ behavior: "smooth", block: "start" });
+      loadVideoById(decodeYtId(lessons[0].ytId), user);
+    });
+  }
+
+  function getLessonsForCourse(cid, item) {
+    var list = [];
+    if (item && Array.isArray(item.lessons) && item.lessons.length) {
+      list = item.lessons;
+    } else if (courseVideosMap[cid] && Array.isArray(courseVideosMap[cid].lessons)) {
+      list = courseVideosMap[cid].lessons;
+    }
+    return list.filter(function (x) { return x && x.ytId; });
+  }
 
   function renderMyCourses(user) {
     if (!myList) return;
@@ -365,122 +566,108 @@
     keys.sort(function (a, b) {
       return ((map[b] && map[b].createdAt) || 0) - ((map[a] && map[a].createdAt) || 0);
     });
+    var nowMs = Date.now();
     myList.innerHTML = keys.map(function (cid) {
       var item = map[cid];
-      var cat = catalog.find(function (x) { return x.id === cid; }) || {};
+      var cat = catalogAll.find(function (x) { return x.id === cid; }) || {};
       var title = (cat.title && (cat.title[lang] || cat.title.ru)) || item.title || cid;
       var dates = (cat.dates && (cat.dates[lang] || cat.dates.ru)) || item.dates || "";
       var fmt = cat.format || item.format || "online";
-      var fmtLabel = fmt === "conf" ? L.confBadge : (fmt === "offline" ? L.offline : L.online);
-      var statusLabel = item.status === "confirmed" ? L.statusConfirmed
-        : (item.status === "done" ? L.statusDone : L.statusApplied);
-      var statusCls = item.status === "confirmed" ? "st-confirmed" : "st-applied";
+      var fmtLabel = fmt === "offline" ? L.offline : L.online;
+
+      var isExpired = !!(item.expiresAt && nowMs > item.expiresAt);
+      var isUnlocked = (item.status === "paid" || item.status === "confirmed" || item.status === "completed") && !isExpired;
+      var lessons = getLessonsForCourse(cid, item);
+
+      var statusLabel = isExpired ? L.statusExpired : (isUnlocked ? L.statusOpen : L.statusApplied);
+      var statusCls = isUnlocked ? "st-confirmed" : "st-applied";
+
+      var expStr = "";
+      if (item.expiresAt) {
+        var ed = new Date(item.expiresAt);
+        if (!isNaN(ed.getTime())) expStr = L.untilLbl + ed.toLocaleDateString("ru-RU");
+      }
+
       var waText = L.waMsgPrefix + title + L.waMsgMid + (user.name || "")
         + (user.phone ? L.waMsgPhone + user.phone : "");
       var waHref = WA_BASE + "?text=" + encodeURIComponent(waText);
-      var extraLinks = "";
-      if (item.materialUrl) {
-        extraLinks += '<a class="btn btn-primary btn-sm" href="' + esc(item.materialUrl) + '" target="_blank" rel="noopener">' + esc(L.materialBtn) + "</a>";
+
+      var actionBtns = "";
+      if (isUnlocked && lessons.length) {
+        actionBtns += '<button type="button" class="btn btn-primary btn-sm" data-watch-cid="' + esc(cid) + '">' + esc(L.watchBtn) + (lessons.length > 1 ? " (" + lessons.length + ")" : "") + "</button>";
       }
-      if (item.certUrl) {
-        extraLinks += '<a class="btn btn-ghost btn-sm" href="' + esc(item.certUrl) + '" target="_blank" rel="noopener">' + esc(L.certBtn) + "</a>";
+      if (isUnlocked && item.certUrl) {
+        actionBtns += '<a class="btn btn-ghost btn-sm" href="' + esc(item.certUrl) + '" target="_blank" rel="noopener">' + esc(L.certBtn) + "</a>";
       }
-      return '<div class="cab-course-item">'
+      actionBtns += '<a class="btn btn-ghost btn-sm" href="' + esc(waHref) + '" target="_blank" rel="noopener">' + esc(L.waConfirm) + "</a>";
+
+      return '<div class="cab-course-item' + (isUnlocked ? " is-paid" : "") + '">'
         + '<div class="cab-course-top">'
         + '<div class="badges"><span class="badge format">' + esc(fmtLabel) + '</span>'
-        + '<span class="badge cab-status ' + statusCls + '">' + esc(statusLabel) + "</span></div>"
-        + '<button type="button" class="cab-cancel-btn" data-cancel-id="' + esc(cid) + '">' + esc(L.cancelEnroll) + "</button>"
-        + "</div>"
+        + '<span class="badge cab-status ' + statusCls + '">' + esc(statusLabel) + "</span>"
+        + (expStr ? '<span class="badge hours">' + esc(expStr) + "</span>" : "")
+        + "</div></div>"
         + "<h4>" + esc(title) + "</h4>"
         + (dates ? '<div class="meta">' + esc(dates) + "</div>" : "")
-        + '<div class="cab-course-actions">'
-        + extraLinks
-        + '<a class="btn btn-ghost btn-sm" href="' + esc(waHref) + '" target="_blank" rel="noopener">' + esc(L.waConfirm) + "</a>"
-        + "</div></div>";
+        + '<div class="cab-course-actions">' + actionBtns + "</div></div>";
     }).join("");
 
-    myList.querySelectorAll("[data-cancel-id]").forEach(function (btn) {
+    myList.querySelectorAll("[data-watch-cid]").forEach(function (btn) {
       btn.addEventListener("click", function () {
-        var cid = btn.getAttribute("data-cancel-id");
+        var cid = btn.getAttribute("data-watch-cid");
         var u = getSessionUser();
         if (!u || !u.enrollments || !u.enrollments[cid]) return;
-        delete u.enrollments[cid];
-        saveUserRecord(u).then(function () {
-          renderMyCourses(u);
-          renderAvailCourses(u);
-        });
+        var item = u.enrollments[cid];
+        var cat = catalogAll.find(function (x) { return x.id === cid; }) || {};
+        var title = (cat.title && (cat.title[lang] || cat.title.ru)) || item.title || cid;
+        var lessons = getLessonsForCourse(cid, item);
+        openCoursePlayer(u, cid, title, lessons);
       });
     });
   }
 
-  function renderAvailCourses(user) {
-    if (!availList) return;
-    var enrolledMap = (user && user.enrollments) || {};
-    availList.innerHTML = catalog.map(function (c) {
-      var title = (c.title && (c.title[lang] || c.title.ru)) || "";
-      var dates = (c.dates && (c.dates[lang] || c.dates.ru)) || "";
-      var price = c.price || "";
-      var isConf = c.format === "conf";
-      var badge = isConf
-        ? '<span class="badge conf-badge">' + esc(L.confBadge) + '</span><span class="badge format fmt-hybrid">' + esc(L.hybrid) + "</span>"
-        : '<span class="badge format ' + (c.format === "offline" ? "fmt-offline" : "fmt-online") + '">' + esc(c.format === "offline" ? L.offline : L.online) + "</span>"
-          + (c.hours ? '<span class="badge hours">' + esc(c.hours) + "</span>" : "");
-      var isEnrolled = !!enrolledMap[c.id];
-      var btnCls = isEnrolled ? "btn btn-ghost btn-sm is-enrolled" : "btn btn-primary btn-sm";
-      var btnTxt = isEnrolled ? L.enrolledBtn : L.enroll1Click;
-      return '<div class="cab-avail-card' + (isConf ? " is-conf" : "") + '">'
-        + '<div class="badges">' + badge + "</div>"
-        + "<h4>" + esc(title) + "</h4>"
-        + (dates ? '<div class="meta">' + esc(dates) + "</div>" : "")
-        + '<div class="cab-avail-foot">'
-        + '<span class="cab-avail-price">' + esc(price) + "</span>"
-        + '<button type="button" class="' + btnCls + '" data-enroll-id="' + esc(c.id) + '"' + (isEnrolled ? " disabled" : "") + ">" + esc(btnTxt) + "</button>"
-        + "</div></div>";
-    }).join("");
-
-    availList.querySelectorAll("[data-enroll-id]").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        var cid = btn.getAttribute("data-enroll-id");
-        var u = getSessionUser();
-        if (!u) return;
-        var cat = catalog.find(function (x) { return x.id === cid; });
-        if (!cat) return;
-        u.enrollments = u.enrollments || {};
-        var cTitle = (cat.title && (cat.title[lang] || cat.title.ru)) || cid;
-        var cDates = (cat.dates && (cat.dates[lang] || cat.dates.ru)) || "";
-        u.enrollments[cid] = {
-          courseId: cid,
-          title: cTitle,
-          dates: cDates,
-          format: cat.format || "online",
-          status: "applied",
-          createdAt: Date.now()
-        };
-        if (db) {
-          db.ref("cabinetApplications").push({
-            uid: u.uid,
-            name: u.name || "",
-            phone: u.phone || "",
-            email: u.email || "",
-            specialty: u.specialty || "",
-            city: u.city || "",
-            courseId: cid,
-            courseTitle: (cat.title && cat.title.ru) || cTitle,
-            createdAt: Date.now()
-          });
+  // Single-device check against cloud
+  function verifySingleDeviceSession(user) {
+    if (!user || !user.uid) return Promise.resolve(false);
+    var myToken = getLocalToken();
+    return fetch(FB_REST + "/cabinetUsers/" + encodeURIComponent(user.uid) + ".json")
+      .then(function (r) { return r.json(); })
+      .then(function (remote) {
+        if (!remote || !remote.uid) return true;
+        if (remote.sessionToken && myToken && remote.sessionToken !== myToken) {
+          stopPlayer();
+          setSessionUser(null);
+          renderDashboard(null);
+          showAuthMsg(L.errOtherDevice, false);
+          return false;
         }
-        submitGoogleForm(u, cat);
-        saveUserRecord(u).then(function () {
-          showDashNotice(L.enrolledToast);
-          renderMyCourses(u);
-          renderAvailCourses(u);
-        });
-      });
-    });
+        // Also sync any new courses/videos unlocked by coordinator
+        if ((remote.updatedAt || 0) >= (user.updatedAt || 0)) {
+          var local = readLocalDB();
+          local.users = local.users || {};
+          local.users[remote.uid] = remote;
+          writeLocalDB(local);
+          setSessionUser(remote, myToken || remote.sessionToken);
+          renderMyCourses(remote);
+        }
+        return true;
+      })
+      .catch(function () { return true; });
+  }
+
+  var sessionGuardTimer = null;
+  function startSessionGuard() {
+    if (sessionGuardTimer) clearInterval(sessionGuardTimer);
+    sessionGuardTimer = setInterval(function () {
+      var u = getSessionUser();
+      if (u && u.uid) verifySingleDeviceSession(u);
+    }, 15000);
   }
 
   function renderDashboard(user) {
     if (!user) {
+      stopPlayer();
+      if (sessionGuardTimer) { clearInterval(sessionGuardTimer); sessionGuardTimer = null; }
       if (authView) authView.hidden = false;
       if (dashView) dashView.hidden = true;
       return;
@@ -505,19 +692,8 @@
       profForm.elements.workplace.value = user.workplace || "";
     }
     renderMyCourses(user);
-    renderAvailCourses(user);
-
-    // Refresh user from cloud in background if available
-    if (db && user.uid) {
-      db.ref("cabinetUsers/" + user.uid).once("value", function (snap) {
-        var remote = snap && snap.val();
-        if (remote && (remote.updatedAt || 0) > (user.updatedAt || 0)) {
-          setSessionUser(remote);
-          renderMyCourses(remote);
-          renderAvailCourses(remote);
-        }
-      });
-    }
+    verifySingleDeviceSession(user);
+    startSessionGuard();
   }
 
   // Registration submit
@@ -553,6 +729,7 @@
           return;
         }
         hashPassword(pass).then(function (passHash) {
+          var token = generateSessionToken();
           var newUser = {
             uid: parsed.key,
             name: name.slice(0, 100),
@@ -562,11 +739,12 @@
             city: city.slice(0, 60),
             workplace: "",
             passHash: passHash,
+            sessionToken: token,
             enrollments: {},
             createdAt: Date.now(),
             updatedAt: Date.now()
           };
-          saveUserRecord(newUser).then(function (u) {
+          saveUserRecord(newUser, token).then(function (u) {
             formReg.reset();
             renderDashboard(u);
           });
@@ -597,9 +775,13 @@
           showAuthMsg(L.errWrongPass);
           return;
         }
-        setSessionUser(user);
-        formLogin.reset();
-        renderDashboard(user);
+        var token = generateSessionToken();
+        user.sessionToken = token;
+        user.updatedAt = Date.now();
+        saveUserRecord(user, token).then(function (saved) {
+          formLogin.reset();
+          renderDashboard(saved);
+        });
       });
     });
   }
@@ -625,7 +807,7 @@
       u.workplace = (profForm.elements.workplace.value || "").trim().slice(0, 120);
       u.updatedAt = Date.now();
 
-      saveUserRecord(u).then(function (saved) {
+      saveUserRecord(u, getLocalToken()).then(function (saved) {
         renderDashboard(saved);
         if (profMsg) {
           profMsg.textContent = L.saved;
@@ -639,12 +821,12 @@
   // Logout
   if (logoutBtn) {
     logoutBtn.addEventListener("click", function () {
+      stopPlayer();
       setSessionUser(null);
       renderDashboard(null);
       switchTab("login");
     });
   }
 
-  // Initial state
   renderDashboard(getSessionUser());
 })();
