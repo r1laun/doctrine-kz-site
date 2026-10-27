@@ -926,17 +926,6 @@ CAB_L = {
 
 def cabinet_catalog_items():
     items = []
-    if CONF:
-        items.append({
-            "id": CONF["id"],
-            "title": CONF["title"],
-            "dates": {l: f'{cval("date_short", l)} · {cval("venue", l)}' for l in LANGS},
-            "price": "",
-            "hours": "",
-            "format": "conf",
-            "ts": CONF["date"].replace("-", ""),
-            "open": False,
-        })
     for c in COURSES:
         if c.get("archived"):
             continue
@@ -1018,6 +1007,7 @@ def page_cabinet(lang):
 </div>
 
 <div class="cab-dash" id="cabDashView" hidden>
+<div id="cabDashNotice" class="cab-alert is-ok" hidden></div>
 <div class="cab-dash-bar">
 <div>
 <h2 id="cabUserGreeting">—</h2>

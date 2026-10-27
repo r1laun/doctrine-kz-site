@@ -14,8 +14,8 @@
       errNotFound: "Аккаунт не найден. Проверьте номер/почту или зарегистрируйтесь.",
       errWrongPass: "Неверный пароль. Попробуйте ещё раз.",
       saved: "Профиль сохранён ✓",
-      enrolledToast: "Заявка добавлена в «Мои курсы и заявки» ✓",
-      statusApplied: "Заявка принята",
+      enrolledToast: "Заявка отправлена в Google Form и добавлена в «Мои курсы и заявки» ✓ Мы свяжемся с вами для консультации и оплаты.",
+      statusApplied: "Заявка отправлена",
       statusConfirmed: "Подтверждено",
       statusDone: "Завершён",
       enroll1Click: "Записаться в 1 клик",
@@ -41,8 +41,8 @@
       errNotFound: "Аккаунт табылмады. Нөмірді/поштаны тексеріңіз немесе тіркеліңіз.",
       errWrongPass: "Құпиясөз қате. Қайтадан көріңіз.",
       saved: "Профиль сақталды ✓",
-      enrolledToast: "Өтінім «Менің курстарым» бөліміне қосылды ✓",
-      statusApplied: "Өтінім қабылданды",
+      enrolledToast: "Өтінім Google Form-ға жіберілді және «Менің курстарым» бөліміне қосылды ✓ Кеңес алу және төлем бойынша хабарласамыз.",
+      statusApplied: "Өтінім жіберілді",
       statusConfirmed: "Расталды",
       statusDone: "Аяқталды",
       enroll1Click: "1 басумен жазылу",
@@ -68,8 +68,8 @@
       errNotFound: "Account not found. Check your phone/email or register a new account.",
       errWrongPass: "Incorrect password. Please try again.",
       saved: "Profile saved ✓",
-      enrolledToast: "Added to “My courses & applications” ✓",
-      statusApplied: "Application received",
+      enrolledToast: "Application submitted to Google Form and added to “My courses” ✓ We will contact you regarding consultation and payment.",
+      statusApplied: "Application sent",
       statusConfirmed: "Confirmed",
       statusDone: "Completed",
       enroll1Click: "1-click enroll",
@@ -265,6 +265,66 @@
   var availList = document.getElementById("cabAvailCourses");
   var userTitle = document.getElementById("cabUserGreeting");
   var userSub = document.getElementById("cabUserContact");
+  var dashNotice = document.getElementById("cabDashNotice");
+
+  var GFORM_ACTION = "https://docs.google.com/forms/d/e/1FAIpQLScYw9nEO2795mUJKK9XbUweuwuwEyh7T97OE5DnzlL49QUw-w/formResponse";
+
+  function mapCourseToGFormOption(courseTitleRu) {
+    var t = String(courseTitleRu || "").toLowerCase().replace(/ё/g, "е");
+    if (t.indexOf("клапан") !== -1) return 'Эхокардиография. Продвинутый уровень. «Клапаны под контролем" Октябрь, 45 тыс';
+    if (t.indexOf("холтер") !== -1 && t.indexOf("смад") !== -1) return "Как читать Холтер и СМАД, чтобы не ошибаться? Ноябрь, Онлайн 45 тыс";
+    if (t.indexOf("кардиоонкол") !== -1) return "Кардиоонкология онлайн 50 тыс. октябрь- 19, 21,  23";
+    if (t.indexOf("экг") !== -1) return "Электрокардиография (полный курс) 100 тыс тенге октябрь  на казахском/русском";
+    if (t.indexOf("гипертенз") !== -1 || t.indexOf("беремен") !== -1) return "Гипертензивные расстройства  и другие сердечно-сосудистые патологии во время беременности. 1 вебинар. 3 часа, 1.5 зачетных единиц  22 сентября, 17.00. Стоимость  20 тыс";
+    if (t.indexOf("qt") !== -1) return "Интервал QT  и ЛП.1 вебинар. 3 часа, 1.5 ЗЕ. по мере формирования групп Стоимость 15 тыс";
+    if (t.indexOf("женщин") !== -1) return "Сердечно сосудистое здоровье женщины в разные периоды жизни. 2 Вебинара. 6 часов, 3 зачетные единицы. Стоимость 25 тыс";
+    if (t.indexOf("экс") !== -1) return "Особенности Холтеровского мониторирования у пациентов с ЭКС, 30 тыс";
+    if (t.indexOf("с нуля") !== -1) return "ЭХОКГ с нуля для врача-клинициста,  40 тыс тенге (предзапись)";
+    if (t.indexOf("нагрузоч") !== -1) return "Нагрузочное тестирование в записи стоимость:30 тысяч тенге";
+    return 'Эхокардиография. Продвинутый уровень. «Клапаны под контролем" Октябрь, 45 тыс';
+  }
+
+  function submitGoogleForm(user, cat) {
+    try {
+      var ruTitle = (cat && cat.title && cat.title.ru) || (cat && cat.id) || "";
+      var datesStr = (cat && cat.dates && cat.dates.ru) || "";
+      var params = new URLSearchParams();
+      params.append("entry.879967369", user.name || "Врач (личный кабинет)");
+      params.append("entry.1929126407", "Личный кабинет");
+      params.append("entry.1550552032", "предпочитаю не указывать");
+      params.append("entry.1441737628", user.phone || user.email || "Не указан");
+      params.append("entry.2080135981", user.email || (user.phone ? user.phone + " (WhatsApp)" : "cabinet@doctrine.kz"));
+      params.append("entry.792610250", user.specialty || "Врач");
+      params.append("entry.567902859", "3-5 лет");
+      params.append("entry.1829931592", user.workplace || "Личный кабинет сайта");
+      params.append("entry.1272487501", user.city || "Казахстан");
+      params.append("entry.108758175", mapCourseToGFormOption(ruTitle));
+      params.append("entry.1303695089", "Сайт");
+      params.append("entry.843712369", "Я даю согласие на обработку моих персональных данных в соответствии с законодательством РК");
+      params.append("entry.970047895", "Ознакомлен (а)");
+      params.append("entry.1941425607", "Заявка в 1 клик из личного кабинета Doctrine: " + ruTitle + (datesStr ? " (" + datesStr + ")" : "") + (cat && cat.price ? ", " + cat.price : ""));
+      params.append("fvv", "1");
+      params.append("pageHistory", "0");
+
+      return fetch(GFORM_ACTION, {
+        method: "POST",
+        mode: "no-cors",
+        headers: {"Content-Type": "application/x-www-form-urlencoded"},
+        body: params.toString()
+      }).catch(function () { return null; });
+    } catch (e) {
+      return Promise.resolve(null);
+    }
+  }
+
+  function showDashNotice(text) {
+    if (!dashNotice) return;
+    dashNotice.textContent = text || "";
+    dashNotice.hidden = !text;
+    if (text) {
+      setTimeout(function () { dashNotice.hidden = true; }, 6500);
+    }
+  }
 
   function showAuthMsg(text, isOk) {
     if (!authMsg) return;
@@ -409,7 +469,9 @@
             createdAt: Date.now()
           });
         }
+        submitGoogleForm(u, cat);
         saveUserRecord(u).then(function () {
+          showDashNotice(L.enrolledToast);
           renderMyCourses(u);
           renderAvailCourses(u);
         });
