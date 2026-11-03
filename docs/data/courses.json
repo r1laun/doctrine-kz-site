@@ -1,5 +1,81 @@
 [
  {
+  "id": "К024",
+  "slug": "ehokg-klapany-pod-kontrolem",
+  "title": {
+   "ru": "ЭхоКГ «Клапаны под контролем»",
+   "kk": "ЭхоКГ «Қақпақшалар бақылауда»",
+   "en": "EchoCG 'Valves under control'"
+  },
+  "format": "online",
+  "cover": "zaglushka",
+  "latest": "2026-11-28",
+  "open": false,
+  "sessions": [
+   {
+    "sid": "Н026",
+    "kind": "Обычный",
+    "title": {
+     "ru": "ЭхоКГ «Клапаны под контролем»",
+     "kk": "ЭхоКГ «Қақпақшалар бақылауда»",
+     "en": "EchoCG 'Valves under control'"
+    },
+    "desc": {
+     "ru": "Основы оценки клапанной патологии в ЭхоКГ:\nанатомия, нормальные значения, методика;\nГемодинамика и градиенты:\nчто важно измерять и почему;\nАортальный клапан:\nстеноз, регургитация, SVD, тромбоз, эндокардит;\nМитральный клапан:\nстеноз, регургитация, SVD, PPM, PVL;\nДисфункция искусственных клапанов:\nструктурная и неструктурная, критерии ESC/EACTS 2025, тромбоз, РРМ, эндокардит, PVL;\nКоличественная оценка:\nEOA, DVI, PISA, EROA, vena contracta, PHT и др.;\nСложные случаи и дифференциальная диагностика:\nмикс-поражения, низкий поток/низкий градиенту и др.;\nГемодинамические последствия и сопутствующие состояния:\nРНТ, ремоделирование камер, ЛП, ЛЖ;\nПрактические разборы и клинические кейсы:\nинтерактив, разбор протоколов Эхокг;",
+     "kk": "Қақпақша патологиясын ЭхоКГ арқылы бағалау негіздері:\nанатомия, қалыпты мәндер, әдістеме;\nГемодинамика және градиенттер:\nнені өлшеу маңызды және неге;\nҚолқа қақпақшасы:\nстеноз, регургитация, SVD, тромбоз, эндокардит;\nМитральды қақпақша:\nстеноз, регургитация, SVD, PPM, PVL;\nЖасанды қақпақшалар дисфункциясы:\nқұрылымдық және құрылымдық емес, ESC/EACTS 2025 критерийлері, тромбоз, PPM, эндокардит, PVL;\nСандық бағалау:\nEOA, DVI, PISA, EROA, vena contracta, PHT және т.б.;\nКүрделі жағдайлар және дифференциалды диагностика:\nаралас зақымданулар, төмен ағын/төмен градиент және т.б.;\nГемодинамикалық салдарлар және қосалқы жағдайлар:\nӨГ, камералардың ремодельденуі, СЖ, СҚ;\nТәжірибелік талдаулар және клиникалық кейстер:\nинтерактив, ЭхоКГ хаттамаларын талдау;",
+     "en": "Basics of valvular pathology assessment in echocardiography:\nanatomy, normal values, methodology;\nHemodynamics and gradients:\nwhat is important to measure and why;\nAortic valve:\nstenosis, regurgitation, SVD, thrombosis, endocarditis;\nMitral valve:\nstenosis, regurgitation, SVD, PPM, PVL;\nProsthetic valve dysfunction:\nstructural and non-structural, ESC/EACTS 2025 criteria, thrombosis, PPM, endocarditis, PVL;\nQuantitative assessment:\nEOA, DVI, PISA, EROA, vena contracta, PHT, etc.;\nComplex cases and differential diagnosis:\nmixed lesions, low flow/low gradient, etc.;\nHemodynamic consequences and associated conditions:\nPH, chamber remodeling, LA, LV;\nPractical reviews and clinical cases:\ninteractive session, analysis of echocardiography protocols;"
+    },
+    "teacher": "Дилафруз Муратжановна",
+    "hours": "10 ч. (5 ЗЕ)",
+    "dates": "10.11.2026 - 19:00",
+    "price": "45 000KZT",
+    "module_price": "",
+    "month": "Ноябрь"
+   },
+   {
+    "sid": "Н027",
+    "kind": "Обычный",
+    "title": {
+     "ru": "ЭхоКГ «Клапаны под контролем»",
+     "kk": "ЭхоКГ «Қақпақшалар бақылауда»",
+     "en": "EchoCG 'Valves under control'"
+    },
+    "desc": {
+     "ru": "Основы оценки клапанной патологии в ЭхоКГ:\nанатомия, нормальные значения, методика;\nГемодинамика и градиенты:\nчто важно измерять и почему;\nАортальный клапан:\nстеноз, регургитация, SVD, тромбоз, эндокардит;\nМитральный клапан:\nстеноз, регургитация, SVD, PPM, PVL;\nДисфункция искусственных клапанов:\nструктурная и неструктурная, критерии ESC/EACTS 2025, тромбоз, РРМ, эндокардит, PVL;\nКоличественная оценка:\nEOA, DVI, PISA, EROA, vena contracta, PHT и др.;\nСложные случаи и дифференциальная диагностика:\nмикс-поражения, низкий поток/низкий градиенту и др.;\nГемодинамические последствия и сопутствующие состояния:\nРНТ, ремоделирование камер, ЛП, ЛЖ;\nПрактические разборы и клинические кейсы:\nинтерактив, разбор протоколов Эхокг;",
+     "kk": "Қақпақша патологиясын ЭхоКГ арқылы бағалау негіздері:\nанатомия, қалыпты мәндер, әдістеме;\nГемодинамика және градиенттер:\nнені өлшеу маңызды және неге;\nҚолқа қақпақшасы:\nстеноз, регургитация, SVD, тромбоз, эндокардит;\nМитральды қақпақша:\nстеноз, регургитация, SVD, PPM, PVL;\nЖасанды қақпақшалар дисфункциясы:\nқұрылымдық және құрылымдық емес, ESC/EACTS 2025 критерийлері, тромбоз, PPM, эндокардит, PVL;\nСандық бағалау:\nEOA, DVI, PISA, EROA, vena contracta, PHT және т.б.;\nКүрделі жағдайлар және дифференциалды диагностика:\nаралас зақымданулар, төмен ағын/төмен градиент және т.б.;\nГемодинамикалық салдарлар және қосалқы жағдайлар:\nӨГ, камералардың ремодельденуі, СЖ, СҚ;\nТәжірибелік талдаулар және клиникалық кейстер:\nинтерактив, ЭхоКГ хаттамаларын талдау;",
+     "en": "Basics of valvular pathology assessment in echocardiography:\nanatomy, normal values, methodology;\nHemodynamics and gradients:\nwhat is important to measure and why;\nAortic valve:\nstenosis, regurgitation, SVD, thrombosis, endocarditis;\nMitral valve:\nstenosis, regurgitation, SVD, PPM, PVL;\nProsthetic valve dysfunction:\nstructural and non-structural, ESC/EACTS 2025 criteria, thrombosis, PPM, endocarditis, PVL;\nQuantitative assessment:\nEOA, DVI, PISA, EROA, vena contracta, PHT, etc.;\nComplex cases and differential diagnosis:\nmixed lesions, low flow/low gradient, etc.;\nHemodynamic consequences and associated conditions:\nPH, chamber remodeling, LA, LV;\nPractical reviews and clinical cases:\ninteractive session, analysis of echocardiography protocols;"
+    },
+    "teacher": "Дилафруз Муратжановна",
+    "hours": "10 ч. (5 ЗЕ)",
+    "dates": "17.11.2026 - 19:00",
+    "price": "45 000KZT",
+    "module_price": "",
+    "month": "Ноябрь"
+   },
+   {
+    "sid": "Н028",
+    "kind": "Обычный",
+    "title": {
+     "ru": "ЭхоКГ «Клапаны под контролем»",
+     "kk": "ЭхоКГ «Қақпақшалар бақылауда»",
+     "en": "EchoCG 'Valves under control'"
+    },
+    "desc": {
+     "ru": "Основы оценки клапанной патологии в ЭхоКГ:\nанатомия, нормальные значения, методика;\nГемодинамика и градиенты:\nчто важно измерять и почему;\nАортальный клапан:\nстеноз, регургитация, SVD, тромбоз, эндокардит;\nМитральный клапан:\nстеноз, регургитация, SVD, PPM, PVL;\nДисфункция искусственных клапанов:\nструктурная и неструктурная, критерии ESC/EACTS 2025, тромбоз, РРМ, эндокардит, PVL;\nКоличественная оценка:\nEOA, DVI, PISA, EROA, vena contracta, PHT и др.;\nСложные случаи и дифференциальная диагностика:\nмикс-поражения, низкий поток/низкий градиенту и др.;\nГемодинамические последствия и сопутствующие состояния:\nРНТ, ремоделирование камер, ЛП, ЛЖ;\nПрактические разборы и клинические кейсы:\nинтерактив, разбор протоколов Эхокг;",
+     "kk": "Қақпақша патологиясын ЭхоКГ арқылы бағалау негіздері:\nанатомия, қалыпты мәндер, әдістеме;\nГемодинамика және градиенттер:\nнені өлшеу маңызды және неге;\nҚолқа қақпақшасы:\nстеноз, регургитация, SVD, тромбоз, эндокардит;\nМитральды қақпақша:\nстеноз, регургитация, SVD, PPM, PVL;\nЖасанды қақпақшалар дисфункциясы:\nқұрылымдық және құрылымдық емес, ESC/EACTS 2025 критерийлері, тромбоз, PPM, эндокардит, PVL;\nСандық бағалау:\nEOA, DVI, PISA, EROA, vena contracta, PHT және т.б.;\nКүрделі жағдайлар және дифференциалды диагностика:\nаралас зақымданулар, төмен ағын/төмен градиент және т.б.;\nГемодинамикалық салдарлар және қосалқы жағдайлар:\nӨГ, камералардың ремодельденуі, СЖ, СҚ;\nТәжірибелік талдаулар және клиникалық кейстер:\nинтерактив, ЭхоКГ хаттамаларын талдау;",
+     "en": "Basics of valvular pathology assessment in echocardiography:\nanatomy, normal values, methodology;\nHemodynamics and gradients:\nwhat is important to measure and why;\nAortic valve:\nstenosis, regurgitation, SVD, thrombosis, endocarditis;\nMitral valve:\nstenosis, regurgitation, SVD, PPM, PVL;\nProsthetic valve dysfunction:\nstructural and non-structural, ESC/EACTS 2025 criteria, thrombosis, PPM, endocarditis, PVL;\nQuantitative assessment:\nEOA, DVI, PISA, EROA, vena contracta, PHT, etc.;\nComplex cases and differential diagnosis:\nmixed lesions, low flow/low gradient, etc.;\nHemodynamic consequences and associated conditions:\nPH, chamber remodeling, LA, LV;\nPractical reviews and clinical cases:\ninteractive session, analysis of echocardiography protocols;"
+    },
+    "teacher": "Дилафруз Муратжановна",
+    "hours": "10 ч. (5 ЗЕ)",
+    "dates": "28.11.2026 - 19:00",
+    "price": "45 000KZT",
+    "module_price": "",
+    "month": "Ноябрь"
+   }
+  ],
+  "archived": false
+ },
+ {
   "id": "К025",
   "slug": "kak-chitat-holter-i-smad-chto-by-ne-oshibatsya",
   "title": {
@@ -287,82 +363,6 @@
     "price": "100 000KZT",
     "module_price": "",
     "month": "Октябрь - Ноябрь"
-   }
-  ],
-  "archived": false
- },
- {
-  "id": "К024",
-  "slug": "ehokg-klapany-pod-kontrolem",
-  "title": {
-   "ru": "ЭхоКГ «Клапаны под контролем»",
-   "kk": "ЭхоКГ «Қақпақшалар бақылауда»",
-   "en": "EchoCG 'Valves under control'"
-  },
-  "format": "online",
-  "cover": "zaglushka",
-  "latest": "2026-11-10",
-  "open": false,
-  "sessions": [
-   {
-    "sid": "Н026",
-    "kind": "Обычный",
-    "title": {
-     "ru": "ЭхоКГ «Клапаны под контролем»",
-     "kk": "ЭхоКГ «Қақпақшалар бақылауда»",
-     "en": "EchoCG 'Valves under control'"
-    },
-    "desc": {
-     "ru": "Основы оценки клапанной патологии в ЭхоКГ:\nанатомия, нормальные значения, методика;\nГемодинамика и градиенты:\nчто важно измерять и почему;\nАортальный клапан:\nстеноз, регургитация, SVD, тромбоз, эндокардит;\nМитральный клапан:\nстеноз, регургитация, SVD, PPM, PVL;\nДисфункция искусственных клапанов:\nструктурная и неструктурная, критерии ESC/EACTS 2025, тромбоз, РРМ, эндокардит, PVL;\nКоличественная оценка:\nEOA, DVI, PISA, EROA, vena contracta, PHT и др.;\nСложные случаи и дифференциальная диагностика:\nмикс-поражения, низкий поток/низкий градиенту и др.;\nГемодинамические последствия и сопутствующие состояния:\nРНТ, ремоделирование камер, ЛП, ЛЖ;\nПрактические разборы и клинические кейсы:\nинтерактив, разбор протоколов Эхокг;",
-     "kk": "Қақпақша патологиясын ЭхоКГ арқылы бағалау негіздері:\nанатомия, қалыпты мәндер, әдістеме;\nГемодинамика және градиенттер:\nнені өлшеу маңызды және неге;\nҚолқа қақпақшасы:\nстеноз, регургитация, SVD, тромбоз, эндокардит;\nМитральды қақпақша:\nстеноз, регургитация, SVD, PPM, PVL;\nЖасанды қақпақшалар дисфункциясы:\nқұрылымдық және құрылымдық емес, ESC/EACTS 2025 критерийлері, тромбоз, PPM, эндокардит, PVL;\nСандық бағалау:\nEOA, DVI, PISA, EROA, vena contracta, PHT және т.б.;\nКүрделі жағдайлар және дифференциалды диагностика:\nаралас зақымданулар, төмен ағын/төмен градиент және т.б.;\nГемодинамикалық салдарлар және қосалқы жағдайлар:\nӨГ, камералардың ремодельденуі, СЖ, СҚ;\nТәжірибелік талдаулар және клиникалық кейстер:\nинтерактив, ЭхоКГ хаттамаларын талдау;",
-     "en": "Basics of valvular pathology assessment in echocardiography:\nanatomy, normal values, methodology;\nHemodynamics and gradients:\nwhat is important to measure and why;\nAortic valve:\nstenosis, regurgitation, SVD, thrombosis, endocarditis;\nMitral valve:\nstenosis, regurgitation, SVD, PPM, PVL;\nProsthetic valve dysfunction:\nstructural and non-structural, ESC/EACTS 2025 criteria, thrombosis, PPM, endocarditis, PVL;\nQuantitative assessment:\nEOA, DVI, PISA, EROA, vena contracta, PHT, etc.;\nComplex cases and differential diagnosis:\nmixed lesions, low flow/low gradient, etc.;\nHemodynamic consequences and associated conditions:\nPH, chamber remodeling, LA, LV;\nPractical reviews and clinical cases:\ninteractive session, analysis of echocardiography protocols;"
-    },
-    "teacher": "Дилафруз Муратжановна",
-    "hours": "10 ч. (5 ЗЕ)",
-    "dates": "3.11.2026 - 19:00",
-    "price": "45 000KZT",
-    "module_price": "",
-    "month": "Ноябрь"
-   },
-   {
-    "sid": "Н027",
-    "kind": "Обычный",
-    "title": {
-     "ru": "ЭхоКГ «Клапаны под контролем»",
-     "kk": "ЭхоКГ «Қақпақшалар бақылауда»",
-     "en": "EchoCG 'Valves under control'"
-    },
-    "desc": {
-     "ru": "Основы оценки клапанной патологии в ЭхоКГ:\nанатомия, нормальные значения, методика;\nГемодинамика и градиенты:\nчто важно измерять и почему;\nАортальный клапан:\nстеноз, регургитация, SVD, тромбоз, эндокардит;\nМитральный клапан:\nстеноз, регургитация, SVD, PPM, PVL;\nДисфункция искусственных клапанов:\nструктурная и неструктурная, критерии ESC/EACTS 2025, тромбоз, РРМ, эндокардит, PVL;\nКоличественная оценка:\nEOA, DVI, PISA, EROA, vena contracta, PHT и др.;\nСложные случаи и дифференциальная диагностика:\nмикс-поражения, низкий поток/низкий градиенту и др.;\nГемодинамические последствия и сопутствующие состояния:\nРНТ, ремоделирование камер, ЛП, ЛЖ;\nПрактические разборы и клинические кейсы:\nинтерактив, разбор протоколов Эхокг;",
-     "kk": "Қақпақша патологиясын ЭхоКГ арқылы бағалау негіздері:\nанатомия, қалыпты мәндер, әдістеме;\nГемодинамика және градиенттер:\nнені өлшеу маңызды және неге;\nҚолқа қақпақшасы:\nстеноз, регургитация, SVD, тромбоз, эндокардит;\nМитральды қақпақша:\nстеноз, регургитация, SVD, PPM, PVL;\nЖасанды қақпақшалар дисфункциясы:\nқұрылымдық және құрылымдық емес, ESC/EACTS 2025 критерийлері, тромбоз, PPM, эндокардит, PVL;\nСандық бағалау:\nEOA, DVI, PISA, EROA, vena contracta, PHT және т.б.;\nКүрделі жағдайлар және дифференциалды диагностика:\nаралас зақымданулар, төмен ағын/төмен градиент және т.б.;\nГемодинамикалық салдарлар және қосалқы жағдайлар:\nӨГ, камералардың ремодельденуі, СЖ, СҚ;\nТәжірибелік талдаулар және клиникалық кейстер:\nинтерактив, ЭхоКГ хаттамаларын талдау;",
-     "en": "Basics of valvular pathology assessment in echocardiography:\nanatomy, normal values, methodology;\nHemodynamics and gradients:\nwhat is important to measure and why;\nAortic valve:\nstenosis, regurgitation, SVD, thrombosis, endocarditis;\nMitral valve:\nstenosis, regurgitation, SVD, PPM, PVL;\nProsthetic valve dysfunction:\nstructural and non-structural, ESC/EACTS 2025 criteria, thrombosis, PPM, endocarditis, PVL;\nQuantitative assessment:\nEOA, DVI, PISA, EROA, vena contracta, PHT, etc.;\nComplex cases and differential diagnosis:\nmixed lesions, low flow/low gradient, etc.;\nHemodynamic consequences and associated conditions:\nPH, chamber remodeling, LA, LV;\nPractical reviews and clinical cases:\ninteractive session, analysis of echocardiography protocols;"
-    },
-    "teacher": "Дилафруз Муратжановна",
-    "hours": "10 ч. (5 ЗЕ)",
-    "dates": "4.11.2026 - 19:00",
-    "price": "45 000KZT",
-    "module_price": "",
-    "month": "Ноябрь"
-   },
-   {
-    "sid": "Н028",
-    "kind": "Обычный",
-    "title": {
-     "ru": "ЭхоКГ «Клапаны под контролем»",
-     "kk": "ЭхоКГ «Қақпақшалар бақылауда»",
-     "en": "EchoCG 'Valves under control'"
-    },
-    "desc": {
-     "ru": "Основы оценки клапанной патологии в ЭхоКГ:\nанатомия, нормальные значения, методика;\nГемодинамика и градиенты:\nчто важно измерять и почему;\nАортальный клапан:\nстеноз, регургитация, SVD, тромбоз, эндокардит;\nМитральный клапан:\nстеноз, регургитация, SVD, PPM, PVL;\nДисфункция искусственных клапанов:\nструктурная и неструктурная, критерии ESC/EACTS 2025, тромбоз, РРМ, эндокардит, PVL;\nКоличественная оценка:\nEOA, DVI, PISA, EROA, vena contracta, PHT и др.;\nСложные случаи и дифференциальная диагностика:\nмикс-поражения, низкий поток/низкий градиенту и др.;\nГемодинамические последствия и сопутствующие состояния:\nРНТ, ремоделирование камер, ЛП, ЛЖ;\nПрактические разборы и клинические кейсы:\nинтерактив, разбор протоколов Эхокг;",
-     "kk": "Қақпақша патологиясын ЭхоКГ арқылы бағалау негіздері:\nанатомия, қалыпты мәндер, әдістеме;\nГемодинамика және градиенттер:\nнені өлшеу маңызды және неге;\nҚолқа қақпақшасы:\nстеноз, регургитация, SVD, тромбоз, эндокардит;\nМитральды қақпақша:\nстеноз, регургитация, SVD, PPM, PVL;\nЖасанды қақпақшалар дисфункциясы:\nқұрылымдық және құрылымдық емес, ESC/EACTS 2025 критерийлері, тромбоз, PPM, эндокардит, PVL;\nСандық бағалау:\nEOA, DVI, PISA, EROA, vena contracta, PHT және т.б.;\nКүрделі жағдайлар және дифференциалды диагностика:\nаралас зақымданулар, төмен ағын/төмен градиент және т.б.;\nГемодинамикалық салдарлар және қосалқы жағдайлар:\nӨГ, камералардың ремодельденуі, СЖ, СҚ;\nТәжірибелік талдаулар және клиникалық кейстер:\nинтерактив, ЭхоКГ хаттамаларын талдау;",
-     "en": "Basics of valvular pathology assessment in echocardiography:\nanatomy, normal values, methodology;\nHemodynamics and gradients:\nwhat is important to measure and why;\nAortic valve:\nstenosis, regurgitation, SVD, thrombosis, endocarditis;\nMitral valve:\nstenosis, regurgitation, SVD, PPM, PVL;\nProsthetic valve dysfunction:\nstructural and non-structural, ESC/EACTS 2025 criteria, thrombosis, PPM, endocarditis, PVL;\nQuantitative assessment:\nEOA, DVI, PISA, EROA, vena contracta, PHT, etc.;\nComplex cases and differential diagnosis:\nmixed lesions, low flow/low gradient, etc.;\nHemodynamic consequences and associated conditions:\nPH, chamber remodeling, LA, LV;\nPractical reviews and clinical cases:\ninteractive session, analysis of echocardiography protocols;"
-    },
-    "teacher": "Дилафруз Муратжановна",
-    "hours": "10 ч. (5 ЗЕ)",
-    "dates": "10.11.2026 - 19:00",
-    "price": "45 000KZT",
-    "module_price": "",
-    "month": "Ноябрь"
    }
   ],
   "archived": false
