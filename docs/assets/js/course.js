@@ -6,9 +6,75 @@
   if (!box) return;
   var lang = document.documentElement.lang || "ru";
   var L = {
-    ru: {hours: "Часы / ЗЕ", teacher: "Преподаватель", online: "Онлайн", offline: "Офлайн", notfound: "Курс не найден.", fail: "Не удалось загрузить программу. Попробуйте позже.", doneT: "Набор завершён", doneT2: "Все даты этого курса прошли. Напишите нам в WhatsApp — подскажем следующий поток.", next: "Следующий поток"},
-    kk: {hours: "Сағат / ЗЕ", teacher: "Оқытушы", online: "Онлайн", offline: "Офлайн", notfound: "Курс табылмады.", fail: "Бағдарлама жүктелмеді. Кейінірек көріңіз.", doneT: "Қабылдау аяқталды", doneT2: "Бұл курстың барлық күндері өтті. WhatsApp-қа жазыңыз — келесі ағынды айтамыз.", next: "Келесі ағын"},
-    en: {hours: "Hours / credits", teacher: "Teacher", online: "Online", offline: "Offline", notfound: "Course not found.", fail: "Failed to load the program. Please try later.", doneT: "Enrollment closed", doneT2: "All dates of this course have passed. Message us on WhatsApp for the next intake.", next: "Next intake"}
+    ru: {
+      hours: "Часы / ЗЕ",
+      teacher: "Преподаватель",
+      online: "Онлайн",
+      offline: "Офлайн",
+      notfound: "Курс не найден.",
+      fail: "Не удалось загрузить программу. Попробуйте позже.",
+      recordBannerTitle: "Курс доступен в записи",
+      recordBannerText: "Все лекции и материалы курса доступны к просмотру. Нажмите «Купить запись» — координатор подскажет детали оплаты и откроет вам персональный доступ к видеозаписям в Личном кабинете врача.",
+      buyRecord: "Купить запись",
+      waRecordMsg: "Здравствуйте! Хочу приобрести курс «{title}» в записи. Подскажите, пожалуйста, стоимость и как оплатить?",
+      brunchBannerTitle: "Офлайн-мероприятие завершено",
+      brunchBannerText: "Это очный докторский бранч, запись не предоставляется. Напишите нам в WhatsApp, чтобы первыми узнать о дате следующей встречи.",
+      brunchBtn: "О следующем бранче →",
+      waBrunchMsg: "Здравствуйте! Когда планируется следующий докторский бранч?",
+      stressBannerTitle: "Набор закрыт",
+      stressBannerText: "Запись курса в настоящее время не продаётся. Напишите нам в WhatsApp, чтобы записаться в лист ожидания на следующий поток.",
+      stressBtn: "В лист ожидания →",
+      waStressMsg: "Здравствуйте! Хочу записаться в лист ожидания на следующий поток по нагрузочному тестированию.",
+      doneT: "Набор завершён",
+      doneT2: "Все даты этого курса прошли. Напишите нам в WhatsApp — подскажем следующий поток.",
+      next: "Следующий поток"
+    },
+    kk: {
+      hours: "Сағат / ЗЕ",
+      teacher: "Оқытушы",
+      online: "Онлайн",
+      offline: "Офлайн",
+      notfound: "Курс табылмады.",
+      fail: "Бағдарлама жүктелмеді. Кейінірек көріңіз.",
+      recordBannerTitle: "Курс жазбада қолжетімді",
+      recordBannerText: "Курстың барлық дәрістері мен материалдары қарауға қолжетімді. «Жазбаны сатып алу» батырмасын басыңыз — координатор төлем тәсілін айтып, дәрігердің Жеке кабинетінде бейнежазбаларға қолжетімділік ашады.",
+      buyRecord: "Жазбаны сатып алу",
+      waRecordMsg: "Сәлеметсіз бе! «{title}» курсын жазбада сатып алғым келеді. Бағасы мен төлем тәсілін айтып жібересіз бе?",
+      brunchBannerTitle: "Офлайн шара аяқталды",
+      brunchBannerText: "Бұл оффлайн докторлық бранч, бейнежазба берілмейді. Келесі кездесу туралы бірінші болып білу үшін WhatsApp-қа жазыңыз.",
+      brunchBtn: "Келесі бранч туралы →",
+      waBrunchMsg: "Сәлеметсіз бе! Келесі дәрігерлік бранч қашан жоспарланып отыр?",
+      stressBannerTitle: "Қабылдау жабылды",
+      stressBannerText: "Бұл курстың жазбасы қазіргі уақытта сатылмайды. Келесі ағынның күту парағына жазылу үшін WhatsApp-қа хабарласыңыз.",
+      stressBtn: "Күту парағына жазылу →",
+      waStressMsg: "Сәлеметсіз бе! Жүктемелік тестілеу бойынша келесі ағынның күту парағына жазылғым келеді.",
+      doneT: "Қабылдау аяқталды",
+      doneT2: "Бұл курстың барлық күндері өтті. WhatsApp-қа жазыңыз — келесі ағынды айтамыз.",
+      next: "Келесі ағын"
+    },
+    en: {
+      hours: "Hours / credits",
+      teacher: "Teacher",
+      online: "Online",
+      offline: "Offline",
+      notfound: "Course not found.",
+      fail: "Failed to load the program. Please try later.",
+      recordBannerTitle: "Course available on demand",
+      recordBannerText: "All course lectures and materials are available for viewing. Click \"Buy recording\" — our coordinator will provide payment details and grant personal access to the video recordings in your Physician Account.",
+      buyRecord: "Buy recording",
+      waRecordMsg: "Hello! I would like to purchase the recording of the course “{title}”. Could you please provide the price and payment details?",
+      brunchBannerTitle: "Offline event ended",
+      brunchBannerText: "This is an in-person physician brunch; recordings are not provided. Message us on WhatsApp to be the first to know about the next event.",
+      brunchBtn: "Next brunch info →",
+      waBrunchMsg: "Hello! When is the next physician brunch scheduled?",
+      stressBannerTitle: "Enrollment closed",
+      stressBannerText: "Recordings for this course are currently not for sale. Message us on WhatsApp to join the waiting list for the next intake.",
+      stressBtn: "Join waitlist →",
+      waStressMsg: "Hello! I would like to join the waiting list for the next stress testing intake.",
+      doneT: "Enrollment closed",
+      doneT2: "All dates of this course have passed. Message us on WhatsApp for the next intake.",
+      next: "Next intake"
+    }
   }[lang] || {};
   function sessWord(n) {
     if (lang === "ru") {
@@ -126,19 +192,44 @@
       });
       var dn = new Date();
       var todayTs = dn.getFullYear() * 10000 + (dn.getMonth() + 1) * 100 + dn.getDate();
-      if (c.archived || (!openEnded && maxTs && maxTs < todayTs)) {
+      var reallyPast = !openEnded && maxTs && maxTs < todayTs;
+      if (c.archived || reallyPast) {
         var banner = document.createElement("div");
-        banner.className = "past-banner";
-        var reallyPast = !openEnded && maxTs && maxTs < todayTs;
-        banner.innerHTML = "<b>" + esc(L.doneT) + "</b>" + (reallyPast ? esc(L.doneT2) : "");
-        box.insertBefore(banner, box.firstChild.nextSibling);
         var wa = document.querySelector('a[href*="wa.me"]');
-        if (wa) {
-          document.querySelectorAll('a.btn-primary[href*="forms.gle"]').forEach(function (a) {
-            a.textContent = L.next;
-            a.setAttribute("href", wa.getAttribute("href"));
-          });
+        var baseWa = (wa ? wa.getAttribute("href") : "https://wa.me/77770357345").split("?")[0];
+        var recSt = c.record_status || "available";
+
+        if (recSt === "brunch") {
+          banner.className = "past-banner";
+          banner.innerHTML = "<b>" + esc(L.brunchBannerTitle) + "</b><p>" + esc(L.brunchBannerText) + "</p>";
+          if (wa) {
+            document.querySelectorAll('a.btn-primary[href*="forms.gle"]').forEach(function (a) {
+              a.textContent = L.brunchBtn;
+              a.setAttribute("href", baseWa + "?text=" + encodeURIComponent(L.waBrunchMsg));
+            });
+          }
+        } else if (recSt === "stress_test") {
+          banner.className = "past-banner";
+          banner.innerHTML = "<b>" + esc(L.stressBannerTitle) + "</b><p>" + esc(L.stressBannerText) + "</p>";
+          if (wa) {
+            document.querySelectorAll('a.btn-primary[href*="forms.gle"]').forEach(function (a) {
+              a.textContent = L.stressBtn;
+              a.setAttribute("href", baseWa + "?text=" + encodeURIComponent(L.waStressMsg));
+            });
+          }
+        } else {
+          banner.className = "past-banner record-banner";
+          banner.innerHTML = "<b>" + esc(L.recordBannerTitle) + "</b><p>" + esc(L.recordBannerText) + "</p>";
+          if (wa) {
+            var msg = L.waRecordMsg.replace("{title}", t);
+            document.querySelectorAll('a.btn-primary[href*="forms.gle"]').forEach(function (a) {
+              a.textContent = L.buyRecord;
+              a.classList.add("btn-record");
+              a.setAttribute("href", baseWa + "?text=" + encodeURIComponent(msg));
+            });
+          }
         }
+        box.insertBefore(banner, box.firstChild.nextSibling);
       }
     } catch (e) { /* ignore */ }
   }).catch(function () {

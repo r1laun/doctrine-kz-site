@@ -67,66 +67,260 @@ def slugify(s):
     s = re.sub(r"[^a-z0-9]+", "-", s).strip("-")
     return s[:60] or "course"
 
-# Draft KK/EN titles for the flagship courses (human draft by assistant,
-# to be reviewed by a native speaker). Others fall back to RU.
+# Draft KK/EN titles for the flagship courses.
 TITLE_I18N = {
-    "К001": {"kk": "Эхокардиография. Жоғары деңгей. Қақпақшалар бақылауда",
-             "en": "Echocardiography. Advanced level. Valves under control"},
-    "К002": {"kk": "Холтер және СМАД: қателеспей оқу (модульдік курс)",
-             "en": "Holter & ABPM: how to read without mistakes (modular course)"},
-    "К003": {"kk": "Қазақ тілінде ЭКГ-ның авторлық оқыту әдістемесі",
-             "en": "Author's ECG training method in Kazakh"},
+    "К001": {"kk": "ЭхоКГ «Қақпақшалар бақылауда»",
+             "en": "EchoCG 'Valves under control'"},
+    "К002": {"kk": "Холтер мен СМАД-ты қателеспей оқу",
+             "en": "How to read Holter and ABPM without mistakes"},
+    "К003": {"kk": "«ЭКГ» қазақ және орыс тілдерінде",
+             "en": "'ECG' in Kazakh and Russian"},
     "К004": {"kk": "QT аралығы және дәрілер. Күнделікті білім",
              "en": "QT interval and drugs. Everyday knowledge"},
     "К005": {"kk": "Клиницист дәрігерге арналған ЭхоКГ нөлден",
              "en": "EchoCG from scratch for clinicians"},
     "К006": {"kk": "ЭКС бар пациенттерде холтерлік мониторинг ерекшеліктері",
              "en": "Holter monitoring in patients with pacemakers"},
+    "К007": {"kk": "Бранч: «Сыбырды есту өнері»",
+             "en": "Brunch: The Art of Hearing a Whisper"},
     "К008": {"kk": "Кардиоонкология",
              "en": "Cardio-oncology"},
     "К009": {"kk": "Кардиологиядағы жүктемелік тестілеу",
              "en": "Stress testing in cardiology: from indications to decisions"},
-    "К016": {"kk": "ЭхоКГ «Қақпақшалар бақылауда»",
-             "en": "EchoCG 'Valves under control'"},
-    "К017": {"kk": "Жүктілік кезіндегі гипертензиялық бұзылыстар",
+    "К010": {"kk": "Кардиологиядағы психотроптық дәрілер",
+             "en": "Psychotropic drugs in cardiology"},
+    "К011": {"kk": "Спирография клиникалық практикада: қателеспей түсіндіру",
+             "en": "Spirometry in clinical practice: interpretation without errors"},
+    "К012": {"kk": "Функционалдық диагностика 24/7: Холтер мен СМАД-тың клиникалық қыр-сыры",
+             "en": "Functional diagnostics 24/7: clinical nuances of Holter and ABPM"},
+    "К013": {"kk": "Белсенді ми мектебі",
+             "en": "Active Brain School"},
+    "К014": {"kk": "Күрделі туа біткен жүрек ақаулары қарапайым тілмен",
+             "en": "Complex CHD in simple terms"},
+    "К016": {"kk": "Жүктілік кезіндегі гипертензиялық бұзылыстар",
              "en": "Hypertensive disorders in pregnancy"},
-    "К018": {"kk": "QT аралығы және дәрілер",
-             "en": "QT interval and drugs"},
-    "К019": {"kk": "Әйелдің жүрек-қан тамырлары денсаулығы",
+    "К018": {"kk": "Әйелдің жүрек-қан тамырлары денсаулығы",
              "en": "Women's cardiovascular health"},
-    "К020": {"kk": "ЭхоКГ «Қақпақшалар бақылауда»",
-             "en": "EchoCG 'Valves under control'"},
-    "К021": {"kk": "Кардиоонкология",
-             "en": "Cardio-oncology"},
-    "К022": {"kk": "Холтер мен СМАД-ты қателеспей оқу",
-             "en": "How to read Holter and ABPM without mistakes"},
 }
 
-# New-table titles keyed by RU name (positional IDs shift when rows move,
-# so translations must follow the content, not the ID).
-TITLE_NEW_BY_RU = {
-    "ЭхоКГ «Клапаны под контролем»": {"kk": "ЭхоКГ «Қақпақшалар бақылауда»",
-             "en": "EchoCG 'Valves under control'"},
-    "Гипертензивные расстройства и др. во время беременности": {"kk": "Жүктілік кезіндегі гипертензиялық бұзылыстар",
-             "en": "Hypertensive disorders in pregnancy"},
-    "Интервал QT": {"kk": "QT аралығы және дәрілер",
-             "en": "QT interval and drugs"},
-    "Сердечно-сосудистое здоровье женщины": {"kk": "Әйелдің жүрек-қан тамырлары денсаулығы",
-             "en": "Women's cardiovascular health"},
-    "Кардиоонкология": {"kk": "Кардиоонкология",
-             "en": "Cardio-oncology"},
-    "Как читать холтер и СМАД, что бы не ошибаться?": {"kk": "Холтер мен СМАД-ты қателеспей оқу",
-             "en": "How to read Holter and ABPM without mistakes"},
-    "«ЭКГ» на казахском/русском языках": {"kk": "«ЭКГ» қазақ және орыс тілдерінде",
-             "en": "'ECG' in Kazakh and Russian"},
-    "\"ЭКГ\" на казахском/русском языках": {"kk": "«ЭКГ» қазақ және орыс тілдерінде",
-             "en": "'ECG' in Kazakh and Russian"},
+CANONICAL_COURSES = {
+    "К001": {
+        "title": {
+            "ru": "ЭхоКГ «Клапаны под контролем»",
+            "kk": "ЭхоКГ «Қақпақшалар бақылауда»",
+            "en": "EchoCG 'Valves under control'"
+        },
+        "slug": "ehokg-klapany-pod-kontrolem",
+        "format": "online",
+        "can_record": True,
+        "record_status": "available",
+        "keywords": ["клапаны под контролем", "эхокардиография. продвинутый уровень"]
+    },
+    "К002": {
+        "title": {
+            "ru": "Как читать холтер и СМАД, чтобы не ошибаться?",
+            "kk": "Холтер мен СМАД-ты қателеспей оқу",
+            "en": "How to read Holter and ABPM without mistakes"
+        },
+        "slug": "kak-chitat-holter-i-smad-chto-by-ne-oshibatsya",
+        "format": "online",
+        "can_record": True,
+        "record_status": "available",
+        "keywords": ["как читать холтер и смад", "холтер и смад"]
+    },
+    "К003": {
+        "title": {
+            "ru": "«ЭКГ» на казахском и русском языках",
+            "kk": "«ЭКГ» қазақ және орыс тілдерінде",
+            "en": "'ECG' in Kazakh and Russian"
+        },
+        "slug": "ekg-na-kazahskom-russkom-yazykah",
+        "format": "online",
+        "can_record": True,
+        "record_status": "available",
+        "keywords": ["экг на казахском/русском", "авторская методика обучения экг", "экг"]
+    },
+    "К004": {
+        "title": {
+            "ru": "Интервал QT и лекарственные препараты. Знания на каждый день",
+            "kk": "QT аралығы және дәрілер. Күнделікті білім",
+            "en": "QT interval and drugs. Everyday knowledge"
+        },
+        "slug": "interval-qt-i-lekarstvennye-preparaty",
+        "format": "online",
+        "can_record": True,
+        "record_status": "available",
+        "keywords": ["интервал qt"]
+    },
+    "К005": {
+        "title": {
+            "ru": "ЭхоКГ с нуля для врача-клинициста",
+            "kk": "Клиницист дәрігерге арналған ЭхоКГ нөлден",
+            "en": "EchoCG from scratch for clinicians"
+        },
+        "slug": "ehokg-s-nulya-dlya-vracha-klinitsista",
+        "format": "online",
+        "can_record": True,
+        "record_status": "available",
+        "keywords": ["эхокг с нуля"]
+    },
+    "К006": {
+        "title": {
+            "ru": "Особенности Холтеровского мониторирования у пациентов с ЭКС",
+            "kk": "ЭКС бар пациенттерде холтерлік мониторинг ерекшеліктері",
+            "en": "Holter monitoring in patients with pacemakers"
+        },
+        "slug": "osobennosti-holterovskogo-monitorirovaniya-u-patsientov-s-eks",
+        "format": "online",
+        "can_record": True,
+        "record_status": "available",
+        "keywords": ["пациентов с экс"]
+    },
+    "К007": {
+        "title": {
+            "ru": "Бранч: «Искусство слышать шепот»",
+            "kk": "Бранч: «Сыбырды есту өнері»",
+            "en": "Brunch: The Art of Hearing a Whisper"
+        },
+        "slug": "branch-iskusstvo-slyshat-shepot",
+        "format": "offline",
+        "can_record": False,
+        "record_status": "brunch",
+        "keywords": ["бранч"]
+    },
+    "К008": {
+        "title": {
+            "ru": "Кардиоонкология",
+            "kk": "Кардиоонкология",
+            "en": "Cardio-oncology"
+        },
+        "slug": "kardioonkologiya",
+        "format": "online",
+        "can_record": True,
+        "record_status": "available",
+        "keywords": ["кардиоонкология"]
+    },
+    "К009": {
+        "title": {
+            "ru": "Нагрузочное тестирование в кардиологии: от показаний к клиническим решениям",
+            "kk": "Кардиологиядағы жүктемелік тестілеу",
+            "en": "Stress testing in cardiology: from indications to decisions"
+        },
+        "slug": "nagruzochnoe-testirovanie-v-kardiologii",
+        "format": "online",
+        "can_record": False,
+        "record_status": "stress_test",
+        "keywords": ["нагрузочное тестирование"]
+    },
+    "К010": {
+        "title": {
+            "ru": "Психотропные препараты в кардиологии: где заканчивается помощь и начинается риск?",
+            "kk": "Кардиологиядағы психотроптық дәрілер",
+            "en": "Psychotropic drugs in cardiology"
+        },
+        "slug": "psihotropnye-preparaty-v-kardiologii",
+        "format": "online",
+        "can_record": True,
+        "record_status": "available",
+        "keywords": ["психотропные препараты"]
+    },
+    "К011": {
+        "title": {
+            "ru": "Спирография в клинической практике: интерпретация без ошибок",
+            "kk": "Спирография клиникалық практикада: қателеспей түсіндіру",
+            "en": "Spirometry in clinical practice: interpretation without errors"
+        },
+        "slug": "spirografiya-v-klinicheskoi-praktike",
+        "format": "online",
+        "can_record": True,
+        "record_status": "available",
+        "keywords": ["спирография"]
+    },
+    "К012": {
+        "title": {
+            "ru": "Функциональная диагностика 24/7: клинические нюансы Холтера и СМАДа",
+            "kk": "Функционалдық диагностика 24/7: Холтер мен СМАД-тың клиникалық қыр-сыры",
+            "en": "Functional diagnostics 24/7: clinical nuances of Holter and ABPM"
+        },
+        "slug": "funktsionalnaya-diagnostika-24-7",
+        "format": "online",
+        "can_record": True,
+        "record_status": "available",
+        "keywords": ["функциональная диагностика 24/7"]
+    },
+    "К013": {
+        "title": {
+            "ru": "Школа активного мозга (Для врачей и вдумчивых пациентов)",
+            "kk": "Белсенді ми мектебі",
+            "en": "Active Brain School"
+        },
+        "slug": "shkola-aktivnogo-mozga",
+        "format": "online",
+        "can_record": True,
+        "record_status": "available",
+        "keywords": ["школа активного мозга"]
+    },
+    "К014": {
+        "title": {
+            "ru": "Сложные ВПС простым языком: что должен знать каждый врач",
+            "kk": "Күрделі туа біткен жүрек ақаулары қарапайым тілмен",
+            "en": "Complex CHD in simple terms"
+        },
+        "slug": "slozhnye-vps-prostym-yazykom",
+        "format": "offline",
+        "can_record": True,
+        "record_status": "available",
+        "keywords": ["сложные впс"]
+    },
+    "К016": {
+        "title": {
+            "ru": "Гипертензивные расстройства и др. во время беременности",
+            "kk": "Жүктілік кезіндегі гипертензиялық бұзылыстар",
+            "en": "Hypertensive disorders in pregnancy"
+        },
+        "slug": "gipertenzivnye-rasstroistva-i-dr-vo-vremya-beremennosti",
+        "format": "online",
+        "can_record": True,
+        "record_status": "available",
+        "keywords": ["гипертензивные расстройства"]
+    },
+    "К018": {
+        "title": {
+            "ru": "Сердечно-сосудистое здоровье женщины",
+            "kk": "Әйелдің жүрек-қан тамырлары денсаулығы",
+            "en": "Women's cardiovascular health"
+        },
+        "slug": "serdechno-sosudistoe-zdorove-zhenschiny",
+        "format": "online",
+        "can_record": True,
+        "record_status": "available",
+        "keywords": ["сердечно-сосудистое здоровье женщины", "здоровье женщины"]
+    },
 }
 
-def _tkey(t):
-    return (t or "").replace("«", "").replace("»", "").replace(""", "").replace(""", "").replace('"', "").strip()
+TEACHER_NORM = {
+    "инна евгеньевна": "Лещинская-Попова Инна Евгеньевна\nОснователь центра Doctrine, врач-кардиолог с 20-летним стажем",
+    "дилафруз муратжановна": "Халикназарова Дилафруз Муратжановна\nВрач-кардиолог высшей категории, врач ультразвуковой диагностики",
+    "мария васильевна": "Фурман Мария Васильевна\nВрач-кардиолог, кандидат медицинских наук, специалист по кардиоонкологии",
+    "алмаз темирбаевич": "Темирбаев Алмаз Темирбаевич\nПрактикующий кардиолог, автор методики обучения ЭКГ",
+    "гузель рахматовна": "Алиева Гузель Рахматовна\nВрач-кардиолог высшей категории, специалист по функциональной диагностике и ЭКС",
+    "саида юсуфовна, инна евгеньевна, карлыгаш болатовна": "Азим Саида Юсуфовна, Лещинская-Попова Инна Евгеньевна, Хахазова Карлыгаш Болатовна\nВрачи-кардиологи, специалисты по Холтеру и СМАД",
+}
 
-_TITLE_NEW_NORM = {_tkey(k): v for k, v in TITLE_NEW_BY_RU.items()}
+def norm_teacher(t):
+    clean_t = clean(t)
+    low = clean_t.lower().strip().rstrip(",;")
+    return TEACHER_NORM.get(low, clean_t)
+
+def find_canonical_cid(title, existing_cid=None):
+    if existing_cid and existing_cid in CANONICAL_COURSES:
+        return existing_cid
+    t_norm = norm_title(title)
+    for cid, info in CANONICAL_COURSES.items():
+        for kw in info["keywords"]:
+            if kw in t_norm:
+                return cid
+    return existing_cid
 
 # ---- NEW schedule format: single sheet with columns
 # month | course name | prof name | description | time | date | price (Тенге) | credits | format
@@ -154,9 +348,14 @@ def new_month_num(name):
     return None
 
 def new_day_list(v):
-    # "09, 11, 12" or "29 (сен)\n01 (окт)" -> [(day, month_override|None)]
+    # "09, 11, 12" or "29 (сен)\n01 (окт)" or "26, 29 (окт)\n2, 5, 9, 12, 16, 19 (нояб)"
     out = []
     for ln in str(v or "").replace("—", "-").split("\n"):
+        ln = ln.strip()
+        if not ln:
+            continue
+        line_mon_match = re.search(r"\(([^)]+)\)", ln)
+        line_mon = new_month_num(line_mon_match.group(1)) if line_mon_match else None
         for part in ln.split(","):
             part = part.strip()
             if not part:
@@ -164,7 +363,8 @@ def new_day_list(v):
             m = re.match(r"(\d{1,2})\s*(?:\(([^)]+)\))?", part)
             if not m:
                 continue
-            mon = new_month_num(m.group(2)) if m.group(2) else None
+            part_mon = new_month_num(m.group(2)) if m.group(2) else None
+            mon = part_mon or line_mon
             out.append((int(m.group(1)), mon))
     return out
 
@@ -205,13 +405,13 @@ def new_format(v):
         return "offline"
     return "online"
 
-def build_new_courses(path):
+def build_new_courses_by_cid(path):
     import datetime
     year = datetime.date.today().year
     with open(path, encoding="utf-8-sig") as fh:
         rows = list(csv.DictReader(fh))
     last_month = ""
-    flows = []  # one table row = one intake (поток), even if the course name repeats
+    flows = []
     for r in rows:
         title = clean(r.get("course name"))
         if not title:
@@ -220,13 +420,23 @@ def build_new_courses(path):
         if clean(r.get("month")):
             last_month = clean(r.get("month"))
         flows.append((title, r, mon))
-    courses, sid_n = [], 0
-    for idx, (title, r, mon) in enumerate(flows, start=16):
-        cid = f"К{idx:03d}"
+    
+    by_cid = {}
+    sid_n = 0
+    for title, r, mon in flows:
+        cid = find_canonical_cid(title)
+        if not cid:
+            continue
         sessions = []
         fmt = new_format(r.get("format"))
         default_mon = new_month_num(mon.split("-")[0])
         tmap, tdefault = new_time_map(r.get("time"))
+        teacher = norm_teacher(r.get("prof name"))
+        price = new_price(r.get("price (Тенге)"))
+        hours = clean(r.get("credits"))
+        desc = tr_desc(clean_ml(r.get("description")))
+        ctitle = CANONICAL_COURSES.get(cid, {}).get("title") or {"ru": title, "kk": title, "en": title}
+
         for day, mon_ov in new_day_list(r.get("date")):
             mnum = mon_ov or default_mon
             if not mnum or not (1 <= day <= 31):
@@ -241,43 +451,29 @@ def build_new_courses(path):
             sessions.append({
                 "sid": f"Н{sid_n:03d}",
                 "kind": "Обычный",
-                "title": title,
-                "desc": tr_desc(clean_ml(r.get("description"))),
-                "teacher": clean(r.get("prof name")),
-                "hours": clean(r.get("credits")),
+                "title": dict(ctitle),
+                "desc": desc,
+                "teacher": teacher,
+                "hours": hours,
                 "dates": ds,
-                "price": new_price(r.get("price (Тенге)")),
+                "price": price,
                 "module_price": "",
                 "month": mon,
             })
         if not sessions:
             continue
-        tr = _TITLE_NEW_NORM.get(_tkey(title), TITLE_I18N.get(cid, {}))
-        ctitle = {"ru": title,
-                  "kk": tr.get("kk", title),
-                  "en": tr.get("en", title)}
-        for s in sessions:
-            s["title"] = dict(ctitle)
-        latest, open_ended = "", False
-        for s in sessions:
-            blob = norm_title(s["dates"])
-            if "по мере" in blob or "запис" in blob:
-                open_ended = True
-            for dt in parse_dates(s["dates"]):
-                iso = latest_iso([dt])
-                if iso > latest:
-                    latest = iso
-        courses.append({
-            "id": cid,
-            "slug": slugify(title) or cid.lower(),
-            "title": ctitle,
-            "format": fmt,
-            "cover": "zaglushka",
-            "latest": latest,
-            "open": open_ended,
+        if cid not in by_cid:
+            by_cid[cid] = []
+        by_cid[cid].append({
+            "month": mon,
             "sessions": sessions,
+            "fmt": fmt,
+            "hours": hours,
+            "price": price,
+            "teacher": teacher,
+            "desc": desc,
         })
-    return courses
+    return by_cid
 
 NEW_SCHED = os.path.join(ORIG, "schedule_new.csv")
 
@@ -399,71 +595,91 @@ for r in sched:
     r["_cid"] = resolve_cid(r)
 
 courses = []
-for c in courses_csv:
-    cid = clean(c["ID Курса"])
-    title_ru = clean(c["Название курса"])
-    if not cid or not title_ru:
+import datetime
+today_iso = datetime.date.today().isoformat()
+
+new_by_cid = build_new_courses_by_cid(NEW_SCHED) if os.path.exists(NEW_SCHED) else {}
+if new_by_cid:
+    print(f"new schedule parsed: {len(new_by_cid)} canonical courses from {os.path.basename(NEW_SCHED)}")
+
+for cid, cinfo in CANONICAL_COURSES.items():
+    ctitle = cinfo["title"]
+    fmt = cinfo["format"]
+    can_record = cinfo["can_record"]
+    record_status = cinfo["record_status"]
+    slug = cinfo["slug"]
+
+    sessions = []
+    if cid in new_by_cid:
+        intakes = new_by_cid[cid]
+        def intake_latest(it):
+            l = ""
+            for s in it["sessions"]:
+                for dt in parse_dates(s["dates"]):
+                    iso = latest_iso([dt])
+                    if iso > l:
+                        l = iso
+            return l
+        intakes.sort(key=lambda it: (intake_latest(it) >= today_iso, intake_latest(it)), reverse=True)
+        for it in intakes:
+            sessions.extend(it["sessions"])
+    else:
+        items = [r for r in sched if r["_cid"] == cid or find_canonical_cid(r.get("Название курса")) == cid]
+        items = [r for r in items if clean(r.get("ID Курса")) != "К015"]
+        if items:
+            for r in items:
+                desc_text = clean_ml(r.get("Описание"))
+                teacher_text = norm_teacher(clean_ml(r.get("Преподаватель")))
+                sessions.append({
+                    "sid": clean(r.get("ID Проведения")),
+                    "kind": clean(r.get("Тип")),
+                    "title": tr_sess_title(clean(r.get("Название курса")), ctitle),
+                    "desc": tr_desc(desc_text),
+                    "teacher": teacher_text,
+                    "hours": clean(r.get("Часы/ЗЕ")),
+                    "dates": clean_ml(r.get("Дата и время")),
+                    "price": clean(r.get("Цена курса")),
+                    "module_price": clean(r.get("Цена модуля")),
+                    "month": clean(r.get("Месяц")),
+                })
+
+    if not sessions:
         continue
-    items = [r for r in sched if r["_cid"] == cid]
-    # detect online/offline by text hints
-    blob = " ".join(clean(r["Дата и время"]) + " " + clean(r["Описание"]) for r in items).lower()
-    fmt = "online"
-    if any(w in blob for w in ["алматы", "офлайн", "очно", "аудитор", "клиник"]):
-        fmt = "offline"
-    if "вебинар" in blob or "online" in blob or "запись" in blob:
-        fmt = "online"
-    tr = TITLE_I18N.get(cid, {})
-    ctitle = {"ru": title_ru,
-              "kk": tr.get("kk", title_ru),
-              "en": tr.get("en", title_ru)}
+
     latest = ""
     open_ended = False
-    for r in items:
-        blob = norm_title(r.get("Дата и время"))
+    for s in sessions:
+        blob = norm_title(s["dates"])
         if "по мере" in blob or "запис" in blob:
             open_ended = True
-        for dt in parse_dates(r.get("Дата и время")):
+        for dt in parse_dates(s["dates"]):
             iso = latest_iso([dt])
             if iso > latest:
                 latest = iso
+
+    is_archived = True
+    if latest and latest >= today_iso:
+        is_archived = False
+
     courses.append({
         "id": cid,
-        "slug": slugify(title_ru) or cid.lower(),
+        "slug": slug,
         "title": ctitle,
         "format": fmt,
         "cover": "zaglushka",
         "latest": latest,
         "open": open_ended,
-        "archived": False,
-        "sessions": [{
-            "sid": clean(r["ID Проведения"]),
-            "kind": clean(r["Тип"]),
-            "title": tr_sess_title(clean(r["Название курса"]), ctitle),
-            "desc": tr_desc(clean_ml(r["Описание"])),
-            "teacher": clean_ml(r["Преподаватель"]),
-            "hours": clean(r["Часы/ЗЕ"]),
-            "dates": clean_ml(r["Дата и время"]),
-            "price": clean(r["Цена курса"]),
-            "module_price": clean(r["Цена модуля"]),
-            "month": clean(r["Месяц"]),
-        } for r in items],
+        "archived": is_archived,
+        "can_record": can_record,
+        "record_status": record_status,
+        "sessions": sessions,
     })
 
-# New table holds the actual lineup; the old catalog stays on the site
-# as the Archive (old data also remains in git history).
-new_courses = build_new_courses(NEW_SCHED) if os.path.exists(NEW_SCHED) else []
-if new_courses:
-    print(f"new schedule: {os.path.basename(NEW_SCHED)}")
-for c in courses:
-    c["archived"] = True
-for c in new_courses:
-    c["archived"] = False
-
-def _newest_first(lst):
-    return sorted(lst, key=lambda c: c["latest"] or "", reverse=True)
-
-# active lineup first, archive after; newest-first inside each group
-courses = _newest_first(new_courses) + _newest_first(courses)
+active_courses = [c for c in courses if not c["archived"]]
+archived_courses = [c for c in courses if c["archived"]]
+active_courses.sort(key=lambda c: c["latest"] or "")
+archived_courses.sort(key=lambda c: c["latest"] or "", reverse=True)
+courses = active_courses + archived_courses
 
 site = {
     "name": "Doctrine",

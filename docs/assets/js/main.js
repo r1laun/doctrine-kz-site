@@ -44,10 +44,43 @@
   // (courses with data-open="1" — rolling intake / recordings — never close)
   var archLang = document.documentElement.lang || "ru";
   var archL = {
-    ru: {done: "Завершён", next: "Следующий поток →"},
-    kk: {done: "Аяқталды", next: "Келесі ағын →"},
-    en: {done: "Finished", next: "Next intake →"}
-  }[archLang] || {done: "Завершён", next: "Следующий поток →"};
+    ru: {
+      done: "Завершён",
+      record: "Доступен в записи",
+      buyRecord: "Купить запись",
+      waRecordMsg: "Здравствуйте! Хочу приобрести курс «{title}» в записи. Подскажите, пожалуйста, стоимость и как оплатить?",
+      brunchBadge: "Офлайн-мероприятие завершено",
+      brunchBtn: "О следующем бранче →",
+      waBrunchMsg: "Здравствуйте! Когда планируется следующий докторский бранч?",
+      stressBadge: "Набор закрыт",
+      stressBtn: "В лист ожидания →",
+      waStressMsg: "Здравствуйте! Хочу записаться в лист ожидания на следующий поток по нагрузочному тестированию."
+    },
+    kk: {
+      done: "Аяқталды",
+      record: "Жазбада қолжетімді",
+      buyRecord: "Жазбаны сатып алу",
+      waRecordMsg: "Сәлеметсіз бе! «{title}» курсын жазбада сатып алғым келеді. Бағасы мен төлем тәсілін айтып жібересіз бе?",
+      brunchBadge: "Офлайн шара аяқталды",
+      brunchBtn: "Келесі бранч туралы →",
+      waBrunchMsg: "Сәлеметсіз бе! Келесі дәрігерлік бранч қашан жоспарланып отыр?",
+      stressBadge: "Қабылдау жабылды",
+      stressBtn: "Күту парағына жазылу →",
+      waStressMsg: "Сәлеметсіз бе! Жүктемелік тестілеу бойынша келесі ағынның күту парағына жазылғым келеді."
+    },
+    en: {
+      done: "Finished",
+      record: "Available on demand",
+      buyRecord: "Buy recording",
+      waRecordMsg: "Hello! I would like to purchase the recording of the course “{title}”. Could you please provide the price and payment details?",
+      brunchBadge: "Offline event ended",
+      brunchBtn: "Next brunch info →",
+      waBrunchMsg: "Hello! When is the next physician brunch scheduled?",
+      stressBadge: "Enrollment closed",
+      stressBtn: "Join waitlist →",
+      waStressMsg: "Hello! I would like to join the waiting list for the next stress testing intake."
+    }
+  }[archLang] || {};
   var waLink = document.querySelector('a[href*="wa.me"]');
   var waHref = waLink ? waLink.getAttribute("href") : null;
   function todayStamp() {
@@ -62,24 +95,55 @@
   function markPastCard(card) {
     if (card.classList.contains("is-past")) return;
     card.classList.add("is-past");
+    var recSt = card.getAttribute("data-record-status") || "available";
     var badges = card.querySelector(".badges");
-    if (badges && !badges.querySelector(".badge-past")) {
-      var b = document.createElement("span");
-      b.className = "badge badge-past";
-      b.textContent = archL.done;
-      badges.insertBefore(b, badges.firstChild);
-    }
     var btn = card.querySelector('a.btn-primary[href*="forms.gle"]');
-    if (btn) {
-      btn.textContent = archL.next;
-      if (waHref) btn.setAttribute("href", waHref);
+    var cTitle = card.querySelector("h3") ? card.querySelector("h3").textContent.trim() : "";
+    var baseWa = (waHref || "https://wa.me/77770357345").split("?")[0];
+
+    if (recSt === "brunch") {
+      if (badges && !badges.querySelector(".badge-past")) {
+        var b = document.createElement("span");
+        b.className = "badge badge-past";
+        b.textContent = archL.brunchBadge || "Офлайн-мероприятие завершено";
+        badges.insertBefore(b, badges.firstChild);
+      }
+      if (btn) {
+        btn.textContent = archL.brunchBtn || "О следующем бранче →";
+        btn.className = "btn btn-ghost";
+        btn.setAttribute("href", baseWa + "?text=" + encodeURIComponent(archL.waBrunchMsg || ""));
+      }
+    } else if (recSt === "stress_test") {
+      if (badges && !badges.querySelector(".badge-past")) {
+        var b = document.createElement("span");
+        b.className = "badge badge-past";
+        b.textContent = archL.stressBadge || "Набор закрыт";
+        badges.insertBefore(b, badges.firstChild);
+      }
+      if (btn) {
+        btn.textContent = archL.stressBtn || "В лист ожидания →";
+        btn.className = "btn btn-ghost";
+        btn.setAttribute("href", baseWa + "?text=" + encodeURIComponent(archL.waStressMsg || ""));
+      }
+    } else {
+      card.setAttribute("data-record", "1");
+      if (badges && !badges.querySelector(".badge-record")) {
+        var b = document.createElement("span");
+        b.className = "badge badge-record";
+        b.textContent = archL.record || "Доступен в записи";
+        badges.insertBefore(b, badges.firstChild);
+      }
+      if (btn) {
+        btn.textContent = archL.buyRecord || "Купить запись";
+        btn.classList.add("btn-record");
+        var msg = (archL.waRecordMsg || "").replace("{title}", cTitle);
+        btn.setAttribute("href", baseWa + "?text=" + encodeURIComponent(msg));
+      }
     }
   }
   (function runArchive() {
     var today = todayStamp();
     if (!today) return;
-    // schedule page: move newly-past cards into the archive grid
-    // (old-catalog cards are prerendered there by build.py)
     var archGrid = document.getElementById("archiveGrid");
     var archCount = document.getElementById("archiveCount");
     var schedGrid = document.getElementById("courseGrid");
@@ -93,14 +157,13 @@
       });
       if (archCount) archCount.textContent = archGrid.querySelectorAll("[data-fmt]").length;
     }
-    // home page "upcoming": only mark, keep in place
     var popGrid = document.getElementById("popGrid");
     if (popGrid) {
       popGrid.querySelectorAll("[data-fmt]").forEach(function (card) {
         if (isPastCard(card)) markPastCard(card);
       });
     }
-})();
+  })();
   // conference: the banner is not a course card, so it lives outside the grids
   // (always on top, never filtered/sorted) and hides itself once the date passed
   (function conference() {
@@ -155,7 +218,7 @@
   }
   if (fbtns.length) {
     var state = readState();
-    var activeFmt = (state.fmt === "online" || state.fmt === "offline") ? state.fmt : "all";
+    var activeFmt = (state.fmt === "online" || state.fmt === "offline" || state.fmt === "record") ? state.fmt : "all";
     var sortOrder = (state.sort === "old") ? "old" : "new";
     if (search && state.q) search.value = state.q;
     fbtns.forEach(function (b) {
@@ -180,10 +243,15 @@
     function apply(persist) {
       var q = norm(search && search.value);
       var shown = 0, total = 0;
-      var scope = grid || document;
+      var scope = document.getElementById("scheduleRoot") || document.querySelector("main") || document;
       scope.querySelectorAll("[data-fmt]").forEach(function (card) {
         total++;
-        var okFmt = (activeFmt === "all") || (card.getAttribute("data-fmt") === activeFmt);
+        var okFmt = true;
+        if (activeFmt === "online" || activeFmt === "offline") {
+          okFmt = (card.getAttribute("data-fmt") === activeFmt);
+        } else if (activeFmt === "record") {
+          okFmt = card.hasAttribute("data-record") || (card.getAttribute("data-record-status") === "available" && card.classList.contains("is-past"));
+        }
         var okQ = !q || norm(card.textContent).indexOf(q) !== -1;
         var show = okFmt && okQ;
         card.style.display = show ? "" : "none";
@@ -196,16 +264,18 @@
       return card.getAttribute("data-ts") || "";
     }
     function applySort(persist) {
-      if (!grid) { if (persist) save(); return; }
-      var cards = Array.prototype.slice.call(grid.querySelectorAll("[data-fmt]"));
-      cards.sort(function (a, b) {
-        var ta = tsOf(a), tb = tsOf(b);
-        if (!ta && !tb) return 0;
-        if (!ta) return 1;
-        if (!tb) return -1;
-        return (sortOrder === "old") ? (ta < tb ? -1 : 1) : (ta > tb ? -1 : 1);
+      [grid, document.getElementById("archiveGrid")].forEach(function (targetGrid) {
+        if (!targetGrid) return;
+        var cards = Array.prototype.slice.call(targetGrid.querySelectorAll("[data-fmt]"));
+        cards.sort(function (a, b) {
+          var ta = tsOf(a), tb = tsOf(b);
+          if (!ta && !tb) return 0;
+          if (!ta) return 1;
+          if (!tb) return -1;
+          return (sortOrder === "old") ? (ta < tb ? -1 : 1) : (ta > tb ? -1 : 1);
+        });
+        cards.forEach(function (c) { targetGrid.appendChild(c); });
       });
-      cards.forEach(function (c) { grid.appendChild(c); });
       if (persist) save();
     }
     fbtns.forEach(function (btn) {

@@ -40,7 +40,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/main.css?v=a5e8f8ed">
+<link rel="stylesheet" href="../assets/css/main.css?v=d9d365a8">
 </head>
 <body>
 <header class="site-header"><div class="header-inner">
@@ -58,6 +58,7 @@
 <button data-filter="all" class="active">Все</button>
 <button data-filter="online">Онлайн</button>
 <button data-filter="offline">Офлайн</button>
+<button data-filter="record">В записи</button>
 <button data-sort="new" class="active">Сначала новые</button>
 <button data-sort="old">Сначала старые</button>
 <input id="courseSearch" type="search" placeholder="Найти курс или преподавателя…" aria-label="Найти курс или преподавателя…">
@@ -75,259 +76,173 @@
 <a class="btn btn-ghost conf-more" href="conference.html">Подробнее →</a>
 </div>
 </div></div></div>
-<div class="grid-3" id="courseGrid"><div class="card" data-fmt="online" data-ts="20261128">
+<div class="grid-3" id="courseGrid"><div class="card" data-fmt="online" data-ts="20261119" data-record-status="available">
 <div class="card-body">
-<div class="badges"><span class="badge format fmt-online">Онлайн</span><span class="badge hours">10 ч. (5 ЗЕ)</span><span class="badge">3 занятия</span></div>
+<div class="badges"><span class="badge format fmt-online">Онлайн</span><span class="badge hours">20 ч. (10 ЗЕ)</span><span class="badge">8 занятий</span></div>
+<h3>«ЭКГ» на казахском и русском языках</h3>
+<div class="meta">26.10.2026 - 19:30</div>
+<div class="price">100 000KZT</div>
+<span class="staff-index" hidden>Темирбаев Алмаз Темирбаевич</span>
+<a class="btn btn-ghost" href="course.html?id=К003">Подробнее →</a>
+<a class="btn btn-primary" href="https://forms.gle/w3KRJmSDwuwjDRKx6?usp=pp_url&entry_course=К003" target="_blank" rel="noopener">Записаться</a>
+</div></div>
+<div class="card" data-fmt="online" data-ts="20261127" data-record-status="available">
+<div class="card-body">
+<div class="badges"><span class="badge format fmt-online">Онлайн</span><span class="badge hours">30 ч. (15 ЗЕ)</span><span class="badge">10 занятий</span></div>
+<h3>Как читать холтер и СМАД, чтобы не ошибаться?</h3>
+<div class="meta">16.11.2026 - 19:00</div>
+<div class="price">45 000KZT</div>
+<span class="staff-index" hidden>Азим Саида Юсуфовна, Лещинская-Попова Инна Евгеньевна, Хахазова Карлыгаш Болатовна</span>
+<a class="btn btn-ghost" href="course.html?id=К002">Подробнее →</a>
+<a class="btn btn-primary" href="https://forms.gle/w3KRJmSDwuwjDRKx6?usp=pp_url&entry_course=К002" target="_blank" rel="noopener">Записаться</a>
+</div></div>
+<div class="card" data-fmt="online" data-ts="20261128" data-record-status="available">
+<div class="card-body">
+<div class="badges"><span class="badge format fmt-online">Онлайн</span><span class="badge hours">10 ч. (5 ЗЕ)</span><span class="badge">6 занятий</span></div>
 <h3>ЭхоКГ «Клапаны под контролем»</h3>
 <div class="meta">10.11.2026 - 19:00</div>
 <div class="price">45 000KZT</div>
-<span class="staff-index" hidden>Дилафруз Муратжановна</span>
-<a class="btn btn-ghost" href="course.html?id=К024">Подробнее →</a>
-<a class="btn btn-primary" href="https://forms.gle/w3KRJmSDwuwjDRKx6?usp=pp_url&entry_course=К024" target="_blank" rel="noopener">Записаться</a>
-</div></div>
-<div class="card" data-fmt="online" data-ts="20261127">
+<span class="staff-index" hidden>Халикназарова Дилафруз Муратжановна</span>
+<a class="btn btn-ghost" href="course.html?id=К001">Подробнее →</a>
+<a class="btn btn-primary" href="https://forms.gle/w3KRJmSDwuwjDRKx6?usp=pp_url&entry_course=К001" target="_blank" rel="noopener">Записаться</a>
+</div></div></div>
+
+<section class="archive-section" id="archiveSec">
+<div class="archive-head">
+<h2>Курсы в записи (<span id="archiveCount">13</span>)</h2>
+<p class="sub">все прошедшие программы центра доступны к просмотру в личном кабинете.</p>
+</div>
+<div class="grid-3" id="archiveGrid"><div class="card is-past" data-fmt="online" data-ts="20261030" data-record-status="available" data-record="1">
 <div class="card-body">
-<div class="badges"><span class="badge format fmt-online">Онлайн</span><span class="badge hours">30 ч. (15 ЗЕ)</span><span class="badge">5 занятий</span></div>
-<h3>Как читать холтер и СМАД, что бы не ошибаться?</h3>
-<div class="meta">16.11.2026 - 19:00</div>
-<div class="price">45 000KZT</div>
-<span class="staff-index" hidden>Саида Юсуфовна, Инна Евгеньевна, Карлыгаш Болатовна</span>
-<a class="btn btn-ghost" href="course.html?id=К025">Подробнее →</a>
-<a class="btn btn-primary" href="https://forms.gle/w3KRJmSDwuwjDRKx6?usp=pp_url&entry_course=К025" target="_blank" rel="noopener">Записаться</a>
-</div></div>
-<div class="card" data-fmt="online" data-ts="20261119">
-<div class="card-body">
-<div class="badges"><span class="badge format fmt-online">Онлайн</span><span class="badge hours">20 ч. (10 ЗЕ)</span><span class="badge">8 занятий</span></div>
-<h3>&quot;ЭКГ&quot; на казахском/русском языках</h3>
-<div class="meta">26.10.2026 - 19:30</div>
-<div class="price">100 000KZT</div>
-<span class="staff-index" hidden>Алмаз Темирбаевич</span>
-<a class="btn btn-ghost" href="course.html?id=К023">Подробнее →</a>
-<a class="btn btn-primary" href="https://forms.gle/w3KRJmSDwuwjDRKx6?usp=pp_url&entry_course=К023" target="_blank" rel="noopener">Записаться</a>
-</div></div>
-<div class="card" data-fmt="online" data-ts="20261030">
-<div class="card-body">
-<div class="badges"><span class="badge format fmt-online">Онлайн</span><span class="badge hours">6 ч. (3 ЗЕ)</span><span class="badge">2 занятия</span></div>
+<div class="badges"><span class="badge badge-record">Доступен в записи</span><span class="badge format fmt-online">Онлайн</span><span class="badge hours">6 ч. (3 ЗЕ)</span><span class="badge">2 занятия</span></div>
 <h3>Особенности Холтеровского мониторирования у пациентов с ЭКС</h3>
 <div class="meta">22.10.2026 - 18:30</div>
 <div class="price">30 000KZT</div>
-<span class="staff-index" hidden>Гузель Рахматовна</span>
-<a class="btn btn-ghost" href="course.html?id=К022">Подробнее →</a>
-<a class="btn btn-primary" href="https://forms.gle/w3KRJmSDwuwjDRKx6?usp=pp_url&entry_course=К022" target="_blank" rel="noopener">Записаться</a>
+<span class="staff-index" hidden>Алиева Гузель Рахматовна</span>
+<a class="btn btn-ghost" href="course.html?id=К006">Подробнее →</a>
+<a class="btn btn-primary btn-record" href="https://wa.me/77770357345?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%B8%D0%BE%D0%B1%D1%80%D0%B5%D1%81%D1%82%D0%B8%20%D0%BA%D1%83%D1%80%D1%81%20%C2%AB%D0%9E%D1%81%D0%BE%D0%B1%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D0%B8%20%D0%A5%D0%BE%D0%BB%D1%82%D0%B5%D1%80%D0%BE%D0%B2%D1%81%D0%BA%D0%BE%D0%B3%D0%BE%20%D0%BC%D0%BE%D0%BD%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8F%20%D1%83%20%D0%BF%D0%B0%D1%86%D0%B8%D0%B5%D0%BD%D1%82%D0%BE%D0%B2%20%D1%81%20%D0%AD%D0%9A%D0%A1%C2%BB%20%D0%B2%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B8.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%B8%20%D0%BA%D0%B0%D0%BA%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B8%D1%82%D1%8C%3F" target="_blank" rel="noopener">Купить запись</a>
 </div></div>
-<div class="card" data-fmt="online" data-ts="20261024">
+<div class="card is-past" data-fmt="online" data-ts="20261023" data-record-status="available" data-record="1">
 <div class="card-body">
-<div class="badges"><span class="badge format fmt-online">Онлайн</span><span class="badge hours">30 ч. (15 ЗЕ)</span><span class="badge">5 занятий</span></div>
-<h3>Как читать холтер и СМАД, что бы не ошибаться?</h3>
-<div class="meta">12.10.2026 - 19:00</div>
-<div class="price">45 000KZT</div>
-<span class="staff-index" hidden>Саида Юсуфовна, Инна Евгеньевна, Карлыгаш Болатовна</span>
-<a class="btn btn-ghost" href="course.html?id=К021">Подробнее →</a>
-<a class="btn btn-primary" href="https://forms.gle/w3KRJmSDwuwjDRKx6?usp=pp_url&entry_course=К021" target="_blank" rel="noopener">Записаться</a>
-</div></div>
-<div class="card" data-fmt="online" data-ts="20261023">
-<div class="card-body">
-<div class="badges"><span class="badge format fmt-online">Онлайн</span><span class="badge hours">9 ч. (4.5 ЗЕ)</span><span class="badge">3 занятия</span></div>
+<div class="badges"><span class="badge badge-record">Доступен в записи</span><span class="badge format fmt-online">Онлайн</span><span class="badge hours">9 ч. (4.5 ЗЕ)</span><span class="badge">3 занятия</span></div>
 <h3>Кардиоонкология</h3>
 <div class="meta">19.10.2026 - 19:00</div>
 <div class="price">50 000KZT</div>
-<span class="staff-index" hidden>Мария Васильевна</span>
-<a class="btn btn-ghost" href="course.html?id=К020">Подробнее →</a>
-<a class="btn btn-primary" href="https://forms.gle/w3KRJmSDwuwjDRKx6?usp=pp_url&entry_course=К020" target="_blank" rel="noopener">Записаться</a>
+<span class="staff-index" hidden>Фурман Мария Васильевна</span>
+<a class="btn btn-ghost" href="course.html?id=К008">Подробнее →</a>
+<a class="btn btn-primary btn-record" href="https://wa.me/77770357345?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%B8%D0%BE%D0%B1%D1%80%D0%B5%D1%81%D1%82%D0%B8%20%D0%BA%D1%83%D1%80%D1%81%20%C2%AB%D0%9A%D0%B0%D1%80%D0%B4%D0%B8%D0%BE%D0%BE%D0%BD%D0%BA%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D1%8F%C2%BB%20%D0%B2%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B8.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%B8%20%D0%BA%D0%B0%D0%BA%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B8%D1%82%D1%8C%3F" target="_blank" rel="noopener">Купить запись</a>
 </div></div>
-<div class="card" data-fmt="online" data-ts="20261011">
+<div class="card is-past" data-fmt="online" data-ts="20261001" data-record-status="available" data-record="1">
 <div class="card-body">
-<div class="badges"><span class="badge format fmt-online">Онлайн</span><span class="badge hours">10 ч. (5 ЗЕ)</span><span class="badge">3 занятия</span></div>
-<h3>ЭхоКГ «Клапаны под контролем»</h3>
-<div class="meta">7.10.2026 - 19:00</div>
-<div class="price">45 000KZT</div>
-<span class="staff-index" hidden>Дилафруз Муратжановна</span>
-<a class="btn btn-ghost" href="course.html?id=К019">Подробнее →</a>
-<a class="btn btn-primary" href="https://forms.gle/w3KRJmSDwuwjDRKx6?usp=pp_url&entry_course=К019" target="_blank" rel="noopener">Записаться</a>
-</div></div>
-<div class="card" data-fmt="online" data-ts="20261001">
-<div class="card-body">
-<div class="badges"><span class="badge format fmt-online">Онлайн</span><span class="badge hours">6 ч. (3 ЗЕ)</span><span class="badge">2 занятия</span></div>
+<div class="badges"><span class="badge badge-record">Доступен в записи</span><span class="badge format fmt-online">Онлайн</span><span class="badge hours">6 ч. (3 ЗЕ)</span><span class="badge">2 занятия</span></div>
 <h3>Сердечно-сосудистое здоровье женщины</h3>
 <div class="meta">29.09.2026 - 17:00</div>
 <div class="price">30 000KZT</div>
-<span class="staff-index" hidden>Инна Евгеньевна</span>
+<span class="staff-index" hidden>Лещинская-Попова Инна Евгеньевна</span>
 <a class="btn btn-ghost" href="course.html?id=К018">Подробнее →</a>
-<a class="btn btn-primary" href="https://forms.gle/w3KRJmSDwuwjDRKx6?usp=pp_url&entry_course=К018" target="_blank" rel="noopener">Записаться</a>
+<a class="btn btn-primary btn-record" href="https://wa.me/77770357345?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%B8%D0%BE%D0%B1%D1%80%D0%B5%D1%81%D1%82%D0%B8%20%D0%BA%D1%83%D1%80%D1%81%20%C2%AB%D0%A1%D0%B5%D1%80%D0%B4%D0%B5%D1%87%D0%BD%D0%BE-%D1%81%D0%BE%D1%81%D1%83%D0%B4%D0%B8%D1%81%D1%82%D0%BE%D0%B5%20%D0%B7%D0%B4%D0%BE%D1%80%D0%BE%D0%B2%D1%8C%D0%B5%20%D0%B6%D0%B5%D0%BD%D1%89%D0%B8%D0%BD%D1%8B%C2%BB%20%D0%B2%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B8.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%B8%20%D0%BA%D0%B0%D0%BA%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B8%D1%82%D1%8C%3F" target="_blank" rel="noopener">Купить запись</a>
 </div></div>
-<div class="card" data-fmt="online" data-ts="20260925">
+<div class="card is-past" data-fmt="online" data-ts="20260925" data-record-status="available" data-record="1">
 <div class="card-body">
-<div class="badges"><span class="badge format fmt-online">Онлайн</span><span class="badge hours">3 ч. (1.5 ЗЕ)</span></div>
-<h3>Интервал QT</h3>
-<div class="meta">25.09.2026 - 17:30</div>
-<div class="price">15 000KZT</div>
-<span class="staff-index" hidden>Инна Евгеньевна</span>
-<a class="btn btn-ghost" href="course.html?id=К017">Подробнее →</a>
-<a class="btn btn-primary" href="https://forms.gle/w3KRJmSDwuwjDRKx6?usp=pp_url&entry_course=К017" target="_blank" rel="noopener">Записаться</a>
-</div></div>
-<div class="card" data-fmt="online" data-ts="20260922">
-<div class="card-body">
-<div class="badges"><span class="badge format fmt-online">Онлайн</span><span class="badge hours">3 ч. (1.5 ЗЕ)</span></div>
-<h3>Гипертензивные расстройства и др. во время беременности</h3>
-<div class="meta">22.09.2026 - 17:00</div>
-<div class="price">20 000KZT</div>
-<span class="staff-index" hidden>Инна Евгеньевна</span>
-<a class="btn btn-ghost" href="course.html?id=К016">Подробнее →</a>
-<a class="btn btn-primary" href="https://forms.gle/w3KRJmSDwuwjDRKx6?usp=pp_url&entry_course=К016" target="_blank" rel="noopener">Записаться</a>
-</div></div></div>
-<details class="archive" id="archiveBlock">
-<summary>Прошедшие курсы (<span id="archiveCount">15</span>) — набор в эти группы завершён.</summary>
-<div class="grid-3" id="archiveGrid"><div class="card is-past" data-fmt="online" data-ts="20261107">
-<div class="card-body">
-<div class="badges"><span class="badge badge-past">Завершён</span><span class="badge format fmt-online">Онлайн</span><span class="badge hours">10 часов / 5 ЗЕ</span><span class="badge">4 занятия</span></div>
-<h3>Эхокардиография. Продвинутый уровень. Клапаны под контролем</h3>
-<div class="meta">5.08.2026 - 19:00 (+2)</div>
-<div class="price">45 000KZT</div>
-<span class="staff-index" hidden>Халикназарова Дилафруз Муратжановна</span>
-<a class="btn btn-ghost" href="course.html?id=К001">Подробнее →</a>
-<a class="btn btn-primary" href="https://wa.me/77770357345" target="_blank" rel="noopener">Следующий поток →</a>
-</div></div>
-<div class="card is-past" data-fmt="online" data-ts="20260914">
-<div class="card-body">
-<div class="badges"><span class="badge badge-past">Завершён</span><span class="badge format fmt-online">Онлайн</span><span class="badge hours">20 часов / 10 ЗЕ</span><span class="badge">2 занятия</span></div>
-<h3>Авторская методика обучения ЭКГ на казахском языке</h3>
-<div class="meta">24.08.2026 - 19:30 (+3)</div>
-<div class="price">80 000KZT</div>
-<span class="staff-index" hidden>Темирбаев Алмаз Темирбаевич</span>
-<a class="btn btn-ghost" href="course.html?id=К003">Подробнее →</a>
-<a class="btn btn-primary" href="https://wa.me/77770357345" target="_blank" rel="noopener">Следующий поток →</a>
-</div></div>
-<div class="card is-past" data-fmt="online" data-ts="20260829">
-<div class="card-body">
-<div class="badges"><span class="badge badge-past">Завершён</span><span class="badge format fmt-online">Онлайн</span><span class="badge hours">3 часа/ 1,5 ЗЕ</span></div>
+<div class="badges"><span class="badge badge-record">Доступен в записи</span><span class="badge format fmt-online">Онлайн</span><span class="badge hours">3 ч. (1.5 ЗЕ)</span></div>
 <h3>Интервал QT и лекарственные препараты. Знания на каждый день</h3>
-<div class="meta">29.08.2026- в 11:00</div>
+<div class="meta">25.09.2026 - 17:30</div>
 <div class="price">15 000KZT</div>
 <span class="staff-index" hidden>Лещинская-Попова Инна Евгеньевна</span>
 <a class="btn btn-ghost" href="course.html?id=К004">Подробнее →</a>
-<a class="btn btn-primary" href="https://wa.me/77770357345" target="_blank" rel="noopener">Следующий поток →</a>
+<a class="btn btn-primary btn-record" href="https://wa.me/77770357345?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%B8%D0%BE%D0%B1%D1%80%D0%B5%D1%81%D1%82%D0%B8%20%D0%BA%D1%83%D1%80%D1%81%20%C2%AB%D0%98%D0%BD%D1%82%D0%B5%D1%80%D0%B2%D0%B0%D0%BB%20QT%20%D0%B8%20%D0%BB%D0%B5%D0%BA%D0%B0%D1%80%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D1%8B%D0%B5%20%D0%BF%D1%80%D0%B5%D0%BF%D0%B0%D1%80%D0%B0%D1%82%D1%8B.%20%D0%97%D0%BD%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D0%BA%D0%B0%D0%B6%D0%B4%D1%8B%D0%B9%20%D0%B4%D0%B5%D0%BD%D1%8C%C2%BB%20%D0%B2%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B8.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%B8%20%D0%BA%D0%B0%D0%BA%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B8%D1%82%D1%8C%3F" target="_blank" rel="noopener">Купить запись</a>
 </div></div>
-<div class="card is-past" data-fmt="offline" data-ts="20260821" data-open="1">
+<div class="card is-past" data-fmt="online" data-ts="20260922" data-record-status="available" data-record="1">
 <div class="card-body">
-<div class="badges"><span class="badge badge-past">Завершён</span><span class="badge format fmt-offline">Офлайн</span><span class="badge">24 занятия</span></div>
-<h3>Модульный курс по &quot;Холтер и СМАД&quot; Как читать холтер и СМАД что бы не ошибаться?</h3>
-<div class="meta"></div>
-<div class="price">45 000KZT</div>
-<span class="staff-index" hidden>Азим Саида Юсуфовна, Хахазова Карлыгаш Болатовна</span>
-<a class="btn btn-ghost" href="course.html?id=К002">Подробнее →</a>
-<a class="btn btn-primary" href="https://wa.me/77770357345" target="_blank" rel="noopener">Следующий поток →</a>
+<div class="badges"><span class="badge badge-record">Доступен в записи</span><span class="badge format fmt-online">Онлайн</span><span class="badge hours">3 ч. (1.5 ЗЕ)</span></div>
+<h3>Гипертензивные расстройства и др. во время беременности</h3>
+<div class="meta">22.09.2026 - 17:00</div>
+<div class="price">20 000KZT</div>
+<span class="staff-index" hidden>Лещинская-Попова Инна Евгеньевна</span>
+<a class="btn btn-ghost" href="course.html?id=К016">Подробнее →</a>
+<a class="btn btn-primary btn-record" href="https://wa.me/77770357345?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%B8%D0%BE%D0%B1%D1%80%D0%B5%D1%81%D1%82%D0%B8%20%D0%BA%D1%83%D1%80%D1%81%20%C2%AB%D0%93%D0%B8%D0%BF%D0%B5%D1%80%D1%82%D0%B5%D0%BD%D0%B7%D0%B8%D0%B2%D0%BD%D1%8B%D0%B5%20%D1%80%D0%B0%D1%81%D1%81%D1%82%D1%80%D0%BE%D0%B9%D1%81%D1%82%D0%B2%D0%B0%20%D0%B8%20%D0%B4%D1%80.%20%D0%B2%D0%BE%20%D0%B2%D1%80%D0%B5%D0%BC%D1%8F%20%D0%B1%D0%B5%D1%80%D0%B5%D0%BC%D0%B5%D0%BD%D0%BD%D0%BE%D1%81%D1%82%D0%B8%C2%BB%20%D0%B2%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B8.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%B8%20%D0%BA%D0%B0%D0%BA%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B8%D1%82%D1%8C%3F" target="_blank" rel="noopener">Купить запись</a>
 </div></div>
-<div class="card is-past" data-fmt="online" data-ts="20260718" data-open="1">
+<div class="card is-past" data-fmt="online" data-ts="20260718" data-record-status="available" data-record="1" data-open="1">
 <div class="card-body">
-<div class="badges"><span class="badge badge-past">Завершён</span><span class="badge format fmt-online">Онлайн</span><span class="badge hours">10 часов / 5 ЗЕ</span><span class="badge">6 занятий</span></div>
-<h3>“ЭхоКГ с нуля для врача-клинициста”</h3>
+<div class="badges"><span class="badge badge-record">Доступен в записи</span><span class="badge format fmt-online">Онлайн</span><span class="badge hours">10 часов / 5 ЗЕ</span><span class="badge">6 занятий</span></div>
+<h3>ЭхоКГ с нуля для врача-клинициста</h3>
 <div class="meta">По мере формирования группы</div>
 <div class="price">30 000 KZT</div>
-<span class="staff-index" hidden>Халикназарова Дилафруз Муратжановна</span>
+<span class="staff-index" hidden>Халикназарова Дилафруз Муратжановна Врач кардиолог высшей категории. Врач ультразвуковой диагностики. Основатель клиники «Medical doctor Di», главный внештатный кардиолог Сайрамского района Туркестанской области 2014-2024</span>
 <a class="btn btn-ghost" href="course.html?id=К005">Подробнее →</a>
-<a class="btn btn-primary" href="https://wa.me/77770357345" target="_blank" rel="noopener">Следующий поток →</a>
+<a class="btn btn-primary btn-record" href="https://wa.me/77770357345?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%B8%D0%BE%D0%B1%D1%80%D0%B5%D1%81%D1%82%D0%B8%20%D0%BA%D1%83%D1%80%D1%81%20%C2%AB%D0%AD%D1%85%D0%BE%D0%9A%D0%93%20%D1%81%20%D0%BD%D1%83%D0%BB%D1%8F%20%D0%B4%D0%BB%D1%8F%20%D0%B2%D1%80%D0%B0%D1%87%D0%B0-%D0%BA%D0%BB%D0%B8%D0%BD%D0%B8%D1%86%D0%B8%D1%81%D1%82%D0%B0%C2%BB%20%D0%B2%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B8.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%B8%20%D0%BA%D0%B0%D0%BA%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B8%D1%82%D1%8C%3F" target="_blank" rel="noopener">Купить запись</a>
 </div></div>
-<div class="card is-past" data-fmt="offline" data-ts="20260607">
+<div class="card is-past" data-fmt="offline" data-ts="20260607" data-record-status="brunch">
 <div class="card-body">
-<div class="badges"><span class="badge badge-past">Завершён</span><span class="badge format fmt-offline">Офлайн</span></div>
+<div class="badges"><span class="badge badge-past">Офлайн-мероприятие завершено</span><span class="badge format fmt-offline">Офлайн</span></div>
 <h3>Бранч: «Искусство слышать шепот»</h3>
 <div class="meta">7.06.2026 - 11:00</div>
 <div class="price">10 000KZT</div>
-<span class="staff-index" hidden>Зубова Аркадия Кирилловна</span>
+<span class="staff-index" hidden>Зубова Аркадия Кирилловна Нуриден Нуралы Арсенулы Лещинская-Попова Инна Евгеньевна Лещинская Елена Евгеньевна</span>
 <a class="btn btn-ghost" href="course.html?id=К007">Подробнее →</a>
-<a class="btn btn-primary" href="https://wa.me/77770357345" target="_blank" rel="noopener">Следующий поток →</a>
+<a class="btn btn-ghost" href="https://wa.me/77770357345?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%9A%D0%BE%D0%B3%D0%B4%D0%B0%20%D0%BF%D0%BB%D0%B0%D0%BD%D0%B8%D1%80%D1%83%D0%B5%D1%82%D1%81%D1%8F%20%D1%81%D0%BB%D0%B5%D0%B4%D1%83%D1%8E%D1%89%D0%B8%D0%B9%20%D0%B4%D0%BE%D0%BA%D1%82%D0%BE%D1%80%D1%81%D0%BA%D0%B8%D0%B9%20%D0%B1%D1%80%D0%B0%D0%BD%D1%87%3F" target="_blank" rel="noopener">О следующем бранче →</a>
 </div></div>
-<div class="card is-past" data-fmt="online" data-ts="20260601">
+<div class="card is-past" data-fmt="online" data-ts="20260529" data-record-status="available" data-record="1" data-open="1">
 <div class="card-body">
-<div class="badges"><span class="badge badge-past">Завершён</span><span class="badge format fmt-online">Онлайн</span><span class="badge hours">6 часов / 3 ЗЕ</span></div>
-<h3>Особенности Холтеровского мониторирования у пациентов с ЭКС</h3>
-<div class="meta">1.06.2026 - 18:30</div>
-<div class="price">30 000 KZT</div>
-<span class="staff-index" hidden>Алиева Гузель РахматовнаВрач кардиолог высшей категории, функциональной диагностики, специалист по Холтеровскому мониторированию, включая пациентов с имлантируемыми устройствами</span>
-<a class="btn btn-ghost" href="course.html?id=К006">Подробнее →</a>
-<a class="btn btn-primary" href="https://wa.me/77770357345" target="_blank" rel="noopener">Следующий поток →</a>
-</div></div>
-<div class="card is-past" data-fmt="online" data-ts="20260529" data-open="1">
-<div class="card-body">
-<div class="badges"><span class="badge badge-past">Завершён</span><span class="badge format fmt-online">Онлайн</span><span class="badge hours">6 часов / 3 ЗЕ</span><span class="badge">2 занятия</span></div>
+<div class="badges"><span class="badge badge-record">Доступен в записи</span><span class="badge format fmt-online">Онлайн</span><span class="badge hours">6 часов / 3 ЗЕ</span><span class="badge">2 занятия</span></div>
 <h3>Психотропные препараты в кардиологии: где заканчивается помощь и начинается риск?</h3>
 <div class="meta">29.05.2026</div>
 <div class="price">10 000 KZT</div>
-<span class="staff-index" hidden>Лещинская-Попова Инна Евгеньевна, Лещинская-Попова Инна Евгеньевна, врач-кардиолог, магистр медицинских наук, основатель центра Doctrine, педагог с почти 20 летним стажем, обладатель Курмет Грамотасы МЗРК (2016 г), врач-блогер16</span>
+<span class="staff-index" hidden>Лещинская-Попова Инна Евгеньевна Bрач-кардиолог, магистр медицинских наук, основатель центра Doctrine, педагог с почти 20 летним стажем, обладатель Курмет Грамотасы МЗРК (2016 г), врач-блогер16, Лещинская-Попова Инна Евгеньевна, врач-кардиолог, магистр медицинских наук, основатель центра Doctrine, педагог с почти 20 летним стажем, обладатель Курмет Грамотасы МЗРК (2016 г), врач-блогер16 Азим Саида Юсуфовна, врач-кардиолог, врач функциональной диагностики, преподаватель с 15 летним стажем</span>
 <a class="btn btn-ghost" href="course.html?id=К010">Подробнее →</a>
-<a class="btn btn-primary" href="https://wa.me/77770357345" target="_blank" rel="noopener">Следующий поток →</a>
+<a class="btn btn-primary btn-record" href="https://wa.me/77770357345?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%B8%D0%BE%D0%B1%D1%80%D0%B5%D1%81%D1%82%D0%B8%20%D0%BA%D1%83%D1%80%D1%81%20%C2%AB%D0%9F%D1%81%D0%B8%D1%85%D0%BE%D1%82%D1%80%D0%BE%D0%BF%D0%BD%D1%8B%D0%B5%20%D0%BF%D1%80%D0%B5%D0%BF%D0%B0%D1%80%D0%B0%D1%82%D1%8B%20%D0%B2%20%D0%BA%D0%B0%D1%80%D0%B4%D0%B8%D0%BE%D0%BB%D0%BE%D0%B3%D0%B8%D0%B8%3A%20%D0%B3%D0%B4%D0%B5%20%D0%B7%D0%B0%D0%BA%D0%B0%D0%BD%D1%87%D0%B8%D0%B2%D0%B0%D0%B5%D1%82%D1%81%D1%8F%20%D0%BF%D0%BE%D0%BC%D0%BE%D1%89%D1%8C%20%D0%B8%20%D0%BD%D0%B0%D1%87%D0%B8%D0%BD%D0%B0%D0%B5%D1%82%D1%81%D1%8F%20%D1%80%D0%B8%D1%81%D0%BA%3F%C2%BB%20%D0%B2%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B8.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%B8%20%D0%BA%D0%B0%D0%BA%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B8%D1%82%D1%8C%3F" target="_blank" rel="noopener">Купить запись</a>
 </div></div>
-<div class="card is-past" data-fmt="online" data-ts="20260528" data-open="1">
+<div class="card is-past" data-fmt="online" data-ts="20260521" data-record-status="stress_test" data-open="1">
 <div class="card-body">
-<div class="badges"><span class="badge badge-past">Завершён</span><span class="badge format fmt-online">Онлайн</span><span class="badge hours">9 часов / 4,5 ЗЕ</span><span class="badge">2 занятия</span></div>
-<h3>Кардиоонкология</h3>
-<div class="meta">По мере формиования группыы</div>
-<div class="price">50 000KZT</div>
-<span class="staff-index" hidden>Фурман Мария Васильевна</span>
-<a class="btn btn-ghost" href="course.html?id=К008">Подробнее →</a>
-<a class="btn btn-primary" href="https://wa.me/77770357345" target="_blank" rel="noopener">Следующий поток →</a>
-</div></div>
-<div class="card is-past" data-fmt="offline" data-ts="20260521" data-open="1">
-<div class="card-body">
-<div class="badges"><span class="badge badge-past">Завершён</span><span class="badge format fmt-offline">Офлайн</span><span class="badge">2 занятия</span></div>
+<div class="badges"><span class="badge badge-past">Набор закрыт</span><span class="badge format fmt-online">Онлайн</span><span class="badge">2 занятия</span></div>
 <h3>Нагрузочное тестирование в кардиологии: от показаний к клиническим решениям</h3>
 <div class="meta">Курс в записи</div>
 <div class="price">30 000KZT</div>
-<span class="staff-index" hidden>Жалимбетова Жанна Нуржановна</span>
+<span class="staff-index" hidden>Жалимбетова Жанна Нуржановна Bрач кардиолог, магистр медицины, заведующий отделением функциональной диагностики Национальный центр спортивной медицины и реабилитации</span>
 <a class="btn btn-ghost" href="course.html?id=К009">Подробнее →</a>
-<a class="btn btn-primary" href="https://wa.me/77770357345" target="_blank" rel="noopener">Следующий поток →</a>
+<a class="btn btn-ghost" href="https://wa.me/77770357345?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B0%D1%82%D1%8C%D1%81%D1%8F%20%D0%B2%20%D0%BB%D0%B8%D1%81%D1%82%20%D0%BE%D0%B6%D0%B8%D0%B4%D0%B0%D0%BD%D0%B8%D1%8F%20%D0%BD%D0%B0%20%D1%81%D0%BB%D0%B5%D0%B4%D1%83%D1%8E%D1%89%D0%B8%D0%B9%20%D0%BF%D0%BE%D1%82%D0%BE%D0%BA%20%D0%BF%D0%BE%20%D0%BD%D0%B0%D0%B3%D1%80%D1%83%D0%B7%D0%BE%D1%87%D0%BD%D0%BE%D0%BC%D1%83%20%D1%82%D0%B5%D1%81%D1%82%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%B8%D1%8E." target="_blank" rel="noopener">В лист ожидания →</a>
 </div></div>
-<div class="card is-past" data-fmt="offline" data-ts="20260331" data-open="1">
+<div class="card is-past" data-fmt="online" data-ts="20260331" data-record-status="available" data-record="1" data-open="1">
 <div class="card-body">
-<div class="badges"><span class="badge badge-past">Завершён</span><span class="badge format fmt-offline">Офлайн</span><span class="badge">2 занятия</span></div>
-<h3>«Спирография в клинической практике: интерпретация без ошибок» Врождённые пороки сердца</h3>
+<div class="badges"><span class="badge badge-record">Доступен в записи</span><span class="badge format fmt-online">Онлайн</span><span class="badge">2 занятия</span></div>
+<h3>Спирография в клинической практике: интерпретация без ошибок</h3>
 <div class="meta">по мере формирования группыы</div>
 <div class="price">12 000 KZT</div>
-<span class="staff-index" hidden>Зурдунова Индира Курванжановна</span>
+<span class="staff-index" hidden>Зурдунова Индира Курванжановна Врач аллерголог пульмонолог иммунолог. Член EAACI, ERS, РААКИ, ассоциации пульмонологов Казахстана.</span>
 <a class="btn btn-ghost" href="course.html?id=К011">Подробнее →</a>
-<a class="btn btn-primary" href="https://wa.me/77770357345" target="_blank" rel="noopener">Следующий поток →</a>
+<a class="btn btn-primary btn-record" href="https://wa.me/77770357345?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%B8%D0%BE%D0%B1%D1%80%D0%B5%D1%81%D1%82%D0%B8%20%D0%BA%D1%83%D1%80%D1%81%20%C2%AB%D0%A1%D0%BF%D0%B8%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D1%84%D0%B8%D1%8F%20%D0%B2%20%D0%BA%D0%BB%D0%B8%D0%BD%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%BE%D0%B9%20%D0%BF%D1%80%D0%B0%D0%BA%D1%82%D0%B8%D0%BA%D0%B5%3A%20%D0%B8%D0%BD%D1%82%D0%B5%D1%80%D0%BF%D1%80%D0%B5%D1%82%D0%B0%D1%86%D0%B8%D1%8F%20%D0%B1%D0%B5%D0%B7%20%D0%BE%D1%88%D0%B8%D0%B1%D0%BE%D0%BA%C2%BB%20%D0%B2%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B8.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%B8%20%D0%BA%D0%B0%D0%BA%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B8%D1%82%D1%8C%3F" target="_blank" rel="noopener">Купить запись</a>
 </div></div>
-<div class="card is-past" data-fmt="offline" data-ts="20260319">
+<div class="card is-past" data-fmt="online" data-ts="20260319" data-record-status="available" data-record="1">
 <div class="card-body">
-<div class="badges"><span class="badge badge-past">Завершён</span><span class="badge format fmt-offline">Офлайн</span><span class="badge hours">16 часов /8 ЗЕ</span></div>
+<div class="badges"><span class="badge badge-record">Доступен в записи</span><span class="badge format fmt-online">Онлайн</span><span class="badge hours">16 часов /8 ЗЕ</span></div>
 <h3>Функциональная диагностика 24/7: клинические нюансы Холтера и СМАДа</h3>
 <div class="meta">10.03.2026 - 17:30-19:00 (+3)</div>
 <div class="price">16 000 KZT</div>
 <span class="staff-index" hidden></span>
 <a class="btn btn-ghost" href="course.html?id=К012">Подробнее →</a>
-<a class="btn btn-primary" href="https://wa.me/77770357345" target="_blank" rel="noopener">Следующий поток →</a>
+<a class="btn btn-primary btn-record" href="https://wa.me/77770357345?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%B8%D0%BE%D0%B1%D1%80%D0%B5%D1%81%D1%82%D0%B8%20%D0%BA%D1%83%D1%80%D1%81%20%C2%AB%D0%A4%D1%83%D0%BD%D0%BA%D1%86%D0%B8%D0%BE%D0%BD%D0%B0%D0%BB%D1%8C%D0%BD%D0%B0%D1%8F%20%D0%B4%D0%B8%D0%B0%D0%B3%D0%BD%D0%BE%D1%81%D1%82%D0%B8%D0%BA%D0%B0%2024/7%3A%20%D0%BA%D0%BB%D0%B8%D0%BD%D0%B8%D1%87%D0%B5%D1%81%D0%BA%D0%B8%D0%B5%20%D0%BD%D1%8E%D0%B0%D0%BD%D1%81%D1%8B%20%D0%A5%D0%BE%D0%BB%D1%82%D0%B5%D1%80%D0%B0%20%D0%B8%20%D0%A1%D0%9C%D0%90%D0%94%D0%B0%C2%BB%20%D0%B2%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B8.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%B8%20%D0%BA%D0%B0%D0%BA%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B8%D1%82%D1%8C%3F" target="_blank" rel="noopener">Купить запись</a>
 </div></div>
-<div class="card is-past" data-fmt="online" data-ts="20260313">
+<div class="card is-past" data-fmt="online" data-ts="20260313" data-record-status="available" data-record="1">
 <div class="card-body">
-<div class="badges"><span class="badge badge-past">Завершён</span><span class="badge format fmt-online">Онлайн</span><span class="badge hours">12 часов /6 ЗЕ</span></div>
+<div class="badges"><span class="badge badge-record">Доступен в записи</span><span class="badge format fmt-online">Онлайн</span><span class="badge hours">12 часов /6 ЗЕ</span></div>
 <h3>Школа активного мозга (Для врачей и вдумчивых пациентов)</h3>
 <div class="meta">13.03.2026 - 19:30-21:00</div>
 <div class="price">12 000 KZT</div>
-<span class="staff-index" hidden>Лещинская Елена Евгеньевна - нейрологопед, дефектолог, специалист по сенсорной интеграции. Педагог высшей категории. Кандидат в магистры психологии</span>
+<span class="staff-index" hidden>Лещинская Елена Евгеньевна - нейрологопед, дефектолог, специалист по сенсорной интеграции. Педагог высшей категории. Кандидат в магистры психологии Маринчак Андрей Сергеевич психолог, специалист по АФК и сенсорной интеграции</span>
 <a class="btn btn-ghost" href="course.html?id=К013">Подробнее →</a>
-<a class="btn btn-primary" href="https://wa.me/77770357345" target="_blank" rel="noopener">Следующий поток →</a>
+<a class="btn btn-primary btn-record" href="https://wa.me/77770357345?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%B8%D0%BE%D0%B1%D1%80%D0%B5%D1%81%D1%82%D0%B8%20%D0%BA%D1%83%D1%80%D1%81%20%C2%AB%D0%A8%D0%BA%D0%BE%D0%BB%D0%B0%20%D0%B0%D0%BA%D1%82%D0%B8%D0%B2%D0%BD%D0%BE%D0%B3%D0%BE%20%D0%BC%D0%BE%D0%B7%D0%B3%D0%B0%20%28%D0%94%D0%BB%D1%8F%20%D0%B2%D1%80%D0%B0%D1%87%D0%B5%D0%B9%20%D0%B8%20%D0%B2%D0%B4%D1%83%D0%BC%D1%87%D0%B8%D0%B2%D1%8B%D1%85%20%D0%BF%D0%B0%D1%86%D0%B8%D0%B5%D0%BD%D1%82%D0%BE%D0%B2%29%C2%BB%20%D0%B2%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B8.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%B8%20%D0%BA%D0%B0%D0%BA%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B8%D1%82%D1%8C%3F" target="_blank" rel="noopener">Купить запись</a>
 </div></div>
-<div class="card is-past" data-fmt="online" data-ts="" data-open="1">
+<div class="card is-past" data-fmt="offline" data-ts="" data-record-status="available" data-record="1" data-open="1">
 <div class="card-body">
-<div class="badges"><span class="badge badge-past">Завершён</span><span class="badge format fmt-online">Онлайн</span><span class="badge hours">18 часов /9 ЗЕ</span></div>
-<h3>Сложные ВПС простым языком: что должен знать каждый врач Очно! Проводит детский кардиолог</h3>
+<div class="badges"><span class="badge badge-record">Доступен в записи</span><span class="badge format fmt-offline">Офлайн</span><span class="badge hours">18 часов /9 ЗЕ</span></div>
+<h3>Сложные ВПС простым языком: что должен знать каждый врач</h3>
 <div class="meta">по мере формирования группы</div>
 <div class="price">20 000 KZT</div>
-<span class="staff-index" hidden>Жұбаныш Назгүл Сағынқызы</span>
+<span class="staff-index" hidden>Жұбаныш Назгүл Сағынқызы Детский кардиолог ЦПиДКХ</span>
 <a class="btn btn-ghost" href="course.html?id=К014">Подробнее →</a>
-<a class="btn btn-primary" href="https://wa.me/77770357345" target="_blank" rel="noopener">Следующий поток →</a>
-</div></div>
-<div class="card is-past" data-fmt="online" data-ts="" data-open="1">
-<div class="card-body">
-<div class="badges"><span class="badge badge-past">Завершён</span><span class="badge format fmt-online">Онлайн</span></div>
-<h3>“ЭКГ” На Казахском языке</h3>
-<div class="meta">по мере формирования группы</div>
-<div class="price">&nbsp;</div>
-<span class="staff-index" hidden>Аббуварисова Аида Абдуварисовна</span>
-<a class="btn btn-ghost" href="course.html?id=К015">Подробнее →</a>
-<a class="btn btn-primary" href="https://wa.me/77770357345" target="_blank" rel="noopener">Следующий поток →</a>
+<a class="btn btn-primary btn-record" href="https://wa.me/77770357345?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D0%BF%D1%80%D0%B8%D0%BE%D0%B1%D1%80%D0%B5%D1%81%D1%82%D0%B8%20%D0%BA%D1%83%D1%80%D1%81%20%C2%AB%D0%A1%D0%BB%D0%BE%D0%B6%D0%BD%D1%8B%D0%B5%20%D0%92%D0%9F%D0%A1%20%D0%BF%D1%80%D0%BE%D1%81%D1%82%D1%8B%D0%BC%20%D1%8F%D0%B7%D1%8B%D0%BA%D0%BE%D0%BC%3A%20%D1%87%D1%82%D0%BE%20%D0%B4%D0%BE%D0%BB%D0%B6%D0%B5%D0%BD%20%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D0%BA%D0%B0%D0%B6%D0%B4%D1%8B%D0%B9%20%D0%B2%D1%80%D0%B0%D1%87%C2%BB%20%D0%B2%20%D0%B7%D0%B0%D0%BF%D0%B8%D1%81%D0%B8.%20%D0%9F%D0%BE%D0%B4%D1%81%D0%BA%D0%B0%D0%B6%D0%B8%D1%82%D0%B5%2C%20%D0%BF%D0%BE%D0%B6%D0%B0%D0%BB%D1%83%D0%B9%D1%81%D1%82%D0%B0%2C%20%D1%81%D1%82%D0%BE%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D1%8C%20%D0%B8%20%D0%BA%D0%B0%D0%BA%20%D0%BE%D0%BF%D0%BB%D0%B0%D1%82%D0%B8%D1%82%D1%8C%3F" target="_blank" rel="noopener">Купить запись</a>
 </div></div></div>
-</details>
+</section>
 </div></section>
 <section class="section"><div class="container">
 <h2>Контакты</h2>
@@ -343,6 +258,6 @@
 <div><h4>Меню</h4><div><a href="index.html">Главная</a></div><div><a href="schedule.html">Расписание</a></div><div><a href="teachers.html">Преподаватели</a></div><div><a href="cabinet.html">Кабинет</a></div><div><a href="../files/public-offer.pdf" target="_blank" rel="noopener">Публичная оферта (PDF)</a></div></div>
 <div><h4>Контакты</h4><div><a href="https://wa.me/77770357345">WhatsApp: +7 777 035 73 45</a></div><div><a href="https://www.instagram.com/doctrine_centre">Instagram</a></div><div><small>г. Алматы</small></div></div>
 </div></footer>
-<script src="../assets/js/main.js?v=81359f2f"></script>
+<script src="../assets/js/main.js?v=f63fa66a"></script>
 </body>
 </html>

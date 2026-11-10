@@ -85,15 +85,25 @@ a{color:inherit}
 .badge.format.fmt-online{background:var(--teal)}
 .badge.format.fmt-offline{background:var(--brand-dark)}
 .badge-past{background:#7d8f96}
+.badge-record{background:#1d7f72;box-shadow:0 2px 6px rgba(29,127,114,.25)}
+.btn.btn-record{background:#1d7f72;border-color:#1d7f72}
+.btn.btn-record:hover{background:#156257;border-color:#156257}
 /* archive: past courses */
 .archive{margin-top:30px;background:#fff;border:1px dashed #b9cdd1;border-radius:var(--radius);padding:6px 18px 18px;box-shadow:var(--shadow)}
 .archive summary{cursor:pointer;font-weight:800;font-size:17px;padding:14px 4px;color:var(--muted)}
 .archive summary:hover{color:var(--teal)}
 .archive .grid-3{margin-top:6px}
+.archive-section{margin-top:44px;padding-top:28px;border-top:1px solid var(--line)}
+.archive-head{margin-bottom:20px}
+.archive-head h2{margin:0 0 6px}
+.archive-head .sub{margin:0}
 .card.is-past{box-shadow:0 4px 14px rgba(35,62,70,.08)}
 .card.is-past img{filter:grayscale(45%)}
 .past-banner{background:#eef3f4;border:1px solid var(--line);border-left:5px solid #7d8f96;border-radius:12px;padding:14px 18px;margin:16px 0;font-size:15.5px}
 .past-banner b{display:block;margin-bottom:2px}
+.past-banner.record-banner{background:#f0f9f8;border-color:#bce4df;border-left:5px solid #1d7f72}
+.past-banner.record-banner b{color:#156257;font-size:17px;margin-bottom:4px}
+.past-banner.record-banner p{margin:0;color:#284b47;font-size:14.5px;line-height:1.45}
 .meta{font-size:13.5px;color:var(--muted)}
 .price{font-size:22px;font-weight:800;color:var(--teal);margin-top:auto;padding-top:10px}
 .card .btn{margin-top:10px;justify-content:center;font-size:14px;padding:11px}

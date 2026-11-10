@@ -74,8 +74,15 @@ T = {
         "rights": "Все права защищены.", "teachers_page_sub": "Нажмите «Подробнее», чтобы узнать о каждом.",
         "menu_h": "Меню", "fmt_online": "Онлайн", "fmt_offline": "Офлайн",
         "search_ph": "Найти курс или преподавателя…", "shown": "Показано",
-        "archive_h": "Прошедшие курсы", "archive_sub": "набор в эти группы завершён.",
+        "archive_h": "Курсы в записи", "archive_sub": "все прошедшие программы центра доступны к просмотру в личном кабинете.",
         "past_badge": "Завершён", "next_stream": "Следующий поток →",
+        "record_badge": "Доступен в записи", "record_btn": "Купить запись",
+        "wa_record_msg": "Здравствуйте! Хочу приобрести курс «{title}» в записи. Подскажите, пожалуйста, стоимость и как оплатить?",
+        "brunch_badge": "Офлайн-мероприятие завершено", "brunch_btn": "О следующем бранче →",
+        "wa_brunch_msg": "Здравствуйте! Когда планируется следующий докторский бранч?",
+        "stress_badge": "Набор закрыт", "stress_btn": "В лист ожидания →",
+        "wa_stress_msg": "Здравствуйте! Хочу записаться в лист ожидания на следующий поток по нагрузочному тестированию.",
+        "filter_record": "В записи",
         "founder_alt": "Основатель центра Doctrine",
         "conf_badge": "Конференция", "conf_when": "Когда", "conf_venue": "Место",
         "conf_reg": "Регистрация", "conf_more": "Подробнее о конференции →", "conf_more_short": "Подробнее →",
@@ -135,8 +142,15 @@ T = {
         "rights": "Барлық құқықтар қорғалған.", "teachers_page_sub": "Әрқайсысы туралы білу үшін «Толығырақ» басыңыз.",
         "menu_h": "Мәзір", "fmt_online": "Онлайн", "fmt_offline": "Офлайн",
         "search_ph": "Курс немесе оқытушыны іздеу…", "shown": "Көрсетілді",
-        "archive_h": "Өткен курстар", "archive_sub": "бұл топтарға қабылдау аяқталды.",
+        "archive_h": "Жазбадағы курстар", "archive_sub": "орталықтың барлық өткен бағдарламаларын жеке кабинетте жазбада көруге болады.",
         "past_badge": "Аяқталды", "next_stream": "Келесі ағын →",
+        "record_badge": "Жазбада қолжетімді", "record_btn": "Жазбаны сатып алу",
+        "wa_record_msg": "Сәлеметсіз бе! «{title}» курсын жазбада сатып алғым келеді. Бағасы мен төлем тәсілін айтып жібересіз бе?",
+        "brunch_badge": "Офлайн шара аяқталды", "brunch_btn": "Келесі бранч туралы →",
+        "wa_brunch_msg": "Сәлеметсіз бе! Келесі дәрігерлік бранч қашан жоспарланып отыр?",
+        "stress_badge": "Қабылдау жабылды", "stress_btn": "Күту парағына жазылу →",
+        "wa_stress_msg": "Сәлеметсіз бе! Жүктемелік тестілеу бойынша келесі ағынның күту парағына жазылғым келеді.",
+        "filter_record": "Жазбада",
         "founder_alt": "Doctrine орталығының негізін қалаушы",
         "conf_badge": "Конференция", "conf_when": "Қашан", "conf_venue": "Орын",
         "conf_reg": "Тіркелу", "conf_more": "Конференция туралы толығырақ →", "conf_more_short": "Толығырақ →",
@@ -196,8 +210,15 @@ T = {
         "rights": "All rights reserved.", "teachers_page_sub": "Click “Details” to learn about each teacher.",
         "menu_h": "Menu", "fmt_online": "Online", "fmt_offline": "Offline",
         "search_ph": "Search courses or teachers…", "shown": "Showing",
-        "archive_h": "Past courses", "archive_sub": "enrollment for these groups is closed.",
+        "archive_h": "Recorded courses", "archive_sub": "all past centre programs can be watched on demand in the physician account.",
         "past_badge": "Finished", "next_stream": "Next intake →",
+        "record_badge": "Available on demand", "record_btn": "Buy recording",
+        "wa_record_msg": "Hello! I would like to purchase the recording of the course “{title}”. Could you please provide the price and payment details?",
+        "brunch_badge": "Offline event ended", "brunch_btn": "Next brunch info →",
+        "wa_brunch_msg": "Hello! When is the next physician brunch scheduled?",
+        "stress_badge": "Enrollment closed", "stress_btn": "Join waitlist →",
+        "wa_stress_msg": "Hello! I would like to join the waiting list for the next stress testing intake.",
+        "filter_record": "On demand",
         "founder_alt": "Founder of the Doctrine centre",
         "conf_badge": "Conference", "conf_when": "When", "conf_venue": "Venue",
         "conf_reg": "Registration", "conf_more": "More about the conference →", "conf_more_short": "Details →",
@@ -459,9 +480,27 @@ def staff_text(c, lang):
                 extra.append(tr)
     return ", ".join(names + extra)
 
+def wa_record_link(c, lang):
+    title = c["title"].get(lang) or c["title"]["ru"]
+    msg = T[lang]["wa_record_msg"].format(title=title)
+    return f"{WA.split('?')[0]}?text={quote(msg)}"
+
+def wa_brunch_link(lang):
+    msg = T[lang]["wa_brunch_msg"]
+    return f"{WA.split('?')[0]}?text={quote(msg)}"
+
+def wa_stress_link(lang):
+    msg = T[lang]["wa_stress_msg"]
+    return f"{WA.split('?')[0]}?text={quote(msg)}"
+
 def active_top(lang, n):
-    """Top-n active (non-archived) courses for the home page."""
-    pool = [c for c in COURSES if not c.get("archived")][:n]
+    """Top-n active (non-archived) courses for the home page (fills with top recordings if fewer than n active)."""
+    active = [c for c in COURSES if not c.get("archived")]
+    if len(active) >= n:
+        pool = active[:n]
+    else:
+        past = [c for c in COURSES if c.get("archived")]
+        pool = active + past[:(n - len(active))]
     return course_cards(lang, pool=pool)
 
 def course_cards(lang, limit=None, fmt=None, skip_archived=False, only_archived=False, pool=None):
@@ -489,18 +528,33 @@ def course_cards(lang, limit=None, fmt=None, skip_archived=False, only_archived=
         ts = (c.get("latest") or "").replace("-", "")
         open_attr = ' data-open="1"' if c.get("open") else ""
         is_arch = bool(c.get("archived"))
-        past_badge = f'<span class="badge badge-past">{esc(T[lang]["past_badge"])}</span>' if is_arch else ""
-        enroll_btn = (f'<a class="btn btn-primary" href="{WA}" target="_blank" rel="noopener">{esc(T[lang]["next_stream"])}</a>' if is_arch
-                      else f'<a class="btn btn-primary" href="{FORM}?usp=pp_url&entry_course={c["id"]}" target="_blank" rel="noopener">{esc(T[lang]["enroll"])}</a>')
-        out.append(f"""<div class="card{' is-past' if is_arch else ''}" data-fmt="{c["format"]}" data-ts="{ts}"{open_attr}>
+        rec_st = c.get("record_status", "available")
+        can_rec = c.get("can_record", True)
+
+        if is_arch:
+            if rec_st == "brunch":
+                card_badge = f'<span class="badge badge-past">{esc(T[lang]["brunch_badge"])}</span>'
+                action_btn = f'<a class="btn btn-ghost" href="{wa_brunch_link(lang)}" target="_blank" rel="noopener">{esc(T[lang]["brunch_btn"])}</a>'
+            elif rec_st == "stress_test":
+                card_badge = f'<span class="badge badge-past">{esc(T[lang]["stress_badge"])}</span>'
+                action_btn = f'<a class="btn btn-ghost" href="{wa_stress_link(lang)}" target="_blank" rel="noopener">{esc(T[lang]["stress_btn"])}</a>'
+            else:
+                card_badge = f'<span class="badge badge-record">{esc(T[lang]["record_badge"])}</span>'
+                action_btn = f'<a class="btn btn-primary btn-record" href="{wa_record_link(c, lang)}" target="_blank" rel="noopener">{esc(T[lang]["record_btn"])}</a>'
+        else:
+            card_badge = ""
+            action_btn = f'<a class="btn btn-primary" href="{FORM}?usp=pp_url&entry_course={c["id"]}" target="_blank" rel="noopener">{esc(T[lang]["enroll"])}</a>'
+
+        rec_attr = ' data-record="1"' if (can_rec and is_arch) else ""
+        out.append(f"""<div class="card{' is-past' if is_arch else ''}" data-fmt="{c["format"]}" data-ts="{ts}" data-record-status="{rec_st}"{rec_attr}{open_attr}>
 <div class="card-body">
-<div class="badges">{past_badge}<span class="badge format {fmt_cls}">{esc(fmt_label)}</span>{f'<span class="badge hours">{esc(hours)}</span>' if hours else ""}{f'<span class="badge">{n} {sess_word(lang, n)}</span>' if n > 1 else ""}</div>
+<div class="badges">{card_badge}<span class="badge format {fmt_cls}">{esc(fmt_label)}</span>{f'<span class="badge hours">{esc(hours)}</span>' if hours else ""}{f'<span class="badge">{n} {sess_word(lang, n)}</span>' if n > 1 else ""}</div>
 <h3>{esc(title)}</h3>
 <div class="meta">{esc(dates)}</div>
 <div class="price">{esc(price) if price else "&nbsp;"}</div>
 <span class="staff-index" hidden>{esc(staff_text(c, lang))}</span>
 <a class="btn btn-ghost" href="course.html?id={c["id"]}">{esc(T[lang]["detail"])}</a>
-{enroll_btn}
+{action_btn}
 </div></div>""")
     return "\n".join(out)
 
@@ -755,6 +809,7 @@ def page_conference(lang):
 
 def page_schedule(lang):
     t = T[lang]
+    arch_count = len([c for c in COURSES if c.get("archived")])
     return (head(lang, t["seo_sched_t"], t["seo_sched_d"], "schedule.html") + header(lang, "schedule.html", "schedule.html") + f"""
 <section class="section"><div class="container">
 <h1>{esc(t["sched_h"])}</h1><p class="sub">{esc(t["sched_sub"])}</p>
@@ -762,6 +817,7 @@ def page_schedule(lang):
 <button data-filter="all" class="active">{esc(t["filter_all"])}</button>
 <button data-filter="online">{esc(t["filter_online"])}</button>
 <button data-filter="offline">{esc(t["filter_offline"])}</button>
+<button data-filter="record">{esc(t["filter_record"])}</button>
 <button data-sort="new" class="active">{esc(t["sort_new"])}</button>
 <button data-sort="old">{esc(t["sort_old"])}</button>
 <input id="courseSearch" type="search" placeholder="{esc(t["search_ph"])}" aria-label="{esc(t["search_ph"])}">
@@ -769,10 +825,14 @@ def page_schedule(lang):
 </div>
 <div class="conf-wrap" id="confTop">{conf_block(lang, "grid")}</div>
 <div class="grid-3" id="courseGrid">{course_cards(lang, skip_archived=True)}</div>
-<details class="archive" id="archiveBlock">
-<summary>{esc(t["archive_h"])} (<span id="archiveCount">{len([c for c in COURSES if c.get("archived")])}</span>) — {esc(t["archive_sub"])}</summary>
+
+<section class="archive-section" id="archiveSec">
+<div class="archive-head">
+<h2>{esc(t["archive_h"])} (<span id="archiveCount">{arch_count}</span>)</h2>
+<p class="sub">{esc(t["archive_sub"])}</p>
+</div>
 <div class="grid-3" id="archiveGrid">{course_cards(lang, only_archived=True)}</div>
-</details>
+</section>
 </div></section>
 """ + contacts_section(lang) + footer(lang))
 
@@ -947,6 +1007,8 @@ def cabinet_catalog_items():
             "ts": (c.get("latest") or "").replace("-", ""),
             "open": bool(c.get("open")),
             "archived": bool(c.get("archived")),
+            "can_record": bool(c.get("can_record", True)),
+            "record_status": c.get("record_status", "available"),
         })
         seen_titles.add(ru_t)
     return items
