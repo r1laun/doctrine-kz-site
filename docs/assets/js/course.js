@@ -146,6 +146,37 @@
       return ch;
     }).join("");
   }
+  function formatDesc(text) {
+    if (!text) return "";
+    var lines = String(text).split("\n");
+    var html = [];
+    var inList = false;
+    for (var i = 0; i < lines.length; i++) {
+      var ln = lines[i].trim();
+      if (!ln) {
+        if (inList) { html.push("</ul>"); inList = false; }
+        continue;
+      }
+      var isBullet = /^[\*•\-]\s+/.test(ln);
+      if (isBullet) {
+        if (!inList) { html.push("<ul class='session-list'>"); inList = true; }
+        var content = ln.replace(/^[\*•\-]\s+/, "");
+        html.push("<li>" + esc(content) + "</li>");
+      } else {
+        if (inList) { html.push("</ul>"); inList = false; }
+        var isModule = /^(Модуль|Module)\b/i.test(ln) || /модулі\b/i.test(ln);
+        var isHeading = isModule || /^(Программа курса|Course program|Курс бағдарламасы)/i.test(ln) || (/:$/.test(ln) && ln.length < 90);
+        if (isHeading) {
+          var cls = isModule ? "session-heading session-module-title" : "session-heading";
+          html.push("<div class='" + cls + "'>" + esc(ln) + "</div>");
+        } else {
+          html.push("<p class='session-p'>" + esc(ln) + "</p>");
+        }
+      }
+    }
+    if (inList) { html.push("</ul>"); }
+    return html.join("");
+  }
   fetch("../data/courses.json").then(function (r) { return r.json(); }).then(function (courses) {
     var c = courses.find(function (x) { return x.id === id; }) || courses[0];
     if (!c) { box.innerHTML = "<p>" + esc(L.notfound) + "</p>"; return; }
@@ -168,7 +199,7 @@
       if (s.hours) rows.push("<div><b>" + esc(L.hours) + ":</b> " + esc(trHours(s.hours)) + "</div>");
       if (g.dates.length) rows.push('<div class="dates">' + g.dates.map(function (d) { return esc(trDates(d)); }).join("<br>") + "</div>");
       if (s.teacher) rows.push("<div><b>" + esc(L.teacher) + ":</b> " + esc(trTeacher(trTeacherLine(String(s.teacher).split("\n")[0].trim()))) + "</div>");
-      if (desc) rows.push("<div>" + esc(desc).replace(/\n/g, "<br>") + "</div>");
+      if (desc) rows.push('<div class="session-desc">' + formatDesc(desc) + '</div>');
       var price = s.price ? '<div class="price">' + esc(s.price) + "</div>" : "";
       return '<div class="session"><h4>' + esc(pick(s.title) || t) + " <span class='meta'>[" + esc(trKind(s.kind)) + "]</span></h4>" + rows.join("") + price + "</div>";
     }).join("");

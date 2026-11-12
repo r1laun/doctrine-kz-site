@@ -194,6 +194,14 @@ footer small{color:#9db8bc}
 .session{border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0;background:#fff}
 .session h4{margin:0 0 8px}
 .session .dates{white-space:pre-line;background:#f2f8f8;border-radius:10px;padding:10px 14px;font-size:14.5px}
+.session-desc{margin-top:14px;color:var(--text);font-size:15px}
+.session-p{margin:8px 0;line-height:1.55}
+.session-heading{font-weight:700;color:var(--brand-dark);margin:16px 0 8px;font-size:15.5px}
+.session-heading:first-child{margin-top:4px}
+.session-module-title{font-size:16px;color:#1e3a47;margin-top:20px;padding-top:12px;border-top:1px dashed var(--line)}
+.session-module-title:first-child{border-top:none;padding-top:0;margin-top:4px}
+.session-list{margin:6px 0 14px 22px;padding:0;list-style:disc}
+.session-list li{margin:5px 0;line-height:1.5}
 /* responsive */
 @media(max-width:1120px){
   .logo small,.site-header .btn-header{display:none}
