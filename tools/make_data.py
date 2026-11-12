@@ -470,6 +470,9 @@ def build_new_courses_by_cid(path):
         cid = find_canonical_cid(title)
         if not cid:
             continue
+        # Holter past October dates removed per user request
+        if cid == "К002" and ("октябр" in mon.lower() or any(mon_ov == 10 for _, mon_ov in new_day_list(r.get("date")))):
+            continue
         sessions = []
         fmt = new_format(r.get("format"))
         default_mon = new_month_num(mon.split("-")[0])
