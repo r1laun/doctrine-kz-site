@@ -847,7 +847,7 @@ def page_course(lang):
     }
     return (head(lang, t["seo_course_t"], t["seo_course_d"], "course.html") + header(lang, "schedule.html", "course.html") + f"""
 <section class="course-hero"><div class="container">
-<a href="schedule.html">{esc(t["back"])}</a>
+<a href="schedule.html" class="course-back">{esc(t["back"])}</a>
 <div id="course-detail"><p>…</p></div>
 <p><a class="btn btn-primary" href="{FORM}" target="_blank" rel="noopener">{esc(t["enroll"])}</a>
 <a class="btn btn-ghost" href="{WA}" target="_blank" rel="noopener">WhatsApp</a></p>
