@@ -181,6 +181,8 @@
         el.classList.add("is-over");
         var note = el.parentNode ? el.parentNode.querySelector(".conf-past-note") : null;
         if (note) note.style.display = "block";
+        var galBtn = el.parentNode ? el.parentNode.querySelector("[data-conf-gallery]") : null;
+        if (galBtn) galBtn.hidden = false;
         el.querySelectorAll(".conf-reg").forEach(function (b) {
           if (waHref) b.setAttribute("href", waHref);
           b.textContent = waL;
@@ -190,6 +192,61 @@
         return;
       }
       el.style.display = "none";
+    });
+  })();
+  // conference gallery: «Как проходило мероприятие» — modal grid + lightbox
+  (function confGallery() {
+    var btn = document.querySelector("[data-conf-gallery]");
+    var modal = document.getElementById("confGal");
+    if (!btn || !modal) return;
+    var lightbox = document.getElementById("confLightbox");
+    var lbImg = document.getElementById("confLightboxImg");
+    var items = Array.prototype.slice.call(modal.querySelectorAll(".conf-gal-item"));
+    var current = -1;
+
+    function openModal() {
+      modal.hidden = false;
+      document.body.classList.add("t-modal-open");
+    }
+    function closeModal() {
+      modal.hidden = true;
+      if (!lightbox || lightbox.hidden) document.body.classList.remove("t-modal-open");
+    }
+    function openLightbox(i) {
+      current = (i + items.length) % items.length;
+      lbImg.src = items[current].getAttribute("data-full");
+      lbImg.alt = items[current].getAttribute("aria-label") || "";
+      lightbox.hidden = false;
+    }
+    function step(dir) { openLightbox(current + dir); }
+    function closeLightbox() {
+      lightbox.hidden = true; // back to the grid, modal stays open
+    }
+
+    btn.addEventListener("click", openModal);
+    modal.querySelectorAll("[data-gal-close]").forEach(function (el) {
+      el.addEventListener("click", closeModal);
+    });
+    items.forEach(function (item, i) {
+      item.addEventListener("click", function () { openLightbox(i); });
+    });
+    if (lightbox) {
+      lightbox.querySelector(".conf-lb-prev").addEventListener("click", function () { step(-1); });
+      lightbox.querySelector(".conf-lb-next").addEventListener("click", function () { step(1); });
+      lightbox.querySelector("[data-lb-close]").addEventListener("click", closeLightbox);
+      // click on the dark backdrop (not on the image/buttons) closes the lightbox
+      lightbox.addEventListener("click", function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+    }
+    document.addEventListener("keydown", function (e) {
+      var lbOpen = lightbox && !lightbox.hidden;
+      var mOpen = !modal.hidden;
+      if (!lbOpen && !mOpen) return;
+      if (e.key === "Escape") {
+        if (lbOpen) closeLightbox(); else closeModal();
+      } else if (lbOpen && e.key === "ArrowLeft") { step(-1); }
+      else if (lbOpen && e.key === "ArrowRight") { step(1); }
     });
   })();
   // schedule filters

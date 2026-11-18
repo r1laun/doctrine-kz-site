@@ -87,6 +87,8 @@ T = {
         "conf_badge": "Конференция", "conf_when": "Когда", "conf_venue": "Место",
         "conf_reg": "Регистрация", "conf_more": "Подробнее о конференции →", "conf_more_short": "Подробнее →",
         "conf_wa": "Написать в WhatsApp", "conf_enroll_wa": "Записаться в WhatsApp", "conf_past": "Мероприятие завершено",
+        "conf_gal_btn": "Как проходило мероприятие", "conf_gal_h": "Как проходило мероприятие", "conf_gal_alt": "Фото с конференции",
+        "conf_gal_prev": "Предыдущее фото", "conf_gal_next": "Следующее фото",
         "conf_topics_h": "Основные темы", "conf_focus_h": "Отдельное внимание",
         "conf_agenda_h": "Что ждёт участников", "conf_audience_h": "Для кого",
         "conf_speakers_h": "Научные руководители", "conf_org_h": "Организаторы",
@@ -155,6 +157,8 @@ T = {
         "conf_badge": "Конференция", "conf_when": "Қашан", "conf_venue": "Орын",
         "conf_reg": "Тіркелу", "conf_more": "Конференция туралы толығырақ →", "conf_more_short": "Толығырақ →",
         "conf_wa": "WhatsApp-қа жазу", "conf_enroll_wa": "WhatsApp арқылы жазылу", "conf_past": "Іс-шара аяқталды",
+        "conf_gal_btn": "Іс-шара қалай өтті", "conf_gal_h": "Іс-шара қалай өтті", "conf_gal_alt": "Конференциядан фото",
+        "conf_gal_prev": "Алдыңғы фото", "conf_gal_next": "Келесі фото",
         "conf_topics_h": "Негізгі тақырыптар", "conf_focus_h": "Ерекше назар",
         "conf_agenda_h": "Қатысушыларды не күтіп тұр", "conf_audience_h": "Кімдерге арналған",
         "conf_speakers_h": "Ғылыми жетекшілер", "conf_org_h": "Ұйымдастырушылар",
@@ -223,6 +227,8 @@ T = {
         "conf_badge": "Conference", "conf_when": "When", "conf_venue": "Venue",
         "conf_reg": "Registration", "conf_more": "More about the conference →", "conf_more_short": "Details →",
         "conf_wa": "Message on WhatsApp", "conf_enroll_wa": "Register on WhatsApp", "conf_past": "This event has ended",
+        "conf_gal_btn": "How the event went", "conf_gal_h": "How the event went", "conf_gal_alt": "Photo from the conference",
+        "conf_gal_prev": "Previous photo", "conf_gal_next": "Next photo",
         "conf_topics_h": "Key topics", "conf_focus_h": "Special focus",
         "conf_agenda_h": "What to expect", "conf_audience_h": "Who it's for",
         "conf_speakers_h": "Scientific supervisors", "conf_org_h": "Organizers",
@@ -739,6 +745,42 @@ def conf_block(lang, variant="full", keep=False):
 <div class="conf-body">{body}
 </div></div>"""
 
+def conf_gallery(lang):
+    """«Как проходило мероприятие»: кнопка у пометки «Мероприятие завершено»,
+    открывает модальную мини-галерею + лайтбокс. Рендерится один раз на
+    странице конференции; кнопка видна только после даты (как и пометка)."""
+    files = (CONF or {}).get("gallery") or []
+    if not files:
+        return ""
+    t = T[lang]
+    close_l = {"ru": "Закрыть", "kk": "Жабу", "en": "Close"}[lang]
+    n = len(files)
+    items = []
+    for i, name in enumerate(files, 1):
+        thumb = "../assets/" + av(f"img/conf-2026/{name}-t.webp")
+        full = "../assets/" + av(f"img/conf-2026/{name}.webp")
+        alt = f'{t["conf_gal_alt"]} {i}/{n}'
+        items.append(
+            f'<button type="button" class="conf-gal-item" data-full="{full}" aria-label="{esc(alt)}">'
+            f'<img src="{thumb}" alt="{esc(alt)}" loading="lazy" decoding="async" '
+            f'width="900" height="600"></button>')
+    meta = f'{cval("date_short", lang)} · {cval("venue", lang)}'
+    return f"""
+<button type="button" class="btn btn-ghost conf-gal-btn" data-conf-gallery hidden>{esc(t["conf_gal_btn"])}</button>
+<div class="t-modal conf-gal" id="confGal" role="dialog" aria-modal="true" aria-label="{esc(t["conf_gal_h"])}" hidden>
+<div class="t-modal-overlay" data-gal-close></div>
+<div class="t-modal-window conf-gal-window">
+<button class="t-modal-close" data-gal-close aria-label="{esc(close_l)}">×</button>
+<div class="conf-gal-head"><h2>{esc(t["conf_gal_h"])}</h2><p class="conf-gal-meta">{esc(meta)}</p></div>
+<div class="conf-gal-grid">{''.join(items)}</div>
+</div></div>
+<div class="conf-lightbox" id="confLightbox" role="dialog" aria-modal="true" aria-label="{esc(t["conf_gal_h"])}" hidden>
+<button type="button" class="conf-lb-btn conf-lb-prev" aria-label="{esc(t['conf_gal_prev'])}">&#8249;</button>
+<img id="confLightboxImg" src="" alt="">
+<button type="button" class="conf-lb-btn conf-lb-next" aria-label="{esc(t['conf_gal_next'])}">&#8250;</button>
+<button type="button" class="conf-lb-close" data-lb-close aria-label="{esc(close_l)}">&times;</button>
+</div>"""
+
 def conf_ld(lang):
     ld = {
         "@context": "https://schema.org", "@type": "MedicalEvent",
@@ -784,7 +826,7 @@ def page_conference(lang):
             + header(lang, "schedule.html", "conference.html")
             + f"""
 <section class="conf-hero"><div class="container">{conf_block(lang, "full", keep=True)}
-<p class="conf-past-note">{esc(t["conf_past"])}</p></div></section>
+<p class="conf-past-note">{esc(t["conf_past"])}</p>{conf_gallery(lang)}</div></section>
 <section class="section"><div class="container conf-content">
 <p class="conf-lead">{esc(cval("lead", lang))}</p>
 <h2>{esc(t["conf_topics_h"])}</h2>

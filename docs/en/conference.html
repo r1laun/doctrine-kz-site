@@ -40,7 +40,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/main.css?v=ac1837e0">
+<link rel="stylesheet" href="../assets/css/main.css?v=d0c3dbc4">
 </head>
 <body>
 <header class="site-header"><div class="header-inner">
@@ -67,7 +67,21 @@
 <a class="btn btn-ghost conf-more" href="conference.html">More about the conference →</a>
 </div>
 </div></div>
-<p class="conf-past-note">This event has ended</p></div></section>
+<p class="conf-past-note">This event has ended</p>
+<button type="button" class="btn btn-ghost conf-gal-btn" data-conf-gallery hidden>How the event went</button>
+<div class="t-modal conf-gal" id="confGal" role="dialog" aria-modal="true" aria-label="How the event went" hidden>
+<div class="t-modal-overlay" data-gal-close></div>
+<div class="t-modal-window conf-gal-window">
+<button class="t-modal-close" data-gal-close aria-label="Close">×</button>
+<div class="conf-gal-head"><h2>How the event went</h2><p class="conf-gal-meta">14 November 2026 · Almaty, Holiday Inn hotel, 2D Timiryazev St.</p></div>
+<div class="conf-gal-grid"><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-3.webp?v=ef2413d2" aria-label="Photo from the conference 1/11"><img src="../assets/img/conf-2026/dcs0-3-t.webp?v=6e4f0dc1" alt="Photo from the conference 1/11" loading="lazy" decoding="async" width="900" height="600"></button><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-4.webp?v=1210c24b" aria-label="Photo from the conference 2/11"><img src="../assets/img/conf-2026/dcs0-4-t.webp?v=fbc6caaf" alt="Photo from the conference 2/11" loading="lazy" decoding="async" width="900" height="600"></button><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-101.webp?v=e6766bf9" aria-label="Photo from the conference 3/11"><img src="../assets/img/conf-2026/dcs0-101-t.webp?v=ccd184fb" alt="Photo from the conference 3/11" loading="lazy" decoding="async" width="900" height="600"></button><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-174.webp?v=fba33d7d" aria-label="Photo from the conference 4/11"><img src="../assets/img/conf-2026/dcs0-174-t.webp?v=acdaafef" alt="Photo from the conference 4/11" loading="lazy" decoding="async" width="900" height="600"></button><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-185.webp?v=134a6159" aria-label="Photo from the conference 5/11"><img src="../assets/img/conf-2026/dcs0-185-t.webp?v=6713c9cf" alt="Photo from the conference 5/11" loading="lazy" decoding="async" width="900" height="600"></button><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-252.webp?v=bb3e5fd8" aria-label="Photo from the conference 6/11"><img src="../assets/img/conf-2026/dcs0-252-t.webp?v=369794b5" alt="Photo from the conference 6/11" loading="lazy" decoding="async" width="900" height="600"></button><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-254.webp?v=1d3551bd" aria-label="Photo from the conference 7/11"><img src="../assets/img/conf-2026/dcs0-254-t.webp?v=cb964306" alt="Photo from the conference 7/11" loading="lazy" decoding="async" width="900" height="600"></button><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-399.webp?v=adffe21b" aria-label="Photo from the conference 8/11"><img src="../assets/img/conf-2026/dcs0-399-t.webp?v=3ba958f8" alt="Photo from the conference 8/11" loading="lazy" decoding="async" width="900" height="600"></button><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-402.webp?v=891fca26" aria-label="Photo from the conference 9/11"><img src="../assets/img/conf-2026/dcs0-402-t.webp?v=d2c4219e" alt="Photo from the conference 9/11" loading="lazy" decoding="async" width="900" height="600"></button><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-410.webp?v=f99d8c9e" aria-label="Photo from the conference 10/11"><img src="../assets/img/conf-2026/dcs0-410-t.webp?v=0e396e2c" alt="Photo from the conference 10/11" loading="lazy" decoding="async" width="900" height="600"></button><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-418.webp?v=37919e63" aria-label="Photo from the conference 11/11"><img src="../assets/img/conf-2026/dcs0-418-t.webp?v=8668217f" alt="Photo from the conference 11/11" loading="lazy" decoding="async" width="900" height="600"></button></div>
+</div></div>
+<div class="conf-lightbox" id="confLightbox" role="dialog" aria-modal="true" aria-label="How the event went" hidden>
+<button type="button" class="conf-lb-btn conf-lb-prev" aria-label="Previous photo">&#8249;</button>
+<img id="confLightboxImg" src="" alt="">
+<button type="button" class="conf-lb-btn conf-lb-next" aria-label="Next photo">&#8250;</button>
+<button type="button" class="conf-lb-close" data-lb-close aria-label="Close">&times;</button>
+</div></div></section>
 <section class="section"><div class="container conf-content">
 <p class="conf-lead">We invite physicians to a conference dedicated to modern approaches to the diagnosis, treatment and long-term follow-up of patients with cardiovascular diseases and comorbidity. In everyday practice, rhythm disorders, arterial hypertension, coronary artery disease and heart failure often occur together with conditions of other organs and systems — the program helps to account for this interaction when examining patients and choosing therapy.</p>
 <h2>Key topics</h2>
@@ -102,6 +116,6 @@
 <div><h4>Menu</h4><div><a href="index.html">Home</a></div><div><a href="schedule.html">Schedule</a></div><div><a href="teachers.html">Faculty</a></div><div><a href="cabinet.html">Account</a></div><div><a href="../files/public-offer.pdf" target="_blank" rel="noopener">Public offer (PDF)</a></div></div>
 <div><h4>Contacts</h4><div><a href="https://wa.me/77770357345">WhatsApp: +7 777 035 73 45</a></div><div><a href="https://www.instagram.com/doctrine_centre">Instagram</a></div><div><small>Almaty</small></div></div>
 </div></footer>
-<script src="../assets/js/main.js?v=f63fa66a"></script>
+<script src="../assets/js/main.js?v=ef4bddd7"></script>
 </body>
 </html>

@@ -40,7 +40,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@500;700&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/main.css?v=ac1837e0">
+<link rel="stylesheet" href="../assets/css/main.css?v=d0c3dbc4">
 </head>
 <body>
 <header class="site-header"><div class="header-inner">
@@ -67,7 +67,21 @@
 <a class="btn btn-ghost conf-more" href="conference.html">Подробнее о конференции →</a>
 </div>
 </div></div>
-<p class="conf-past-note">Мероприятие завершено</p></div></section>
+<p class="conf-past-note">Мероприятие завершено</p>
+<button type="button" class="btn btn-ghost conf-gal-btn" data-conf-gallery hidden>Как проходило мероприятие</button>
+<div class="t-modal conf-gal" id="confGal" role="dialog" aria-modal="true" aria-label="Как проходило мероприятие" hidden>
+<div class="t-modal-overlay" data-gal-close></div>
+<div class="t-modal-window conf-gal-window">
+<button class="t-modal-close" data-gal-close aria-label="Закрыть">×</button>
+<div class="conf-gal-head"><h2>Как проходило мероприятие</h2><p class="conf-gal-meta">14 ноября 2026 · г. Алматы, отель «Холидей Инн», ул. Тимирязева 2Д</p></div>
+<div class="conf-gal-grid"><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-3.webp?v=ef2413d2" aria-label="Фото с конференции 1/11"><img src="../assets/img/conf-2026/dcs0-3-t.webp?v=6e4f0dc1" alt="Фото с конференции 1/11" loading="lazy" decoding="async" width="900" height="600"></button><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-4.webp?v=1210c24b" aria-label="Фото с конференции 2/11"><img src="../assets/img/conf-2026/dcs0-4-t.webp?v=fbc6caaf" alt="Фото с конференции 2/11" loading="lazy" decoding="async" width="900" height="600"></button><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-101.webp?v=e6766bf9" aria-label="Фото с конференции 3/11"><img src="../assets/img/conf-2026/dcs0-101-t.webp?v=ccd184fb" alt="Фото с конференции 3/11" loading="lazy" decoding="async" width="900" height="600"></button><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-174.webp?v=fba33d7d" aria-label="Фото с конференции 4/11"><img src="../assets/img/conf-2026/dcs0-174-t.webp?v=acdaafef" alt="Фото с конференции 4/11" loading="lazy" decoding="async" width="900" height="600"></button><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-185.webp?v=134a6159" aria-label="Фото с конференции 5/11"><img src="../assets/img/conf-2026/dcs0-185-t.webp?v=6713c9cf" alt="Фото с конференции 5/11" loading="lazy" decoding="async" width="900" height="600"></button><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-252.webp?v=bb3e5fd8" aria-label="Фото с конференции 6/11"><img src="../assets/img/conf-2026/dcs0-252-t.webp?v=369794b5" alt="Фото с конференции 6/11" loading="lazy" decoding="async" width="900" height="600"></button><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-254.webp?v=1d3551bd" aria-label="Фото с конференции 7/11"><img src="../assets/img/conf-2026/dcs0-254-t.webp?v=cb964306" alt="Фото с конференции 7/11" loading="lazy" decoding="async" width="900" height="600"></button><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-399.webp?v=adffe21b" aria-label="Фото с конференции 8/11"><img src="../assets/img/conf-2026/dcs0-399-t.webp?v=3ba958f8" alt="Фото с конференции 8/11" loading="lazy" decoding="async" width="900" height="600"></button><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-402.webp?v=891fca26" aria-label="Фото с конференции 9/11"><img src="../assets/img/conf-2026/dcs0-402-t.webp?v=d2c4219e" alt="Фото с конференции 9/11" loading="lazy" decoding="async" width="900" height="600"></button><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-410.webp?v=f99d8c9e" aria-label="Фото с конференции 10/11"><img src="../assets/img/conf-2026/dcs0-410-t.webp?v=0e396e2c" alt="Фото с конференции 10/11" loading="lazy" decoding="async" width="900" height="600"></button><button type="button" class="conf-gal-item" data-full="../assets/img/conf-2026/dcs0-418.webp?v=37919e63" aria-label="Фото с конференции 11/11"><img src="../assets/img/conf-2026/dcs0-418-t.webp?v=8668217f" alt="Фото с конференции 11/11" loading="lazy" decoding="async" width="900" height="600"></button></div>
+</div></div>
+<div class="conf-lightbox" id="confLightbox" role="dialog" aria-modal="true" aria-label="Как проходило мероприятие" hidden>
+<button type="button" class="conf-lb-btn conf-lb-prev" aria-label="Предыдущее фото">&#8249;</button>
+<img id="confLightboxImg" src="" alt="">
+<button type="button" class="conf-lb-btn conf-lb-next" aria-label="Следующее фото">&#8250;</button>
+<button type="button" class="conf-lb-close" data-lb-close aria-label="Закрыть">&times;</button>
+</div></div></section>
 <section class="section"><div class="container conf-content">
 <p class="conf-lead">Приглашаем врачей на конференцию, посвящённую современным подходам к диагностике, лечению и длительному наблюдению пациентов с сердечно-сосудистыми заболеваниями и сопутствующей патологией. В повседневной практике нарушения ритма, артериальная гипертензия, ИБС и сердечная недостаточность часто сочетаются с болезнями других органов и систем — программа помогает учитывать эту взаимосвязь при обследовании и выборе терапии.</p>
 <h2>Основные темы</h2>
@@ -102,6 +116,6 @@
 <div><h4>Меню</h4><div><a href="index.html">Главная</a></div><div><a href="schedule.html">Расписание</a></div><div><a href="teachers.html">Преподаватели</a></div><div><a href="cabinet.html">Кабинет</a></div><div><a href="../files/public-offer.pdf" target="_blank" rel="noopener">Публичная оферта (PDF)</a></div></div>
 <div><h4>Контакты</h4><div><a href="https://wa.me/77770357345">WhatsApp: +7 777 035 73 45</a></div><div><a href="https://www.instagram.com/doctrine_centre">Instagram</a></div><div><small>г. Алматы</small></div></div>
 </div></footer>
-<script src="../assets/js/main.js?v=f63fa66a"></script>
+<script src="../assets/js/main.js?v=ef4bddd7"></script>
 </body>
 </html>
