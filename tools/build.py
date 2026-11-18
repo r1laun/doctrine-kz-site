@@ -657,7 +657,7 @@ def page_index(lang):
 <div class="grid-3 home-teachers">{teach3}</div>
 <p><a class="btn btn-ghost" href="teachers.html">{esc(t["all_teachers"])}</a></p>
 </div></section>
-""" + reviews_section(lang) + faq_section(lang) + contacts_section(lang) + footer(lang))
+""" + reviews_section(lang) + faq_section(lang) + conf_gallery_modal(lang) + contacts_section(lang) + footer(lang))
 
 def cval(field, lang):
     """Localized field of the conference content (CONF)."""
@@ -713,6 +713,9 @@ def conf_block(lang, variant="full", keep=False):
     # на странице конференции она лежит рядом с баннером (своя разметка)
     past_note = (f'<p class="conf-past-note conf-past-note-in">{esc(t["conf_past"])}</p>'
                  if not keep else "")
+    # на главной/в расписании кнопка галереи стоит прямо в баннере;
+    # на странице конференции она рядом с пометкой (уже в разметке страницы)
+    gal_button = conf_gallery_button(lang) if not keep else ""
     badges = (f'<div class="badges"><span class="badge conf-badge">{esc(t["conf_badge"])}</span>'
               f'<span class="badge format fmt-hybrid">{esc(cval("format", lang))}</span></div>')
     meta = " · ".join([cval("date_short", lang), cval("registration", lang),
@@ -728,6 +731,7 @@ def conf_block(lang, variant="full", keep=False):
 {past_note}
 <div class="conf-cta">
 <a class="btn btn-primary conf-reg" href="{conf_wa_link(lang)}" target="_blank" rel="noopener">{esc(t["conf_enroll_wa"])}</a>
+{gal_button}
 <a class="btn btn-ghost conf-more" href="conference.html">{esc(t["conf_more_short"])}</a>
 </div>"""
     else:
@@ -746,6 +750,7 @@ def conf_block(lang, variant="full", keep=False):
 {past_note}
 <div class="conf-cta">
 <a class="btn btn-primary conf-reg" href="{conf_wa_link(lang)}" target="_blank" rel="noopener">{esc(t["conf_enroll_wa"])}</a>
+{gal_button}
 <a class="btn btn-ghost conf-more" href="conference.html">{esc(t["conf_more"])}</a>
 </div>"""
     return f"""
@@ -754,13 +759,14 @@ def conf_block(lang, variant="full", keep=False):
 <div class="conf-body">{body}
 </div></div>"""
 
-def conf_gallery(lang):
-    """«Как проходило мероприятие»: кнопка у пометки «Мероприятие завершено»,
-    открывает модальную мини-галерею + лайтбокс. Рендерится один раз на
-    странице конференции; кнопка видна только после даты (как и пометка)."""
+def conf_gallery_parts(lang):
+    """«Как проходило мероприятие»: кнопка в CTA баннера (главная, расписание),
+    рядом с пометкой «Мероприятие завершено» на странице конференции,
+    модальное окно + лайтбокс. Кнопка видна только после даты (как и пометка).
+    Возвращает (button, modal)."""
     files = (CONF or {}).get("gallery") or []
     if not files:
-        return ""
+        return "", ""
     t = T[lang]
     close_l = {"ru": "Закрыть", "kk": "Жабу", "en": "Close"}[lang]
     n = len(files)
@@ -774,8 +780,8 @@ def conf_gallery(lang):
             f'<img src="{thumb}" alt="{esc(alt)}" loading="lazy" decoding="async" '
             f'width="900" height="600"></button>')
     meta = f'{cval("date_short", lang)} · {cval("venue", lang)}'
-    return f"""
-<button type="button" class="btn btn-ghost conf-gal-btn" data-conf-gallery hidden>{esc(t["conf_gal_btn"])}</button>
+    button = f'<button type="button" class="btn btn-ghost conf-gal-btn" data-conf-gallery hidden>{esc(t["conf_gal_btn"])}</button>'
+    modal = f"""
 <div class="t-modal conf-gal" id="confGal" role="dialog" aria-modal="true" aria-label="{esc(t["conf_gal_h"])}" hidden>
 <div class="t-modal-overlay" data-gal-close></div>
 <div class="t-modal-window conf-gal-window">
@@ -789,6 +795,17 @@ def conf_gallery(lang):
 <button type="button" class="conf-lb-btn conf-lb-next" aria-label="{esc(t['conf_gal_next'])}">&#8250;</button>
 <button type="button" class="conf-lb-close" data-lb-close aria-label="{esc(close_l)}">&times;</button>
 </div>"""
+    return button, modal
+
+def conf_gallery_button(lang):
+    return conf_gallery_parts(lang)[0]
+
+def conf_gallery_modal(lang):
+    return conf_gallery_parts(lang)[1]
+
+def conf_gallery(lang):
+    button, modal = conf_gallery_parts(lang)
+    return button + modal
 
 def conf_ld(lang):
     ld = {
@@ -876,7 +893,6 @@ def page_schedule(lang):
 </div>
 <div class="conf-wrap" id="confTop">{conf_block(lang, "grid")}</div>
 <div class="grid-3" id="courseGrid">{course_cards(lang, skip_archived=True)}</div>
-
 <section class="archive-section" id="archiveSec">
 <div class="archive-head">
 <h2>{esc(t["archive_h"])} (<span id="archiveCount">{arch_count}</span>)</h2>
@@ -885,7 +901,7 @@ def page_schedule(lang):
 <div class="grid-3" id="archiveGrid">{course_cards(lang, only_archived=True)}</div>
 </section>
 </div></section>
-""" + contacts_section(lang) + footer(lang))
+""" + conf_gallery_modal(lang) + contacts_section(lang) + footer(lang))
 
 def page_course(lang):
     t = T[lang]

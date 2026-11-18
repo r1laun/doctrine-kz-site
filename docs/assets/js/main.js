@@ -184,6 +184,8 @@
         ? (el.parentNode ? el.parentNode.querySelector(".conf-past-note") : null)
         : el.querySelector(".conf-past-note");
       if (note) note.style.display = "block";
+      // кнопка галереи внутри баннера (главная/расписание)
+      el.querySelectorAll("[data-conf-gallery]").forEach(function (b) { b.hidden = false; });
       // факт «Регистрация: с 8:00» после даты неактуален
       el.querySelectorAll(".conf-fact-reg").forEach(function (f) { f.style.display = "none"; });
       if (isKeep) {
@@ -202,9 +204,9 @@
   })();
   // conference gallery: «Как проходило мероприятие» — modal grid + lightbox
   (function confGallery() {
-    var btn = document.querySelector("[data-conf-gallery]");
+    var btns = document.querySelectorAll("[data-conf-gallery]");
     var modal = document.getElementById("confGal");
-    if (!btn || !modal) return;
+    if (!btns.length || !modal) return;
     var lightbox = document.getElementById("confLightbox");
     var lbImg = document.getElementById("confLightboxImg");
     var items = Array.prototype.slice.call(modal.querySelectorAll(".conf-gal-item"));
@@ -229,7 +231,7 @@
       lightbox.hidden = true; // back to the grid, modal stays open
     }
 
-    btn.addEventListener("click", openModal);
+    btns.forEach(function (b) { b.addEventListener("click", openModal); });
     modal.querySelectorAll("[data-gal-close]").forEach(function (el) {
       el.addEventListener("click", closeModal);
     });

@@ -356,6 +356,7 @@ footer small{color:#9db8bc}
 .conf-grid .conf-past-note{font-size:13px;padding:8px 12px;border-left-width:4px}
 /* «Как проходило мероприятие»: кнопка у пометки о завершении + модальная мини-галерея */
 .conf-gal-btn{margin-top:12px}
+.conf-cta .conf-gal-btn{margin-top:0}
 .conf-gal-btn[hidden]{display:none}
 .conf-gal-window{width:min(980px,calc(100vw - 40px))}
 .conf-gal-head{padding:26px 28px 14px}
