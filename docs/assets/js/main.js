@@ -165,7 +165,8 @@
     }
   })();
   // conference: the banner is not a course card, so it lives outside the grids
-  // (always on top, never filtered/sorted) and hides itself once the date passed
+  // (always on top, never filtered/sorted). After the date it does not vanish:
+  // registration is swapped out for the "Мероприятие завершено" note
   (function conference() {
     var blocks = document.querySelectorAll("[data-conf-until]");
     if (!blocks.length) return;
@@ -176,11 +177,16 @@
     blocks.forEach(function (el) {
       var until = parseInt(el.getAttribute("data-conf-until") || "", 10);
       if (!until || until >= today) return;
-      // on the conference page the banner stays, registration switches to WhatsApp
-      if (el.classList.contains("conf-keep")) {
-        el.classList.add("is-over");
-        var note = el.parentNode ? el.parentNode.querySelector(".conf-past-note") : null;
-        if (note) note.style.display = "block";
+      el.classList.add("is-over");
+      var isKeep = el.classList.contains("conf-keep");
+      // на своей странице пометка лежит рядом с баннером, на главной/в расписании — внутри
+      var note = isKeep
+        ? (el.parentNode ? el.parentNode.querySelector(".conf-past-note") : null)
+        : el.querySelector(".conf-past-note");
+      if (note) note.style.display = "block";
+      // факт «Регистрация: с 8:00» после даты неактуален
+      el.querySelectorAll(".conf-fact-reg").forEach(function (f) { f.style.display = "none"; });
+      if (isKeep) {
         var galBtn = el.parentNode ? el.parentNode.querySelector("[data-conf-gallery]") : null;
         if (galBtn) galBtn.hidden = false;
         el.querySelectorAll(".conf-reg").forEach(function (b) {
@@ -191,7 +197,7 @@
         });
         return;
       }
-      el.style.display = "none";
+      el.querySelectorAll(".conf-reg").forEach(function (b) { b.style.display = "none"; });
     });
   })();
   // conference gallery: «Как проходило мероприятие» — modal grid + lightbox

@@ -351,6 +351,9 @@ footer small{color:#9db8bc}
 .conf-past-note{display:none;background:#eef3f4;border:1px solid var(--line);border-left:5px solid #7d8f96;border-radius:12px;padding:12px 18px;margin:14px 0 0;font-size:15px;font-weight:700;color:var(--muted)}
 .conf.is-over{opacity:.92}
 .conf-hero .conf-past-note{display:none}
+/* пометка внутри баннера на главной и в расписании (после даты, через main.js) */
+.conf-body .conf-past-note{margin:0}
+.conf-grid .conf-past-note{font-size:13px;padding:8px 12px;border-left-width:4px}
 /* «Как проходило мероприятие»: кнопка у пометки о завершении + модальная мини-галерея */
 .conf-gal-btn{margin-top:12px}
 .conf-gal-btn[hidden]{display:none}

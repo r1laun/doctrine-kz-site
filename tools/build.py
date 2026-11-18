@@ -699,13 +699,20 @@ def conf_people(lang):
 def conf_block(lang, variant="full", keep=False):
     """Conference banner: 'full' = media on top (home, conference page),
     'grid' = compact side-by-side card that spans the whole 3-column row.
-    keep=True: do not hide after the date (own page), just close registration."""
+    After the date the banner stays in place ('is-over' state via main.js):
+    registration hides, the «Мероприятие завершено» note takes its place.
+    keep=True (own page): keeps registration as a ghost WhatsApp button
+    and reveals the «Как проходило мероприятие» gallery button instead."""
     if not CONF:
         return ""
     t = T[lang]
     title = cval("short_title" if variant == "grid" else "title", lang)
     until = CONF["date"].replace("-", "")
     keep_cls = " conf-keep" if keep else ""
+    # пометка рендерится внутри баннера на главной/в расписании;
+    # на странице конференции она лежит рядом с баннером (своя разметка)
+    past_note = (f'<p class="conf-past-note conf-past-note-in">{esc(t["conf_past"])}</p>'
+                 if not keep else "")
     badges = (f'<div class="badges"><span class="badge conf-badge">{esc(t["conf_badge"])}</span>'
               f'<span class="badge format fmt-hybrid">{esc(cval("format", lang))}</span></div>')
     meta = " · ".join([cval("date_short", lang), cval("registration", lang),
@@ -718,16 +725,17 @@ def conf_block(lang, variant="full", keep=False):
 {badges}
 <h2 class="conf-title"><a href="conference.html">{esc(title)}</a></h2>
 {line}
+{past_note}
 <div class="conf-cta">
 <a class="btn btn-primary conf-reg" href="{conf_wa_link(lang)}" target="_blank" rel="noopener">{esc(t["conf_enroll_wa"])}</a>
 <a class="btn btn-ghost conf-more" href="conference.html">{esc(t["conf_more_short"])}</a>
 </div>"""
     else:
         facts = "".join(
-            f'<div class="conf-fact"><small>{esc(lbl)}</small><span>{esc(val)}</span></div>'
-            for lbl, val in [(t["conf_when"], cval("date_label", lang)),
-                             (t["conf_reg"], cval("registration", lang)),
-                             (t["conf_venue"], cval("venue", lang))])
+            f'<div class="conf-fact{cls}"><small>{esc(lbl)}</small><span>{esc(val)}</span></div>'
+            for lbl, val, cls in [(t["conf_when"], cval("date_label", lang), ""),
+                                  (t["conf_reg"], cval("registration", lang), " conf-fact-reg"),
+                                  (t["conf_venue"], cval("venue", lang), "")])
         body = f"""
 {badges}
 <h2 class="conf-title"><a href="conference.html">{esc(title)}</a></h2>
@@ -735,6 +743,7 @@ def conf_block(lang, variant="full", keep=False):
 <div class="conf-facts">{facts}</div>
 <div class="conf-people-full">{conf_people(lang)}</div>
 {line}
+{past_note}
 <div class="conf-cta">
 <a class="btn btn-primary conf-reg" href="{conf_wa_link(lang)}" target="_blank" rel="noopener">{esc(t["conf_enroll_wa"])}</a>
 <a class="btn btn-ghost conf-more" href="conference.html">{esc(t["conf_more"])}</a>
