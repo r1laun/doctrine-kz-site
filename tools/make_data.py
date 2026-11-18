@@ -272,6 +272,18 @@ CANONICAL_COURSES = {
         "record_status": "available",
         "keywords": ["сложные впс"]
     },
+    "К015": {
+        "title": {
+            "ru": "Варикоз и беременность: что важно знать будущей маме?",
+            "kk": "Варикоз және жүктілік: болашақ ана нені білуі керек?",
+            "en": "Varicose veins and pregnancy: what every expectant mother should know"
+        },
+        "slug": "varikoz-i-beremennost",
+        "format": "online",
+        "can_record": True,
+        "record_status": "available",
+        "keywords": ["варикоз"]
+    },
     "К016": {
         "title": {
             "ru": "Гипертензивные расстройства и др. во время беременности",
