@@ -172,5 +172,34 @@
    "kk": "Жасаушы кардиолог, қазақ тілінде ЭКГ-ның авторлық оқыту әдістемесінің авторы.\nКардиологиялық диагностика мен ритм бұзылулары бойынша кең клиникалық тәжірибе.\nНақты клиникалық кейстерге назар аудара отырып, ЭКГ және Холтер мониторингының практикалық интерпретациясын оқытады.",
    "en": "Practicing cardiologist, author of a proprietary method for teaching ECG in Kazakh.\nExtensive clinical experience in cardiac diagnostics and rhythm disorders.\nTeaches practical interpretation of ECG and Holter monitoring with a focus on real clinical cases."
   }
+ },
+ {
+  "id": "12",
+  "name": {
+   "ru": "Азимбаев Галимжан Сайдуллаевич",
+   "kk": "Азимбаев Галимжан Сайдуллаевич",
+   "en": "Azimbaev Galimzhan Saydullaevich"
+  },
+  "spec": {
+   "ru": "Сосудистый хирург, основатель клиники ARTVEN",
+   "kk": "Тамыр хирургі, ARTVEN клиникасының негізін қалаушы",
+   "en": "Vascular surgeon, founder of the ARTVEN clinic"
+  },
+  "work": {
+   "ru": "",
+   "kk": "",
+   "en": ""
+  },
+  "exp": {
+   "ru": "",
+   "kk": "",
+   "en": ""
+  },
+  "photo": "../assets/img/teacher-azimbayev.jpg",
+  "about": {
+   "ru": "Сосудистый хирург, основатель клиники ARTVEN. Лектор курса «Варикоз и беременность: что важно знать будущей маме?».",
+   "kk": "Тамыр хирургі, ARTVEN клиникасының негізін қалаушы.\n«Варикоз және жүктілік: болашақ ана нені білуі керек?» курсының лекторы.",
+   "en": "Vascular surgeon, founder of the ARTVEN clinic.\nLecturer of the course “Varicose veins and pregnancy: what every expectant mother should know”."
+  }
  }
 ]

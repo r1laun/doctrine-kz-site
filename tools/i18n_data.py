@@ -215,6 +215,16 @@ TEACH = {
     "en": "Practicing cardiologist, author of ECG teaching method in Kazakh",
     "kk": "Жасаушы кардиолог, қазақ тілінде ЭКГ оқыту әдістемесінің авторы"
    }
+  },
+ "T12": {
+   "about": {
+    "en": "Vascular surgeon, founder of the ARTVEN clinic.\nLecturer of the course “Varicose veins and pregnancy: what every expectant mother should know”.",
+    "kk": "Тамыр хирургі, ARTVEN клиникасының негізін қалаушы.\n«Варикоз және жүктілік: болашақ ана нені білуі керек?» курсының лекторы."
+   },
+   "spec": {
+    "en": "Vascular surgeon, founder of the ARTVEN clinic",
+    "kk": "Тамыр хирургі, ARTVEN клиникасының негізін қалаушы"
+   }
   }
 }
 
